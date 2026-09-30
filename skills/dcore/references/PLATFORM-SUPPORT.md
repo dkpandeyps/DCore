@@ -1,6 +1,6 @@
-# dkskill Platform Support
+# DCore Platform Support
 
-dkskill is platform-neutral by architecture. The core contains no shell assumptions
+DCore is platform-neutral by architecture. The core contains no shell assumptions
 (`bash`/`PowerShell`/`cmd.exe`) and no hard-coded path style. Platform differences are handled by capability
 detection and, where needed, thin adapters.
 

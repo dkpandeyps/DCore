@@ -5,34 +5,34 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import {
   MODULES, IMPLEMENTED, runModule, renderMarkdown, buildManifest, dkSpec, dkReview, dkPlan, dkQa, dkFrame,
-} from '../../skills/dkskill/scripts/modules.mjs';
-import { install, planInstall, isSafeDestRoot } from '../../skills/dkskill/scripts/install.mjs';
-import { buildCoverageMatrix } from '../../skills/dkskill/scripts/coverage.mjs';
-import { parseArgs, resolveInput } from '../../skills/dkskill/scripts/dkskill.mjs';
+} from '../../skills/dcore/scripts/modules.mjs';
+import { install, planInstall, isSafeDestRoot } from '../../skills/dcore/scripts/install.mjs';
+import { buildCoverageMatrix } from '../../skills/dcore/scripts/coverage.mjs';
+import { parseArgs, resolveInput } from '../../skills/dcore/scripts/dcore.mjs';
 import { TEST_DIR } from './helpers.ts';
 
-const SKILL = join(TEST_DIR, '..', '..', 'skills', 'dkskill');
+const SKILL = join(TEST_DIR, '..', '..', 'skills', 'dcore');
 // Structural discovery only — real Claude Code discovery is a separate, authorized step.
 const REAL_CLAUDE_CODE_DISCOVERY = 'REAL_SMOKE_TEST_PENDING';
 
 test('A. skill structure present (SKILL.md, modules, references, scripts, templates, manifest)', () => {
   assert.ok(existsSync(join(SKILL, 'SKILL.md')));
-  assert.ok(existsSync(join(SKILL, 'dkskill.manifest.json')));
+  assert.ok(existsSync(join(SKILL, 'dcore.manifest.json')));
   for (const d of ['modules', 'references', 'scripts', 'templates']) assert.ok(existsSync(join(SKILL, d)), d);
   assert.ok(existsSync(join(SKILL, '..', '..', 'README.md')) && existsSync(join(SKILL, '..', '..', 'LICENSE')));
 });
 
 test('B. SKILL.md is an operational skill definition (frontmatter name/description; usage; safety)', () => {
   const s = readFileSync(join(SKILL, 'SKILL.md'), 'utf8');
-  assert.match(s, /^---[\s\S]*name:\s*dkskill[\s\S]*description:/m);
-  assert.ok(/When to use dkskill/i.test(s) && /How to invoke/i.test(s) && /Safe operating rules/i.test(s));
+  assert.match(s, /^---[\s\S]*name:\s*dcore[\s\S]*description:/m);
+  assert.ok(/When to use dcore/i.test(s) && /How to invoke/i.test(s) && /Safe operating rules/i.test(s));
   assert.ok(!/design document|specification phase/i.test(s));   // operational, not a design doc
 });
 
 test('C. module discovery: manifest lists modules; every reference resolves', () => {
   const m = buildManifest();
-  assert.equal(m.schema, 'dkskill.skill_manifest/1');
-  assert.equal(readFileSync(join(SKILL, 'dkskill.manifest.json'), 'utf8'), JSON.stringify(m, null, 2) + '\n');
+  assert.equal(m.schema, 'dcore.skill_manifest/1');
+  assert.equal(readFileSync(join(SKILL, 'dcore.manifest.json'), 'utf8'), JSON.stringify(m, null, 2) + '\n');
   assert.equal(m.modules.length, MODULES.length);
   for (const mod of m.modules) assert.ok(existsSync(join(SKILL, mod.reference)), mod.reference);
   assert.equal(m.implemented_count, 5);
@@ -48,7 +48,7 @@ test('D. module contracts: every module doc carries required fields + status', (
 
 test('E. module behavior: implemented modules produce structured output (deterministic)', () => {
   const spec = dkSpec('Build an installer. It must be idempotent. What about rollback?');
-  assert.equal(spec.module_id, 'dk-spec');
+  assert.equal(spec.module_id, 'dcore-spec');
   assert.equal(spec.objective, 'Build an installer.');
   assert.ok(spec.requirements.length === 3 && spec.requirements[0].startsWith('REQ-01'));
   assert.ok(spec.constraints.some((c: string) => /idempotent/i.test(c)));
@@ -60,7 +60,7 @@ test('E. module behavior: implemented modules produce structured output (determi
   assert.ok(dkFrame('Users are blocked because the API is unclear.').context.length >= 1);
 });
 
-test('F. dk-review finds security/correctness issues with severity', () => {
+test('F. dcore-review finds security/correctness issues with severity', () => {
   const r = dkReview('const p = eval(x)\nif (a == b) {}\nconst k = "password=secret123"\nfetch("http://evil")\n// TODO');
   assert.ok(r.severity_summary.high >= 2);   // eval + hardcoded secret
   assert.ok(r.findings.some((f: any) => f.category === 'security'));
@@ -75,22 +75,22 @@ test('G. malformed/empty input => safe scaffold (fail-closed)', () => {
 });
 
 test('H. unknown module => diagnostic (not a crash/guess); planned module not runnable', () => {
-  const unknown = runModule('dk-nope', 'x');
+  const unknown = runModule('dcore-nope', 'x');
   assert.ok(unknown.error && unknown.known_modules.length === MODULES.length);
-  const planned = runModule('dk-debug', 'x');
+  const planned = runModule('dcore-debug', 'x');
   assert.ok(planned.error && /PLANNED/i.test(planned.error));
-  assert.ok(renderMarkdown(unknown).startsWith('dkskill:'));
+  assert.ok(renderMarkdown(unknown).startsWith('dcore:'));
 });
 
 test('I. installer: idempotent + confined install into a temp dir; no files outside target', () => {
-  const dir = mkdtempSync(join(tmpdir(), 'dkskill-inst-'));
+  const dir = mkdtempSync(join(tmpdir(), 'dcore-inst-'));
   try {
     const target = join(dir, 'skills');
     const r1 = install({ target });
     assert.equal(r1.ok, true);
     assert.ok(r1.created > 0 && r1.updated === 0);
-    assert.ok(existsSync(join(target, 'dkskill', 'SKILL.md')));
-    assert.ok(existsSync(join(target, 'dkskill', 'scripts', 'dkskill.mjs')));
+    assert.ok(existsSync(join(target, 'dcore', 'SKILL.md')));
+    assert.ok(existsSync(join(target, 'dcore', 'scripts', 'dcore.mjs')));
     const r2 = install({ target });   // idempotent
     assert.equal(r2.created, 0);
     assert.equal(r2.updated, 0);
@@ -98,7 +98,7 @@ test('I. installer: idempotent + confined install into a temp dir; no files outs
     assert.equal(r2.network_contacted, false);
     assert.equal(r2.credentials_accessed, false);
     // every written path is under the target
-    for (const a of r2.actions) assert.ok(a.path.startsWith(join(target, 'dkskill')), a.path);
+    for (const a of r2.actions) assert.ok(a.path.startsWith(join(target, 'dcore')), a.path);
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
 
@@ -108,23 +108,23 @@ test('J. installer safety: rejects runtime/credential targets; path-traversal pr
   assert.equal(isSafeDestRoot('/opt/skills'), true);
   assert.equal(install({ target: '/opt/runtime/x' }).ok, false);
   assert.equal(install({ target: '' }).ok, false);
-  const dir = mkdtempSync(join(tmpdir(), 'dkskill-dry-'));
+  const dir = mkdtempSync(join(tmpdir(), 'dcore-dry-'));
   try {
     const r = install({ target: join(dir, 'skills'), dryRun: true });
     assert.equal(r.ok, true);
     assert.ok(r.created > 0);
-    assert.equal(existsSync(join(dir, 'skills', 'dkskill', 'SKILL.md')), false);   // dry-run wrote nothing
+    assert.equal(existsSync(join(dir, 'skills', 'dcore', 'SKILL.md')), false);   // dry-run wrote nothing
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
 
 test('K. cross-platform: plan uses node:path; install plan resolves nested paths on this OS', () => {
-  const dir = mkdtempSync(join(tmpdir(), 'dkskill-xp-'));
+  const dir = mkdtempSync(join(tmpdir(), 'dcore-xp-'));
   try {
     const plan = planInstall(join(dir, 'skills'));
-    assert.ok(plan.length > 0 && plan.every((p) => p.dest.includes('dkskill')));
+    assert.ok(plan.length > 0 && plan.every((p) => p.dest.includes('dcore')));
     // nested module reference paths install correctly regardless of OS separator
     const r = install({ target: join(dir, 'skills') });
-    assert.ok(existsSync(join(dir, 'skills', 'dkskill', 'modules', 'dk-spec.md')));
+    assert.ok(existsSync(join(dir, 'skills', 'dcore', 'modules', 'dcore-spec.md')));
     assert.ok(r.ok);
   } finally { rmSync(dir, { recursive: true, force: true }); }
   // modules are platform-neutral (platform_requirements: any)
@@ -132,9 +132,9 @@ test('K. cross-platform: plan uses node:path; install plan resolves nested paths
 });
 
 test('L. no credential/network/exec imports or calls in the public skill scripts (static)', () => {
-  // NB: dk-review legitimately CONTAINS tokens like child_process/exec/password= as detection PATTERNS. We therefore
+  // NB: dcore-review legitimately CONTAINS tokens like child_process/exec/password= as detection PATTERNS. We therefore
   // check for real imports and real call sites, not substrings inside regex literals.
-  for (const f of ['modules.mjs', 'dkskill.mjs', 'install.mjs', 'coverage.mjs']) {
+  for (const f of ['modules.mjs', 'dcore.mjs', 'install.mjs', 'coverage.mjs']) {
     const src = readFileSync(join(SKILL, 'scripts', f), 'utf8');
     assert.ok(!/(import[^;]*from|require\s*\(\s*)['"]node:(child_process|http|https|net|dgram|tls|http2)['"]/.test(src), `${f} imports network/exec module`);
     assert.ok(!/\bfetch\s*\(|\.connect\s*\(|createServer\s*\(|generateKeyPair|createSign\s*\(/.test(src), `${f} calls network/crypto`);
@@ -149,7 +149,7 @@ test('M. public/private boundary: skill needs no certification/private infra/cre
   assert.equal(m.requires_credentials, false);
   assert.equal(m.requires_network, false);
   // the skill scripts IMPORT nothing from the optional assurance layer (compatibility/bench) — a doc path string is ok
-  for (const f of ['modules.mjs', 'dkskill.mjs', 'install.mjs', 'coverage.mjs']) {
+  for (const f of ['modules.mjs', 'dcore.mjs', 'install.mjs', 'coverage.mjs']) {
     const src = readFileSync(join(SKILL, 'scripts', f), 'utf8');
     assert.ok(!/import[^;]*from\s*['"][^'"]*(compatibility|\/bench\/)/.test(src), f);
   }
@@ -159,7 +159,7 @@ test('N. gstack coverage metadata: original names; missing useful capability = 0
   const c = buildCoverageMatrix();
   assert.equal(c.missing_useful_capabilities, 0);
   assert.equal(c.total, 10);
-  assert.ok(c.rows.every((r: any) => /^dk-/.test(r.original_module_name)));   // original dkskill names only
+  assert.ok(c.rows.every((r: any) => /^dcore-/.test(r.original_module_name)));   // original dcore names only
   assert.equal(readFileSync(join(SKILL, 'references', 'gstack-coverage.json'), 'utf8'), JSON.stringify(c, null, 2) + '\n');
 });
 
@@ -174,18 +174,18 @@ test('O. structural discovery passes; real Claude Code discovery is PENDING (not
 
 test('P. CLI input resolution: --input > positional > stdin (M29: positional no longer dropped)', () => {
   // positional text after the module name is now used as input
-  assert.equal(resolveInput(parseArgs(['dk-spec', 'hello world']), () => 'STDIN'), 'hello world');
+  assert.equal(resolveInput(parseArgs(['dcore-spec', 'hello world']), () => 'STDIN'), 'hello world');
   // multiple positional tokens are joined
-  assert.equal(resolveInput(parseArgs(['dk-frame', 'a', 'b', 'c']), () => 'STDIN'), 'a b c');
+  assert.equal(resolveInput(parseArgs(['dcore-frame', 'a', 'b', 'c']), () => 'STDIN'), 'a b c');
   // explicit --input still wins over positional
-  assert.equal(resolveInput(parseArgs(['dk-spec', 'pos', '--input', 'flag']), () => 'STDIN'), 'flag');
+  assert.equal(resolveInput(parseArgs(['dcore-spec', 'pos', '--input', 'flag']), () => 'STDIN'), 'flag');
   // no positional and no flag => fall back to stdin
-  assert.equal(resolveInput(parseArgs(['dk-qa']), () => 'STDIN'), 'STDIN');
+  assert.equal(resolveInput(parseArgs(['dcore-qa']), () => 'STDIN'), 'STDIN');
   // --json flag does not leak into the input text
-  assert.equal(resolveInput(parseArgs(['dk-plan', 'x', '--json']), () => ''), 'x');
+  assert.equal(resolveInput(parseArgs(['dcore-plan', 'x', '--json']), () => ''), 'x');
 });
 
-test('Q. dk-review detects private key material and cloud access key ids (M29: high severity)', () => {
+test('Q. dcore-review detects private key material and cloud access key ids (M29: high severity)', () => {
   const r = dkReview('-----BEGIN RSA PRIVATE KEY-----\nconst id = "AKIAABCDEFGHIJKLMNOP"\n');
   assert.ok(r.findings.some((f: any) => f.message === 'private key material' && f.severity === 'high'));
   assert.ok(r.findings.some((f: any) => f.message === 'cloud access key id' && f.severity === 'high'));

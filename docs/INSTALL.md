@@ -1,4 +1,4 @@
-# Installing dkskill
+# Installing DCore
 
 ## 1. Clone
 ```
@@ -9,28 +9,28 @@ cd <repository>
 ## 2. Install (choose one)
 Project-local (recommended — no machine-wide change):
 ```
-node skills/dkskill/scripts/install.mjs --project
-# -> ./.claude/skills/dkskill
+node skills/dcore/scripts/install.mjs --project
+# -> ./.claude/skills/dcore
 ```
 User-level:
 ```
-node skills/dkskill/scripts/install.mjs --user
-# -> ~/.claude/skills/dkskill   (writes only skill files; never touches credential files)
+node skills/dcore/scripts/install.mjs --user
+# -> ~/.claude/skills/dcore   (writes only skill files; never touches credential files)
 ```
 Explicit target / preview:
 ```
-node skills/dkskill/scripts/install.mjs --target <some-skills-dir> --dry-run
-node skills/dkskill/scripts/install.mjs --target <some-skills-dir>
+node skills/dcore/scripts/install.mjs --target <some-skills-dir> --dry-run
+node skills/dcore/scripts/install.mjs --target <some-skills-dir>
 ```
 
-The installer is deterministic, **idempotent** (safe to run repeatedly), **confined** to `<target>/dkskill`,
+The installer is deterministic, **idempotent** (safe to run repeatedly), **confined** to `<target>/dcore`,
 **path-traversal protected**, **offline**, and accesses **no credentials**. It refuses `runtime` directories and any
 credential-like file, and supports `--dry-run`.
 
 ## 3. Use
 ```
-node skills/dkskill/scripts/dkskill.mjs list
-node skills/dkskill/scripts/dkskill.mjs dk-spec --input "<your problem>"
+node skills/dcore/scripts/dcore.mjs list
+node skills/dcore/scripts/dcore.mjs dcore-spec --input "<your problem>"
 ```
 Only Node.js (>= 18) is required. No network access is needed.
 
@@ -38,12 +38,12 @@ Only Node.js (>= 18) is required. No network access is needed.
 Windows, macOS, and Linux. Paths are handled with `node:path`; there are no shell-specific assumptions.
 
 ## Uninstall / removal
-The installer writes only under `<target>/dkskill`. To remove the skill, delete that directory:
+The installer writes only under `<target>/dcore`. To remove the skill, delete that directory:
 ```
 # project-local
-rm -rf ./.claude/skills/dkskill        # PowerShell: Remove-Item -Recurse -Force .\.claude\skills\dkskill
+rm -rf ./.claude/skills/dcore        # PowerShell: Remove-Item -Recurse -Force .\.claude\skills\dcore
 # user-level
-rm -rf ~/.claude/skills/dkskill
+rm -rf ~/.claude/skills/dcore
 ```
 No other files are created, so removal is complete once that directory is gone.
 

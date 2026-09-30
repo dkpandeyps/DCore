@@ -1,10 +1,10 @@
-# dkskill · dk-spec — Specification
+# DCore · dcore-qa — QA / Test Plan
 
-- **module_id:** dk-spec
+- **module_id:** dcore-qa
 - **status:** IMPLEMENTED
-- **purpose:** turn a problem into a structured specification
-- **inputs:** a problem statement
-- **outputs:** specification: objective, users, requirements, constraints, assumptions, acceptance criteria, open questions
+- **purpose:** produce a test plan from a feature/spec
+- **inputs:** a feature/spec
+- **outputs:** test plan: objective, test levels, scenarios, edge cases, data, exit criteria
 - **permissions:** read-only
 - **security_level:** SAFE_GENERIC
 - **platform_requirements:** any
@@ -19,4 +19,4 @@ Run  (or pipe via stdin) to seed the structure, then complete each section by fo
 
 
 ## Tests
-See bench/test/dkskill-skill.test.ts for structural + behavioral coverage.
+See bench/test/dcore-skill.test.ts for structural + behavioral coverage.

@@ -1,15 +1,15 @@
 {
-  "schema": "dkskill.skill_manifest/1",
+  "schema": "dcore.skill_manifest/1",
   "version": 1,
-  "skill_id": "dkskill",
-  "name": "dkskill",
+  "skill_id": "dcore",
+  "name": "dcore",
   "description": "Universal, fail-closed Claude Code skill set for framing, specifying, planning, reviewing and QA — installable by clone, no certification/credentials/network required.",
   "license": "Apache-2.0",
   "entrypoint": "SKILL.md",
-  "runner": "scripts/dkskill.mjs",
+  "runner": "scripts/dcore.mjs",
   "modules": [
     {
-      "module_id": "dk-frame",
+      "module_id": "dcore-frame",
       "module_name": "Problem Framing",
       "status": "IMPLEMENTED",
       "purpose": "turn a raw request into a framed problem (objective, stakeholders, risks, open questions)",
@@ -20,11 +20,11 @@
       "platform_requirements": [
         "any"
       ],
-      "reference": "modules/dk-frame.md",
+      "reference": "modules/dcore-frame.md",
       "runnable": true
     },
     {
-      "module_id": "dk-spec",
+      "module_id": "dcore-spec",
       "module_name": "Specification",
       "status": "IMPLEMENTED",
       "purpose": "turn a problem into a structured specification",
@@ -35,11 +35,11 @@
       "platform_requirements": [
         "any"
       ],
-      "reference": "modules/dk-spec.md",
+      "reference": "modules/dcore-spec.md",
       "runnable": true
     },
     {
-      "module_id": "dk-plan",
+      "module_id": "dcore-plan",
       "module_name": "Engineering Plan",
       "status": "IMPLEMENTED",
       "purpose": "turn a feature/request into an implementation plan",
@@ -50,11 +50,11 @@
       "platform_requirements": [
         "any"
       ],
-      "reference": "modules/dk-plan.md",
+      "reference": "modules/dcore-plan.md",
       "runnable": true
     },
     {
-      "module_id": "dk-review",
+      "module_id": "dcore-review",
       "module_name": "Code Review",
       "status": "IMPLEMENTED",
       "purpose": "produce a structured review of code/diff text",
@@ -65,11 +65,11 @@
       "platform_requirements": [
         "any"
       ],
-      "reference": "modules/dk-review.md",
+      "reference": "modules/dcore-review.md",
       "runnable": true
     },
     {
-      "module_id": "dk-qa",
+      "module_id": "dcore-qa",
       "module_name": "QA / Test Plan",
       "status": "IMPLEMENTED",
       "purpose": "produce a test plan from a feature/spec",
@@ -80,11 +80,11 @@
       "platform_requirements": [
         "any"
       ],
-      "reference": "modules/dk-qa.md",
+      "reference": "modules/dcore-qa.md",
       "runnable": true
     },
     {
-      "module_id": "dk-debug",
+      "module_id": "dcore-debug",
       "module_name": "Debug / Investigation",
       "status": "PLANNED",
       "purpose": "structured investigation of a defect",
@@ -95,11 +95,11 @@
       "platform_requirements": [
         "any"
       ],
-      "reference": "modules/dk-debug.md",
+      "reference": "modules/dcore-debug.md",
       "runnable": false
     },
     {
-      "module_id": "dk-sec",
+      "module_id": "dcore-sec",
       "module_name": "Security Review",
       "status": "PLANNED",
       "purpose": "structured security review",
@@ -110,11 +110,11 @@
       "platform_requirements": [
         "any"
       ],
-      "reference": "modules/dk-sec.md",
+      "reference": "modules/dcore-sec.md",
       "runnable": false
     },
     {
-      "module_id": "dk-doc",
+      "module_id": "dcore-doc",
       "module_name": "Documentation",
       "status": "PLANNED",
       "purpose": "generate documentation scaffolds",
@@ -125,11 +125,11 @@
       "platform_requirements": [
         "any"
       ],
-      "reference": "modules/dk-doc.md",
+      "reference": "modules/dcore-doc.md",
       "runnable": false
     },
     {
-      "module_id": "dk-release",
+      "module_id": "dcore-release",
       "module_name": "Release Prep",
       "status": "PLANNED",
       "purpose": "release readiness checklist",
@@ -140,11 +140,11 @@
       "platform_requirements": [
         "any"
       ],
-      "reference": "modules/dk-release.md",
+      "reference": "modules/dcore-release.md",
       "runnable": false
     },
     {
-      "module_id": "dk-retro",
+      "module_id": "dcore-retro",
       "module_name": "Retrospective",
       "status": "DEFERRED",
       "purpose": "project retrospective scaffold",
@@ -155,7 +155,7 @@
       "platform_requirements": [
         "any"
       ],
-      "reference": "modules/dk-retro.md",
+      "reference": "modules/dcore-retro.md",
       "runnable": false
     }
   ],

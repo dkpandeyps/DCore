@@ -1,22 +1,22 @@
-# dkskill
+# DCore
 
 A reusable, fail-closed **Claude Code skill set** for practical software and product engineering work — framing
 problems, writing specifications, planning implementation, reviewing code, and QA/test planning — on **Windows,
 macOS, and Linux**.
 
-The owner (PTPL) uses dkskill for real work and commits improvements to Git so others can clone and reuse the same
+The owner (PTPL) uses DCore for real work and commits improvements to Git so others can clone and reuse the same
 skills.
 
 **Clone → install → discover → invoke → work.** No certification, no credentials, no `~/.claude` access, no network,
 and no private infrastructure are required for ordinary use.
 
-## What dkskill provides
+## What DCore provides
 A small set of deterministic, read-only modules that turn a raw request into structured, reviewable artifacts:
-- **dk-frame** — frame a vague request (objective, stakeholders, risks, open questions).
-- **dk-spec** — specification (objective, users, requirements, constraints, assumptions, acceptance, open questions).
-- **dk-plan** — implementation plan (architecture, components, dependencies, risks, tests, rollout).
-- **dk-review** — structured code/diff review (correctness, security, maintainability, findings with severity).
-- **dk-qa** — test plan (levels, scenarios, edge cases, data, exit criteria).
+- **dcore-frame** — frame a vague request (objective, stakeholders, risks, open questions).
+- **dcore-spec** — specification (objective, users, requirements, constraints, assumptions, acceptance, open questions).
+- **dcore-plan** — implementation plan (architecture, components, dependencies, risks, tests, rollout).
+- **dcore-review** — structured code/diff review (correctness, security, maintainability, findings with severity).
+- **dcore-qa** — test plan (levels, scenarios, edge cases, data, exit criteria).
 
 ## Supported platforms
 Windows, macOS, and Linux. The skill core is platform-neutral (capability detection, never hard-coded
@@ -30,33 +30,33 @@ Windows, macOS, and Linux. The skill core is platform-neutral (capability detect
 ## Installation
 ```
 git clone <repository>
-cd dkskill
-node skills/dkskill/scripts/install.mjs --project      # installs into ./.claude/skills/dkskill
+cd DCore
+node skills/dcore/scripts/install.mjs --project      # installs into ./.claude/skills/dcore
 ```
 See `docs/INSTALL.md` for user-level install, dry-run, explicit targets, uninstall, and troubleshooting.
 
 ## Basic usage
-After installing, Claude Code discovers `dkskill`. You can also drive the deterministic scaffold generator directly:
+After installing, Claude Code discovers `DCore`. You can also drive the deterministic scaffold generator directly:
 ```
-node skills/dkskill/scripts/dkskill.mjs list
-node skills/dkskill/scripts/dkskill.mjs dk-spec --input "Build a cross-platform installer that is idempotent."
-node skills/dkskill/scripts/dkskill.mjs dk-review        # pipe code/diff via stdin
-node skills/dkskill/scripts/dkskill.mjs dk-plan --input "<feature>" --json
+node skills/dcore/scripts/dcore.mjs list
+node skills/dcore/scripts/dcore.mjs dcore-spec --input "Build a cross-platform installer that is idempotent."
+node skills/dcore/scripts/dcore.mjs dcore-review        # pipe code/diff via stdin
+node skills/dcore/scripts/dcore.mjs dcore-plan --input "<feature>" --json
 ```
 
 ## Modules
-- **Implemented:** `dk-frame`, `dk-spec`, `dk-plan`, `dk-review`, `dk-qa`.
-- **Planned (not yet runnable):** `dk-debug`, `dk-sec`, `dk-doc`, `dk-release`.
-- **Deferred:** `dk-retro`.
+- **Implemented:** `dcore-frame`, `dcore-spec`, `dcore-plan`, `dcore-review`, `dcore-qa`.
+- **Planned (not yet runnable):** `dcore-debug`, `dcore-sec`, `dcore-doc`, `dcore-release`.
+- **Deferred:** `dcore-retro`.
 
-See `skills/dkskill/modules/` and `skills/dkskill/references/GSTACK-COVERAGE-MATRIX.md`.
+See `skills/dcore/modules/` and `skills/dcore/references/GSTACK-COVERAGE-MATRIX.md`.
 
 ## Testing
 ```
 cd bench
 node --test "test/**/*.test.ts"
 ```
-The dkskill skill tests live in `bench/test/dkskill-skill.test.ts`.
+The DCore skill tests live in `bench/test/dcore-skill.test.ts`.
 
 ## Security / basic-use boundaries
 Read-only by default; no arbitrary command execution; no credential harvesting; never reads `~/.claude`, OAuth tokens,
@@ -73,11 +73,11 @@ explicit user authorization. Unknown or unsafe input **fails closed**.
 
 ## Optional assurance layer
 An optional compatibility/certification architecture (under `bench/compatibility/`) can later provide signed,
-evidence-backed compatibility profiles per exact host facet. **It is not required to install or use dkskill.** No host
+evidence-backed compatibility profiles per exact host facet. **It is not required to install or use DCore.** No host
 is certified yet (certified count = 0).
 
 ## Contributing
-Use dkskill for real work, then commit focused improvements (a module, a fix, a test) with clear messages. Keep every
+Use DCore for real work, then commit focused improvements (a module, a fix, a test) with clear messages. Keep every
 module read-only by default and fail-closed; never add credential access, hidden network calls, or arbitrary
 execution. Run the test suite before proposing changes.
 

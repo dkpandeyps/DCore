@@ -1,6 +1,6 @@
-# dkskill · dk-review — Code Review
+# DCore · dcore-review — Code Review
 
-- **module_id:** dk-review
+- **module_id:** dcore-review
 - **status:** IMPLEMENTED
 - **purpose:** produce a structured review of code/diff text
 - **inputs:** code or a diff (via stdin or --input)
@@ -29,9 +29,9 @@ Findings carry `line`, `severity`, `category`, `message`, `excerpt`; a `severity
 
 ## Example
 ```
-printf 'const p = eval(x)\nif (a == b) {}\n' | node scripts/dkskill.mjs dk-review
+printf 'const p = eval(x)\nif (a == b) {}\n' | node scripts/dcore.mjs dcore-review
 ```
 
 
 ## Tests
-See bench/test/dkskill-skill.test.ts for structural + behavioral coverage.
+See bench/test/dcore-skill.test.ts for structural + behavioral coverage.

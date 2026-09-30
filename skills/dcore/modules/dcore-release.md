@@ -1,10 +1,10 @@
-# dkskill · dk-debug — Debug / Investigation
+# DCore · dcore-release — Release Prep
 
-- **module_id:** dk-debug
+- **module_id:** dcore-release
 - **status:** PLANNED
-- **purpose:** structured investigation of a defect
-- **inputs:** a defect report/symptoms
-- **outputs:** structured investigation (PLANNED)
+- **purpose:** release readiness checklist
+- **inputs:** a release candidate
+- **outputs:** release readiness checklist (PLANNED)
 - **permissions:** read-only
 - **security_level:** SAFE_GENERIC
 - **platform_requirements:** any
@@ -19,4 +19,4 @@ This module is PLANNED. Do not claim it is implemented. Use an IMPLEMENTED modul
 (planned)
 
 ## Tests
-See bench/test/dkskill-skill.test.ts for structural + behavioral coverage.
+See bench/test/dcore-skill.test.ts for structural + behavioral coverage.

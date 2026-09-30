@@ -1,10 +1,10 @@
-# dkskill · dk-release — Release Prep
+# DCore · dcore-doc — Documentation
 
-- **module_id:** dk-release
+- **module_id:** dcore-doc
 - **status:** PLANNED
-- **purpose:** release readiness checklist
-- **inputs:** a release candidate
-- **outputs:** release readiness checklist (PLANNED)
+- **purpose:** generate documentation scaffolds
+- **inputs:** a component/API
+- **outputs:** documentation scaffold (PLANNED)
 - **permissions:** read-only
 - **security_level:** SAFE_GENERIC
 - **platform_requirements:** any
@@ -19,4 +19,4 @@ This module is PLANNED. Do not claim it is implemented. Use an IMPLEMENTED modul
 (planned)
 
 ## Tests
-See bench/test/dkskill-skill.test.ts for structural + behavioral coverage.
+See bench/test/dcore-skill.test.ts for structural + behavioral coverage.

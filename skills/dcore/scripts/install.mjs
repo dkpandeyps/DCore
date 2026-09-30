@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-// dkskill installer — portable, deterministic, confined, idempotent, offline.
-// Copies the dkskill skill into <target>/dkskill. No network, no credentials, no ~/.claude credential access, no
+// dcore installer — portable, deterministic, confined, idempotent, offline.
+// Copies the dcore skill into <target>/dcore. No network, no credentials, no ~/.claude credential access, no
 // privileged execution, no subprocess. Path-traversal protected; refuses credential files and `runtime` segments.
 // Usage:
 //   node install.mjs --target <skills-dir> [--dry-run]
@@ -11,8 +11,8 @@ import { join, resolve, relative, dirname, basename, sep } from 'node:path';
 import { homedir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 
-const SKILL_DIR = resolve(dirname(fileURLToPath(import.meta.url)), '..');   // skills/dkskill
-const SKILL_NAME = 'dkskill';
+const SKILL_DIR = resolve(dirname(fileURLToPath(import.meta.url)), '..');   // skills/dcore
+const SKILL_NAME = 'dcore';
 const CRED_RE = /(\.credentials|credentials\.json|oauth|cookie|token|api[_-]?key|id_rsa|\.pem|session)/i;
 
 export function isSafeDestRoot(root) {
@@ -52,7 +52,7 @@ export function install({ target, dryRun = false } = {}) {
   const plan = planInstall(target);
   const actions = [];
   for (const { src, dest: d } of plan) {
-    const safe = confine(dest, relative(dest, d));   // confine within <target>/dkskill
+    const safe = confine(dest, relative(dest, d));   // confine within <target>/dcore
     const content = readFileSync(src);
     const existsSame = existsSync(safe) && readFileSync(safe).equals(content);
     actions.push({ path: safe, op: existsSame ? 'unchanged' : (existsSync(safe) ? 'update' : 'create') });
@@ -69,8 +69,8 @@ function main() {
   if (argv.includes('--project')) target = join(process.cwd(), '.claude', 'skills');
   if (argv.includes('--user')) target = join(homedir(), '.claude', 'skills');
   const r = install({ target, dryRun });
-  if (!r.ok) { process.stderr.write(`dkskill install: ${r.error}\n`); process.exitCode = 2; return; }
-  process.stdout.write(`dkskill ${dryRun ? '(dry-run) would install' : 'installed'} -> ${r.skill_dir}\n  files=${r.files} create=${r.created} update=${r.updated} unchanged=${r.unchanged}\n  network=${r.network_contacted} credentials=${r.credentials_accessed} subprocess=${r.subprocesses_spawned}\n`);
+  if (!r.ok) { process.stderr.write(`DCore install: ${r.error}\n`); process.exitCode = 2; return; }
+  process.stdout.write(`DCore ${dryRun ? '(dry-run) would install' : 'installed'} -> ${r.skill_dir}\n  files=${r.files} create=${r.created} update=${r.updated} unchanged=${r.unchanged}\n  network=${r.network_contacted} credentials=${r.credentials_accessed} subprocess=${r.subprocesses_spawned}\n`);
 }
 
 if (process.argv[1] && process.argv[1].endsWith('install.mjs')) main();

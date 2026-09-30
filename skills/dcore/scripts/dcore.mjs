@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-// dkskill CLI — portable, read-only, offline. Usage:
-//   node dkskill.mjs list
-//   node dkskill.mjs <module> "<text>"           (positional input)
-//   node dkskill.mjs <module> --input "<text>" [--json]
-//   node dkskill.mjs <module>                    (reads text from stdin)
+// dcore CLI — portable, read-only, offline. Usage:
+//   node dcore.mjs list
+//   node dcore.mjs <module> "<text>"           (positional input)
+//   node dcore.mjs <module> --input "<text>" [--json]
+//   node dcore.mjs <module>                    (reads text from stdin)
 // No network, no credentials, no ~/.claude access, no subprocess, no destructive action.
 import { readFileSync } from 'node:fs';
 import { MODULES, runModule, renderMarkdown } from './modules.mjs';
@@ -37,7 +37,7 @@ async function main() {
   const args = parseArgs(process.argv.slice(2));
   const cmd = args._[0];
   if (!cmd || cmd === 'help' || cmd === '--help') {
-    process.stdout.write(['dkskill — universal Claude Code skill', '', 'Usage:', '  node dkskill.mjs list', '  node dkskill.mjs <module> "<text>"           (positional)', '  node dkskill.mjs <module> --input "<text>" [--json]', '  node dkskill.mjs <module>                    (stdin)', '', 'Modules:', ...MODULES.map((m) => `  ${m.module_id.padEnd(10)} ${m.status.padEnd(11)} ${m.module_name}`), ''].join('\n'));
+    process.stdout.write(['DCore — universal Claude Code skill', '', 'Usage:', '  node dcore.mjs list', '  node dcore.mjs <module> "<text>"           (positional)', '  node dcore.mjs <module> --input "<text>" [--json]', '  node dcore.mjs <module>                    (stdin)', '', 'Modules:', ...MODULES.map((m) => `  ${m.module_id.padEnd(10)} ${m.status.padEnd(11)} ${m.module_name}`), ''].join('\n'));
     return;
   }
   if (cmd === 'list') {
@@ -51,4 +51,4 @@ async function main() {
   process.stdout.write((args.json ? JSON.stringify(result, null, 2) : renderMarkdown(result)) + '\n');
 }
 
-if (process.argv[1] && process.argv[1].endsWith('dkskill.mjs')) main();
+if (process.argv[1] && process.argv[1].endsWith('dcore.mjs')) main();

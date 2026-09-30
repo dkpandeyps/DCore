@@ -1,6 +1,6 @@
-# dkskill · dk-plan — Engineering Plan
+# DCore · dcore-plan — Engineering Plan
 
-- **module_id:** dk-plan
+- **module_id:** dcore-plan
 - **status:** IMPLEMENTED
 - **purpose:** turn a feature/request into an implementation plan
 - **inputs:** a feature/request
@@ -19,4 +19,4 @@ Run  (or pipe via stdin) to seed the structure, then complete each section by fo
 
 
 ## Tests
-See bench/test/dkskill-skill.test.ts for structural + behavioral coverage.
+See bench/test/dcore-skill.test.ts for structural + behavioral coverage.

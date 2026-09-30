@@ -1,19 +1,19 @@
-// dkskill module engine — portable, dependency-free ESM. Deterministic, read-only analysis.
+// dcore module engine — portable, dependency-free ESM. Deterministic, read-only analysis.
 // No network, no credentials, no ~/.claude access, no arbitrary execution, no destructive actions.
 // The "intelligence" of each module is the guidance in the module reference that Claude Code follows; this engine
 // produces a deterministic structured scaffold from the user's input so the behavior is real and testable offline.
 
 export const MODULES = [
-  { module_id: 'dk-frame', module_name: 'Problem Framing', status: 'IMPLEMENTED', purpose: 'turn a raw request into a framed problem (objective, stakeholders, risks, open questions)', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
-  { module_id: 'dk-spec', module_name: 'Specification', status: 'IMPLEMENTED', purpose: 'turn a problem into a structured specification', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
-  { module_id: 'dk-plan', module_name: 'Engineering Plan', status: 'IMPLEMENTED', purpose: 'turn a feature/request into an implementation plan', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
-  { module_id: 'dk-review', module_name: 'Code Review', status: 'IMPLEMENTED', purpose: 'produce a structured review of code/diff text', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
-  { module_id: 'dk-qa', module_name: 'QA / Test Plan', status: 'IMPLEMENTED', purpose: 'produce a test plan from a feature/spec', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
-  { module_id: 'dk-debug', module_name: 'Debug / Investigation', status: 'PLANNED', purpose: 'structured investigation of a defect', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
-  { module_id: 'dk-sec', module_name: 'Security Review', status: 'PLANNED', purpose: 'structured security review', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
-  { module_id: 'dk-doc', module_name: 'Documentation', status: 'PLANNED', purpose: 'generate documentation scaffolds', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
-  { module_id: 'dk-release', module_name: 'Release Prep', status: 'PLANNED', purpose: 'release readiness checklist', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
-  { module_id: 'dk-retro', module_name: 'Retrospective', status: 'DEFERRED', purpose: 'project retrospective scaffold', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
+  { module_id: 'dcore-frame', module_name: 'Problem Framing', status: 'IMPLEMENTED', purpose: 'turn a raw request into a framed problem (objective, stakeholders, risks, open questions)', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
+  { module_id: 'dcore-spec', module_name: 'Specification', status: 'IMPLEMENTED', purpose: 'turn a problem into a structured specification', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
+  { module_id: 'dcore-plan', module_name: 'Engineering Plan', status: 'IMPLEMENTED', purpose: 'turn a feature/request into an implementation plan', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
+  { module_id: 'dcore-review', module_name: 'Code Review', status: 'IMPLEMENTED', purpose: 'produce a structured review of code/diff text', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
+  { module_id: 'dcore-qa', module_name: 'QA / Test Plan', status: 'IMPLEMENTED', purpose: 'produce a test plan from a feature/spec', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
+  { module_id: 'dcore-debug', module_name: 'Debug / Investigation', status: 'PLANNED', purpose: 'structured investigation of a defect', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
+  { module_id: 'dcore-sec', module_name: 'Security Review', status: 'PLANNED', purpose: 'structured security review', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
+  { module_id: 'dcore-doc', module_name: 'Documentation', status: 'PLANNED', purpose: 'generate documentation scaffolds', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
+  { module_id: 'dcore-release', module_name: 'Release Prep', status: 'PLANNED', purpose: 'release readiness checklist', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
+  { module_id: 'dcore-retro', module_name: 'Retrospective', status: 'DEFERRED', purpose: 'project retrospective scaffold', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
 ];
 export const IMPLEMENTED = MODULES.filter((m) => m.status === 'IMPLEMENTED').map((m) => m.module_id);
 
@@ -26,7 +26,7 @@ const has = (s, words) => words.some((w) => new RegExp(`\\b${w}\\b`, 'i').test(s
 export function dkFrame(input) {
   const ss = sentences(input);
   return {
-    module_id: 'dk-frame', objective: firstSentence(input) || '(no input)',
+    module_id: 'dcore-frame', objective: firstSentence(input) || '(no input)',
     stakeholders: ['requester', 'end users', 'maintainers'],
     problem: ss.length ? ss : ['(state the problem)'],
     context: ss.filter((s) => has(s, ['because', 'since', 'currently', 'today'])),
@@ -39,7 +39,7 @@ export function dkSpec(input) {
   const ss = sentences(input);
   const requirements = ss.map((s, i) => `REQ-${String(i + 1).padStart(2, '0')}: ${s}`);
   return {
-    module_id: 'dk-spec', objective: firstSentence(input) || '(no input)',
+    module_id: 'dcore-spec', objective: firstSentence(input) || '(no input)',
     users: ['primary user', 'operator/maintainer'],
     requirements: requirements.length ? requirements : ['REQ-01: (define at least one requirement)'],
     constraints: ss.filter((s) => has(s, ['must', 'only', 'cannot', 'never', 'limit', 'within', 'without'])),
@@ -52,7 +52,7 @@ export function dkPlan(input) {
   const ss = sentences(input);
   const components = ss.map((s, i) => `C-${String(i + 1).padStart(2, '0')}: implement — ${s}`);
   return {
-    module_id: 'dk-plan', objective: firstSentence(input) || '(no input)',
+    module_id: 'dcore-plan', objective: firstSentence(input) || '(no input)',
     architecture: 'fail-closed, platform-neutral core with platform behavior isolated behind adapters',
     components: components.length ? components : ['C-01: (define components)'],
     dependencies: ss.filter((s) => has(s, ['depends', 'requires', 'needs', 'after'])),
@@ -77,7 +77,7 @@ export function dkReview(code) {
   flag(/console\.log|print\(/, 'info', 'maintainability', 'debug output');
   const bySev = (s) => findings.filter((f) => f.severity === s).length;
   return {
-    module_id: 'dk-review', objective: 'structured review of supplied code/diff',
+    module_id: 'dcore-review', objective: 'structured review of supplied code/diff',
     correctness: { loose_equality: findings.filter((f) => f.category === 'correctness').length },
     security: { high: findings.filter((f) => f.category === 'security' && f.severity === 'high').length, findings: findings.filter((f) => f.category === 'security').length },
     maintainability: { markers: findings.filter((f) => f.category === 'maintainability').length },
@@ -91,7 +91,7 @@ export function dkQa(input) {
   const ss = sentences(input);
   const scenarios = ss.map((s, i) => `S-${String(i + 1).padStart(2, '0')}: verify — ${s}`);
   return {
-    module_id: 'dk-qa', objective: firstSentence(input) || '(no input)',
+    module_id: 'dcore-qa', objective: firstSentence(input) || '(no input)',
     test_levels: ['unit', 'integration', 'failure-mode', 'cross-platform (Windows/macOS/Linux)'],
     scenarios: scenarios.length ? scenarios : ['S-01: (define scenarios)'],
     edge_cases: ['empty input', 'malformed input', 'unknown platform', 'missing capability', 'path traversal attempt'],
@@ -100,7 +100,7 @@ export function dkQa(input) {
   };
 }
 
-const RUNNERS = { 'dk-frame': dkFrame, 'dk-spec': dkSpec, 'dk-plan': dkPlan, 'dk-review': dkReview, 'dk-qa': dkQa };
+const RUNNERS = { 'dcore-frame': dkFrame, 'dcore-spec': dkSpec, 'dcore-plan': dkPlan, 'dcore-review': dkReview, 'dcore-qa': dkQa };
 
 export function runModule(moduleId, input) {
   const runner = RUNNERS[moduleId];
@@ -112,8 +112,8 @@ export function runModule(moduleId, input) {
 }
 
 export function renderMarkdown(result) {
-  if (result.error) return `dkskill: ${result.error}`;
-  const lines = [`# dkskill · ${result.module_id}`, ''];
+  if (result.error) return `dcore: ${result.error}`;
+  const lines = [`# DCore · ${result.module_id}`, ''];
   for (const [k, v] of Object.entries(result)) {
     if (k === 'module_id') continue;
     lines.push(`## ${k}`);
@@ -127,9 +127,9 @@ export function renderMarkdown(result) {
 
 export function buildManifest() {
   return {
-    schema: 'dkskill.skill_manifest/1', version: 1, skill_id: 'dkskill', name: 'dkskill',
+    schema: 'dcore.skill_manifest/1', version: 1, skill_id: 'dcore', name: 'dcore',
     description: 'Universal, fail-closed Claude Code skill set for framing, specifying, planning, reviewing and QA — installable by clone, no certification/credentials/network required.',
-    license: 'Apache-2.0', entrypoint: 'SKILL.md', runner: 'scripts/dkskill.mjs',
+    license: 'Apache-2.0', entrypoint: 'SKILL.md', runner: 'scripts/dcore.mjs',
     modules: MODULES.map((m) => ({ module_id: m.module_id, module_name: m.module_name, status: m.status, purpose: m.purpose, permissions: m.permissions, security_level: m.security_level, platform_requirements: m.platform_requirements, reference: `modules/${m.module_id}.md`, runnable: IMPLEMENTED.includes(m.module_id) })),
     implemented_count: IMPLEMENTED.length, planned_count: MODULES.filter((m) => m.status === 'PLANNED').length, deferred_count: MODULES.filter((m) => m.status === 'DEFERRED').length,
     requires_certification_for_basic_use: false, requires_private_infrastructure: false, requires_credentials: false, requires_network: false,

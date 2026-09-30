@@ -1,10 +1,10 @@
-# dkskill Module Contract
+# DCore Module Contract
 
-Every dkskill module MUST define, in its `modules/<module_id>.md` reference and in `dkskill.manifest.json`:
+Every DCore module MUST define, in its `modules/<module_id>.md` reference and in `dcore.manifest.json`:
 
 | field | meaning |
 |---|---|
-| `module_id` | stable, original dkskill identifier (e.g. `dk-spec`) — never a gstack name |
+| `module_id` | stable, original DCore identifier (e.g. `dcore-spec`) — never a gstack name |
 | `module_name` | human name |
 | `purpose` | one line |
 | `inputs` | what the user provides |

@@ -1,6 +1,6 @@
-# dkskill · dk-sec — Security Review
+# DCore · dcore-sec — Security Review
 
-- **module_id:** dk-sec
+- **module_id:** dcore-sec
 - **status:** PLANNED
 - **purpose:** structured security review
 - **inputs:** code/design to review
@@ -19,4 +19,4 @@ This module is PLANNED. Do not claim it is implemented. Use an IMPLEMENTED modul
 (planned)
 
 ## Tests
-See bench/test/dkskill-skill.test.ts for structural + behavioral coverage.
+See bench/test/dcore-skill.test.ts for structural + behavioral coverage.

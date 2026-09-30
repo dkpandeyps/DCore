@@ -1,10 +1,10 @@
-# dkskill · dk-frame — Problem Framing
+# DCore · dcore-spec — Specification
 
-- **module_id:** dk-frame
+- **module_id:** dcore-spec
 - **status:** IMPLEMENTED
-- **purpose:** turn a raw request into a framed problem (objective, stakeholders, risks, open questions)
-- **inputs:** a raw request/problem statement
-- **outputs:** framed problem: objective, stakeholders, problem, context, success signals, risks, open questions
+- **purpose:** turn a problem into a structured specification
+- **inputs:** a problem statement
+- **outputs:** specification: objective, users, requirements, constraints, assumptions, acceptance criteria, open questions
 - **permissions:** read-only
 - **security_level:** SAFE_GENERIC
 - **platform_requirements:** any
@@ -19,4 +19,4 @@ Run  (or pipe via stdin) to seed the structure, then complete each section by fo
 
 
 ## Tests
-See bench/test/dkskill-skill.test.ts for structural + behavioral coverage.
+See bench/test/dcore-skill.test.ts for structural + behavioral coverage.

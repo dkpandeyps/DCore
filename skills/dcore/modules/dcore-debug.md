@@ -1,10 +1,10 @@
-# dkskill · dk-doc — Documentation
+# DCore · dcore-debug — Debug / Investigation
 
-- **module_id:** dk-doc
+- **module_id:** dcore-debug
 - **status:** PLANNED
-- **purpose:** generate documentation scaffolds
-- **inputs:** a component/API
-- **outputs:** documentation scaffold (PLANNED)
+- **purpose:** structured investigation of a defect
+- **inputs:** a defect report/symptoms
+- **outputs:** structured investigation (PLANNED)
 - **permissions:** read-only
 - **security_level:** SAFE_GENERIC
 - **platform_requirements:** any
@@ -19,4 +19,4 @@ This module is PLANNED. Do not claim it is implemented. Use an IMPLEMENTED modul
 (planned)
 
 ## Tests
-See bench/test/dkskill-skill.test.ts for structural + behavioral coverage.
+See bench/test/dcore-skill.test.ts for structural + behavioral coverage.

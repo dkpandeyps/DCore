@@ -1,10 +1,10 @@
-# dkskill · dk-qa — QA / Test Plan
+# DCore · dcore-frame — Problem Framing
 
-- **module_id:** dk-qa
+- **module_id:** dcore-frame
 - **status:** IMPLEMENTED
-- **purpose:** produce a test plan from a feature/spec
-- **inputs:** a feature/spec
-- **outputs:** test plan: objective, test levels, scenarios, edge cases, data, exit criteria
+- **purpose:** turn a raw request into a framed problem (objective, stakeholders, risks, open questions)
+- **inputs:** a raw request/problem statement
+- **outputs:** framed problem: objective, stakeholders, problem, context, success signals, risks, open questions
 - **permissions:** read-only
 - **security_level:** SAFE_GENERIC
 - **platform_requirements:** any
@@ -19,4 +19,4 @@ Run  (or pipe via stdin) to seed the structure, then complete each section by fo
 
 
 ## Tests
-See bench/test/dkskill-skill.test.ts for structural + behavioral coverage.
+See bench/test/dcore-skill.test.ts for structural + behavioral coverage.

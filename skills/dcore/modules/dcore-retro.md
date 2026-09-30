@@ -1,6 +1,6 @@
-# dkskill · dk-retro — Retrospective
+# DCore · dcore-retro — Retrospective
 
-- **module_id:** dk-retro
+- **module_id:** dcore-retro
 - **status:** DEFERRED
 - **purpose:** project retrospective scaffold
 - **inputs:** a completed project
@@ -19,4 +19,4 @@ This module is DEFERRED. Do not claim it is implemented. Use an IMPLEMENTED modu
 (planned)
 
 ## Tests
-See bench/test/dkskill-skill.test.ts for structural + behavioral coverage.
+See bench/test/dcore-skill.test.ts for structural + behavioral coverage.
