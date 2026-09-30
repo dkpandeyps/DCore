@@ -1,0 +1,152 @@
+{
+  "architecture": "x64",
+  "attribution_state": "IN_SCOPE",
+  "capability_states": [
+    {
+      "id": "CAP-HOOK-PRETOOLUSE-INTERCEPT",
+      "state": "VERIFIED"
+    },
+    {
+      "id": "CAP-HOOK-POSTTOOLUSE-INTERCEPT",
+      "state": "VERIFIED"
+    },
+    {
+      "id": "CAP-HOOK-SUBAGENT-INTERCEPT",
+      "state": "VERIFIED"
+    },
+    {
+      "id": "CAP-MCP-MATCHER",
+      "state": "PARTIALLY_VERIFIED"
+    },
+    {
+      "id": "CAP-HOOK-DENY-REASON-VISIBLE",
+      "state": "VERIFIED"
+    },
+    {
+      "id": "CAP-PERMISSION-PRECEDENCE",
+      "state": "VERIFIED"
+    },
+    {
+      "id": "CAP-UPDATEDINPUT-NARROWING",
+      "state": "PARTIALLY_VERIFIED"
+    },
+    {
+      "id": "CAP-SUBAGENT-TOOL-RESTRICTIONS",
+      "state": "VERIFIED"
+    },
+    {
+      "id": "CAP-SKILL-TOOL-FLAGS",
+      "state": "PARTIALLY_VERIFIED"
+    },
+    {
+      "id": "CAP-HOOK-ENV-IDENTIFIERS",
+      "state": "VERIFIED"
+    },
+    {
+      "id": "CAP-SETTINGS-PRECEDENCE",
+      "state": "VERIFIED"
+    },
+    {
+      "id": "CAP-MANAGED-SETTINGS",
+      "state": "PARTIALLY_VERIFIED"
+    },
+    {
+      "id": "CAP-PERMISSION-MODE-CEILING",
+      "state": "VERIFIED"
+    },
+    {
+      "id": "CAP-PROTECTED-PATHS",
+      "state": "PARTIALLY_VERIFIED"
+    },
+    {
+      "id": "CAP-HOOK-CONCURRENCY",
+      "state": "VERIFIED"
+    },
+    {
+      "id": "CAP-DENY-PRECEDENCE",
+      "state": "VERIFIED"
+    },
+    {
+      "id": "CAP-STOP-HOOK",
+      "state": "VERIFIED"
+    },
+    {
+      "id": "CAP-SESSIONSTART-CONTEXT",
+      "state": "VERIFIED"
+    },
+    {
+      "id": "CAP-COMPACTION-CONTEXT",
+      "state": "VERIFIED"
+    },
+    {
+      "id": "CAP-CONFIG-RELOAD",
+      "state": "VERIFIED"
+    },
+    {
+      "id": "CAP-HOOK-HEARTBEAT",
+      "state": "VERIFIED"
+    },
+    {
+      "id": "CAP-HOOK-TIMEOUT-FAILOPEN",
+      "state": "VERIFIED"
+    },
+    {
+      "id": "CAP-STREAM-SCHEMA",
+      "state": "PARTIALLY_VERIFIED"
+    },
+    {
+      "id": "CAP-ATTRIBUTION-TEXT",
+      "state": "PARTIALLY_VERIFIED"
+    },
+    {
+      "id": "CAP-HOST-IDENTITY-DETECT",
+      "state": "NOT_YET_VALIDATED"
+    }
+  ],
+  "claude_code_binary_hash": "9dbe16dafed59da5cdabbfe11ad0335738c753fad794989b47f9446accd6de3a",
+  "claude_code_channel": "native",
+  "claude_code_version": "2.1.283",
+  "compatibility_outcome": "UNVERIFIED",
+  "compatibility_profile": "cc-2.1.283-win32-x64-native@1",
+  "credentials_accessed": false,
+  "environment": "supported",
+  "facet_states": [
+    {
+      "family": "hook_protocol",
+      "state": "RESOLVED"
+    },
+    {
+      "family": "stream_schema",
+      "state": "RESOLVED"
+    },
+    {
+      "family": "attribution",
+      "state": "RESOLVED"
+    },
+    {
+      "family": "settings_layout",
+      "state": "RESOLVED"
+    },
+    {
+      "family": "permission_modes",
+      "state": "RESOLVED"
+    }
+  ],
+  "network_contacted": false,
+  "operating_system": "windows",
+  "operating_system_version": "UNKNOWN",
+  "product_id": "dkskill.product/1",
+  "product_version": "0.1.0-dev",
+  "reasons": [
+    "CAP_UNMET:CAP-MCP-MATCHER:PARTIALLY_VERIFIED",
+    "PROFILE_NOT_CERTIFIED",
+    "PROFILE_NOT_CERTIFIED",
+    "exact profile found but not CERTIFIED"
+  ],
+  "runtime": "node",
+  "safe_next_action": "Safety-critical operations remain blocked. This exact host is not certified yet (UNVERIFIED is not unsupported).",
+  "schema": "dkskill.public_doctor_report/1",
+  "skill_id": "dkskill",
+  "subprocesses_spawned": false,
+  "synthetic_test_only": false
+}

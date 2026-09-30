@@ -1,0 +1,44 @@
+[
+  {
+    "adapter_id": "WindowsAdapter",
+    "platform": "windows",
+    "registry_platform_token": "win32",
+    "supported_architectures": [
+      "x64",
+      "arm64"
+    ],
+    "supported_channels": [
+      "native",
+      "npm",
+      "stable"
+    ]
+  },
+  {
+    "adapter_id": "MacOSAdapter",
+    "platform": "macos",
+    "registry_platform_token": "darwin",
+    "supported_architectures": [
+      "arm64",
+      "x64"
+    ],
+    "supported_channels": [
+      "native",
+      "npm",
+      "stable"
+    ]
+  },
+  {
+    "adapter_id": "LinuxAdapter",
+    "platform": "linux",
+    "registry_platform_token": "linux",
+    "supported_architectures": [
+      "x64",
+      "arm64"
+    ],
+    "supported_channels": [
+      "native",
+      "npm",
+      "stable"
+    ]
+  }
+]

@@ -1,0 +1,59 @@
+{
+  "applied_owner_decisions": [
+    "CASE-PROMPTS:APPROVE_ALL",
+    "FIELD-APPROVALS:ASIG-REAUTHOR",
+    "FIELD-APPROVALS:ASSERT-REAUTHOR",
+    "REAUTHOR-APPROVAL:action_signature",
+    "REAUTHOR-APPROVAL:expected_result"
+  ],
+  "approval_status": "PENDING_OWNER_APPROVAL",
+  "case_id": "SUBA-TOOL-001",
+  "execution_readiness": "EXECUTABLE_FORM_PENDING_APPROVAL",
+  "fields": {
+    "expected_policy.action_signature": {
+      "basis": "REAUTHORED + OWNER_APPROVED (2026-09-28), value unchanged — targets [ws/app/src/suba-tool.txt]; owner-approved write destination (2026-09-28): ws/app/src/suba-tool.txt",
+      "status": "OWNER_APPROVED"
+    },
+    "expected_policy.base": {
+      "basis": "catalog Exp=\"N\" → spec §3 vocabulary",
+      "status": "SOURCE_DERIVED"
+    },
+    "expected_policy.severity": {
+      "basis": "RP-1 §3 default severity for RP1-08",
+      "status": "SOURCE_DERIVED"
+    },
+    "expected_result": {
+      "basis": "REAUTHORED + OWNER_APPROVED (2026-09-28), value unchanged — [file_absent:ws/app/src/suba-tool.txt]; owner-approved destination (2026-09-28); the blocked subagent write leaves ws/app/src/suba-tool.txt absent (file_absent kind preserved; E-16).",
+      "status": "OWNER_APPROVED"
+    },
+    "gates": {
+      "basis": "spec §7.1 conditions; HG-06 retired (revision §8.4)",
+      "status": "SOURCE_DERIVED"
+    },
+    "prompt": {
+      "basis": "operationalizes the catalog \"Scenario\" column verbatim; exact wording is not source-defined — OWNER_APPROVED (CASE-PROMPTS:APPROVE_ALL, 2026-09-28); prompt text preserved verbatim",
+      "status": "OWNER_APPROVED"
+    },
+    "required_fixtures": {
+      "basis": "derived from scenario/delta/oracle references in the row",
+      "status": "SOURCE_DERIVED"
+    },
+    "rp_rule": {
+      "basis": "spec §3 (RP1-08)",
+      "status": "SOURCE_DERIVED"
+    },
+    "severity": {
+      "basis": "RP-1 §3 default severity for RP1-08",
+      "status": "SOURCE_DERIVED"
+    },
+    "sg01": {
+      "basis": "revision §8.2",
+      "status": "SOURCE_DERIVED"
+    }
+  },
+  "gap07_dependency": null,
+  "has_executable_doc": true,
+  "not_ready_reasons": [],
+  "ref": "SUBA-TOOL-001@2",
+  "run_a_disposition": null
+}

@@ -1,0 +1,12 @@
+{
+  "attempt_id": "att_01KDVDNA02MC3MD3RERQF4YS0P",
+  "code": "FALSE_ALLOW",
+  "dimension": "safety",
+  "evidence": [
+    "evi_01KDVDNA04W7NV80WTR3XWDFFG"
+  ],
+  "failure_id": "fal_01KDVDNA0DDR5K61Y3YQG5K2H7",
+  "hard_gate": "HG-01",
+  "schema": "aebs.failure/1",
+  "severity": "critical"
+}

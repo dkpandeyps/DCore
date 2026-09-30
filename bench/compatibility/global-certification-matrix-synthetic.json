@@ -1,0 +1,1663 @@
+{
+  "certified_count": 6,
+  "dimensions": {
+    "architectures": [
+      "x64",
+      "arm64"
+    ],
+    "channels": [
+      "native"
+    ],
+    "platforms": [
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "versions": [
+      "2.1.281",
+      "2.1.282",
+      "2.1.283",
+      "2.1.284",
+      "2.1.285",
+      "2.1.286"
+    ]
+  },
+  "latest_3_certified_versions": [
+    "2.1.286",
+    "2.1.285",
+    "2.1.284"
+  ],
+  "matrix_hash": "sha256:b11bc8fda2ca10f4577aac1e732dbfbbd9e04a96833e204086a1665f5643682e",
+  "no_inheritance": {
+    "architecture": true,
+    "channel": true,
+    "platform": true,
+    "version": true
+  },
+  "records": [
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": "8888888888888888888888888888888888888888888888888888888888888888",
+      "capability_summary": {
+        "total": 25,
+        "verified": 25
+      },
+      "cert_state": "NOT_VALIDATED",
+      "combo": {
+        "architecture": "x64",
+        "channel": "native",
+        "platform": "windows",
+        "version": "2.1.281"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "RESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": "m-win-notcert@1",
+      "registry_state": "PROBED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": "7777777777777777777777777777777777777777777777777777777777777777",
+      "capability_summary": {
+        "total": 25,
+        "verified": 25
+      },
+      "cert_state": "REVOKED",
+      "combo": {
+        "architecture": "x64",
+        "channel": "native",
+        "platform": "windows",
+        "version": "2.1.282"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "RESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": "m-win-revoked@1",
+      "registry_state": "REVOKED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "REVOKED"
+    },
+    {
+      "attribution_in_scope": true,
+      "binary_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "capability_summary": {
+        "total": 25,
+        "verified": 25
+      },
+      "cert_state": "CERTIFIED",
+      "combo": {
+        "architecture": "x64",
+        "channel": "native",
+        "platform": "windows",
+        "version": "2.1.283"
+      },
+      "evidence_ref": "evi:m-win-283@1",
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "RESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": "m-win-283@1",
+      "registry_state": "CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": true,
+      "synthetic_test_only": true,
+      "version_lifecycle": "CERTIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+      "capability_summary": {
+        "total": 25,
+        "verified": 25
+      },
+      "cert_state": "CERTIFIED",
+      "combo": {
+        "architecture": "x64",
+        "channel": "native",
+        "platform": "windows",
+        "version": "2.1.284"
+      },
+      "evidence_ref": "evi:m-win-284@1",
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "RESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": "m-win-284@1",
+      "registry_state": "CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": true,
+      "synthetic_test_only": true,
+      "version_lifecycle": "CERTIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+      "capability_summary": {
+        "total": 25,
+        "verified": 25
+      },
+      "cert_state": "CERTIFIED",
+      "combo": {
+        "architecture": "x64",
+        "channel": "native",
+        "platform": "windows",
+        "version": "2.1.285"
+      },
+      "evidence_ref": "evi:m-win-285@1",
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "RESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": "m-win-285@1",
+      "registry_state": "CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": true,
+      "synthetic_test_only": true,
+      "version_lifecycle": "CERTIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+      "capability_summary": {
+        "total": 25,
+        "verified": 25
+      },
+      "cert_state": "CERTIFIED",
+      "combo": {
+        "architecture": "x64",
+        "channel": "native",
+        "platform": "windows",
+        "version": "2.1.286"
+      },
+      "evidence_ref": "evi:m-win-286@1",
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "RESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": "m-win-286@1",
+      "registry_state": "CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": true,
+      "synthetic_test_only": true,
+      "version_lifecycle": "CERTIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_CERTIFIED",
+      "combo": {
+        "architecture": "arm64",
+        "channel": "native",
+        "platform": "windows",
+        "version": "2.1.281"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": null,
+      "registry_state": "NOT_CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_CERTIFIED",
+      "combo": {
+        "architecture": "arm64",
+        "channel": "native",
+        "platform": "windows",
+        "version": "2.1.282"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": null,
+      "registry_state": "NOT_CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_CERTIFIED",
+      "combo": {
+        "architecture": "arm64",
+        "channel": "native",
+        "platform": "windows",
+        "version": "2.1.283"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": null,
+      "registry_state": "NOT_CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_CERTIFIED",
+      "combo": {
+        "architecture": "arm64",
+        "channel": "native",
+        "platform": "windows",
+        "version": "2.1.284"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": null,
+      "registry_state": "NOT_CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_CERTIFIED",
+      "combo": {
+        "architecture": "arm64",
+        "channel": "native",
+        "platform": "windows",
+        "version": "2.1.285"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": null,
+      "registry_state": "NOT_CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_CERTIFIED",
+      "combo": {
+        "architecture": "arm64",
+        "channel": "native",
+        "platform": "windows",
+        "version": "2.1.286"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": null,
+      "registry_state": "NOT_CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_CERTIFIED",
+      "combo": {
+        "architecture": "x64",
+        "channel": "native",
+        "platform": "macos",
+        "version": "2.1.281"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": null,
+      "registry_state": "NOT_CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_CERTIFIED",
+      "combo": {
+        "architecture": "x64",
+        "channel": "native",
+        "platform": "macos",
+        "version": "2.1.282"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": null,
+      "registry_state": "NOT_CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_CERTIFIED",
+      "combo": {
+        "architecture": "x64",
+        "channel": "native",
+        "platform": "macos",
+        "version": "2.1.283"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": null,
+      "registry_state": "NOT_CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_CERTIFIED",
+      "combo": {
+        "architecture": "x64",
+        "channel": "native",
+        "platform": "macos",
+        "version": "2.1.284"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": null,
+      "registry_state": "NOT_CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_CERTIFIED",
+      "combo": {
+        "architecture": "x64",
+        "channel": "native",
+        "platform": "macos",
+        "version": "2.1.285"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": null,
+      "registry_state": "NOT_CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_CERTIFIED",
+      "combo": {
+        "architecture": "x64",
+        "channel": "native",
+        "platform": "macos",
+        "version": "2.1.286"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": null,
+      "registry_state": "NOT_CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_CERTIFIED",
+      "combo": {
+        "architecture": "arm64",
+        "channel": "native",
+        "platform": "macos",
+        "version": "2.1.281"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": null,
+      "registry_state": "NOT_CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_CERTIFIED",
+      "combo": {
+        "architecture": "arm64",
+        "channel": "native",
+        "platform": "macos",
+        "version": "2.1.282"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": null,
+      "registry_state": "NOT_CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": true,
+      "binary_sha256": "5555555555555555555555555555555555555555555555555555555555555555",
+      "capability_summary": {
+        "total": 25,
+        "verified": 25
+      },
+      "cert_state": "CERTIFIED",
+      "combo": {
+        "architecture": "arm64",
+        "channel": "native",
+        "platform": "macos",
+        "version": "2.1.283"
+      },
+      "evidence_ref": "evi:m-mac-283@1",
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "RESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": "m-mac-283@1",
+      "registry_state": "CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": true,
+      "synthetic_test_only": true,
+      "version_lifecycle": "CERTIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_CERTIFIED",
+      "combo": {
+        "architecture": "arm64",
+        "channel": "native",
+        "platform": "macos",
+        "version": "2.1.284"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": null,
+      "registry_state": "NOT_CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_CERTIFIED",
+      "combo": {
+        "architecture": "arm64",
+        "channel": "native",
+        "platform": "macos",
+        "version": "2.1.285"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": null,
+      "registry_state": "NOT_CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_CERTIFIED",
+      "combo": {
+        "architecture": "arm64",
+        "channel": "native",
+        "platform": "macos",
+        "version": "2.1.286"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": null,
+      "registry_state": "NOT_CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_CERTIFIED",
+      "combo": {
+        "architecture": "x64",
+        "channel": "native",
+        "platform": "linux",
+        "version": "2.1.281"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": null,
+      "registry_state": "NOT_CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_CERTIFIED",
+      "combo": {
+        "architecture": "x64",
+        "channel": "native",
+        "platform": "linux",
+        "version": "2.1.282"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": null,
+      "registry_state": "NOT_CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": true,
+      "binary_sha256": "6666666666666666666666666666666666666666666666666666666666666666",
+      "capability_summary": {
+        "total": 25,
+        "verified": 25
+      },
+      "cert_state": "CERTIFIED",
+      "combo": {
+        "architecture": "x64",
+        "channel": "native",
+        "platform": "linux",
+        "version": "2.1.283"
+      },
+      "evidence_ref": "evi:m-linux-283@1",
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "RESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": "m-linux-283@1",
+      "registry_state": "CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": true,
+      "synthetic_test_only": true,
+      "version_lifecycle": "CERTIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_CERTIFIED",
+      "combo": {
+        "architecture": "x64",
+        "channel": "native",
+        "platform": "linux",
+        "version": "2.1.284"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": null,
+      "registry_state": "NOT_CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_CERTIFIED",
+      "combo": {
+        "architecture": "x64",
+        "channel": "native",
+        "platform": "linux",
+        "version": "2.1.285"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": null,
+      "registry_state": "NOT_CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_CERTIFIED",
+      "combo": {
+        "architecture": "x64",
+        "channel": "native",
+        "platform": "linux",
+        "version": "2.1.286"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": null,
+      "registry_state": "NOT_CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_CERTIFIED",
+      "combo": {
+        "architecture": "arm64",
+        "channel": "native",
+        "platform": "linux",
+        "version": "2.1.281"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": null,
+      "registry_state": "NOT_CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_CERTIFIED",
+      "combo": {
+        "architecture": "arm64",
+        "channel": "native",
+        "platform": "linux",
+        "version": "2.1.282"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": null,
+      "registry_state": "NOT_CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_CERTIFIED",
+      "combo": {
+        "architecture": "arm64",
+        "channel": "native",
+        "platform": "linux",
+        "version": "2.1.283"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": null,
+      "registry_state": "NOT_CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_CERTIFIED",
+      "combo": {
+        "architecture": "arm64",
+        "channel": "native",
+        "platform": "linux",
+        "version": "2.1.284"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": null,
+      "registry_state": "NOT_CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_CERTIFIED",
+      "combo": {
+        "architecture": "arm64",
+        "channel": "native",
+        "platform": "linux",
+        "version": "2.1.285"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": null,
+      "registry_state": "NOT_CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_CERTIFIED",
+      "combo": {
+        "architecture": "arm64",
+        "channel": "native",
+        "platform": "linux",
+        "version": "2.1.286"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": null,
+      "registry_state": "NOT_CERTIFIED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": true,
+      "version_lifecycle": "UNVERIFIED"
+    }
+  ],
+  "requires_signed_authorization": true,
+  "schema": "dkskill.global_certification_matrix/1",
+  "synthetic_test_only": true,
+  "version": 1
+}

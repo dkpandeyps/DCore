@@ -1,0 +1,829 @@
+{
+  "binary_binding": {
+    "authoritative": [
+      "exact executable SHA-256 read (bytes only) from the certified installation inside an L4-isolated cert env (CONTROLLED/INDEPENDENT_OBSERVATION)"
+    ],
+    "insufficient": [
+      "filename",
+      "directory/path",
+      "package.json version",
+      "benchmark binary reference",
+      "registry metadata"
+    ],
+    "open_gap": "OPEN DESIGN GAP — an embedded version resource binding is unproven for Claude Code; the exact-byte-hash path exists but its authority depends on L4 cert-env control (see GAP-02)",
+    "rule": "binary_sha256 must identify the EXACT certified executable; supporting sources may corroborate but never substitute",
+    "supporting_only": [
+      "package/archive hash",
+      "embedded version metadata (UNPROVEN)"
+    ]
+  },
+  "channel_binding": {
+    "design_candidates": [
+      {
+        "acceptable_if": "CONTROLLED_OBSERVATION recorded machine-readably",
+        "candidate": "controlled-install attestation (channel deliberately installed in the cert env)"
+      },
+      {
+        "acceptable_if": "INDEPENDENT_OBSERVATION",
+        "candidate": "independent observer of the installed channel"
+      }
+    ],
+    "forbidden_inference": [
+      "version",
+      "filename",
+      "path",
+      "OS",
+      "architecture",
+      "benchmark pin",
+      "registry profile",
+      "install date",
+      "history"
+    ],
+    "open_gap": "OPEN DESIGN GAP — no concrete machine-readable channel evidence source is proven for Claude Code (see GAP-01)",
+    "rule": "channel must be DIRECTLY evidenced (>= CONTROLLED_OBSERVATION); SELF_REPORTED insufficient; never inferred"
+  },
+  "contradiction_rules": [
+    {
+      "contradiction": "version A vs version B",
+      "result": "CONTRADICTED"
+    },
+    {
+      "contradiction": "binary hash A vs B",
+      "result": "CONTRADICTED"
+    },
+    {
+      "contradiction": "channel A vs channel B",
+      "result": "CONTRADICTED"
+    },
+    {
+      "contradiction": "architecture mismatch",
+      "result": "CONTRADICTED"
+    },
+    {
+      "contradiction": "OS mismatch",
+      "result": "CONTRADICTED"
+    },
+    {
+      "contradiction": "environment mismatch (evidence from wrong env)",
+      "result": "INCOMPLETE"
+    },
+    {
+      "contradiction": "installation mismatch (multiple installs)",
+      "result": "AMBIGUOUS"
+    }
+  ],
+  "design_only": true,
+  "field_map": [
+    {
+      "contradiction_blocks": true,
+      "environment_mismatch_blocks": true,
+      "field": "product",
+      "independent_observation_required": false,
+      "l4_required": false,
+      "may_remain_unknown": false,
+      "min_provenance": "SELF_REPORTED",
+      "permitted_m7_evidence_classes": [
+        "EV-HOST-IDENTITY"
+      ],
+      "permitted_observation_sources": [
+        "certification-attestation"
+      ],
+      "required_for_completeness": true,
+      "stale_blocks": true,
+      "status_if_contradictory": "CONTRADICTED",
+      "status_if_insufficient_provenance": "INCOMPLETE",
+      "status_if_missing": "INCOMPLETE"
+    },
+    {
+      "contradiction_blocks": true,
+      "environment_mismatch_blocks": true,
+      "field": "version",
+      "independent_observation_required": false,
+      "l4_required": false,
+      "may_remain_unknown": false,
+      "min_provenance": "CONTROLLED_OBSERVATION",
+      "permitted_m7_evidence_classes": [
+        "EV-VERSION",
+        "EV-HOST-IDENTITY"
+      ],
+      "permitted_observation_sources": [
+        "controlled-observation",
+        "independent-observer"
+      ],
+      "required_for_completeness": true,
+      "stale_blocks": true,
+      "status_if_contradictory": "CONTRADICTED",
+      "status_if_insufficient_provenance": "INCOMPLETE",
+      "status_if_missing": "INCOMPLETE"
+    },
+    {
+      "contradiction_blocks": true,
+      "environment_mismatch_blocks": true,
+      "field": "operating_system",
+      "independent_observation_required": false,
+      "l4_required": false,
+      "may_remain_unknown": false,
+      "min_provenance": "CONTROLLED_OBSERVATION",
+      "permitted_m7_evidence_classes": [
+        "EV-PLATFORM"
+      ],
+      "permitted_observation_sources": [
+        "controlled-observation"
+      ],
+      "required_for_completeness": true,
+      "stale_blocks": true,
+      "status_if_contradictory": "CONTRADICTED",
+      "status_if_insufficient_provenance": "INCOMPLETE",
+      "status_if_missing": "INCOMPLETE"
+    },
+    {
+      "contradiction_blocks": true,
+      "environment_mismatch_blocks": true,
+      "field": "os_version",
+      "independent_observation_required": false,
+      "l4_required": false,
+      "may_remain_unknown": true,
+      "min_provenance": "LOCAL_OBSERVATION",
+      "permitted_m7_evidence_classes": [
+        "EV-PLATFORM"
+      ],
+      "permitted_observation_sources": [
+        "controlled-observation"
+      ],
+      "required_for_completeness": false,
+      "stale_blocks": false,
+      "status_if_contradictory": "CONTRADICTED",
+      "status_if_insufficient_provenance": "INCOMPLETE",
+      "status_if_missing": "COMPLETE_UNSIGNED"
+    },
+    {
+      "contradiction_blocks": true,
+      "environment_mismatch_blocks": true,
+      "field": "architecture",
+      "independent_observation_required": false,
+      "l4_required": false,
+      "may_remain_unknown": false,
+      "min_provenance": "CONTROLLED_OBSERVATION",
+      "permitted_m7_evidence_classes": [
+        "EV-ARCHITECTURE"
+      ],
+      "permitted_observation_sources": [
+        "controlled-observation"
+      ],
+      "required_for_completeness": true,
+      "stale_blocks": true,
+      "status_if_contradictory": "CONTRADICTED",
+      "status_if_insufficient_provenance": "INCOMPLETE",
+      "status_if_missing": "INCOMPLETE"
+    },
+    {
+      "contradiction_blocks": true,
+      "environment_mismatch_blocks": true,
+      "field": "channel",
+      "independent_observation_required": true,
+      "l4_required": true,
+      "may_remain_unknown": false,
+      "min_provenance": "CONTROLLED_OBSERVATION",
+      "permitted_m7_evidence_classes": [
+        "EV-CHANNEL"
+      ],
+      "permitted_observation_sources": [
+        "controlled-install-attestation",
+        "independent-observer"
+      ],
+      "required_for_completeness": true,
+      "stale_blocks": true,
+      "status_if_contradictory": "CONTRADICTED",
+      "status_if_insufficient_provenance": "INCOMPLETE",
+      "status_if_missing": "INCOMPLETE"
+    },
+    {
+      "contradiction_blocks": true,
+      "environment_mismatch_blocks": true,
+      "field": "runtime_facet",
+      "independent_observation_required": false,
+      "l4_required": false,
+      "may_remain_unknown": true,
+      "min_provenance": "LOCAL_OBSERVATION",
+      "permitted_m7_evidence_classes": [
+        "EV-TOOLCHAIN"
+      ],
+      "permitted_observation_sources": [
+        "controlled-observation"
+      ],
+      "required_for_completeness": false,
+      "stale_blocks": false,
+      "status_if_contradictory": "CONTRADICTED",
+      "status_if_insufficient_provenance": "INCOMPLETE",
+      "status_if_missing": "COMPLETE_UNSIGNED"
+    },
+    {
+      "contradiction_blocks": true,
+      "environment_mismatch_blocks": true,
+      "field": "binary_sha256",
+      "independent_observation_required": true,
+      "l4_required": true,
+      "may_remain_unknown": false,
+      "min_provenance": "CONTROLLED_OBSERVATION",
+      "permitted_m7_evidence_classes": [
+        "EV-BINARY-IDENTITY"
+      ],
+      "permitted_observation_sources": [
+        "controlled-binary-read",
+        "independent-observer"
+      ],
+      "required_for_completeness": true,
+      "stale_blocks": true,
+      "status_if_contradictory": "CONTRADICTED",
+      "status_if_insufficient_provenance": "INCOMPLETE",
+      "status_if_missing": "INCOMPLETE"
+    }
+  ],
+  "fixture_specs": [
+    {
+      "expected_attestation_state": "COMPLETE_UNSIGNED",
+      "id": "FX-01",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "complete valid identity evidence"
+    },
+    {
+      "expected_attestation_state": "INCOMPLETE",
+      "id": "FX-02",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "missing channel"
+    },
+    {
+      "expected_attestation_state": "INCOMPLETE",
+      "id": "FX-03",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "missing binary hash"
+    },
+    {
+      "expected_attestation_state": "INCOMPLETE",
+      "id": "FX-04",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "weak channel provenance"
+    },
+    {
+      "expected_attestation_state": "INCOMPLETE",
+      "id": "FX-05",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "weak binary provenance"
+    },
+    {
+      "expected_attestation_state": "CONTRADICTED",
+      "id": "FX-06",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "contradictory version"
+    },
+    {
+      "expected_attestation_state": "CONTRADICTED",
+      "id": "FX-07",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "contradictory binary"
+    },
+    {
+      "expected_attestation_state": "CONTRADICTED",
+      "id": "FX-08",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "contradictory channel"
+    },
+    {
+      "expected_attestation_state": "AMBIGUOUS",
+      "id": "FX-09",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "ambiguous installations"
+    },
+    {
+      "expected_attestation_state": "EXPIRED",
+      "id": "FX-10",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "stale evidence"
+    },
+    {
+      "expected_attestation_state": "REVOKED",
+      "id": "FX-11",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "revoked evidence"
+    },
+    {
+      "expected_attestation_state": "SUPERSEDED",
+      "id": "FX-12",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "superseded evidence"
+    },
+    {
+      "expected_attestation_state": "TAMPERED",
+      "id": "FX-13",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "tampered evidence"
+    },
+    {
+      "expected_attestation_state": "INCOMPLETE",
+      "id": "FX-14",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "environment mismatch"
+    },
+    {
+      "expected_attestation_state": "COMPLETE_UNSIGNED_BLOCKED_AT_M4",
+      "id": "FX-15",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "M9 L4 absent"
+    },
+    {
+      "expected_attestation_state": "COMPLETE_UNSIGNED_BLOCKED_AT_M4",
+      "id": "FX-16",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "M9 L4 stale"
+    },
+    {
+      "expected_attestation_state": "COMPLETE_UNSIGNED_BLOCKED_AT_M4",
+      "id": "FX-17",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "M9 L4 revoked"
+    },
+    {
+      "expected_attestation_state": "COMPLETE_UNSIGNED_BLOCKED_AT_M4",
+      "id": "FX-18",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "exact matrix-cell mismatch"
+    }
+  ],
+  "freshness_environment_rules": {
+    "copied_between_environments": "treated as environment mismatch => INCOMPLETE",
+    "environment_mismatch": "evidence environment_id != cert env => does not count => INCOMPLETE",
+    "expiration": "expires_at <= now => EXPIRED",
+    "future_dated": "observation_time/created_at in the future => rejected as invalid (field not OBSERVED) => INCOMPLETE",
+    "previous_attestation_hash": "chains attestations; a broken chain is rejected",
+    "replay": "freshness + previous_attestation_hash chain detect replay",
+    "revocation": "revocation_reference => REVOKED",
+    "stale_plus_fresh": "a stale observation for a REQUIRED field blocks (fail closed) even if a fresh one for another field exists",
+    "supersession": "supersession_reference => SUPERSEDED"
+  },
+  "future_test_specs": [
+    "evidence-to-field mapping (each of 8 fields)",
+    "provenance threshold enforcement (per field)",
+    "binary-binding authoritative/supporting/insufficient",
+    "channel-binding candidates + forbidden inference",
+    "L4 dependency (absent/stale/revoked/mismatch)",
+    "freshness (expired/future-dated)",
+    "environment binding (mismatch/copy)",
+    "contradiction handling (version/binary/channel/arch/OS)",
+    "multiple-installation ambiguity",
+    "hash-chain integrity (substitution/mismatch)",
+    "M4 gate behavior across the failure matrix",
+    "M13 exact-cell binding (no inheritance)",
+    "public/private boundary",
+    "secret exclusion",
+    "static no-execution/no-network/no-credential guarantees"
+  ],
+  "hash_binding_model": {
+    "algorithm": "sha256",
+    "canonical_serialization": "project canonical JSON (sorted keys, no insignificant whitespace) + sha256:<hex>",
+    "chain": [
+      "M7 evidence artifact hash",
+      "M7 normalized evidence hash",
+      "M19 observation evidence_hash",
+      "M19 attestation_hash",
+      "M4 certification evidence reference"
+    ],
+    "content_addressed": true,
+    "failure_modes": [
+      "missing evidence => BLOCKED",
+      "unexpected evidence => BLOCKED",
+      "evidence substitution => hash mismatch => BLOCKED",
+      "hash mismatch at any level => BLOCKED"
+    ]
+  },
+  "l4_relationship": {
+    "absent": "L4 absent => M4 gate BLOCKED (observations not independently trustworthy)",
+    "contradiction": "a contradicted L4 result blocks the M4 gate",
+    "current_real_env": "current real environment remains L0/UNVERIFIED and M8 remains EXECUTION_BLOCKED",
+    "environment_binding": "L4 verification must be for the SAME environment_id as the observations",
+    "environment_mismatch": "L4 for a different env does not apply => BLOCKED",
+    "fields_dependent": "authoritative channel + binary_sha256 depend on the cert environment being M9-L4 independently verified",
+    "freshness": "L4 must be verified within the evidence validity window",
+    "revoked": "L4 revoked => M4 gate BLOCKED",
+    "stale": "L4 stale => M4 gate BLOCKED"
+  },
+  "m4_consumption_gate": {
+    "complete_unsigned_is_not_certified": true,
+    "gate_id": "CG-ATT (conceptual; design only)",
+    "requires": [
+      "attestation == COMPLETE_UNSIGNED",
+      "all required-field provenance thresholds satisfied",
+      "no contradiction",
+      "no ambiguity",
+      "no expiration",
+      "no revocation",
+      "no supersession",
+      "not tampered",
+      "valid environment binding",
+      "valid evidence hash chain",
+      "exact M13 matrix-cell binding (non-revoked)",
+      "cert env M9-L4 verified",
+      "all required M4 certification gates satisfied",
+      "no unresolved safety-critical limitation",
+      "owner authorization where M4 requires it"
+    ],
+    "transition": [
+      "COMPLETE_UNSIGNED",
+      "M4 evaluation (CG-ATT + existing M4 gates)",
+      "certification decision (owner-reviewed)",
+      "M5 publication proposal (not applied)",
+      "M6 signing/governance (authorized signing)",
+      "immutable registry publication"
+    ]
+  },
+  "m4_failure_matrix": [
+    {
+      "attestation_state": "INCOMPLETE",
+      "case_id": "F-01",
+      "certification_consequence": "NOT_CERTIFIED",
+      "condition": "missing version",
+      "m4_gate_result": "BLOCKED",
+      "new_evidence_required": true,
+      "remediation_possible": true
+    },
+    {
+      "attestation_state": "INCOMPLETE",
+      "case_id": "F-02",
+      "certification_consequence": "NOT_CERTIFIED",
+      "condition": "missing channel",
+      "m4_gate_result": "BLOCKED",
+      "new_evidence_required": true,
+      "remediation_possible": true
+    },
+    {
+      "attestation_state": "INCOMPLETE",
+      "case_id": "F-03",
+      "certification_consequence": "NOT_CERTIFIED",
+      "condition": "missing binary hash",
+      "m4_gate_result": "BLOCKED",
+      "new_evidence_required": true,
+      "remediation_possible": true
+    },
+    {
+      "attestation_state": "INCOMPLETE",
+      "case_id": "F-04",
+      "certification_consequence": "NOT_CERTIFIED",
+      "condition": "weak channel provenance (< CONTROLLED)",
+      "m4_gate_result": "BLOCKED",
+      "new_evidence_required": true,
+      "remediation_possible": true
+    },
+    {
+      "attestation_state": "INCOMPLETE",
+      "case_id": "F-05",
+      "certification_consequence": "NOT_CERTIFIED",
+      "condition": "weak binary provenance (< CONTROLLED)",
+      "m4_gate_result": "BLOCKED",
+      "new_evidence_required": true,
+      "remediation_possible": true
+    },
+    {
+      "attestation_state": "CONTRADICTED",
+      "case_id": "F-06",
+      "certification_consequence": "NOT_CERTIFIED",
+      "condition": "contradictory version",
+      "m4_gate_result": "FAIL",
+      "new_evidence_required": true,
+      "remediation_possible": true
+    },
+    {
+      "attestation_state": "CONTRADICTED",
+      "case_id": "F-07",
+      "certification_consequence": "NOT_CERTIFIED",
+      "condition": "contradictory binary hash",
+      "m4_gate_result": "FAIL",
+      "new_evidence_required": true,
+      "remediation_possible": true
+    },
+    {
+      "attestation_state": "CONTRADICTED",
+      "case_id": "F-08",
+      "certification_consequence": "NOT_CERTIFIED",
+      "condition": "contradictory channel",
+      "m4_gate_result": "FAIL",
+      "new_evidence_required": true,
+      "remediation_possible": true
+    },
+    {
+      "attestation_state": "AMBIGUOUS",
+      "case_id": "F-09",
+      "certification_consequence": "NOT_CERTIFIED",
+      "condition": "ambiguous installations",
+      "m4_gate_result": "BLOCKED",
+      "new_evidence_required": true,
+      "remediation_possible": true
+    },
+    {
+      "attestation_state": "EXPIRED",
+      "case_id": "F-10",
+      "certification_consequence": "NOT_CERTIFIED",
+      "condition": "stale evidence",
+      "m4_gate_result": "BLOCKED",
+      "new_evidence_required": true,
+      "remediation_possible": true
+    },
+    {
+      "attestation_state": "REVOKED",
+      "case_id": "F-11",
+      "certification_consequence": "NOT_CERTIFIED",
+      "condition": "revoked evidence",
+      "m4_gate_result": "FAIL",
+      "new_evidence_required": true,
+      "remediation_possible": false
+    },
+    {
+      "attestation_state": "SUPERSEDED",
+      "case_id": "F-12",
+      "certification_consequence": "NOT_CERTIFIED",
+      "condition": "superseded attestation",
+      "m4_gate_result": "FAIL",
+      "new_evidence_required": true,
+      "remediation_possible": false
+    },
+    {
+      "attestation_state": "TAMPERED",
+      "case_id": "F-13",
+      "certification_consequence": "NOT_CERTIFIED",
+      "condition": "tampered attestation",
+      "m4_gate_result": "FAIL",
+      "new_evidence_required": true,
+      "remediation_possible": false
+    },
+    {
+      "attestation_state": "INCOMPLETE",
+      "case_id": "F-14",
+      "certification_consequence": "NOT_CERTIFIED",
+      "condition": "environment mismatch (evidence from wrong env)",
+      "m4_gate_result": "BLOCKED",
+      "new_evidence_required": true,
+      "remediation_possible": true
+    },
+    {
+      "attestation_state": "COMPLETE_UNSIGNED",
+      "case_id": "F-15",
+      "certification_consequence": "NOT_CERTIFIED",
+      "condition": "M9 L4 absent (cert env not independently isolated)",
+      "m4_gate_result": "BLOCKED",
+      "new_evidence_required": true,
+      "remediation_possible": true
+    },
+    {
+      "attestation_state": "COMPLETE_UNSIGNED",
+      "case_id": "F-16",
+      "certification_consequence": "NOT_CERTIFIED",
+      "condition": "M9 L4 stale",
+      "m4_gate_result": "BLOCKED",
+      "new_evidence_required": true,
+      "remediation_possible": true
+    },
+    {
+      "attestation_state": "COMPLETE_UNSIGNED",
+      "case_id": "F-17",
+      "certification_consequence": "NOT_CERTIFIED",
+      "condition": "M9 L4 revoked",
+      "m4_gate_result": "BLOCKED",
+      "new_evidence_required": true,
+      "remediation_possible": true
+    },
+    {
+      "attestation_state": "COMPLETE_UNSIGNED",
+      "case_id": "F-18",
+      "certification_consequence": "NOT_CERTIFIED",
+      "condition": "M13 matrix cell missing",
+      "m4_gate_result": "FAIL",
+      "new_evidence_required": false,
+      "remediation_possible": true
+    },
+    {
+      "attestation_state": "COMPLETE_UNSIGNED",
+      "case_id": "F-19",
+      "certification_consequence": "NOT_CERTIFIED",
+      "condition": "matrix cell already revoked",
+      "m4_gate_result": "BLOCKED",
+      "new_evidence_required": false,
+      "remediation_possible": false
+    },
+    {
+      "attestation_state": "COMPLETE_UNSIGNED",
+      "case_id": "F-20",
+      "certification_consequence": "NOT_CERTIFIED",
+      "condition": "safety-critical capability unresolved",
+      "m4_gate_result": "FAIL",
+      "new_evidence_required": true,
+      "remediation_possible": true
+    },
+    {
+      "attestation_state": "COMPLETE_UNSIGNED",
+      "case_id": "F-21",
+      "certification_consequence": "NOT_CERTIFIED",
+      "condition": "M8 execution evidence unavailable where required",
+      "m4_gate_result": "BLOCKED",
+      "new_evidence_required": true,
+      "remediation_possible": true
+    }
+  ],
+  "multiple_installation_model": {
+    "ambiguity": "if more than one installation is observed => AMBIGUOUS (blocked)",
+    "forbidden": "no PATH guessing, no default-install selection, no silent selection, no version-only, no filename-only",
+    "identification": "M7 evidence identifies the selected installation via the environment provisioning record (no credentials exposed)",
+    "selection": "the certification environment provisions exactly ONE intended installation; installation_ref names it"
+  },
+  "objective": "Define how an M7 evidence package becomes the authoritative observation source per M19 identity field, how provenance/freshness/contradictions propagate into the attestation, and the exact M4 gate that consumes a COMPLETE_UNSIGNED attestation — design only; no execution/certification/signing.",
+  "observer_trust_boundary": [
+    {
+      "class": "local observer",
+      "sufficient_for": [
+        "product (self)",
+        "os_version",
+        "runtime_facet (LOCAL)"
+      ]
+    },
+    {
+      "class": "controlled observer",
+      "sufficient_for": [
+        "version",
+        "operating_system",
+        "architecture",
+        "channel (min)",
+        "binary_sha256 (min)"
+      ]
+    },
+    {
+      "class": "independent observer (M9 L4)",
+      "sufficient_for": [
+        "channel (authoritative)",
+        "binary_sha256 (authoritative)"
+      ]
+    },
+    {
+      "class": "certification environment",
+      "sufficient_for": [
+        "environment binding",
+        "installation_ref"
+      ]
+    },
+    {
+      "class": "M4 owner review",
+      "sufficient_for": [
+        "certification decision authorization"
+      ]
+    },
+    {
+      "class": "M6 signing authority",
+      "sufficient_for": [
+        "authoritative publication signature (M20 signs nothing)"
+      ]
+    }
+  ],
+  "open_design_gaps": [
+    {
+      "closing_evidence_required": "a machine-readable controlled-install attestation or an independent observer record of the installed channel; none proven",
+      "id": "GAP-01",
+      "question": "What concrete direct channel evidence source can satisfy >= CONTROLLED_OBSERVATION for Claude Code?",
+      "status": "OPEN_DESIGN_GAP"
+    },
+    {
+      "closing_evidence_required": "exact-executable byte hash captured in an L4-isolated cert env of the certified installation; embedded version resource unproven (M18)",
+      "id": "GAP-02",
+      "question": "What concrete binary-binding mechanism proves the exact certified executable without weak metadata?",
+      "status": "OPEN_DESIGN_GAP"
+    },
+    {
+      "closing_evidence_required": "a specified signature payload over {attestation_hash, publication proposal} and a binding record; undefined at M6 detail level",
+      "id": "GAP-03",
+      "question": "How exactly does M6 signing bind the attestation to the eventual publication record?",
+      "status": "OPEN_DESIGN_GAP"
+    },
+    {
+      "closing_evidence_required": "signing-key generation/rotation/revocation/storage lifecycle; out of scope for M0–M20",
+      "id": "GAP-04",
+      "question": "What key-management lifecycle is required at the M6 boundary?",
+      "status": "OPEN_DESIGN_GAP"
+    }
+  ],
+  "provenance_rules": {
+    "conflicting_values": "any divergent value contradicts REGARDLESS of strength (fail closed) => CONTRADICTED; a weak divergent observation DOES invalidate a stronger one",
+    "downgrade": "strength NEVER decreases silently; a weaker observation cannot lower an established value",
+    "environment_participation": "environment_id must match the certification environment; mismatched-env evidence does not count",
+    "evidence_hash_binding": "each observation carries an evidence_hash; the attestation binds them via evidence_hashes and attestation_hash",
+    "min_per_field": "channel + binary_sha256 require >= CONTROLLED_OBSERVATION; version/OS/architecture >= CONTROLLED_OBSERVATION; os_version/runtime >= LOCAL_OBSERVATION; product >= SELF_REPORTED",
+    "multiple_agreeing": "strongest observation wins when all observed values are identical",
+    "ordering": "SELF_REPORTED < LOCAL_OBSERVATION < CONTROLLED_OBSERVATION < INDEPENDENT_OBSERVATION < CERTIFICATION_ATTESTATION",
+    "reuse_across_attempts": "observations are NOT reusable across attempts unless fresh (expires_at) AND same environment_id",
+    "upgrade": "strength MAY increase when a stronger observation AGREES on the same value"
+  },
+  "public_private_boundary": {
+    "certification_system": [
+      "consume controlled evidence",
+      "consume independently verified evidence",
+      "bind exact identity",
+      "produce COMPLETE_UNSIGNED attestation",
+      "feed M4 evaluation"
+    ],
+    "public_product": [
+      "observe safe local identity",
+      "accept explicit identity",
+      "remain UNKNOWN",
+      "resolve compatibility",
+      "fail closed when certification is absent"
+    ],
+    "signing_governance": [
+      "M6 responsibility",
+      "M20 does not sign",
+      "M20 does not manage keys"
+    ]
+  },
+  "schema": "dkskill.evidence_attestation_binding_spec/1",
+  "security_review": [
+    {
+      "attack": "evidence substitution",
+      "certification_blocked": true,
+      "failure_state": "hash mismatch => BLOCKED",
+      "required_control": "content-addressed hash chain (artifact→normalized→observation→attestation)"
+    },
+    {
+      "attack": "evidence replay",
+      "certification_blocked": true,
+      "failure_state": "stale/replay => EXPIRED/BLOCKED",
+      "required_control": "freshness (expires_at) + environment_id binding + previous_attestation_hash"
+    },
+    {
+      "attack": "stale evidence reuse",
+      "certification_blocked": true,
+      "failure_state": "EXPIRED",
+      "required_control": "per-attempt freshness; no silent refresh"
+    },
+    {
+      "attack": "cross-environment replay",
+      "certification_blocked": true,
+      "failure_state": "environment mismatch => INCOMPLETE/BLOCKED",
+      "required_control": "environment_id must match the cert env"
+    },
+    {
+      "attack": "hash substitution",
+      "certification_blocked": true,
+      "failure_state": "hash mismatch => BLOCKED",
+      "required_control": "canonical serialization + sha256 at every level"
+    },
+    {
+      "attack": "observer impersonation",
+      "certification_blocked": true,
+      "failure_state": "insufficient provenance => INCOMPLETE",
+      "required_control": "INDEPENDENT_OBSERVATION identity bound to the cert env"
+    },
+    {
+      "attack": "observer compromise",
+      "certification_blocked": true,
+      "failure_state": "contradiction/integrity failure => BLOCKED",
+      "required_control": "trust-plane separation; L4 independent isolation"
+    },
+    {
+      "attack": "certification-environment compromise",
+      "certification_blocked": true,
+      "failure_state": "L4 absent => BLOCKED",
+      "required_control": "M9 L4 independent verification of the env"
+    },
+    {
+      "attack": "installation confusion",
+      "certification_blocked": true,
+      "failure_state": "AMBIGUOUS",
+      "required_control": "exact installation_ref; no PATH/default/silent selection"
+    },
+    {
+      "attack": "binary replacement after observation",
+      "certification_blocked": true,
+      "failure_state": "contradiction => CONTRADICTED",
+      "required_control": "binary hash freshness + env binding + re-observation"
+    },
+    {
+      "attack": "channel switching after observation",
+      "certification_blocked": true,
+      "failure_state": "contradiction => CONTRADICTED",
+      "required_control": "channel freshness + controlled/independent re-observation"
+    },
+    {
+      "attack": "metadata substitution",
+      "certification_blocked": true,
+      "failure_state": "INSUFFICIENT_PROVENANCE => INCOMPLETE",
+      "required_control": "min provenance (channel/binary >= CONTROLLED); no weak-source acceptance"
+    },
+    {
+      "attack": "malicious registry reference",
+      "certification_blocked": true,
+      "failure_state": "unsigned/unauthorized => rejected",
+      "required_control": "M6 signed, immutable, hash-chained registry"
+    },
+    {
+      "attack": "forged provenance",
+      "certification_blocked": true,
+      "failure_state": "unverifiable provenance => BLOCKED",
+      "required_control": "evidence hashes + independent observer identity"
+    }
+  ],
+  "spec_hash": "sha256:ef882670f1e70f84fdaa5e7492e7222d5d61fc0fecfcdda0496d4ac4881ea94e",
+  "version": 1
+}

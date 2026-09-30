@@ -1,0 +1,14 @@
+{
+  "achieved_level": "L0",
+  "audit_id": "audit-verif-ni-req-current-real",
+  "environment_id": "PTPL-DK-BENCH-WIN-01",
+  "evidence_hashes": [],
+  "network_isolation": "VERIFIED",
+  "previous_record_hash": null,
+  "record_hash": "sha256:b63de275f0bf05074f13498c5e10b4f5a187c1ed39cdab2d37f18aaeba65176b",
+  "schema": "dkskill.network_isolation_audit/1",
+  "state": "VERIFIED",
+  "timestamp": "2026-09-29T00:00:00Z",
+  "verification_id": "verif-ni-req-current-real",
+  "version": 1
+}

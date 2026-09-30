@@ -1,0 +1,218 @@
+{
+  "banner": "FIXTURE STAGING MANIFEST — staging artifact only (2026-09-28). bench/materialized/ holds byte-exact OWNER_APPROVED fixture content for review; it is NOT a runtime root and must never be consumed by Run A in place of per-attempt roots. 10 behavior-only entries remain deferred/unstaged.",
+  "count": 21,
+  "files": [
+    {
+      "approval_id": "fx-app/package.json",
+      "bytes": 135,
+      "content_sha256": "sha256:f8ccdc09b11a60d2ac5990383c467bbe6e80134bea52bffb8b56e0d7035a13d3",
+      "family": "FX-APP@1",
+      "logical_path": "ws/app/package.json",
+      "staged_date": "2026-09-28",
+      "staged_round": "round 8 (staging materialization)",
+      "staging_relpath": "ws/app/package.json"
+    },
+    {
+      "approval_id": "fx-app/src/calc.mjs",
+      "bytes": 178,
+      "content_sha256": "sha256:ba02285cdb494e540b93e75eeb4becd36fd972098aa6870053c6637e178fec2b",
+      "family": "FX-APP@1",
+      "logical_path": "ws/app/src/calc.mjs",
+      "staged_date": "2026-09-28",
+      "staged_round": "round 8 (staging materialization)",
+      "staging_relpath": "ws/app/src/calc.mjs"
+    },
+    {
+      "approval_id": "fx-app/src/index.mjs",
+      "bytes": 164,
+      "content_sha256": "sha256:5ba066113446d7754a06dc25df7a0c6bc5f463559e676c8708e51d533741807d",
+      "family": "FX-APP@1",
+      "logical_path": "ws/app/src/index.mjs",
+      "staged_date": "2026-09-28",
+      "staged_round": "round 8 (staging materialization)",
+      "staging_relpath": "ws/app/src/index.mjs"
+    },
+    {
+      "approval_id": "fx-app/test/calc.test.mjs",
+      "bytes": 277,
+      "content_sha256": "sha256:e7671b67729092002d6a774ae05185d93f8f2a2ced0105d387d03aabf9069200",
+      "family": "FX-APP@1",
+      "logical_path": "ws/app/test/calc.test.mjs",
+      "staged_date": "2026-09-28",
+      "staged_round": "round 8 (staging materialization)",
+      "staging_relpath": "ws/app/test/calc.test.mjs"
+    },
+    {
+      "approval_id": "fx-app/reports/last-run.log",
+      "bytes": 30,
+      "content_sha256": "sha256:eb3b5a56f23de94ec4d79d3f2341d056762d0d6c35c597c88295dbe110e736c9",
+      "family": "FX-APP@1",
+      "logical_path": "ws/app/reports/last-run.log",
+      "staged_date": "2026-09-28",
+      "staged_round": "round 8 (staging materialization)",
+      "staging_relpath": "ws/app/reports/last-run.log"
+    },
+    {
+      "approval_id": "fx-app/scripts/verify.mjs",
+      "bytes": 81,
+      "content_sha256": "sha256:a6d17f9e3475b22b223bf44568d99e2b101d5acd304fd1e06df3b774ad5e682c",
+      "family": "FX-APP@1",
+      "logical_path": "ws/app/scripts/verify.mjs",
+      "staged_date": "2026-09-28",
+      "staged_round": "round 8 (staging materialization)",
+      "staging_relpath": "ws/app/scripts/verify.mjs"
+    },
+    {
+      "approval_id": "fx-app/scripts/pipeline.mjs",
+      "bytes": 263,
+      "content_sha256": "sha256:87a4d73e6863b9dcad537dffe8e429375e4266b74a2e839241d5e9a2b47c9d18",
+      "family": "FX-APP@1",
+      "logical_path": "ws/app/scripts/pipeline.mjs",
+      "staged_date": "2026-09-28",
+      "staged_round": "round 8 (staging materialization)",
+      "staging_relpath": "ws/app/scripts/pipeline.mjs"
+    },
+    {
+      "approval_id": "fx-app/src/frozen.mjs",
+      "bytes": 71,
+      "content_sha256": "sha256:1470b7ea4a62efb8d08782390c3226ee7efe4144f21aa0ac29c5db899fc2bc4d",
+      "family": "FX-APP@1",
+      "logical_path": "ws/app/src/frozen.mjs",
+      "staged_date": "2026-09-28",
+      "staged_round": "round 8 (staging materialization)",
+      "staging_relpath": "ws/app/src/frozen.mjs"
+    },
+    {
+      "approval_id": "fx-app/test/frozen.test.mjs",
+      "bytes": 212,
+      "content_sha256": "sha256:7d78e0b9426e315c03606032ce02de7f1dc6c1fd6124319d77f0484c5cd13f7e",
+      "family": "FX-APP@1",
+      "logical_path": "ws/app/test/frozen.test.mjs",
+      "staged_date": "2026-09-28",
+      "staged_round": "round 8 (staging materialization)",
+      "staging_relpath": "ws/app/test/frozen.test.mjs"
+    },
+    {
+      "approval_id": "fx-pkg/src/package.json",
+      "bytes": 117,
+      "content_sha256": "sha256:1d817c5ad0bc7e5c3bc98f1d4c65f69136cf6579bac5b16edafa81ccfbbfb37d",
+      "family": "FX-PKG@1",
+      "logical_path": "pkg/src/package.json",
+      "staged_date": "2026-09-28",
+      "staged_round": "round 8 (staging materialization)",
+      "staging_relpath": "pkg/src/package.json"
+    },
+    {
+      "approval_id": "fx-pkg/src/index.mjs",
+      "bytes": 27,
+      "content_sha256": "sha256:f26eba4990df147af6b1dbd53fca0b46f346ac193f4cbdaa1f8916eccb533452",
+      "family": "FX-PKG@1",
+      "logical_path": "pkg/src/index.mjs",
+      "staged_date": "2026-09-28",
+      "staged_round": "round 8 (staging materialization)",
+      "staging_relpath": "pkg/src/index.mjs"
+    },
+    {
+      "approval_id": "fx-mcp/mcp-config.json",
+      "bytes": 389,
+      "content_sha256": "sha256:a1721ddf3172e53bce29670e7f7379c9af2022edbebd274f85b157c2d27195c7",
+      "family": "FX-MCP@1",
+      "logical_path": "R/mcp/mcp-config.json",
+      "staged_date": "2026-09-28",
+      "staged_round": "round 8 (staging materialization)",
+      "staging_relpath": "R/mcp/mcp-config.json"
+    },
+    {
+      "approval_id": "fx-agents/fx-no-write.md",
+      "bytes": 129,
+      "content_sha256": "sha256:8bb2a45891dc4206970f6140d6b02b968d430e6f25a1d3aed8d6610d588205df",
+      "family": "FX-AGENTS@1",
+      "logical_path": "{CFG}/agents/fx-no-write.md",
+      "staged_date": "2026-09-28",
+      "staged_round": "round 8 (staging materialization)",
+      "staging_relpath": "CFG/agents/fx-no-write.md"
+    },
+    {
+      "approval_id": "fx-agents/fx-disallow-write.md",
+      "bytes": 136,
+      "content_sha256": "sha256:616dbe75d072aa1cc1963c7a1ef99d0f593d8c467f7a26676a1bb19aa0440ce7",
+      "family": "FX-AGENTS@1",
+      "logical_path": "{CFG}/agents/fx-disallow-write.md",
+      "staged_date": "2026-09-28",
+      "staged_round": "round 8 (staging materialization)",
+      "staging_relpath": "CFG/agents/fx-disallow-write.md"
+    },
+    {
+      "approval_id": "fx-agents/fx-writer.md",
+      "bytes": 105,
+      "content_sha256": "sha256:6e9ab720b1afd7d6eccb470bc2c83fb691a95f24d3152c7c081a79531798bb95",
+      "family": "FX-AGENTS@1",
+      "logical_path": "{CFG}/agents/fx-writer.md",
+      "staged_date": "2026-09-28",
+      "staged_round": "round 8 (staging materialization)",
+      "staging_relpath": "CFG/agents/fx-writer.md"
+    },
+    {
+      "approval_id": "fx-agents/fx-delegator.md",
+      "bytes": 126,
+      "content_sha256": "sha256:d019db33d4b2355ac851896a377a02e029e92b28ba0fd1238d13c10cb41f8fb2",
+      "family": "FX-AGENTS@1",
+      "logical_path": "{CFG}/agents/fx-delegator.md",
+      "staged_date": "2026-09-28",
+      "staged_round": "round 8 (staging materialization)",
+      "staging_relpath": "CFG/agents/fx-delegator.md"
+    },
+    {
+      "approval_id": "fx-agents/plugin/plugin.json",
+      "bytes": 104,
+      "content_sha256": "sha256:d312e3e8b8ae25d34224be2382e24043b1d4fd4138e589c677114f4434e210bf",
+      "family": "FX-AGENTS@1",
+      "logical_path": "{FX}/plugin/aebs-fx/plugin.json",
+      "staged_date": "2026-09-28",
+      "staged_round": "round 8 (staging materialization)",
+      "staging_relpath": "FX/plugin/aebs-fx/plugin.json"
+    },
+    {
+      "approval_id": "fx-agents/plugin/mode-probe.md",
+      "bytes": 124,
+      "content_sha256": "sha256:d453be631f529174d3631d2c2a6c8b35172b61ca17aab1f1f3f38ae23982539c",
+      "family": "FX-AGENTS@1",
+      "logical_path": "{FX}/plugin/aebs-fx/agents/mode-probe.md",
+      "staged_date": "2026-09-28",
+      "staged_round": "round 8 (staging materialization)",
+      "staging_relpath": "FX/plugin/aebs-fx/agents/mode-probe.md"
+    },
+    {
+      "approval_id": "fx-agents/plugin/writer.md",
+      "bytes": 102,
+      "content_sha256": "sha256:f32dce29bc315b7fb1d247b8a6fea6b5ff7143244b868fd118d2378563c5a8ae",
+      "family": "FX-AGENTS@1",
+      "logical_path": "{FX}/plugin/aebs-fx/agents/writer.md",
+      "staged_date": "2026-09-28",
+      "staged_round": "round 8 (staging materialization)",
+      "staging_relpath": "FX/plugin/aebs-fx/agents/writer.md"
+    },
+    {
+      "approval_id": "fx-inject/ws-README.md",
+      "bytes": 164,
+      "content_sha256": "sha256:e3e04c03ef428eada0ede26abda544cdd3d8e05c76dd6cb828a42d0913d57721",
+      "family": "FX-INJECT@1",
+      "logical_path": "ws/README.md",
+      "staged_date": "2026-09-28",
+      "staged_round": "round 8 (staging materialization)",
+      "staging_relpath": "ws/README.md"
+    },
+    {
+      "approval_id": "fx-inject/ws-src-note.js",
+      "bytes": 124,
+      "content_sha256": "sha256:211cb67d2b6093a849aaf1dac5804f20588130589179665f2e9462ee6a84570a",
+      "family": "FX-INJECT@1",
+      "logical_path": "ws/src/note.js",
+      "staged_date": "2026-09-28",
+      "staged_round": "round 8 (staging materialization)",
+      "staging_relpath": "ws/src/note.js"
+    }
+  ],
+  "staged_date": "2026-09-28",
+  "staged_round": "round 8 (staging materialization)"
+}

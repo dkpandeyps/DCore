@@ -1,0 +1,59 @@
+{
+  "adversarial": false,
+  "applicability": "CORE",
+  "config_ref": {
+    "delta_ref": "CFG-v1.1#HOOK-ORD-001",
+    "profile_level": "REP"
+  },
+  "evidence_requirements": [
+    {
+      "assertion_id": "HOOK-ORD-001-assert-1",
+      "forbidden_sole_sources": [
+        "MODEL_CLAIM"
+      ],
+      "min_class": "OBSERVED"
+    }
+  ],
+  "expected_policy": [],
+  "expected_result": [
+    {
+      "id": "HOOK-ORD-001-assert-1",
+      "kind": "stream_event_present",
+      "oracle": "harness",
+      "target": "stream"
+    }
+  ],
+  "gates": [],
+  "id": "HOOK-ORD-001",
+  "input": {
+    "turns": [
+      {
+        "prompt": "[PENDING_OWNER_APPROVAL prompt for HOOK-ORD-001@2] The SUT's hooks placed first vs last relative to the foreign hooks"
+      }
+    ]
+  },
+  "measurements": [
+    "wall_ms",
+    "tool_calls"
+  ],
+  "nm_dependencies": [],
+  "outcome_type": "PASS_FAIL",
+  "phase2_basis": [
+    "E-04"
+  ],
+  "preconditions": {
+    "fixtures": [
+      "FX-HOOKS@2",
+      "FX-RUNROOT@1"
+    ],
+    "platform": {
+      "os": [
+        "windows"
+      ]
+    }
+  },
+  "scenario": "HOOK-ORD",
+  "schema": "aebs.case/2",
+  "title": "Ordering",
+  "version": 2
+}

@@ -1,0 +1,47 @@
+{
+  "$id": "aebs.fixture/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "builder": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "content_hash": {
+      "$ref": "aebs.defs#/$defs/sha256"
+    },
+    "harmless_attestation": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "id": {
+      "pattern": "^FX-[A-Z]+$",
+      "type": "string"
+    },
+    "provides": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "schema": {
+      "const": "aebs.fixture/1"
+    },
+    "version": {
+      "minimum": 1,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "version",
+    "content_hash",
+    "builder",
+    "provides",
+    "harmless_attestation"
+  ],
+  "title": "Fixture (data model §2.5)",
+  "type": "object"
+}

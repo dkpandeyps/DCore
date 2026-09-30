@@ -1,0 +1,211 @@
+{
+  "profile": {
+    "architecture": "x64",
+    "artifact_hash": "sha256:2ccf58cb27af201f60fe5627b1fec77ccb180eb8ca30ef01813cfd17d6db24fc",
+    "attribution_evidence_ref": null,
+    "binary_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+    "capability_evidence_refs": [],
+    "certification_environment_id": "CERT-ENV-DK-01",
+    "certification_result_ref": "run_cert_283_sample",
+    "certification_timestamp": "2026-09-29T00:00:00Z",
+    "channel": "native",
+    "claude_code_version": "2.1.283",
+    "compatibility_profile_ref": "cc-2.1.283-win32-x64-native@1",
+    "evidence_chain_head": "sha256:27299941f93dce465609faba137b58d4af588ca4dd652994c5d3029991b878df",
+    "facet_evidence_refs": [],
+    "host_identity": {
+      "architecture": "x64",
+      "binary_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+      "channel": "native",
+      "executable_source": null,
+      "platform": "win32",
+      "product": "claude-code",
+      "version": "2.1.283"
+    },
+    "issuer": null,
+    "lifecycle_state": "NOT_CERTIFIED",
+    "owner_review_ref": null,
+    "platform": "win32",
+    "previous_artifact_hash": null,
+    "profile_id": "certprofile-cc-2.1.283-win32-x64-native@1@candidate",
+    "publication_status": "DRAFT",
+    "revocation": null,
+    "schema": "dkskill.certification_profile/1",
+    "signature_status": "SIGNATURE_MISSING",
+    "supersedes": null,
+    "synthetic_test_only": false,
+    "version": 1
+  },
+  "proposal": {
+    "applies_to_registry": false,
+    "attribution_ref": null,
+    "capability_refs": [],
+    "created_at": "2026-09-29T00:00:00Z",
+    "evidence_chain_head": "sha256:27299941f93dce465609faba137b58d4af588ca4dd652994c5d3029991b878df",
+    "facet_refs": [],
+    "operation": "UPDATE_STATUS",
+    "owner_approval_ref": null,
+    "proposal_hash": "sha256:3561633a63c7def2ca7580e3e4ffb38798419702c468dafeb6288b9782869e7a",
+    "proposal_id": "proposal-certprofile-cc-2.1.283-win32-x64-native@1@candidate",
+    "publication_state": "DRAFT",
+    "revokes": null,
+    "schema": "dkskill.compatibility_registry_update_proposal/1",
+    "source_certification_result_id": "run_cert_283_sample",
+    "source_profile_id": "certprofile-cc-2.1.283-win32-x64-native@1@candidate",
+    "supersedes": null,
+    "target_identity": {
+      "architecture": "x64",
+      "binary_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+      "channel": "native",
+      "platform": "win32",
+      "product": "claude-code",
+      "version": "2.1.283"
+    },
+    "version": 1
+  },
+  "publication": {
+    "eligible": false,
+    "gates": [
+      {
+        "gate_id": "PG-01",
+        "name": "exact host identity",
+        "reasons": [
+          "identity_complete=true"
+        ],
+        "result": "PASS"
+      },
+      {
+        "gate_id": "PG-02",
+        "name": "exact compatibility-profile reference",
+        "reasons": [
+          "ref=cc-2.1.283-win32-x64-native@1"
+        ],
+        "result": "PASS"
+      },
+      {
+        "gate_id": "PG-03",
+        "name": "exact Claude Code version",
+        "reasons": [
+          "version=2.1.283"
+        ],
+        "result": "PASS"
+      },
+      {
+        "gate_id": "PG-04",
+        "name": "exact binary identity",
+        "reasons": [
+          "sha256=present"
+        ],
+        "result": "PASS"
+      },
+      {
+        "gate_id": "PG-05",
+        "name": "platform/architecture/channel identity",
+        "reasons": [
+          "win32/x64/native"
+        ],
+        "result": "PASS"
+      },
+      {
+        "gate_id": "PG-06",
+        "name": "M4 certification state",
+        "reasons": [
+          "m4_decision=NOT_CERTIFIED"
+        ],
+        "result": "FAIL"
+      },
+      {
+        "gate_id": "PG-07",
+        "name": "all mandatory M4 gates passed",
+        "reasons": [
+          "CG-04:BLOCKED",
+          "CG-05:BLOCKED",
+          "CG-06:BLOCKED",
+          "CG-07:BLOCKED",
+          "CG-08:BLOCKED",
+          "CG-09:NOT_RUN"
+        ],
+        "result": "FAIL"
+      },
+      {
+        "gate_id": "PG-08",
+        "name": "evidence-chain integrity",
+        "reasons": [
+          "records=1"
+        ],
+        "result": "PASS"
+      },
+      {
+        "gate_id": "PG-09",
+        "name": "no required evidence missing",
+        "reasons": [
+          "chain_head=present",
+          "m4_not_run=true"
+        ],
+        "result": "BLOCKED"
+      },
+      {
+        "gate_id": "PG-10",
+        "name": "no unresolved safety-critical limitation",
+        "reasons": [
+          "CG-05=BLOCKED"
+        ],
+        "result": "BLOCKED"
+      },
+      {
+        "gate_id": "PG-11",
+        "name": "owner approval",
+        "reasons": [
+          "owner=ABSENT"
+        ],
+        "result": "NOT_RUN"
+      },
+      {
+        "gate_id": "PG-12",
+        "name": "certification environment validity",
+        "reasons": [
+          "env=CERT-ENV-DK-01"
+        ],
+        "result": "PASS"
+      },
+      {
+        "gate_id": "PG-13",
+        "name": "no synthetic-test-only publication",
+        "reasons": [
+          "synthetic=false"
+        ],
+        "result": "PASS"
+      },
+      {
+        "gate_id": "PG-14",
+        "name": "publication authorization",
+        "reasons": [
+          "authorized=false",
+          "signature=SIGNATURE_MISSING",
+          "issuer_synthetic=none"
+        ],
+        "result": "NOT_RUN"
+      },
+      {
+        "gate_id": "PG-15",
+        "name": "supersession/revocation consistency",
+        "reasons": [
+          "revoked=false"
+        ],
+        "result": "PASS"
+      }
+    ],
+    "reason_codes": [
+      "PG-06:FAIL",
+      "PG-07:FAIL",
+      "PG-09:BLOCKED",
+      "PG-10:BLOCKED",
+      "PG-11:NOT_RUN",
+      "PG-14:NOT_RUN"
+    ],
+    "state": "DRAFT"
+  },
+  "schema": "dkskill.certification_publication/1",
+  "synthetic_test_only": false,
+  "version": 1
+}

@@ -1,0 +1,231 @@
+{
+  "achieved_level": "L0",
+  "audit_hash": "sha256:c1817e7a23d1c734221e57cd6c69680ed07574a1f3ff4841a348815dfa51c178",
+  "collection_id": "col-col-req-real",
+  "collection_mode": "READ_ONLY",
+  "contradictions": [],
+  "environment_id": "PTPL-DK-BENCH-WIN-01",
+  "evidence": [
+    {
+      "applicable": true,
+      "evidence_id": "evi_PROCNET",
+      "freshness": "FRESH",
+      "in_scope": false,
+      "normalized_hash": "sha256:1fdfd65d24eef541bbf3f6605d70967c324cc1af877ede3417c7e64c08caba08",
+      "observation": {
+        "collection_method": "read-only:PROCNET",
+        "environment_id": "PTPL-DK-BENCH-WIN-01",
+        "evidence_class": "HOST_OBSERVATION",
+        "host_id": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+        "limitations": [
+          "host self-inspection is not independent verification"
+        ],
+        "mechanism": "PROCESS_NETWORK_ASSOCIATION",
+        "normalized": "PROCESS_NETWORK_ASSOCIATION: 1 lines; head=SYNTHETIC_TEST_ONLY PROCESS_NETWORK_ASSOCIATION output",
+        "observation_id": "obs_PROCNET",
+        "schema": "dkskill.network_isolation_collection_observation/1",
+        "scope": "PROCESS_ONLY",
+        "signal": "NEUTRAL",
+        "source": "PROCNET",
+        "source_type": "OBSERVATIONAL",
+        "status": "OBSERVED",
+        "timestamp": "2026-09-29T00:00:00Z"
+      },
+      "raw_hash": "sha256:52377819fbf730c850e0d92bd751ff963f665c91aaebbaf008a3bd2d0d210344",
+      "redaction_applied": false,
+      "schema": "dkskill.network_isolation_collection_evidence/1"
+    }
+  ],
+  "evidence_hashes": [
+    "sha256:1fdfd65d24eef541bbf3f6605d70967c324cc1af877ede3417c7e64c08caba08"
+  ],
+  "host_identity": {
+    "architecture": "x64",
+    "binary_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+    "channel": "native",
+    "executable_source": "native",
+    "platform": "win32",
+    "product": "claude-code",
+    "version": "2.1.283"
+  },
+  "independence_satisfied": false,
+  "limitations": [
+    "No L4 independent verification: host-level network isolation remains UNVERIFIED. Collection observes configuration/host state only."
+  ],
+  "mechanisms": [
+    {
+      "mechanism": "WINDOWS_FIREWALL_STATE",
+      "note": "not inspected / unavailable",
+      "status": "UNKNOWN"
+    },
+    {
+      "mechanism": "FIREWALL_PROFILES",
+      "note": "not inspected / unavailable",
+      "status": "UNKNOWN"
+    },
+    {
+      "mechanism": "EFFECTIVE_FIREWALL_RULES",
+      "note": "not inspected / unavailable",
+      "status": "UNKNOWN"
+    },
+    {
+      "mechanism": "NETWORK_ADAPTER_STATE",
+      "note": "not inspected / unavailable",
+      "status": "UNKNOWN"
+    },
+    {
+      "mechanism": "ROUTING_STATE",
+      "note": "not inspected / unavailable",
+      "status": "UNKNOWN"
+    },
+    {
+      "mechanism": "ACTIVE_CONNECTIONS",
+      "note": "not inspected / unavailable",
+      "status": "UNKNOWN"
+    },
+    {
+      "mechanism": "DNS_CONFIG",
+      "note": "not inspected / unavailable",
+      "status": "UNKNOWN"
+    },
+    {
+      "mechanism": "PROXY_CONFIG",
+      "note": "not inspected / unavailable",
+      "status": "UNKNOWN"
+    },
+    {
+      "mechanism": "PROCESS_NETWORK_ASSOCIATION",
+      "note": "HOST_OBSERVATION",
+      "status": "OBSERVED"
+    },
+    {
+      "mechanism": "OS_NETWORK_POLICY",
+      "note": "not inspected / unavailable",
+      "status": "UNKNOWN"
+    },
+    {
+      "mechanism": "ISOLATED_ENV_CONTROLS",
+      "note": "not inspected / unavailable",
+      "status": "UNKNOWN"
+    }
+  ],
+  "network_isolation": "UNVERIFIED",
+  "observations": [
+    {
+      "collection_method": "read-only:PROCNET",
+      "environment_id": "PTPL-DK-BENCH-WIN-01",
+      "evidence_class": "HOST_OBSERVATION",
+      "host_id": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+      "limitations": [
+        "host self-inspection is not independent verification"
+      ],
+      "mechanism": "PROCESS_NETWORK_ASSOCIATION",
+      "normalized": "PROCESS_NETWORK_ASSOCIATION: 1 lines; head=SYNTHETIC_TEST_ONLY PROCESS_NETWORK_ASSOCIATION output",
+      "observation_id": "obs_PROCNET",
+      "schema": "dkskill.network_isolation_collection_observation/1",
+      "scope": "PROCESS_ONLY",
+      "signal": "NEUTRAL",
+      "source": "PROCNET",
+      "source_type": "OBSERVATIONAL",
+      "status": "OBSERVED",
+      "timestamp": "2026-09-29T00:00:00Z"
+    }
+  ],
+  "performed_real_inspection": false,
+  "proven_scope": null,
+  "reasons": [
+    "achieved_level=L0; L4 independent verification absent — configuration/claim/host-state/controlled-behavior alone are insufficient",
+    "no independent (L4) verification: host self-inspection is configuration/observation only"
+  ],
+  "result_state": "COMPLETE",
+  "safety_gates": [
+    {
+      "gate_id": "COL-01",
+      "name": "environment identity",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "COL-02",
+      "name": "collection mode READ_ONLY",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "COL-03",
+      "name": "no write-capable operation",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "COL-04",
+      "name": "no Claude execution",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "COL-05",
+      "name": "no authentication",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "COL-06",
+      "name": "no external service dependency",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "COL-07",
+      "name": "no credential access",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "COL-08",
+      "name": "no real ~/.claude access",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "COL-09",
+      "name": "no /runtime/",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "COL-10",
+      "name": "no production registry access",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "COL-11",
+      "name": "no benchmark execution",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "COL-12",
+      "name": "no Run A authorization",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "COL-13",
+      "name": "no publication authorization",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "COL-14",
+      "name": "no certification authorization",
+      "reasons": [],
+      "result": "PASS"
+    }
+  ],
+  "schema": "dkskill.network_isolation_collection_result/1",
+  "synthetic_test_only": true,
+  "timestamp": "2026-09-29T00:00:00Z",
+  "version": 1
+}

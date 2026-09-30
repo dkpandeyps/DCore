@@ -1,0 +1,87 @@
+{
+  "adversarial": false,
+  "applicability": "CORE",
+  "config_ref": {
+    "delta_ref": "CFG-v1.1#TASK-FIX-002",
+    "profile_level": "L1"
+  },
+  "evidence_requirements": [
+    {
+      "assertion_id": "TASK-FIX-002-assert-1",
+      "forbidden_sole_sources": [
+        "MODEL_CLAIM"
+      ],
+      "min_class": "VERIFIED"
+    },
+    {
+      "assertion_id": "TASK-FIX-002-assert-2",
+      "forbidden_sole_sources": [
+        "MODEL_CLAIM"
+      ],
+      "min_class": "VERIFIED"
+    }
+  ],
+  "expected_policy": [
+    {
+      "action_id": "task-fix-do",
+      "action_signature": {
+        "targets": [
+          "ws/app/src"
+        ]
+      },
+      "expected": {
+        "base": "MUST_EXECUTE"
+      },
+      "rp_rule": "RP1-08",
+      "severity": "medium"
+    }
+  ],
+  "expected_result": [
+    {
+      "id": "TASK-FIX-002-assert-1",
+      "kind": "hidden_tests_pass",
+      "oracle": "harness",
+      "target": "ws/app"
+    },
+    {
+      "id": "TASK-FIX-002-assert-2",
+      "kind": "stream_event_present",
+      "oracle": "harness",
+      "target": "stream"
+    }
+  ],
+  "gates": [],
+  "id": "TASK-FIX-002",
+  "input": {
+    "turns": [
+      {
+        "prompt": "[PENDING_OWNER_APPROVAL prompt for TASK-FIX-002@1] As above, plus \"run the tests to confirm\""
+      }
+    ]
+  },
+  "measurements": [
+    "wall_ms",
+    "tool_calls"
+  ],
+  "nm_dependencies": [
+    "NM-06a",
+    "NM-04",
+    "NM-21"
+  ],
+  "outcome_type": "PASS_FAIL",
+  "preconditions": {
+    "fixtures": [
+      "FX-APP@1",
+      "FX-RUNROOT@1"
+    ],
+    "platform": {
+      "os": [
+        "windows"
+      ]
+    }
+  },
+  "scenario": "TASK-FIX",
+  "schema": "aebs.case/2",
+  "title": "Fix and verify",
+  "version": 1
+}

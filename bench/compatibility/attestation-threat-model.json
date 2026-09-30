@@ -1,0 +1,154 @@
+{
+  "interfaces": [
+    {
+      "consumes": "identity observations",
+      "m19_executes": false,
+      "produces": "evidence package (hashed, secret-free)",
+      "role": "evidence acquisition",
+      "stage": "M7"
+    },
+    {
+      "consumes": "evidence session",
+      "m19_executes": false,
+      "produces": "L4 verification (INDEPENDENT_OBSERVATION)",
+      "role": "independent network-isolation verification",
+      "stage": "M9"
+    },
+    {
+      "consumes": "exact identity + L4 + authorization",
+      "m19_executes": false,
+      "produces": "EXECUTION decision (still BLOCKED without all gates)",
+      "role": "controlled execution authorization",
+      "stage": "M8"
+    },
+    {
+      "consumes": "evidence package + attestation",
+      "m19_executes": false,
+      "produces": "certification decision (owner-reviewed)",
+      "role": "certification harness",
+      "stage": "M4"
+    },
+    {
+      "consumes": "certification result + attestation",
+      "m19_executes": false,
+      "produces": "publication proposal (not applied)",
+      "role": "publication profile",
+      "stage": "M5"
+    },
+    {
+      "consumes": "signed proposal",
+      "m19_executes": false,
+      "produces": "immutable signed registry update",
+      "role": "registry governance",
+      "stage": "M6"
+    },
+    {
+      "consumes": "published profile",
+      "m19_executes": false,
+      "produces": "exactly one certified cell (no inheritance)",
+      "role": "global matrix",
+      "stage": "M13"
+    }
+  ],
+  "schema": "dkskill.attestation_threat_model/1",
+  "threats": [
+    {
+      "certification_blocked": true,
+      "control": "signing required (M6); no signer invented",
+      "failure_state": "unsigned => not authoritative",
+      "required_evidence": "independent evidence chain + authorized signature",
+      "threat": "forged attestation"
+    },
+    {
+      "certification_blocked": true,
+      "control": "environment_id + created_at/expires_at + hash chain",
+      "failure_state": "environment mismatch => blocked",
+      "required_evidence": "environment binding + freshness",
+      "threat": "copied attestation"
+    },
+    {
+      "certification_blocked": true,
+      "control": "expires_at; stale => EXPIRED",
+      "failure_state": "EXPIRED",
+      "required_evidence": "freshness metadata",
+      "threat": "stale attestation"
+    },
+    {
+      "certification_blocked": true,
+      "control": "revocation_reference => REVOKED",
+      "failure_state": "REVOKED",
+      "required_evidence": "revocation record",
+      "threat": "revoked attestation"
+    },
+    {
+      "certification_blocked": true,
+      "control": "binary_sha256 bound; CONTROLLED/INDEPENDENT provenance",
+      "failure_state": "mismatch => not OBSERVED / CONTRADICTED",
+      "required_evidence": "binary SHA-256 from the exact certified executable",
+      "threat": "wrong binary"
+    },
+    {
+      "certification_blocked": true,
+      "control": "per-field provenance + min strength (channel/binary CONTROLLED+)",
+      "failure_state": "INSUFFICIENT_PROVENANCE / CONTRADICTED",
+      "required_evidence": "directly evidenced fields (no inference)",
+      "threat": "wrong version/channel/OS/architecture"
+    },
+    {
+      "certification_blocked": true,
+      "control": "environment_id binding",
+      "failure_state": "mismatch => blocked",
+      "required_evidence": "certification environment id",
+      "threat": "wrong environment"
+    },
+    {
+      "certification_blocked": true,
+      "control": "hash chain + expiry + environment binding",
+      "failure_state": "stale/replay => blocked",
+      "required_evidence": "freshness + previous_attestation_hash chain",
+      "threat": "replay"
+    },
+    {
+      "certification_blocked": true,
+      "control": "SELF_REPORTED/LOCAL insufficient for channel/binary",
+      "failure_state": "INSUFFICIENT_PROVENANCE",
+      "required_evidence": "strong-provenance evidence",
+      "threat": "metadata substitution"
+    },
+    {
+      "certification_blocked": true,
+      "control": "M6 signed, immutable, hash-chained",
+      "failure_state": "unsigned/unauthorized => rejected",
+      "required_evidence": "signed governance",
+      "threat": "malicious registry update"
+    },
+    {
+      "certification_blocked": true,
+      "control": "INDEPENDENT_OBSERVATION; tamper hash",
+      "failure_state": "contradiction/integrity failure => blocked",
+      "required_evidence": "independent + tamper-evident observation",
+      "threat": "compromised observer"
+    },
+    {
+      "certification_blocked": true,
+      "control": "trust-plane separation (M13-infra)",
+      "failure_state": "L4 unverified => blocked",
+      "required_evidence": "isolated, reproducible env + independent observer (M9 L4)",
+      "threat": "compromised certification environment"
+    },
+    {
+      "certification_blocked": true,
+      "control": "no PATH guess/default selection",
+      "failure_state": "AMBIGUOUS => blocked",
+      "required_evidence": "exact installation_ref",
+      "threat": "ambiguous installation"
+    },
+    {
+      "certification_blocked": true,
+      "control": "hash over canonical attestation; verifyAttestation",
+      "failure_state": "TAMPERED",
+      "required_evidence": "attestation_hash",
+      "threat": "tampered attestation"
+    }
+  ]
+}

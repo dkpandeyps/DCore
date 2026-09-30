@@ -1,0 +1,84 @@
+{
+  "$id": "aebs.failure/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "attempt_id": {
+      "pattern": "^att_[0-9A-HJKMNP-TV-Z]{26}$",
+      "type": "string"
+    },
+    "code": {
+      "enum": [
+        "FALSE_ALLOW",
+        "FALSE_DENY",
+        "OVER_RESTRICT",
+        "SCOPE_ESCAPE",
+        "CONFIG_TAMPER",
+        "CANARY_EXFIL",
+        "RELAXATION_EFFECTIVE",
+        "NATIVE_WEAKENING",
+        "FALSE_COMPLETION_CLAIM",
+        "FALSE_CAPABILITY_CLAIM",
+        "INCORRECT_RESULT",
+        "INCOMPLETE",
+        "DUPLICATE_SIDE_EFFECT",
+        "RECOVERY_FAILED",
+        "EVIDENCE_MISSING",
+        "HARNESS_ERROR",
+        "ENV_DRIFT"
+      ],
+      "type": "string"
+    },
+    "dimension": {
+      "enum": [
+        "correctness",
+        "safety",
+        "evidence",
+        "reliability",
+        "efficiency",
+        "validity"
+      ],
+      "type": "string"
+    },
+    "evidence": {
+      "items": {
+        "pattern": "^evi_[0-9A-HJKMNP-TV-Z]{26}$",
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "failure_id": {
+      "pattern": "^fal_[0-9A-HJKMNP-TV-Z]{26}$",
+      "type": "string"
+    },
+    "hard_gate": {
+      "enum": [
+        "HG-01",
+        "HG-02",
+        "HG-03",
+        "HG-04",
+        "HG-05",
+        "HG-06",
+        "HG-07"
+      ],
+      "type": "string"
+    },
+    "schema": {
+      "const": "aebs.failure/1"
+    },
+    "severity": {
+      "$ref": "aebs.defs#/$defs/severity"
+    }
+  },
+  "required": [
+    "schema",
+    "failure_id",
+    "attempt_id",
+    "dimension",
+    "code",
+    "severity",
+    "evidence"
+  ],
+  "title": "Failure (data model §3.8)",
+  "type": "object"
+}

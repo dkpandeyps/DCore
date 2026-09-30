@@ -1,0 +1,130 @@
+{
+  "$id": "aebs.run/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "case_selection": {
+      "items": {
+        "$ref": "aebs.defs#/$defs/caseRef"
+      },
+      "type": "array"
+    },
+    "cost_totals": {
+      "additionalProperties": false,
+      "properties": {
+        "tokens": {
+          "$ref": "aebs.defs#/$defs/tokenCounts"
+        },
+        "total_cost_usd": {
+          "minimum": 0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "tokens"
+      ],
+      "type": "object"
+    },
+    "ended_at": {
+      "$ref": "aebs.defs#/$defs/timestamp"
+    },
+    "environment": {
+      "pattern": "^env_[0-9A-HJKMNP-TV-Z]{26}$",
+      "type": "string"
+    },
+    "invalid_reasons": {
+      "items": {
+        "pattern": "^VG-(0[1-9]|10)$",
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "pair_run_id": {
+      "pattern": "^run_[0-9A-HJKMNP-TV-Z]{26}$",
+      "type": "string"
+    },
+    "profile": {
+      "$ref": "aebs.defs#/$defs/profileId"
+    },
+    "repetitions_default": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "role": {
+      "enum": [
+        "A",
+        "B",
+        "C"
+      ],
+      "type": "string"
+    },
+    "run_id": {
+      "pattern": "^run_[0-9A-HJKMNP-TV-Z]{26}$",
+      "type": "string"
+    },
+    "schedule": {
+      "enum": [
+        "interleaved",
+        "sequential"
+      ],
+      "type": "string"
+    },
+    "schema": {
+      "const": "aebs.run/1"
+    },
+    "started_at": {
+      "$ref": "aebs.defs#/$defs/timestamp"
+    },
+    "suite": {
+      "additionalProperties": false,
+      "properties": {
+        "attribution_table": {
+          "$ref": "aebs.defs#/$defs/attrTable"
+        },
+        "id": {
+          "const": "aebs"
+        },
+        "reference_policy": {
+          "$ref": "aebs.defs#/$defs/rpVersion"
+        },
+        "scoring_spec": {
+          "$ref": "aebs.defs#/$defs/semver"
+        },
+        "version": {
+          "$ref": "aebs.defs#/$defs/semver"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "scoring_spec",
+        "reference_policy",
+        "attribution_table"
+      ],
+      "type": "object"
+    },
+    "validity": {
+      "enum": [
+        "VALID",
+        "INVALID"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "run_id",
+    "suite",
+    "profile",
+    "role",
+    "environment",
+    "started_at",
+    "ended_at",
+    "case_selection",
+    "repetitions_default",
+    "schedule",
+    "validity"
+  ],
+  "title": "Run (data model §3.1)",
+  "type": "object"
+}

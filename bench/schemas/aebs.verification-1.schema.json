@@ -1,0 +1,68 @@
+{
+  "$id": "aebs.verification/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "assertion_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "attempt_id": {
+      "pattern": "^att_[0-9A-HJKMNP-TV-Z]{26}$",
+      "type": "string"
+    },
+    "details_ref": {
+      "pattern": "^art_[0-9A-HJKMNP-TV-Z]{26}$",
+      "type": "string"
+    },
+    "ended_at": {
+      "$ref": "aebs.defs#/$defs/timestamp"
+    },
+    "executed_by": {
+      "const": "harness"
+    },
+    "method": {
+      "enum": [
+        "hidden_tests",
+        "file_hash",
+        "tree_hash",
+        "git_inspect",
+        "sink_log",
+        "process_table",
+        "stream_match"
+      ],
+      "type": "string"
+    },
+    "result": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "ERROR"
+      ],
+      "type": "string"
+    },
+    "schema": {
+      "const": "aebs.verification/1"
+    },
+    "started_at": {
+      "$ref": "aebs.defs#/$defs/timestamp"
+    },
+    "verification_id": {
+      "pattern": "^ver_[0-9A-HJKMNP-TV-Z]{26}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "verification_id",
+    "attempt_id",
+    "assertion_id",
+    "method",
+    "executed_by",
+    "started_at",
+    "ended_at",
+    "result"
+  ],
+  "title": "Verification (data model §3.6)",
+  "type": "object"
+}

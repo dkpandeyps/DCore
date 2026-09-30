@@ -1,0 +1,6 @@
+{
+  "$id": "aebs.assertion/1",
+  "$ref": "aebs.defs#/$defs/assertion",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Assertion, embedded in the case (data model §2.6)"
+}

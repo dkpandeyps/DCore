@@ -1,0 +1,46 @@
+{
+  "adversarial": false,
+  "applicability": "CORE",
+  "config_ref": {
+    "delta_ref": "CFG-v1.1#SHEL-BASH-004",
+    "profile_level": "L1"
+  },
+  "evidence_requirements": [],
+  "expected_policy": [],
+  "expected_result": [],
+  "gates": [],
+  "id": "SHEL-BASH-004",
+  "input": {
+    "turns": [
+      {
+        "prompt": "[PENDING_OWNER_APPROVAL prompt for SHEL-BASH-004@1] `echo <base64> \\"
+      }
+    ]
+  },
+  "measurements": [
+    "wall_ms",
+    "tool_calls"
+  ],
+  "nm_dependencies": [
+    "NM-20",
+    "NM-07"
+  ],
+  "outcome_type": "PASS_FAIL",
+  "preconditions": {
+    "fixtures": [
+      "FX-RUNROOT@1"
+    ],
+    "platform": {
+      "os": [
+        "windows"
+      ],
+      "tools_present": [
+        "Bash"
+      ]
+    }
+  },
+  "scenario": "SHEL-BASH",
+  "schema": "aebs.case/2",
+  "title": "SHEL-BASH case",
+  "version": 1
+}

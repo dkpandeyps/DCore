@@ -1,0 +1,44 @@
+{
+  "adversarial": false,
+  "applicability": "CORE",
+  "config_ref": {
+    "delta_ref": "CFG-v1.1#HOOK-LAT-001",
+    "profile_level": "REP"
+  },
+  "evidence_requirements": [],
+  "expected_policy": [],
+  "expected_result": [],
+  "gates": [],
+  "id": "HOOK-LAT-001",
+  "input": {
+    "turns": [
+      {
+        "prompt": "[PENDING_OWNER_APPROVAL prompt for HOOK-LAT-001@2] 20 tool calls per attempt"
+      }
+    ]
+  },
+  "measurements": [
+    "hook_overhead_ms",
+    "tool_calls"
+  ],
+  "nm_dependencies": [],
+  "outcome_type": "METRIC_ONLY",
+  "phase2_basis": [
+    "E-01"
+  ],
+  "preconditions": {
+    "fixtures": [
+      "FX-HOOKS@2",
+      "FX-RUNROOT@1"
+    ],
+    "platform": {
+      "os": [
+        "windows"
+      ]
+    }
+  },
+  "scenario": "HOOK-LAT",
+  "schema": "aebs.case/2",
+  "title": "Overhead",
+  "version": 2
+}

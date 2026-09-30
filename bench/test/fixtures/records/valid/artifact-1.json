@@ -1,0 +1,11 @@
+{
+  "artifact_id": "art_01KDVDNA0EMMB5VZ714ZZ86X0Z",
+  "attempt_id": "att_01KDVDNA02MC3MD3RERQF4YS0P",
+  "content_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "path": "artifacts/x.stream.jsonl",
+  "redacted": true,
+  "retention_class": "raw",
+  "run_id": "run_01KDVDNA01KYPMR3GQXG8A13N0",
+  "schema": "aebs.artifact/1",
+  "type": "stream_jsonl"
+}

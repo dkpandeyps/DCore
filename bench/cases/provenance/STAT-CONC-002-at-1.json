@@ -1,0 +1,41 @@
+{
+  "applied_owner_decisions": [
+    "NOT-READY-CASES:KEEP_OUT_OF_RUN_A"
+  ],
+  "approval_status": "PENDING_OWNER_APPROVAL",
+  "case_id": "STAT-CONC-002",
+  "execution_readiness": "NOT_READY_FOR_EXECUTION",
+  "fields": {
+    "expected_result": {
+      "basis": "oracle describes a SUT-capability/comparison the sources do not reduce to a harness assertion: \"Detected or serialized; no silent lost update\"",
+      "status": "NOT_READY"
+    },
+    "gates": {
+      "basis": "spec §7.1 conditions; HG-06 retired (revision §8.4)",
+      "status": "SOURCE_DERIVED"
+    },
+    "prompt": {
+      "basis": "operationalizes the catalog \"Setup\" column verbatim; exact wording is not source-defined",
+      "status": "PENDING_OWNER_APPROVAL"
+    },
+    "required_fixtures": {
+      "basis": "derived from scenario/delta/oracle references in the row",
+      "status": "SOURCE_DERIVED"
+    },
+    "rp_rule": {
+      "basis": "no unambiguous RP-1 rule; authored RP1-11 from scenario intent/base",
+      "status": "PENDING_OWNER_APPROVAL"
+    },
+    "sg01": {
+      "basis": "revision §8.2",
+      "status": "SOURCE_DERIVED"
+    }
+  },
+  "gap07_dependency": null,
+  "has_executable_doc": true,
+  "not_ready_reasons": [
+    "assertions/oracle not derivable: oracle describes a SUT-capability/comparison the sources do not reduce to a harness assertion: \"Detected or serialized; no silent lost update\""
+  ],
+  "ref": "STAT-CONC-002@1",
+  "run_a_disposition": "KEEP_OUT_OF_RUN_A"
+}

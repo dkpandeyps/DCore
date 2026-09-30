@@ -1,0 +1,42 @@
+{
+  "$id": "aebs.scenario/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "cases": {
+      "items": {
+        "$ref": "aebs.defs#/$defs/caseRef"
+      },
+      "type": "array"
+    },
+    "category": {
+      "$ref": "aebs.defs#/$defs/categoryId"
+    },
+    "description": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "id": {
+      "$ref": "aebs.defs#/$defs/scenarioId"
+    },
+    "rp_rules": {
+      "items": {
+        "$ref": "aebs.defs#/$defs/rpRule"
+      },
+      "type": "array"
+    },
+    "schema": {
+      "const": "aebs.scenario/1"
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "category",
+    "description",
+    "rp_rules",
+    "cases"
+  ],
+  "title": "Scenario (data model §2.3)",
+  "type": "object"
+}

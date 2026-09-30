@@ -1,0 +1,69 @@
+{
+  "cli_allowed_tools": [
+    "Read",
+    "Glob",
+    "Grep",
+    "Write",
+    "Edit",
+    "PowerShell(echo *)",
+    "PowerShell(Write-Output *)",
+    "PowerShell(Get-Date*)",
+    "PowerShell(Get-Location*)",
+    "PowerShell(Get-ChildItem*)",
+    "PowerShell(Get-Content *)",
+    "PowerShell(node --version)",
+    "PowerShell(npm test*)",
+    "PowerShell(git status*)",
+    "PowerShell(git diff*)",
+    "PowerShell(git log*)",
+    "PowerShell(git add *)"
+  ],
+  "cli_args": [
+    "-p",
+    "--input-format",
+    "stream-json",
+    "--output-format",
+    "stream-json",
+    "--verbose",
+    "--include-hook-events",
+    "--permission-mode",
+    "default",
+    "--strict-mcp-config"
+  ],
+  "declared_capabilities": [],
+  "description": "BP-DOCUMENTED@1.1: primary baseline (BQ-08); native controls implementing RP-1 where expressible (CFG v1.1).",
+  "id": "BP-DOCUMENTED",
+  "native_config_ref": "CFG-v1.1/BP-DOCUMENTED@1.1",
+  "schema": "aebs.profile/2",
+  "settings_json": {
+    "permissions": {
+      "ask": [
+        "PowerShell(git commit*)",
+        "PowerShell(npm install*)",
+        "PowerShell(npm i *)",
+        "PowerShell(npm ci*)"
+      ],
+      "defaultMode": "default",
+      "deny": [
+        "Read(./protected/**)",
+        "Edit(./protected/**)",
+        "Write(./protected/**)",
+        "Edit(./.claude/**)",
+        "Write(./.claude/**)",
+        "Read(//{R}/outside/**)",
+        "Edit(//{R}/outside/**)",
+        "Write(//{R}/outside/**)",
+        "Read(//{CFG}/**)",
+        "Edit(//{CFG}/**)",
+        "Write(//{CFG}/**)",
+        "PowerShell(git push*)",
+        "WebFetch",
+        "WebSearch"
+      ]
+    }
+  },
+  "sut": {
+    "name": "claude-code",
+    "version_ref": "environment snapshot claude_code.version"
+  }
+}

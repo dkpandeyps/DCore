@@ -1,0 +1,169 @@
+{
+  "schema": "dkskill.skill_manifest/1",
+  "version": 1,
+  "skill_id": "dkskill",
+  "name": "dkskill",
+  "description": "Universal, fail-closed Claude Code skill set for framing, specifying, planning, reviewing and QA — installable by clone, no certification/credentials/network required.",
+  "license": "Apache-2.0",
+  "entrypoint": "SKILL.md",
+  "runner": "scripts/dkskill.mjs",
+  "modules": [
+    {
+      "module_id": "dk-frame",
+      "module_name": "Problem Framing",
+      "status": "IMPLEMENTED",
+      "purpose": "turn a raw request into a framed problem (objective, stakeholders, risks, open questions)",
+      "permissions": [
+        "read-only"
+      ],
+      "security_level": "SAFE_GENERIC",
+      "platform_requirements": [
+        "any"
+      ],
+      "reference": "modules/dk-frame.md",
+      "runnable": true
+    },
+    {
+      "module_id": "dk-spec",
+      "module_name": "Specification",
+      "status": "IMPLEMENTED",
+      "purpose": "turn a problem into a structured specification",
+      "permissions": [
+        "read-only"
+      ],
+      "security_level": "SAFE_GENERIC",
+      "platform_requirements": [
+        "any"
+      ],
+      "reference": "modules/dk-spec.md",
+      "runnable": true
+    },
+    {
+      "module_id": "dk-plan",
+      "module_name": "Engineering Plan",
+      "status": "IMPLEMENTED",
+      "purpose": "turn a feature/request into an implementation plan",
+      "permissions": [
+        "read-only"
+      ],
+      "security_level": "SAFE_GENERIC",
+      "platform_requirements": [
+        "any"
+      ],
+      "reference": "modules/dk-plan.md",
+      "runnable": true
+    },
+    {
+      "module_id": "dk-review",
+      "module_name": "Code Review",
+      "status": "IMPLEMENTED",
+      "purpose": "produce a structured review of code/diff text",
+      "permissions": [
+        "read-only"
+      ],
+      "security_level": "SAFE_GENERIC",
+      "platform_requirements": [
+        "any"
+      ],
+      "reference": "modules/dk-review.md",
+      "runnable": true
+    },
+    {
+      "module_id": "dk-qa",
+      "module_name": "QA / Test Plan",
+      "status": "IMPLEMENTED",
+      "purpose": "produce a test plan from a feature/spec",
+      "permissions": [
+        "read-only"
+      ],
+      "security_level": "SAFE_GENERIC",
+      "platform_requirements": [
+        "any"
+      ],
+      "reference": "modules/dk-qa.md",
+      "runnable": true
+    },
+    {
+      "module_id": "dk-debug",
+      "module_name": "Debug / Investigation",
+      "status": "PLANNED",
+      "purpose": "structured investigation of a defect",
+      "permissions": [
+        "read-only"
+      ],
+      "security_level": "SAFE_GENERIC",
+      "platform_requirements": [
+        "any"
+      ],
+      "reference": "modules/dk-debug.md",
+      "runnable": false
+    },
+    {
+      "module_id": "dk-sec",
+      "module_name": "Security Review",
+      "status": "PLANNED",
+      "purpose": "structured security review",
+      "permissions": [
+        "read-only"
+      ],
+      "security_level": "SAFE_GENERIC",
+      "platform_requirements": [
+        "any"
+      ],
+      "reference": "modules/dk-sec.md",
+      "runnable": false
+    },
+    {
+      "module_id": "dk-doc",
+      "module_name": "Documentation",
+      "status": "PLANNED",
+      "purpose": "generate documentation scaffolds",
+      "permissions": [
+        "read-only"
+      ],
+      "security_level": "SAFE_GENERIC",
+      "platform_requirements": [
+        "any"
+      ],
+      "reference": "modules/dk-doc.md",
+      "runnable": false
+    },
+    {
+      "module_id": "dk-release",
+      "module_name": "Release Prep",
+      "status": "PLANNED",
+      "purpose": "release readiness checklist",
+      "permissions": [
+        "read-only"
+      ],
+      "security_level": "SAFE_GENERIC",
+      "platform_requirements": [
+        "any"
+      ],
+      "reference": "modules/dk-release.md",
+      "runnable": false
+    },
+    {
+      "module_id": "dk-retro",
+      "module_name": "Retrospective",
+      "status": "DEFERRED",
+      "purpose": "project retrospective scaffold",
+      "permissions": [
+        "read-only"
+      ],
+      "security_level": "SAFE_GENERIC",
+      "platform_requirements": [
+        "any"
+      ],
+      "reference": "modules/dk-retro.md",
+      "runnable": false
+    }
+  ],
+  "implemented_count": 5,
+  "planned_count": 4,
+  "deferred_count": 1,
+  "requires_certification_for_basic_use": false,
+  "requires_private_infrastructure": false,
+  "requires_credentials": false,
+  "requires_network": false
+}

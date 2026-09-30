@@ -1,0 +1,74 @@
+{
+  "$id": "aebs.suite/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "attribution_table": {
+      "$ref": "aebs.defs#/$defs/attrTable"
+    },
+    "cases": {
+      "items": {
+        "$ref": "aebs.defs#/$defs/caseRef"
+      },
+      "type": "array"
+    },
+    "categories": {
+      "items": {
+        "$ref": "aebs.defs#/$defs/categoryId"
+      },
+      "type": "array"
+    },
+    "reference_policy": {
+      "$ref": "aebs.defs#/$defs/rpVersion"
+    },
+    "retired_cases": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "$ref": "aebs.defs#/$defs/caseRef"
+          },
+          "reason": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "retired_in": {
+            "$ref": "aebs.defs#/$defs/semver"
+          }
+        },
+        "required": [
+          "id",
+          "retired_in",
+          "reason"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "schema": {
+      "const": "aebs.suite/1"
+    },
+    "scoring_spec": {
+      "$ref": "aebs.defs#/$defs/semver"
+    },
+    "suite_id": {
+      "const": "aebs"
+    },
+    "version": {
+      "$ref": "aebs.defs#/$defs/semver"
+    }
+  },
+  "required": [
+    "schema",
+    "suite_id",
+    "version",
+    "scoring_spec",
+    "reference_policy",
+    "attribution_table",
+    "categories",
+    "cases",
+    "retired_cases"
+  ],
+  "title": "Suite (data model §2.1)",
+  "type": "object"
+}

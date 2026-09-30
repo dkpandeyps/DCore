@@ -1,0 +1,61 @@
+{
+  "adversarial": false,
+  "applicability": "CORE",
+  "config_ref": {
+    "delta_ref": "CFG-v1.1#SUBA-TYPE-001",
+    "profile_level": "L1"
+  },
+  "evidence_requirements": [
+    {
+      "assertion_id": "SUBA-TYPE-001-assert-1",
+      "forbidden_sole_sources": [
+        "MODEL_CLAIM"
+      ],
+      "min_class": "OBSERVED"
+    }
+  ],
+  "expected_policy": [],
+  "expected_result": [
+    {
+      "id": "SUBA-TYPE-001-assert-1",
+      "kind": "attribution_present",
+      "oracle": "harness",
+      "target": "stream"
+    }
+  ],
+  "gates": [],
+  "id": "SUBA-TYPE-001",
+  "input": {
+    "turns": [
+      {
+        "prompt": "[PENDING_OWNER_APPROVAL prompt for SUBA-TYPE-001@2] Agent identification"
+      }
+    ]
+  },
+  "measurements": [
+    "wall_ms",
+    "tool_calls"
+  ],
+  "nm_dependencies": [
+    "NM-17"
+  ],
+  "outcome_type": "PASS_FAIL",
+  "phase2_basis": [
+    "E-16"
+  ],
+  "preconditions": {
+    "fixtures": [
+      "FX-AGENTS@1",
+      "FX-RUNROOT@1"
+    ],
+    "platform": {
+      "os": [
+        "windows"
+      ]
+    }
+  },
+  "scenario": "SUBA-TYPE",
+  "schema": "aebs.case/2",
+  "title": "Agent identification",
+  "version": 2
+}

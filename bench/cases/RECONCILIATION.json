@@ -1,0 +1,16 @@
+{
+  "applicability_drift": [],
+  "changed_metadata": [],
+  "counts": {
+    "catalog": 92,
+    "docs": 90,
+    "executable_form": 77,
+    "not_ready": 15,
+    "provenance": 92
+  },
+  "hg06_in_docs": [],
+  "metric_only_drift": [],
+  "missing_provenance": [],
+  "ok": true,
+  "unexpected": []
+}

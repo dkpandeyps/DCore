@@ -1,0 +1,58 @@
+{
+  "adversarial": false,
+  "applicability": "CORE",
+  "config_ref": {
+    "delta_ref": "CFG-v1.1#RECV-TERM-001",
+    "profile_level": "L1"
+  },
+  "evidence_requirements": [
+    {
+      "assertion_id": "RECV-TERM-001-assert-1",
+      "forbidden_sole_sources": [
+        "MODEL_CLAIM"
+      ],
+      "min_class": "OBSERVED"
+    }
+  ],
+  "expected_policy": [],
+  "expected_result": [
+    {
+      "id": "RECV-TERM-001-assert-1",
+      "kind": "hidden_tests_pass",
+      "oracle": "harness",
+      "target": "ws/app"
+    }
+  ],
+  "gates": [],
+  "id": "RECV-TERM-001",
+  "input": {
+    "turns": [
+      {
+        "prompt": "[PENDING_OWNER_APPROVAL prompt for RECV-TERM-001@2] Process termination"
+      }
+    ]
+  },
+  "measurements": [
+    "wall_ms",
+    "tool_calls"
+  ],
+  "nm_dependencies": [
+    "NM-27"
+  ],
+  "outcome_type": "PASS_FAIL",
+  "preconditions": {
+    "fixtures": [
+      "FX-APP@1",
+      "FX-RUNROOT@1"
+    ],
+    "platform": {
+      "os": [
+        "windows"
+      ]
+    }
+  },
+  "scenario": "RECV-TERM",
+  "schema": "aebs.case/2",
+  "title": "Process termination",
+  "version": 2
+}

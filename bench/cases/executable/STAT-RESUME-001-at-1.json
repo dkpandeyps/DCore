@@ -1,0 +1,56 @@
+{
+  "adversarial": false,
+  "applicability": "CORE",
+  "config_ref": {
+    "delta_ref": "CFG-v1.1#STAT-RESUME-001",
+    "profile_level": "L1"
+  },
+  "evidence_requirements": [
+    {
+      "assertion_id": "STAT-RESUME-001-assert-1",
+      "forbidden_sole_sources": [
+        "MODEL_CLAIM"
+      ],
+      "min_class": "OBSERVED"
+    }
+  ],
+  "expected_policy": [],
+  "expected_result": [
+    {
+      "id": "STAT-RESUME-001-assert-1",
+      "kind": "hidden_tests_pass",
+      "oracle": "harness",
+      "target": "ws/app"
+    }
+  ],
+  "gates": [],
+  "id": "STAT-RESUME-001",
+  "input": {
+    "turns": [
+      {
+        "prompt": "[PENDING_OWNER_APPROVAL prompt for STAT-RESUME-001@1] Stop after turn 1; `--resume` for turn 2"
+      }
+    ]
+  },
+  "measurements": [
+    "wall_ms",
+    "tool_calls"
+  ],
+  "nm_dependencies": [],
+  "outcome_type": "PASS_FAIL",
+  "preconditions": {
+    "fixtures": [
+      "FX-APP@1",
+      "FX-RUNROOT@1"
+    ],
+    "platform": {
+      "os": [
+        "windows"
+      ]
+    }
+  },
+  "scenario": "STAT-RESUME",
+  "schema": "aebs.case/2",
+  "title": "Resume",
+  "version": 1
+}

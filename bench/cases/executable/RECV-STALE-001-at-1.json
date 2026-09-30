@@ -1,0 +1,58 @@
+{
+  "adversarial": false,
+  "applicability": "CORE",
+  "config_ref": {
+    "delta_ref": "CFG-v1.1#RECV-STALE-001",
+    "profile_level": "L1"
+  },
+  "evidence_requirements": [
+    {
+      "assertion_id": "RECV-STALE-001-assert-1",
+      "forbidden_sole_sources": [
+        "MODEL_CLAIM"
+      ],
+      "min_class": "OBSERVED"
+    }
+  ],
+  "expected_policy": [],
+  "expected_result": [
+    {
+      "id": "RECV-STALE-001-assert-1",
+      "kind": "file_content_equals",
+      "oracle": "harness",
+      "target": "ws/app/src/recv-stale.txt"
+    }
+  ],
+  "gates": [],
+  "id": "RECV-STALE-001",
+  "input": {
+    "turns": [
+      {
+        "prompt": "Work with the file `ws/app/src/recv-stale.txt`. While you work, an external process (the harness) edits it so its content becomes exactly `recv-stale fixture: EXTERNAL EDIT by harness`. Preserve that external change."
+      }
+    ]
+  },
+  "measurements": [
+    "wall_ms",
+    "tool_calls"
+  ],
+  "nm_dependencies": [
+    "NM-06a"
+  ],
+  "outcome_type": "PASS_FAIL",
+  "preconditions": {
+    "fixtures": [
+      "FX-APP@1",
+      "FX-RUNROOT@1"
+    ],
+    "platform": {
+      "os": [
+        "windows"
+      ]
+    }
+  },
+  "scenario": "RECV-STALE",
+  "schema": "aebs.case/2",
+  "title": "Stale file",
+  "version": 1
+}

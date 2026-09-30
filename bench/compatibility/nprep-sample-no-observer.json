@@ -1,0 +1,107 @@
+{
+  "audit_hash": "sha256:2f95b50f1b71d29b2bf82c43c01784cb4ad273c248a12696bf576512afaf052b",
+  "authorization": {
+    "authentication_authorized": false,
+    "authorization_id": "M12-AUTH",
+    "benchmark_authorized": false,
+    "certification_authorized": false,
+    "claude_execution_authorized": false,
+    "environment_id": "PTPL-DK-BENCH-WIN-01",
+    "organization": "PTPL",
+    "owner": "DK Pandey",
+    "project": "dkskill",
+    "publication_authorized": false,
+    "registry_mutation_authorized": false,
+    "run_a_authorized": false,
+    "schema": "dkskill.network_isolation_prep_authorization/1",
+    "scope": "NETWORK_ISOLATION_ENVIRONMENT_PREPARATION_ONLY",
+    "target_profile_id": "cc-2.1.283-win32-x64-native@1",
+    "timestamp": "2026-09-29T00:00:00Z",
+    "ts07_authorized": false,
+    "ts11_authorized": false,
+    "version": 1
+  },
+  "changes_applied": [],
+  "environment_id": "PTPL-DK-BENCH-WIN-01",
+  "evidence_class_of_preparation": "CONFIGURATION_EVIDENCE",
+  "final_state": "BLOCKED",
+  "future_l4_still_required": [
+    "a controlled denied-connection test observed by the independent observer",
+    "fresh INDEPENDENT_VERIFICATION evidence submitted to M9 runVerification",
+    "a separate explicit owner authorization for the real evidence session",
+    "a separate M8 authorization + full preflight before any execution"
+  ],
+  "independent_observer_established": false,
+  "limitations": [
+    "Preparation is not verification. Even PREPARED_FOR_L4_VERIFICATION is not L4: a separate M9 independent-verification session (new owner authorization) is required. M8 stays EXECUTION_BLOCKED."
+  ],
+  "m8_state_observed": "EXECUTION_BLOCKED",
+  "m9_state_observed": "UNVERIFIED",
+  "network_isolation": "UNVERIFIED",
+  "plan": {
+    "boundary": {
+      "demonstrates_denied_connectivity": true,
+      "enforcement_actually_enforced": true,
+      "establishable": true,
+      "minimal": true,
+      "requires_overbroad_change": false
+    },
+    "independence_rationale": "no observer",
+    "observer": {
+      "binds_to_environment": false,
+      "enforcement_identity": null,
+      "external": false,
+      "freshness_established": false,
+      "identity": null,
+      "is_same_host_self_report": false,
+      "observation_mechanism": null,
+      "proposed": false,
+      "tamper_protected": false
+    },
+    "option_id": "OPT-HOST-PLUS-OBSERVER",
+    "option_name": "host + observer",
+    "required_changes": [
+      {
+        "applied": false,
+        "authorization_scope": "M12-AUTH: NETWORK_ISOLATION_ENVIRONMENT_PREPARATION_ONLY",
+        "change_id": "CHG-01",
+        "component": "external network boundary",
+        "new_state": "deny-all outbound (explicit minimal allowlist)",
+        "operation": "SYNTHETIC_TEST_ONLY set egress-deny at external boundary",
+        "previous_state": "allow-all outbound",
+        "reason": "establish outbound-deny isolation boundary",
+        "rollback_operation": "restore prior egress policy from recorded snapshot",
+        "schema": "dkskill.network_isolation_prep_change/1",
+        "synthetic_only": true,
+        "timestamp": "2026-09-29T00:00:00Z",
+        "verification_result": "pending independent observation"
+      },
+      {
+        "applied": false,
+        "authorization_scope": "M12-AUTH: NETWORK_ISOLATION_ENVIRONMENT_PREPARATION_ONLY",
+        "change_id": "CHG-02",
+        "component": "external network boundary",
+        "new_state": "deny-all outbound (explicit minimal allowlist)",
+        "operation": "SYNTHETIC_TEST_ONLY set egress-deny at external boundary",
+        "previous_state": "allow-all outbound",
+        "reason": "establish outbound-deny isolation boundary",
+        "rollback_operation": "restore prior egress policy from recorded snapshot",
+        "schema": "dkskill.network_isolation_prep_change/1",
+        "synthetic_only": true,
+        "timestamp": "2026-09-29T00:00:00Z",
+        "verification_result": "pending independent observation"
+      }
+    ],
+    "schema": "dkskill.network_isolation_prep_plan/1"
+  },
+  "prep_id": "prep-PTPL-DK-BENCH-WIN-01",
+  "rollback_ledger": [],
+  "schema": "dkskill.network_isolation_prep_result/1",
+  "stop_reasons": [
+    "no independent observer proposed — M12-AUTH STOP: \"If an independent observer cannot be established, STOP\""
+  ],
+  "synthetic_test_only": true,
+  "target_profile_id": "cc-2.1.283-win32-x64-native@1",
+  "timestamp": "2026-09-29T00:00:00Z",
+  "version": 1
+}

@@ -1,0 +1,449 @@
+{
+  "$id": "aebs.environment/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "captured_at": {
+      "$ref": "aebs.defs#/$defs/timestamp"
+    },
+    "claude_code": {
+      "additionalProperties": false,
+      "properties": {
+        "path_hash": {
+          "$ref": "aebs.defs#/$defs/sha256"
+        },
+        "version": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "version",
+        "path_hash"
+      ],
+      "type": "object"
+    },
+    "config_dir": {
+      "additionalProperties": false,
+      "properties": {
+        "agents": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "hash": {
+                "$ref": "aebs.defs#/$defs/sha256"
+              },
+              "name": {
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "hash"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "hooks_registered": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "command_hash": {
+                "$ref": "aebs.defs#/$defs/sha256"
+              },
+              "event": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "matcher": {
+                "type": "string"
+              },
+              "owner": {
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "event",
+              "matcher",
+              "command_hash",
+              "owner"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "path_hash": {
+          "$ref": "aebs.defs#/$defs/sha256"
+        },
+        "plugins": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "hash": {
+                "$ref": "aebs.defs#/$defs/sha256"
+              },
+              "name": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "version": {
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "version",
+              "hash"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "settings_hash": {
+          "$ref": "aebs.defs#/$defs/sha256"
+        },
+        "skills": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "hash": {
+                "$ref": "aebs.defs#/$defs/sha256"
+              },
+              "name": {
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "hash"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "path_hash",
+        "settings_hash",
+        "hooks_registered",
+        "plugins",
+        "skills",
+        "agents"
+      ],
+      "type": "object"
+    },
+    "env_id": {
+      "pattern": "^env_[0-9A-HJKMNP-TV-Z]{26}$",
+      "type": "string"
+    },
+    "env_vars": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "type": "object"
+    },
+    "fixtures": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "hash": {
+            "$ref": "aebs.defs#/$defs/sha256"
+          },
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "version": {
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "hash"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "harness": {
+      "additionalProperties": false,
+      "properties": {
+        "hash": {
+          "$ref": "aebs.defs#/$defs/sha256"
+        },
+        "version": {
+          "$ref": "aebs.defs#/$defs/semver"
+        }
+      },
+      "required": [
+        "version",
+        "hash"
+      ],
+      "type": "object"
+    },
+    "managed_settings": {
+      "additionalProperties": false,
+      "properties": {
+        "local_file_present": {
+          "type": "boolean"
+        },
+        "remote_settings_observed": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "local_file_present",
+        "remote_settings_observed"
+      ],
+      "type": "object"
+    },
+    "mcp": {
+      "additionalProperties": false,
+      "properties": {
+        "config_hash": {
+          "anyOf": [
+            {
+              "$ref": "aebs.defs#/$defs/sha256"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "servers_at_init": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "source": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "status": {
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "source",
+              "status"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "strict": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "config_hash",
+        "servers_at_init",
+        "strict"
+      ],
+      "type": "object"
+    },
+    "model": {
+      "additionalProperties": false,
+      "properties": {
+        "requested": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "resolved": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "requested",
+        "resolved"
+      ],
+      "type": "object"
+    },
+    "network_isolation": {
+      "additionalProperties": false,
+      "properties": {
+        "mechanism": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "verified": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "mechanism",
+        "verified"
+      ],
+      "type": "object"
+    },
+    "node_version": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "os": {
+      "additionalProperties": false,
+      "properties": {
+        "build": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "version": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "version",
+        "build"
+      ],
+      "type": "object"
+    },
+    "permissions": {
+      "additionalProperties": false,
+      "properties": {
+        "additional_dirs": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "allow": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "ask": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "deny": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "mode": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "mode",
+        "allow",
+        "ask",
+        "deny",
+        "additional_dirs"
+      ],
+      "type": "object"
+    },
+    "real_config_guard": {
+      "additionalProperties": false,
+      "properties": {
+        "user_settings_hash_after": {
+          "$ref": "aebs.defs#/$defs/sha256"
+        },
+        "user_settings_hash_before": {
+          "$ref": "aebs.defs#/$defs/sha256"
+        }
+      },
+      "required": [
+        "user_settings_hash_before",
+        "user_settings_hash_after"
+      ],
+      "type": "object"
+    },
+    "schema": {
+      "const": "aebs.environment/1"
+    },
+    "shell_versions": {
+      "additionalProperties": false,
+      "properties": {
+        "bash": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "powershell": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "powershell"
+      ],
+      "type": "object"
+    },
+    "suite": {
+      "additionalProperties": false,
+      "properties": {
+        "attribution_table": {
+          "$ref": "aebs.defs#/$defs/attrTable"
+        },
+        "reference_policy": {
+          "$ref": "aebs.defs#/$defs/rpVersion"
+        },
+        "scoring_spec": {
+          "$ref": "aebs.defs#/$defs/semver"
+        },
+        "version": {
+          "$ref": "aebs.defs#/$defs/semver"
+        }
+      },
+      "required": [
+        "version",
+        "scoring_spec",
+        "reference_policy",
+        "attribution_table"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema",
+    "env_id",
+    "captured_at",
+    "os",
+    "claude_code",
+    "model",
+    "node_version",
+    "shell_versions",
+    "config_dir",
+    "permissions",
+    "mcp",
+    "managed_settings",
+    "env_vars",
+    "fixtures",
+    "suite",
+    "harness",
+    "network_isolation",
+    "real_config_guard"
+  ],
+  "title": "Environment snapshot (data model §3.9)",
+  "type": "object"
+}

@@ -1,0 +1,184 @@
+{
+  "decision_reasons": [
+    "GG-19:BLOCKED",
+    "GG-24:BLOCKED"
+  ],
+  "gates": [
+    {
+      "gate_id": "GG-01",
+      "name": "valid proposal schema",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-02",
+      "name": "exact source certification profile",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-03",
+      "name": "M5 publication state valid",
+      "reasons": [
+        "m5_state=PUBLISHED"
+      ],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-04",
+      "name": "M4 certification state valid",
+      "reasons": [
+        "m4=CERTIFIED"
+      ],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-05",
+      "name": "all mandatory M5 publication gates PASS",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-06",
+      "name": "exact profile identity",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-07",
+      "name": "exact version",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-08",
+      "name": "exact platform",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-09",
+      "name": "exact architecture",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-10",
+      "name": "exact channel",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-11",
+      "name": "exact binary SHA-256",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-12",
+      "name": "evidence-chain integrity",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-13",
+      "name": "owner approval valid",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-14",
+      "name": "publication authorization valid",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-15",
+      "name": "authorized signer",
+      "reasons": [
+        "sig_state=SIGNED"
+      ],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-16",
+      "name": "signature present",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-17",
+      "name": "signature valid",
+      "reasons": [
+        "sig_state=SIGNED"
+      ],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-18",
+      "name": "non-synthetic profile",
+      "reasons": [
+        "synthetic=false"
+      ],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-19",
+      "name": "registry precondition matches",
+      "reasons": [
+        "STALE_REGISTRY_HASH_MISMATCH"
+      ],
+      "result": "BLOCKED"
+    },
+    {
+      "gate_id": "GG-20",
+      "name": "no conflicting active profile",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-21",
+      "name": "supersession/revocation consistency",
+      "reasons": [
+        "revoked=false"
+      ],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-22",
+      "name": "immutable-history consistency",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-23",
+      "name": "no forbidden registry mutation",
+      "reasons": [
+        "op=ADD_PROFILE"
+      ],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-24",
+      "name": "atomic-update preconditions",
+      "reasons": [],
+      "result": "BLOCKED"
+    },
+    {
+      "gate_id": "GG-25",
+      "name": "rollback safety",
+      "reasons": [],
+      "result": "PASS"
+    }
+  ],
+  "mutation": null,
+  "publication_record": null,
+  "registry_changed": false,
+  "registry_hash_after": "sha256:c9e13dc6f954dd15b4336b2c48d63002b532e2754959a07a020fc100410f244b",
+  "registry_hash_before": "sha256:c9e13dc6f954dd15b4336b2c48d63002b532e2754959a07a020fc100410f244b",
+  "request_id": "gov-demo-mechanics",
+  "schema": "dkskill.registry_governance/1",
+  "state": "REJECTED",
+  "synthetic_demo": true,
+  "version": 1
+}

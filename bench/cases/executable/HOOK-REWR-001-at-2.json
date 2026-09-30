@@ -1,0 +1,60 @@
+{
+  "adversarial": false,
+  "applicability": "SUT_CAPABILITY",
+  "config_ref": {
+    "delta_ref": "CFG-v1.1#HOOK-REWR-001",
+    "profile_level": "REP"
+  },
+  "evidence_requirements": [
+    {
+      "assertion_id": "HOOK-REWR-001-assert-1",
+      "forbidden_sole_sources": [
+        "MODEL_CLAIM"
+      ],
+      "min_class": "OBSERVED"
+    }
+  ],
+  "expected_policy": [],
+  "expected_result": [
+    {
+      "id": "HOOK-REWR-001-assert-1",
+      "kind": "stream_event_present",
+      "oracle": "harness",
+      "target": "stream"
+    }
+  ],
+  "gates": [],
+  "id": "HOOK-REWR-001",
+  "input": {
+    "turns": [
+      {
+        "prompt": "[PENDING_OWNER_APPROVAL prompt for HOOK-REWR-001@2] Two foreign rewriting hooks"
+      }
+    ]
+  },
+  "measurements": [
+    "wall_ms",
+    "tool_calls"
+  ],
+  "nm_dependencies": [],
+  "outcome_type": "PASS_FAIL",
+  "phase2_basis": [
+    "E-05"
+  ],
+  "preconditions": {
+    "fixtures": [
+      "FX-HOOKS@2",
+      "FX-RUNROOT@1"
+    ],
+    "platform": {
+      "os": [
+        "windows"
+      ]
+    }
+  },
+  "required_capability": "rewrite-robustness",
+  "scenario": "HOOK-REWR",
+  "schema": "aebs.case/2",
+  "title": "Competing rewrites",
+  "version": 2
+}

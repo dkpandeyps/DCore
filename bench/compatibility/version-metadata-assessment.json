@@ -1,0 +1,538 @@
+{
+  "accepted_source_id": null,
+  "assessment_hash": "sha256:a9f3acde0c66420d888fbccb31dbd7797c8a2f91988110dc9ea497ba4a3669f4",
+  "candidates": [
+    {
+      "adapter_only": true,
+      "architecture_scope": [
+        "x64",
+        "arm64"
+      ],
+      "binding_to_installation": "WEAK",
+      "channel_available": false,
+      "data_available": true,
+      "deterministic": true,
+      "integrity_checkable": true,
+      "is_guessing": false,
+      "is_inference": false,
+      "mechanism": "read version from @anthropic-ai/claude-code package.json located by walking node_modules/PATH",
+      "multi_install_disambiguation": "AMBIGUOUS",
+      "no_credentials": true,
+      "no_dot_claude": true,
+      "no_execution": true,
+      "no_network": true,
+      "non_secret": true,
+      "notes": "auto-locating the package requires broad discovery/PATH walking → forbidden",
+      "platform_scope": [
+        "all"
+      ],
+      "provenance_recordable": true,
+      "read_only": true,
+      "requires_discovery": true,
+      "security_risk": [],
+      "source_category": "Installed package metadata",
+      "source_id": "NPM_PACKAGE_JSON_AUTODISCOVER",
+      "staleness_detectable": false,
+      "universal_core_compatible": true,
+      "version_available": true
+    },
+    {
+      "adapter_only": true,
+      "architecture_scope": [
+        "x64",
+        "arm64"
+      ],
+      "binding_to_installation": "WEAK",
+      "channel_available": false,
+      "data_available": true,
+      "deterministic": true,
+      "integrity_checkable": true,
+      "is_guessing": false,
+      "is_inference": false,
+      "mechanism": "read version from an EXPLICITLY-supplied package.json path (read-only)",
+      "multi_install_disambiguation": "AMBIGUOUS",
+      "no_credentials": true,
+      "no_dot_claude": true,
+      "no_execution": true,
+      "no_network": true,
+      "non_secret": true,
+      "notes": "package.json version ≠ guaranteed to be the binary the user runs; channel absent",
+      "platform_scope": [
+        "all"
+      ],
+      "provenance_recordable": true,
+      "read_only": true,
+      "requires_discovery": false,
+      "security_risk": [],
+      "source_category": "Installed package metadata (explicit path)",
+      "source_id": "NPM_PACKAGE_JSON_EXPLICIT",
+      "staleness_detectable": false,
+      "universal_core_compatible": true,
+      "version_available": true
+    },
+    {
+      "adapter_only": true,
+      "architecture_scope": [
+        "x64",
+        "arm64"
+      ],
+      "binding_to_installation": "WEAK",
+      "channel_available": false,
+      "data_available": true,
+      "deterministic": true,
+      "integrity_checkable": true,
+      "is_guessing": false,
+      "is_inference": false,
+      "mechanism": "read CFBundleShortVersionString from an EXPLICITLY-supplied Info.plist",
+      "multi_install_disambiguation": "AMBIGUOUS",
+      "no_credentials": true,
+      "no_dot_claude": true,
+      "no_execution": true,
+      "no_network": true,
+      "non_secret": true,
+      "notes": "bundle version ≠ cryptographically bound to the running binary; channel absent",
+      "platform_scope": [
+        "macos"
+      ],
+      "provenance_recordable": true,
+      "read_only": true,
+      "requires_discovery": false,
+      "security_risk": [],
+      "source_category": "Application bundle metadata (explicit path)",
+      "source_id": "MACOS_INFO_PLIST_EXPLICIT",
+      "staleness_detectable": false,
+      "universal_core_compatible": true,
+      "version_available": true
+    },
+    {
+      "adapter_only": true,
+      "architecture_scope": [
+        "x64",
+        "arm64"
+      ],
+      "binding_to_installation": "STRONG",
+      "channel_available": false,
+      "data_available": false,
+      "deterministic": true,
+      "integrity_checkable": true,
+      "is_guessing": false,
+      "is_inference": false,
+      "mechanism": "parse an embedded version resource from the EXPLICITLY-supplied binary bytes (read-only, not executed)",
+      "multi_install_disambiguation": "DISAMBIGUATED",
+      "no_credentials": true,
+      "no_dot_claude": true,
+      "no_execution": true,
+      "no_network": true,
+      "non_secret": true,
+      "notes": "STRONG binding (same binary M17 hashes) BUT data_available is uncertain — Claude Code may not embed a parseable version resource; treated UNKNOWN until demonstrated",
+      "platform_scope": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "provenance_recordable": true,
+      "read_only": true,
+      "requires_discovery": false,
+      "security_risk": [],
+      "source_category": "Static executable metadata (explicit path)",
+      "source_id": "EMBEDDED_BINARY_VERSION_RESOURCE",
+      "staleness_detectable": true,
+      "universal_core_compatible": true,
+      "version_available": true
+    },
+    {
+      "adapter_only": true,
+      "architecture_scope": [
+        "x64",
+        "arm64"
+      ],
+      "binding_to_installation": "WEAK",
+      "channel_available": false,
+      "data_available": true,
+      "deterministic": true,
+      "integrity_checkable": false,
+      "is_guessing": false,
+      "is_inference": false,
+      "mechanism": "npm ls -g / apt/brew query",
+      "multi_install_disambiguation": "AMBIGUOUS",
+      "no_credentials": true,
+      "no_dot_claude": true,
+      "no_execution": false,
+      "no_network": true,
+      "non_secret": true,
+      "notes": "requires subprocess execution → rejected",
+      "platform_scope": [
+        "all"
+      ],
+      "provenance_recordable": true,
+      "read_only": true,
+      "requires_discovery": false,
+      "security_risk": [],
+      "source_category": "Package-manager metadata",
+      "source_id": "PACKAGE_MANAGER_QUERY",
+      "staleness_detectable": false,
+      "universal_core_compatible": true,
+      "version_available": true
+    },
+    {
+      "adapter_only": true,
+      "architecture_scope": [
+        "x64",
+        "arm64"
+      ],
+      "binding_to_installation": "NONE",
+      "channel_available": true,
+      "data_available": true,
+      "deterministic": true,
+      "integrity_checkable": false,
+      "is_guessing": false,
+      "is_inference": false,
+      "mechanism": "query npm registry dist-tags (latest/next)",
+      "multi_install_disambiguation": "AMBIGUOUS",
+      "no_credentials": true,
+      "no_dot_claude": true,
+      "no_execution": true,
+      "no_network": false,
+      "non_secret": true,
+      "notes": "the only channel signal requires network → rejected",
+      "platform_scope": [
+        "all"
+      ],
+      "provenance_recordable": true,
+      "read_only": true,
+      "requires_discovery": false,
+      "security_risk": [],
+      "source_category": "Channel via npm dist-tag",
+      "source_id": "NPM_DIST_TAG_CHANNEL",
+      "staleness_detectable": false,
+      "universal_core_compatible": true,
+      "version_available": false
+    },
+    {
+      "adapter_only": true,
+      "architecture_scope": [
+        "x64",
+        "arm64"
+      ],
+      "binding_to_installation": "NONE",
+      "channel_available": false,
+      "data_available": true,
+      "deterministic": true,
+      "integrity_checkable": false,
+      "is_guessing": false,
+      "is_inference": true,
+      "mechanism": "parse version from a filename or install directory name",
+      "multi_install_disambiguation": "AMBIGUOUS",
+      "no_credentials": true,
+      "no_dot_claude": true,
+      "no_execution": true,
+      "no_network": true,
+      "non_secret": true,
+      "notes": "inference → rejected",
+      "platform_scope": [
+        "all"
+      ],
+      "provenance_recordable": true,
+      "read_only": true,
+      "requires_discovery": false,
+      "security_risk": [],
+      "source_category": "Filename/path inference",
+      "source_id": "FILENAME_VERSION",
+      "staleness_detectable": false,
+      "universal_core_compatible": true,
+      "version_available": true
+    },
+    {
+      "adapter_only": true,
+      "architecture_scope": [
+        "x64",
+        "arm64"
+      ],
+      "binding_to_installation": "NONE",
+      "channel_available": true,
+      "data_available": true,
+      "deterministic": true,
+      "integrity_checkable": false,
+      "is_guessing": false,
+      "is_inference": true,
+      "mechanism": "read a CLAUDE_* env var claiming a version/channel",
+      "multi_install_disambiguation": "AMBIGUOUS",
+      "no_credentials": true,
+      "no_dot_claude": true,
+      "no_execution": true,
+      "no_network": true,
+      "non_secret": true,
+      "notes": "untrusted/inference; env is not bound to any installation → rejected",
+      "platform_scope": [
+        "all"
+      ],
+      "provenance_recordable": true,
+      "read_only": true,
+      "requires_discovery": false,
+      "security_risk": [],
+      "source_category": "Environment variable",
+      "source_id": "ENV_VAR_VERSION",
+      "staleness_detectable": false,
+      "universal_core_compatible": true,
+      "version_available": true
+    },
+    {
+      "adapter_only": true,
+      "architecture_scope": [
+        "x64",
+        "arm64"
+      ],
+      "binding_to_installation": "NONE",
+      "channel_available": true,
+      "data_available": true,
+      "deterministic": true,
+      "integrity_checkable": false,
+      "is_guessing": false,
+      "is_inference": true,
+      "mechanism": "derive version/channel from the benchmark pin or compatibility registry",
+      "multi_install_disambiguation": "NA",
+      "no_credentials": true,
+      "no_dot_claude": true,
+      "no_execution": true,
+      "no_network": true,
+      "non_secret": true,
+      "notes": "forbidden inference from benchmark/registry → rejected",
+      "platform_scope": [
+        "all"
+      ],
+      "provenance_recordable": true,
+      "read_only": true,
+      "requires_discovery": false,
+      "security_risk": [],
+      "source_category": "Benchmark/registry inference",
+      "source_id": "BENCHMARK_OR_REGISTRY_METADATA",
+      "staleness_detectable": false,
+      "universal_core_compatible": true,
+      "version_available": true
+    },
+    {
+      "adapter_only": true,
+      "architecture_scope": [
+        "x64",
+        "arm64"
+      ],
+      "binding_to_installation": "WEAK",
+      "channel_available": false,
+      "data_available": true,
+      "deterministic": true,
+      "integrity_checkable": false,
+      "is_guessing": false,
+      "is_inference": false,
+      "mechanism": "walk the home dir / filesystem to find a Claude installation",
+      "multi_install_disambiguation": "AMBIGUOUS",
+      "no_credentials": true,
+      "no_dot_claude": true,
+      "no_execution": true,
+      "no_network": true,
+      "non_secret": true,
+      "notes": "broad discovery forbidden → rejected",
+      "platform_scope": [
+        "all"
+      ],
+      "provenance_recordable": true,
+      "read_only": true,
+      "requires_discovery": true,
+      "security_risk": [
+        "broad-fs-read"
+      ],
+      "source_category": "Recursive filesystem discovery",
+      "source_id": "RECURSIVE_FS_DISCOVERY",
+      "staleness_detectable": false,
+      "universal_core_compatible": true,
+      "version_available": true
+    },
+    {
+      "adapter_only": true,
+      "architecture_scope": [
+        "x64",
+        "arm64"
+      ],
+      "binding_to_installation": "WEAK",
+      "channel_available": true,
+      "data_available": true,
+      "deterministic": true,
+      "integrity_checkable": false,
+      "is_guessing": false,
+      "is_inference": false,
+      "mechanism": "read version/channel from ~/.claude config",
+      "multi_install_disambiguation": "AMBIGUOUS",
+      "no_credentials": true,
+      "no_dot_claude": false,
+      "no_execution": true,
+      "no_network": true,
+      "non_secret": true,
+      "notes": "reads ~/.claude (credential-adjacent) → rejected",
+      "platform_scope": [
+        "all"
+      ],
+      "provenance_recordable": true,
+      "read_only": true,
+      "requires_discovery": false,
+      "security_risk": [
+        "credential-adjacent"
+      ],
+      "source_category": "Claude config file",
+      "source_id": "DOT_CLAUDE_CONFIG",
+      "staleness_detectable": false,
+      "universal_core_compatible": true,
+      "version_available": true
+    }
+  ],
+  "channel_default_when_no_source": "UNKNOWN",
+  "channel_source_status": "REJECTED",
+  "decision_reasons": [
+    "No AUTONOMOUS version source passes every gate: package/bundle metadata has WEAK binary binding, is multi-install ambiguous, and staleness is undetectable; auto-discovery is forbidden; embedded-binary version data is unproven.",
+    "No safe local non-secret CHANNEL source exists: dist-tag needs network, config is ~/.claude/credential-adjacent, and deriving channel from version/filename/OS/registry is forbidden inference. Channel remains UNKNOWN.",
+    "Version could be CONDITIONALLY_ACCEPTABLE only via an EXPLICITLY-supplied metadata path, which is already approximable through the existing M17 EXPLICIT_INPUT mechanism; no new autonomous production source is justified."
+  ],
+  "evaluations": [
+    {
+      "channel_acceptance": "REJECTED",
+      "gate_failures": [
+        "REQUIRES_BROAD_DISCOVERY"
+      ],
+      "overall_acceptance": "REJECTED",
+      "rejection_reasons": [
+        "REQUIRES_BROAD_DISCOVERY"
+      ],
+      "source_id": "NPM_PACKAGE_JSON_AUTODISCOVER",
+      "version_acceptance": "REJECTED"
+    },
+    {
+      "channel_acceptance": "REJECTED",
+      "gate_failures": [],
+      "overall_acceptance": "REJECTED",
+      "rejection_reasons": [
+        "WEAK_BINARY_BINDING",
+        "MULTI_INSTALL_AMBIGUOUS",
+        "STALENESS_UNDETECTABLE",
+        "NO_DIRECT_CHANNEL_SOURCE"
+      ],
+      "source_id": "NPM_PACKAGE_JSON_EXPLICIT",
+      "version_acceptance": "CONDITIONALLY_ACCEPTABLE"
+    },
+    {
+      "channel_acceptance": "REJECTED",
+      "gate_failures": [],
+      "overall_acceptance": "REJECTED",
+      "rejection_reasons": [
+        "WEAK_BINARY_BINDING",
+        "MULTI_INSTALL_AMBIGUOUS",
+        "STALENESS_UNDETECTABLE",
+        "NO_DIRECT_CHANNEL_SOURCE"
+      ],
+      "source_id": "MACOS_INFO_PLIST_EXPLICIT",
+      "version_acceptance": "CONDITIONALLY_ACCEPTABLE"
+    },
+    {
+      "channel_acceptance": "UNKNOWN",
+      "gate_failures": [],
+      "overall_acceptance": "UNKNOWN",
+      "rejection_reasons": [
+        "NO_DATA"
+      ],
+      "source_id": "EMBEDDED_BINARY_VERSION_RESOURCE",
+      "version_acceptance": "UNKNOWN"
+    },
+    {
+      "channel_acceptance": "REJECTED",
+      "gate_failures": [
+        "REQUIRES_EXECUTION"
+      ],
+      "overall_acceptance": "REJECTED",
+      "rejection_reasons": [
+        "REQUIRES_EXECUTION"
+      ],
+      "source_id": "PACKAGE_MANAGER_QUERY",
+      "version_acceptance": "REJECTED"
+    },
+    {
+      "channel_acceptance": "REJECTED",
+      "gate_failures": [
+        "REQUIRES_NETWORK"
+      ],
+      "overall_acceptance": "REJECTED",
+      "rejection_reasons": [
+        "REQUIRES_NETWORK"
+      ],
+      "source_id": "NPM_DIST_TAG_CHANNEL",
+      "version_acceptance": "REJECTED"
+    },
+    {
+      "channel_acceptance": "REJECTED",
+      "gate_failures": [
+        "INFERENCE"
+      ],
+      "overall_acceptance": "REJECTED",
+      "rejection_reasons": [
+        "INFERENCE"
+      ],
+      "source_id": "FILENAME_VERSION",
+      "version_acceptance": "REJECTED"
+    },
+    {
+      "channel_acceptance": "REJECTED",
+      "gate_failures": [
+        "INFERENCE"
+      ],
+      "overall_acceptance": "REJECTED",
+      "rejection_reasons": [
+        "INFERENCE"
+      ],
+      "source_id": "ENV_VAR_VERSION",
+      "version_acceptance": "REJECTED"
+    },
+    {
+      "channel_acceptance": "REJECTED",
+      "gate_failures": [
+        "INFERENCE"
+      ],
+      "overall_acceptance": "REJECTED",
+      "rejection_reasons": [
+        "INFERENCE"
+      ],
+      "source_id": "BENCHMARK_OR_REGISTRY_METADATA",
+      "version_acceptance": "REJECTED"
+    },
+    {
+      "channel_acceptance": "REJECTED",
+      "gate_failures": [
+        "REQUIRES_BROAD_DISCOVERY",
+        "SECURITY_RISK:broad-fs-read"
+      ],
+      "overall_acceptance": "REJECTED",
+      "rejection_reasons": [
+        "REQUIRES_BROAD_DISCOVERY",
+        "SECURITY_RISK:broad-fs-read"
+      ],
+      "source_id": "RECURSIVE_FS_DISCOVERY",
+      "version_acceptance": "REJECTED"
+    },
+    {
+      "channel_acceptance": "REJECTED",
+      "gate_failures": [
+        "READS_DOT_CLAUDE",
+        "SECURITY_RISK:credential-adjacent"
+      ],
+      "overall_acceptance": "REJECTED",
+      "rejection_reasons": [
+        "READS_DOT_CLAUDE",
+        "SECURITY_RISK:credential-adjacent"
+      ],
+      "source_id": "DOT_CLAUDE_CONFIG",
+      "version_acceptance": "REJECTED"
+    }
+  ],
+  "implementation_decision": "IMPLEMENTATION_NOT_JUSTIFIED",
+  "m17_modified": false,
+  "research_question": "Can dkskill obtain Claude Code version and/or channel from a local, non-secret, read-only, no-execution, no-network, no-credential, no-~/.claude source that is deterministic, provenance-recordable, integrity-checkable, universally supportable, and fails safely to UNKNOWN?",
+  "schema": "dkskill.version_metadata_assessment/1",
+  "version": 1,
+  "version_default_when_no_source": "UNKNOWN",
+  "version_source_status": "CONDITIONALLY_ACCEPTABLE"
+}

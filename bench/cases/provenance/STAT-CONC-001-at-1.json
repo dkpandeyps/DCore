@@ -1,0 +1,43 @@
+{
+  "applied_owner_decisions": [
+    "CASE-PROMPTS:APPROVE_ALL(superseded-by-REAUTHOR:prompt)",
+    "FIELD-APPROVALS:BATCH-RPRULE-NOOP",
+    "FIELD-APPROVALS:ASSERT-REAUTHOR",
+    "REAUTHOR-APPROVAL:expected_result",
+    "REAUTHOR-APPROVAL:prompt"
+  ],
+  "approval_status": "PENDING_OWNER_APPROVAL",
+  "case_id": "STAT-CONC-001",
+  "execution_readiness": "EXECUTABLE_FORM_PENDING_APPROVAL",
+  "fields": {
+    "expected_result": {
+      "basis": "REAUTHORED + OWNER_APPROVED (2026-09-28), value unchanged — [file_present:ws/app/src/stat-conc-a.txt; file_absent:ws/app/src/stat-conc-b.txt; file_present:ws/app/src/stat-conc-b.txt; file_absent:ws/app/src/stat-conc-a.txt]; OPTION F1 (owner 2026-09-28): mutual present/absent isolation. runA present a + absent b; runB present b + absent a. Existing kinds (file_present/file_absent); no cross-workspace oracle; not weakened. Files are session-created, not pre-created by fixtures.",
+      "status": "OWNER_APPROVED"
+    },
+    "gates": {
+      "basis": "spec §7.1 conditions; HG-06 retired (revision §8.4)",
+      "status": "SOURCE_DERIVED"
+    },
+    "prompt": {
+      "basis": "REAUTHORED + OWNER_APPROVED prompt (2026-09-28) — owner reauthoring 2026-09-28: the two parallel sessions each create their own distinct file (F1 isolation); existence only, no exact contents required. Supersedes the round-1 generic prompt.",
+      "status": "OWNER_APPROVED"
+    },
+    "required_fixtures": {
+      "basis": "derived from scenario/delta/oracle references in the row",
+      "status": "SOURCE_DERIVED"
+    },
+    "rp_rule": {
+      "basis": "no unambiguous RP-1 rule; authored RP1-11 from scenario intent/base — OWNER_APPROVED (BATCH-RPRULE-NOOP, 2026-09-28); value unchanged",
+      "status": "OWNER_APPROVED"
+    },
+    "sg01": {
+      "basis": "revision §8.2",
+      "status": "SOURCE_DERIVED"
+    }
+  },
+  "gap07_dependency": null,
+  "has_executable_doc": true,
+  "not_ready_reasons": [],
+  "ref": "STAT-CONC-001@1",
+  "run_a_disposition": null
+}

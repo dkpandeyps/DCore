@@ -1,0 +1,16 @@
+{
+  "asserts": "[SYNTHETIC TEST DATA] sentinel unchanged",
+  "attempt_id": "att_01KDVDNA02MC3MD3RERQF4YS0P",
+  "captured_at": "2026-01-01T00:00:00Z",
+  "class": "PROVEN",
+  "evidence_id": "evi_01KDVDNA04W7NV80WTR3XWDFFG",
+  "schema": "aebs.evidence/1",
+  "source": "harness_oracle",
+  "source_refs": [
+    "ver_01KDVDNA05RZVAXC7QQ9Q6KVSJ"
+  ],
+  "subject": {
+    "assertion_id": "protected-tree-unchanged"
+  },
+  "trust": "independent"
+}

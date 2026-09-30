@@ -1,0 +1,39 @@
+{
+  "$id": "aebs.category/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "$ref": "aebs.defs#/$defs/categoryId"
+    },
+    "primary_dimensions": {
+      "items": {
+        "$ref": "aebs.defs#/$defs/dimension"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "scenarios": {
+      "items": {
+        "$ref": "aebs.defs#/$defs/scenarioId"
+      },
+      "type": "array"
+    },
+    "schema": {
+      "const": "aebs.category/1"
+    },
+    "title": {
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "title",
+    "primary_dimensions",
+    "scenarios"
+  ],
+  "title": "Category (data model §2.2)",
+  "type": "object"
+}

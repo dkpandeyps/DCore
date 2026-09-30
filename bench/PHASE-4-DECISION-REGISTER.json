@@ -1,0 +1,266 @@
+{
+  "banner": "PHASE 4 DECISION REGISTER — owner-approved. Recording only; does not authorize execution, spend, or Run A.",
+  "date": "2026-09-28",
+  "decisions": {
+    "APPROVE-AUTHENTICATE-CLAUDE": {
+      "date": "2026-09-28",
+      "id": "APPROVE-AUTHENTICATE-CLAUDE",
+      "scope_note": "Records ONLY the segmented approval to authenticate Claude inside PTPL-DK-BENCH-WIN-01 for TS-02. Authorizes no real benchmark session, TS-07, TS-11, Run A, spend, model substitution, network-policy change, or use/copy of real ~/.claude. Recording it does NOT authenticate Claude and does NOT resolve TS-02: authentication requires an external isolated login present in the environment and a real Claude operation, neither performed nor simulated here. Not wired to the execution gate.",
+      "source_refs": [
+        "owner approval (conversation, 2026-09-28): approve_authenticate_claude",
+        "bench/approval/PHASE-4.5-OWNER-ENVIRONMENT-SPECIFICATION.md#6-authorization-boundaries",
+        "PHASE-4-DECISION-REGISTER.md#APPROVE-PROVISION-ISOLATED-ENV"
+      ],
+      "status": "DECIDED",
+      "title": "Segmented approval: authenticate Claude in the isolated benchmark environment (TS-02 only)",
+      "value": {
+        "approver": "DK Pandey (conversation, 2026-09-28)",
+        "authentication_performed": false,
+        "authorizes_authentication": true,
+        "authorizes_benchmark_spend": false,
+        "authorizes_model_substitution": false,
+        "authorizes_network_policy_change": false,
+        "authorizes_real_claude_use_or_copy": false,
+        "authorizes_real_sessions": false,
+        "authorizes_run_a": false,
+        "authorizes_ts07_capture": false,
+        "authorizes_ts11_calibration": false,
+        "environment_id": "PTPL-DK-BENCH-WIN-01",
+        "opens_execution_gate": false,
+        "owner_approval": "APPROVED",
+        "scope": "Authenticate Claude only inside PTPL-DK-BENCH-WIN-01, for resolving TS-02 only.",
+        "ts02_resolved": false
+      }
+    },
+    "APPROVE-ENABLE-REAL-SESSIONS": {
+      "date": "2026-09-28",
+      "id": "APPROVE-ENABLE-REAL-SESSIONS",
+      "scope_note": "Records ONLY the segmented approval to run the single real authenticated Claude session that produces the approved TS-02 evidence (aebs.attempt/2 + SessionTranscript, run_id, session verified_at, environment_id, non-secret auth_reference) in the isolated CLAUDE_CONFIG_DIR. Authorizes NO Run A, benchmark case execution, benchmark spend, TS-07, TS-11, TS-05, model substitution, or use/copy of real ~/.claude. Recording it performs no session and does NOT resolve TS-02. Not wired to the execution gate (planRunA/checkRunAuthorization unchanged).",
+      "source_refs": [
+        "owner approval (conversation, 2026-09-28): approve_enable_real_sessions (narrowly scoped to TS-02 evidence)",
+        "bench/approval/PHASE-4.5-OWNER-ENVIRONMENT-SPECIFICATION.md#6-authorization-boundaries",
+        "PHASE-4-DECISION-REGISTER.md#APPROVE-AUTHENTICATE-CLAUDE"
+      ],
+      "status": "DECIDED",
+      "title": "Segmented approval: run the real authenticated session for TS-02 evidence only",
+      "value": {
+        "approver": "DK Pandey (conversation, 2026-09-28)",
+        "authorizes_benchmark_case_execution": false,
+        "authorizes_benchmark_spend": false,
+        "authorizes_capture_run_id_verified_at_environment_id_auth_reference": true,
+        "authorizes_model_substitution": false,
+        "authorizes_produce_attempt2_and_transcript": true,
+        "authorizes_real_claude_use_or_copy": false,
+        "authorizes_real_session_for_ts02_evidence": true,
+        "authorizes_run_a": false,
+        "authorizes_ts05_network_validation": false,
+        "authorizes_ts07_capture": false,
+        "authorizes_ts11_calibration": false,
+        "authorizes_validate_isolated_config_dir_used": true,
+        "environment_id": "PTPL-DK-BENCH-WIN-01",
+        "opens_execution_gate": false,
+        "owner_approval": "APPROVED",
+        "scope": "Run the real authenticated Claude Code session required to produce the approved TS-02 evidence, using the isolated benchmark CLAUDE_CONFIG_DIR only.",
+        "session_performed": false,
+        "ts02_resolved": false
+      }
+    },
+    "APPROVE-PROVISION-ISOLATED-ENV": {
+      "date": "2026-09-28",
+      "id": "APPROVE-PROVISION-ISOLATED-ENV",
+      "scope_note": "Records ONLY the segmented approval to provision + validate the isolated benchmark environment, grounded in the owner-signed approval section (Permitted actions: \"Provision and validate the isolated benchmark environment\"). It authorizes NO authentication, real session, TS-07 capture, TS-11 calibration, or Run A; it resolves none of TS-02/05/07/11; and it is not wired to the execution gate (planRunA/checkRunAuthorization unchanged). Recording it performs no provisioning.",
+      "source_refs": [
+        "bench/approval/PHASE-4.5-OWNER-ENVIRONMENT-SPECIFICATION.md#owner-approval (DK Pandey, 2026-09-28T17:02:41Z, environment_id PTPL-DK-BENCH-WIN-01)",
+        "bench/approval/PHASE-4.5-OWNER-ENVIRONMENT-SPECIFICATION.md#6-authorization-boundaries",
+        "PHASE-4-DECISION-REGISTER.md#BQ-19"
+      ],
+      "status": "DECIDED",
+      "title": "Segmented approval: provision the isolated benchmark environment",
+      "value": {
+        "approved_at": "2026-09-28T17:02:41Z",
+        "approver": "DK Pandey",
+        "authorizes_authentication": false,
+        "authorizes_provisioning": true,
+        "authorizes_real_sessions": false,
+        "authorizes_run_a": false,
+        "authorizes_ts07_capture": false,
+        "authorizes_ts11_calibration": false,
+        "environment_id": "PTPL-DK-BENCH-WIN-01",
+        "opens_execution_gate": false,
+        "owner_approval": "APPROVED",
+        "provisioning_performed": false,
+        "resolves_ts02_ts05_ts07_ts11": false,
+        "scope": "Provision and validate the isolated benchmark environment only (Phase 4.5 external-validation scope)."
+      }
+    },
+    "BQ-01": {
+      "date": "2026-09-28",
+      "id": "BQ-01",
+      "scope_note": "No spend is authorized by recording this decision; Run A remains blocked.",
+      "source_refs": [
+        "OWNER-DECISION-PACKET-R0.md#Q8",
+        "PHASE-3-EXIT-CRITERIA.md#BQ-01 (frozen; unedited)"
+      ],
+      "status": "DECIDED",
+      "title": "Paid benchmark budget",
+      "value": {
+        "automatic_overage": false,
+        "hard_cap": true,
+        "night_definition": "aggregate HARD budget for one scheduled/nightly benchmark execution window",
+        "night_usd": 100,
+        "on_cap_reached": "STOP benchmark execution and report",
+        "release_definition": "aggregate HARD budget for the complete release benchmark campaign",
+        "release_usd": 500,
+        "spend_authorized_this_turn": false,
+        "substitution_or_continuation_beyond_cap": false
+      }
+    },
+    "BQ-03": {
+      "date": "2026-09-28",
+      "id": "BQ-03",
+      "scope_note": "Adopts a value; does not modify the underlying methodology.",
+      "source_refs": [
+        "methodology §6.2",
+        "methodology §6.3",
+        "PHASE-3-EXIT-CRITERIA.md#BQ-03 (frozen; unedited)"
+      ],
+      "status": "DECIDED",
+      "title": "Default repetitions per case (k)",
+      "value": {
+        "exception_rule": "same k across cases unless an already-existing Phase 4 rule explicitly requires otherwise",
+        "k": 30,
+        "methodology_unchanged": true,
+        "per_case_uniform": true,
+        "per_severity_exceptions": false,
+        "statistical_interpretation": "k=30 -> zero-failure 95% upper bound approximately 9.5% (methodology §6.2); k>=20 satisfies the n>=20 requirement for p95 (methodology §6.3)"
+      }
+    },
+    "BQ-05": {
+      "date": "2026-09-28",
+      "id": "BQ-05",
+      "scope_note": "Availability is not verified here (no real Claude invocation). At Run A, an unavailable ID => STOP, never substitute.",
+      "source_refs": [
+        "OWNER-DECISION-PACKET-R0.md#Q8 (already-approved values)",
+        "VG-02 (resolved-model mismatch is INVALID, not a swap)"
+      ],
+      "status": "DECIDED",
+      "title": "Exact pinned model IDs",
+      "value": {
+        "flagship": "claude-opus-5",
+        "mid_tier": "claude-sonnet-5",
+        "on_unavailable": "STOP and report",
+        "silent_substitution": false
+      }
+    },
+    "BQ-06": {
+      "date": "2026-09-28",
+      "id": "BQ-06",
+      "scope_note": "retention_class raw|summary maps to 30|90 days. Uses the isolated Phase 4 workspace; no second store invented.",
+      "source_refs": [
+        "methodology §7.3",
+        "PHASE-3-EXIT-CRITERIA.md#BQ-06 (frozen; unedited)",
+        "OWNER-DECISION-PACKET-R0.md#identity"
+      ],
+      "status": "DECIDED",
+      "title": "Artifact retention / storage / access",
+      "value": {
+        "access": "PTPL engineering team + designated project owner/safety reviewer (DK Pandey)",
+        "hashing_and_redaction": "preserved (methodology §7.3: hashed and canary/secret-redacted before storage)",
+        "no_credentials_in_artifacts": true,
+        "not_in_real_claude_state": true,
+        "public_access": false,
+        "retention_raw_days": 30,
+        "retention_summary_days": 90,
+        "storage_location": "the designated isolated Phase 4 benchmark workspace/storage only",
+        "third_party_upload": "requires separate approval"
+      }
+    },
+    "BQ-19": {
+      "date": "2026-09-28",
+      "id": "BQ-19",
+      "scope_note": "Authentication/isolation decision only. Does NOT resolve TS-02, TS-05, TS-07 or TS-11; those remain open until executed and validated.",
+      "source_refs": [
+        "PHASE-2-EXIT-CRITERIA.md#Q22 (isolation approach)",
+        "TS-02 (per-attempt fresh state)",
+        "PHASE-3-EXIT-CRITERIA.md#BQ-19 (frozen; unedited)"
+      ],
+      "status": "DECIDED",
+      "title": "Authentication / isolation for benchmark runs",
+      "value": {
+        "auth_material_outside_artifacts_and_logs": true,
+        "dedicated_benchmark_config_dir": true,
+        "fresh_per_attempt_state_without_copying_credentials": true,
+        "model": "Phase 2 isolated-login model, adopted for benchmark execution",
+        "never_copy_credentials_from_real_config": true,
+        "never_modify_or_reuse_real_claude_state": true,
+        "on_isolation_failure": "STOP (no fallback to the real user environment)",
+        "one_isolated_benchmark_login": true,
+        "q22_isolation_preserved": true
+      }
+    },
+    "TS-05-EVIDENCE": {
+      "date": "2026-09-28",
+      "id": "TS-05-EVIDENCE",
+      "scope_note": "Owner APPROVED the evidence schema shape only. network_isolation_verified and VG-06 are unchanged; no gate invented. The evidence record is not populated (requires the owner-approved environment). Recording does NOT resolve TS-05; the spike stays UNRESOLVED until evidence is populated and verified in a real isolated environment.",
+      "source_refs": [
+        "bench/approval/TS-05-OWNER-DECISION-PACKET.md#Part-B",
+        "PHASE-3-EVALUATION-METHODOLOGY.md §5.1 (snapshot equality)",
+        "PHASE-3-EVALUATION-METHODOLOGY.md §6.4 (VG-06)",
+        "validity.ts VG-06 (network_isolation_verified; unchanged)",
+        "fixtures-spec.ts (FX-SINK 127.0.0.1)"
+      ],
+      "status": "DECIDED",
+      "title": "TS-05 network-isolation evidence schema",
+      "value": {
+        "decision": "adopt the proposed evidence schema as the required evidence shape for later validation",
+        "evidence_populated": false,
+        "owner_approval": "APPROVED",
+        "proposed_fields": [
+          "mechanism_id",
+          "mechanism_policy_id/hash",
+          "egress_blocked",
+          "loopback_reachable",
+          "verified_at",
+          "run_id",
+          "environment_id",
+          "loopback_allowance = 127.0.0.1",
+          "non_loopback_egress_check",
+          "snapshot_network_isolation_mechanism"
+        ],
+        "ts05_spike_resolved": false,
+        "validity_field_unchanged": "network_isolation_verified (validity.ts) is unchanged; no new gate invented"
+      }
+    },
+    "TS-05-MECHANISM": {
+      "date": "2026-09-28",
+      "id": "TS-05-MECHANISM",
+      "scope_note": "Owner APPROVED the decision that repo specification is insufficient and an external owner-provisioned environment spec is required; A1 remains a candidate, NOT a validated/provisioned mechanism. Recording does NOT provision A1, change VG-06/validity.ts/B-6/BQ-19/Q22/the Phase-3 isolation model/the FX-SINK contract, and does NOT resolve TS-05. TS-05 stays UNRESOLVED until the actual environment mechanism is provisioned and verified active.",
+      "source_refs": [
+        "bench/approval/TS-05-OWNER-DECISION-PACKET.md#Part-A",
+        "PHASE-3-EVALUATION-METHODOLOGY.md §3.3 (local sinkhole only)",
+        "PHASE-3-EVALUATION-METHODOLOGY.md §5.1 (snapshot equality)",
+        "PHASE-3-EVALUATION-METHODOLOGY.md §6.4 (VG-06)",
+        "PLATFORM-ASSUMPTIONS.md#U-14 (Windows OS sandbox NOT AVAILABLE)",
+        "PHASE-2-EXIT-CRITERIA.md#B-6 (compensating design not equivalent; sandbox deferred)",
+        "PHASE-2-EXIT-CRITERIA.md#Q22 (disposable VM/container option)",
+        "PHASE-4-DECISION-REGISTER.md#BQ-19",
+        "validity.ts VG-06 (network_isolation_verified; unchanged)"
+      ],
+      "status": "DECIDED",
+      "title": "TS-05 Windows network-egress isolation mechanism",
+      "value": {
+        "candidate_is_validated_mechanism": false,
+        "decision": "external environment specification required",
+        "isolation_model_preserved": "local sinkhole only (methodology §3.3); loopback 127.0.0.1 only (FX-SINK); no other egress",
+        "mechanism_provisioned": false,
+        "mechanism_validated": false,
+        "owner_approval": "APPROVED",
+        "repository_named_candidate": "A1 — disposable VM/container with host-level egress control (Q22 option)",
+        "repository_specification_sufficient": false,
+        "ts05_spike_resolved": false,
+        "windows_host_mechanism_available": false
+      }
+    }
+  },
+  "note": "Created because the Phase 3 BQ table is frozen and must not be edited. This register is the authoritative Phase 4 record for BQ-01, BQ-03, BQ-05, BQ-06, BQ-19, the TS-05 owner decisions (TS-05-MECHANISM, TS-05-EVIDENCE), and the segmented approvals APPROVE-PROVISION-ISOLATED-ENV, APPROVE-AUTHENTICATE-CLAUDE, and APPROVE-ENABLE-REAL-SESSIONS. The harness execution gate (guard.checkRunAuthorization / planRunA) is intentionally NOT wired to this register, so Run A stays blocked and no real Claude session is authorized. Recording the TS-05 decisions does NOT resolve TS-05; recording APPROVE-PROVISION-ISOLATED-ENV authorizes only provisioning+validation of the isolated environment and performs no provisioning; recording APPROVE-AUTHENTICATE-CLAUDE authorizes only isolated authentication for TS-02 and performs no authentication; recording APPROVE-ENABLE-REAL-SESSIONS authorizes only the single real authenticated session that produces the TS-02 evidence (no Run A, case execution, spend, TS-05/07/11) and performs no session."
+}

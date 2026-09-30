@@ -1,0 +1,220 @@
+{
+  "decision_reasons": [],
+  "gates": [
+    {
+      "gate_id": "GG-01",
+      "name": "valid proposal schema",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-02",
+      "name": "exact source certification profile",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-03",
+      "name": "M5 publication state valid",
+      "reasons": [
+        "m5_state=PUBLISHED"
+      ],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-04",
+      "name": "M4 certification state valid",
+      "reasons": [
+        "m4=CERTIFIED"
+      ],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-05",
+      "name": "all mandatory M5 publication gates PASS",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-06",
+      "name": "exact profile identity",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-07",
+      "name": "exact version",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-08",
+      "name": "exact platform",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-09",
+      "name": "exact architecture",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-10",
+      "name": "exact channel",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-11",
+      "name": "exact binary SHA-256",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-12",
+      "name": "evidence-chain integrity",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-13",
+      "name": "owner approval valid",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-14",
+      "name": "publication authorization valid",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-15",
+      "name": "authorized signer",
+      "reasons": [
+        "sig_state=SIGNED"
+      ],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-16",
+      "name": "signature present",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-17",
+      "name": "signature valid",
+      "reasons": [
+        "sig_state=SIGNED"
+      ],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-18",
+      "name": "non-synthetic profile",
+      "reasons": [
+        "synthetic=false"
+      ],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-19",
+      "name": "registry precondition matches",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-20",
+      "name": "no conflicting active profile",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-21",
+      "name": "supersession/revocation consistency",
+      "reasons": [
+        "revoked=false"
+      ],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-22",
+      "name": "immutable-history consistency",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-23",
+      "name": "no forbidden registry mutation",
+      "reasons": [
+        "op=ADD_PROFILE"
+      ],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-24",
+      "name": "atomic-update preconditions",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "GG-25",
+      "name": "rollback safety",
+      "reasons": [],
+      "result": "PASS"
+    }
+  ],
+  "mutation": {
+    "mutation_type": "ADD_PROFILE",
+    "profile_payload": {
+      "architecture": "demo",
+      "binary_sha256": "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+      "certification_status": "CERTIFIED",
+      "channel": "demo",
+      "evidence_chain_head": "sha256:fa9da9ebd8784708fe0897ed161c9e8f42f97b4ea061c52b4268fdca4989d05a",
+      "is_scope_placeholder": false,
+      "lifecycle_state": "active",
+      "platform": "mechanics-demo",
+      "product": "claude-code-MECHANICS-DEMO",
+      "profile_id": "demo-mechanics@1",
+      "published_via": "run_demo",
+      "validation_status": "CERTIFIED",
+      "version": "0.0.0-demo"
+    },
+    "status_change": null,
+    "supersedes_profile_id": null,
+    "target_profile_id": "demo-mechanics@1"
+  },
+  "publication_record": {
+    "authorization_id": "auth-demo",
+    "identity": {
+      "architecture": "demo",
+      "binary_sha256": "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+      "channel": "demo",
+      "platform": "mechanics-demo",
+      "product": "claude-code-MECHANICS-DEMO",
+      "version": "0.0.0-demo"
+    },
+    "mutation_type": "ADD_PROFILE",
+    "previous_record_hash": null,
+    "previous_registry_hash": "sha256:c9e13dc6f954dd15b4336b2c48d63002b532e2754959a07a020fc100410f244b",
+    "profile_id": "demo-mechanics@1",
+    "proposal_id": "proposal-demo-mechanics@1",
+    "publication_id": "pub-demo-mechanics@1",
+    "record_hash": "sha256:0bb10c9b6a7f317ce923d174c20f940be5558a702d81dedbfca3df9495bda628",
+    "resulting_registry_hash": "sha256:2b0d6cb35b9cbdcfcfaa7f63b9403d00035a47a7bc000e288a3ed3338857314d",
+    "schema": "dkskill.registry_publication_record/1",
+    "signer": "PTPL-DEMO-SIGNER",
+    "timestamp": "2026-09-29T00:00:00Z"
+  },
+  "registry_changed": true,
+  "registry_hash_after": "sha256:2b0d6cb35b9cbdcfcfaa7f63b9403d00035a47a7bc000e288a3ed3338857314d",
+  "registry_hash_before": "sha256:c9e13dc6f954dd15b4336b2c48d63002b532e2754959a07a020fc100410f244b",
+  "request_id": "gov-demo-mechanics",
+  "schema": "dkskill.registry_governance/1",
+  "state": "PUBLISHED",
+  "synthetic_demo": true,
+  "version": 1
+}

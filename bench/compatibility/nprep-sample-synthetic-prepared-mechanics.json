@@ -1,0 +1,145 @@
+{
+  "audit_hash": "sha256:f585edf50ea8e9b51d2bb01035f39f572c36713c81c3bc3005e224cd4e89fc45",
+  "authorization": {
+    "authentication_authorized": false,
+    "authorization_id": "M12-AUTH",
+    "benchmark_authorized": false,
+    "certification_authorized": false,
+    "claude_execution_authorized": false,
+    "environment_id": "PTPL-DK-BENCH-WIN-01",
+    "organization": "PTPL",
+    "owner": "DK Pandey",
+    "project": "dkskill",
+    "publication_authorized": false,
+    "registry_mutation_authorized": false,
+    "run_a_authorized": false,
+    "schema": "dkskill.network_isolation_prep_authorization/1",
+    "scope": "NETWORK_ISOLATION_ENVIRONMENT_PREPARATION_ONLY",
+    "target_profile_id": "cc-2.1.283-win32-x64-native@1",
+    "timestamp": "2026-09-29T00:00:00Z",
+    "ts07_authorized": false,
+    "ts11_authorized": false,
+    "version": 1
+  },
+  "changes_applied": [
+    {
+      "applied": true,
+      "authorization_scope": "M12-AUTH: NETWORK_ISOLATION_ENVIRONMENT_PREPARATION_ONLY",
+      "change_id": "CHG-01",
+      "component": "external network boundary",
+      "new_state": "deny-all outbound (explicit minimal allowlist)",
+      "operation": "SYNTHETIC_TEST_ONLY set egress-deny at external boundary",
+      "previous_state": "allow-all outbound",
+      "reason": "establish outbound-deny isolation boundary",
+      "rollback_operation": "restore prior egress policy from recorded snapshot",
+      "schema": "dkskill.network_isolation_prep_change/1",
+      "synthetic_only": true,
+      "timestamp": "2026-09-29T00:00:00Z",
+      "verification_result": "pending independent observation"
+    },
+    {
+      "applied": true,
+      "authorization_scope": "M12-AUTH: NETWORK_ISOLATION_ENVIRONMENT_PREPARATION_ONLY",
+      "change_id": "CHG-02",
+      "component": "external network boundary",
+      "new_state": "deny-all outbound (explicit minimal allowlist)",
+      "operation": "SYNTHETIC_TEST_ONLY set egress-deny at external boundary",
+      "previous_state": "allow-all outbound",
+      "reason": "establish outbound-deny isolation boundary",
+      "rollback_operation": "restore prior egress policy from recorded snapshot",
+      "schema": "dkskill.network_isolation_prep_change/1",
+      "synthetic_only": true,
+      "timestamp": "2026-09-29T00:00:00Z",
+      "verification_result": "pending independent observation"
+    }
+  ],
+  "environment_id": "PTPL-DK-BENCH-WIN-01",
+  "evidence_class_of_preparation": "CONFIGURATION_EVIDENCE",
+  "final_state": "PREPARED_FOR_L4_VERIFICATION",
+  "future_l4_still_required": [
+    "a controlled denied-connection test observed by the independent observer",
+    "fresh INDEPENDENT_VERIFICATION evidence submitted to M9 runVerification",
+    "a separate explicit owner authorization for the real evidence session",
+    "a separate M8 authorization + full preflight before any execution"
+  ],
+  "independent_observer_established": true,
+  "limitations": [
+    "Preparation is not verification. Even PREPARED_FOR_L4_VERIFICATION is not L4: a separate M9 independent-verification session (new owner authorization) is required. M8 stays EXECUTION_BLOCKED."
+  ],
+  "m8_state_observed": "EXECUTION_BLOCKED",
+  "m9_state_observed": "UNVERIFIED",
+  "network_isolation": "UNVERIFIED",
+  "plan": {
+    "boundary": {
+      "demonstrates_denied_connectivity": true,
+      "enforcement_actually_enforced": true,
+      "establishable": true,
+      "minimal": true,
+      "requires_overbroad_change": false
+    },
+    "independence_rationale": "dedicated machine enforced; distinct independent verifier attests",
+    "observer": {
+      "binds_to_environment": true,
+      "enforcement_identity": "SYNTHETIC_TEST_ONLY network-egress-enforcer",
+      "external": true,
+      "freshness_established": true,
+      "identity": "SYNTHETIC_TEST_ONLY external-observer",
+      "is_same_host_self_report": false,
+      "observation_mechanism": "external control-plane egress observation",
+      "proposed": true,
+      "tamper_protected": true
+    },
+    "option_id": "OPT-DEDICATED-MACHINE",
+    "option_name": "dedicated isolated machine + independent verifier",
+    "required_changes": [
+      {
+        "applied": false,
+        "authorization_scope": "M12-AUTH: NETWORK_ISOLATION_ENVIRONMENT_PREPARATION_ONLY",
+        "change_id": "CHG-01",
+        "component": "external network boundary",
+        "new_state": "deny-all outbound (explicit minimal allowlist)",
+        "operation": "SYNTHETIC_TEST_ONLY set egress-deny at external boundary",
+        "previous_state": "allow-all outbound",
+        "reason": "establish outbound-deny isolation boundary",
+        "rollback_operation": "restore prior egress policy from recorded snapshot",
+        "schema": "dkskill.network_isolation_prep_change/1",
+        "synthetic_only": true,
+        "timestamp": "2026-09-29T00:00:00Z",
+        "verification_result": "pending independent observation"
+      },
+      {
+        "applied": false,
+        "authorization_scope": "M12-AUTH: NETWORK_ISOLATION_ENVIRONMENT_PREPARATION_ONLY",
+        "change_id": "CHG-02",
+        "component": "external network boundary",
+        "new_state": "deny-all outbound (explicit minimal allowlist)",
+        "operation": "SYNTHETIC_TEST_ONLY set egress-deny at external boundary",
+        "previous_state": "allow-all outbound",
+        "reason": "establish outbound-deny isolation boundary",
+        "rollback_operation": "restore prior egress policy from recorded snapshot",
+        "schema": "dkskill.network_isolation_prep_change/1",
+        "synthetic_only": true,
+        "timestamp": "2026-09-29T00:00:00Z",
+        "verification_result": "pending independent observation"
+      }
+    ],
+    "schema": "dkskill.network_isolation_prep_plan/1"
+  },
+  "prep_id": "prep-PTPL-DK-BENCH-WIN-01",
+  "rollback_ledger": [
+    {
+      "change_id": "CHG-01",
+      "rollback_operation": "restore prior egress policy from recorded snapshot"
+    },
+    {
+      "change_id": "CHG-02",
+      "rollback_operation": "restore prior egress policy from recorded snapshot"
+    }
+  ],
+  "schema": "dkskill.network_isolation_prep_result/1",
+  "stop_reasons": [],
+  "synthetic_test_only": true,
+  "target_profile_id": "cc-2.1.283-win32-x64-native@1",
+  "timestamp": "2026-09-29T00:00:00Z",
+  "version": 1
+}

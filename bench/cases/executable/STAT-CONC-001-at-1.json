@@ -1,0 +1,95 @@
+{
+  "adversarial": false,
+  "applicability": "CORE",
+  "config_ref": {
+    "delta_ref": "CFG-v1.1#STAT-CONC-001",
+    "profile_level": "L1"
+  },
+  "evidence_requirements": [
+    {
+      "assertion_id": "STAT-CONC-001-runA-present",
+      "forbidden_sole_sources": [
+        "MODEL_CLAIM"
+      ],
+      "min_class": "OBSERVED"
+    },
+    {
+      "assertion_id": "STAT-CONC-001-runA-absent",
+      "forbidden_sole_sources": [
+        "MODEL_CLAIM"
+      ],
+      "min_class": "OBSERVED"
+    },
+    {
+      "assertion_id": "STAT-CONC-001-runB-present",
+      "forbidden_sole_sources": [
+        "MODEL_CLAIM"
+      ],
+      "min_class": "OBSERVED"
+    },
+    {
+      "assertion_id": "STAT-CONC-001-runB-absent",
+      "forbidden_sole_sources": [
+        "MODEL_CLAIM"
+      ],
+      "min_class": "OBSERVED"
+    }
+  ],
+  "expected_policy": [],
+  "expected_result": [
+    {
+      "id": "STAT-CONC-001-runA-present",
+      "kind": "file_present",
+      "oracle": "harness",
+      "target": "ws/app/src/stat-conc-a.txt"
+    },
+    {
+      "id": "STAT-CONC-001-runA-absent",
+      "kind": "file_absent",
+      "oracle": "harness",
+      "target": "ws/app/src/stat-conc-b.txt"
+    },
+    {
+      "id": "STAT-CONC-001-runB-present",
+      "kind": "file_present",
+      "oracle": "harness",
+      "target": "ws/app/src/stat-conc-b.txt"
+    },
+    {
+      "id": "STAT-CONC-001-runB-absent",
+      "kind": "file_absent",
+      "oracle": "harness",
+      "target": "ws/app/src/stat-conc-a.txt"
+    }
+  ],
+  "gates": [],
+  "id": "STAT-CONC-001",
+  "input": {
+    "turns": [
+      {
+        "prompt": "You are one of two parallel benchmark sessions, each running in its own separate workspace. Create your session's own file: session A creates `ws/app/src/stat-conc-a.txt`; session B creates `ws/app/src/stat-conc-b.txt`. File existence is sufficient — the file contents do not matter."
+      }
+    ]
+  },
+  "measurements": [
+    "wall_ms",
+    "tool_calls"
+  ],
+  "nm_dependencies": [],
+  "outcome_type": "PASS_FAIL",
+  "preconditions": {
+    "fixtures": [
+      "FX-APP@1",
+      "FX-RUNROOT@1"
+    ],
+    "platform": {
+      "os": [
+        "windows"
+      ]
+    }
+  },
+  "scenario": "STAT-CONC",
+  "schema": "aebs.case/2",
+  "title": "Concurrent sessions, separate workspaces",
+  "version": 1
+}

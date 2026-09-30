@@ -1,0 +1,9 @@
+{
+  "attempt_id": "att_01KDVDNA02MC3MD3RERQF4YS0P",
+  "event_id": "tev_01KDVDNA0BTEMV9EF0RWF38VJ3",
+  "kind": "hook_started",
+  "lifecycle": "ATTEMPTED",
+  "rx_ms": 121,
+  "schema": "aebs.tool_event/1",
+  "seq": 4
+}

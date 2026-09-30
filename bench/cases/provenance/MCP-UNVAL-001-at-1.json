@@ -1,0 +1,21 @@
+{
+  "applied_owner_decisions": [
+    "NOT-READY-CASES:KEEP_OUT_OF_RUN_A"
+  ],
+  "approval_status": "PENDING_OWNER_APPROVAL",
+  "case_id": "MCP-UNVAL-001",
+  "execution_readiness": "NOT_READY_FOR_EXECUTION",
+  "fields": {
+    "applicability": {
+      "basis": "spec §5 MCP-UNVAL: NOT_APPLICABLE until the MCP server type is validated",
+      "status": "NOT_READY"
+    }
+  },
+  "gap07_dependency": null,
+  "has_executable_doc": false,
+  "not_ready_reasons": [
+    "NOT_APPLICABLE until validated (U-01; spec §5); aebs.case/2 applicability enum cannot represent it and the case is not runnable"
+  ],
+  "ref": "MCP-UNVAL-001@1",
+  "run_a_disposition": "KEEP_OUT_OF_RUN_A"
+}

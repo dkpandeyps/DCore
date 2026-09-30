@@ -1,0 +1,14 @@
+{
+  "audit_id": "audit-dkskill-cert-infra-plan",
+  "certified_profiles": 0,
+  "environments": 3,
+  "infrastructure_status": "DESIGN_VALIDATED",
+  "plan_id": "dkskill-cert-infra-plan",
+  "previous_record_hash": null,
+  "provisioning_status": "REQUIRES_PAID_INFRASTRUCTURE_AUTHORIZATION",
+  "record_hash": "sha256:abb6138a93d6842504c4a521f87cea95977e0e03592945e5dee46fb27fefa835",
+  "schema": "dkskill.certification_infrastructure_audit/1",
+  "threats": 19,
+  "timestamp": "2026-09-29T00:00:00Z",
+  "version": 1
+}

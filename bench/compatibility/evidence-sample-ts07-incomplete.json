@@ -1,0 +1,767 @@
+{
+  "assertions": [
+    {
+      "assertion_id": "as_EV-HOST-IDENTITY",
+      "claim": "EV-HOST-IDENTITY observed",
+      "evidence_class": "EV-HOST-IDENTITY",
+      "provenance_ref": "evi_ev-host-identity_EV-ENV-SYN-01",
+      "reason": "validated evidence supports claim",
+      "state": "SUPPORTED",
+      "supporting_evidence": [
+        "evi_ev-host-identity_EV-ENV-SYN-01"
+      ]
+    },
+    {
+      "assertion_id": "as_EV-BINARY-IDENTITY",
+      "claim": "EV-BINARY-IDENTITY observed",
+      "evidence_class": "EV-BINARY-IDENTITY",
+      "provenance_ref": "evi_ev-binary-identity_EV-ENV-SYN-01",
+      "reason": "validated evidence supports claim",
+      "state": "SUPPORTED",
+      "supporting_evidence": [
+        "evi_ev-binary-identity_EV-ENV-SYN-01"
+      ]
+    },
+    {
+      "assertion_id": "as_EV-VERSION",
+      "claim": "EV-VERSION observed",
+      "evidence_class": "EV-VERSION",
+      "provenance_ref": "evi_ev-version_EV-ENV-SYN-01",
+      "reason": "validated evidence supports claim",
+      "state": "SUPPORTED",
+      "supporting_evidence": [
+        "evi_ev-version_EV-ENV-SYN-01"
+      ]
+    },
+    {
+      "assertion_id": "as_EV-PLATFORM",
+      "claim": "EV-PLATFORM observed",
+      "evidence_class": "EV-PLATFORM",
+      "provenance_ref": "evi_ev-platform_EV-ENV-SYN-01",
+      "reason": "validated evidence supports claim",
+      "state": "SUPPORTED",
+      "supporting_evidence": [
+        "evi_ev-platform_EV-ENV-SYN-01"
+      ]
+    },
+    {
+      "assertion_id": "as_EV-ARCHITECTURE",
+      "claim": "EV-ARCHITECTURE observed",
+      "evidence_class": "EV-ARCHITECTURE",
+      "provenance_ref": "evi_ev-architecture_EV-ENV-SYN-01",
+      "reason": "validated evidence supports claim",
+      "state": "SUPPORTED",
+      "supporting_evidence": [
+        "evi_ev-architecture_EV-ENV-SYN-01"
+      ]
+    },
+    {
+      "assertion_id": "as_EV-CHANNEL",
+      "claim": "EV-CHANNEL observed",
+      "evidence_class": "EV-CHANNEL",
+      "provenance_ref": "evi_ev-channel_EV-ENV-SYN-01",
+      "reason": "validated evidence supports claim",
+      "state": "SUPPORTED",
+      "supporting_evidence": [
+        "evi_ev-channel_EV-ENV-SYN-01"
+      ]
+    },
+    {
+      "assertion_id": "as_EV-ENVIRONMENT",
+      "claim": "EV-ENVIRONMENT observed",
+      "evidence_class": "EV-ENVIRONMENT",
+      "provenance_ref": "evi_ev-environment_EV-ENV-SYN-01",
+      "reason": "validated evidence supports claim",
+      "state": "SUPPORTED",
+      "supporting_evidence": [
+        "evi_ev-environment_EV-ENV-SYN-01"
+      ]
+    },
+    {
+      "assertion_id": "as_EV-NETWORK",
+      "claim": "EV-NETWORK observed",
+      "evidence_class": "EV-NETWORK",
+      "provenance_ref": "evi_ev-network_EV-ENV-SYN-01",
+      "reason": "validated evidence supports claim",
+      "state": "SUPPORTED",
+      "supporting_evidence": [
+        "evi_ev-network_EV-ENV-SYN-01"
+      ]
+    },
+    {
+      "assertion_id": "as_EV-TOOLCHAIN",
+      "claim": "EV-TOOLCHAIN observed",
+      "evidence_class": "EV-TOOLCHAIN",
+      "provenance_ref": "evi_ev-toolchain_EV-ENV-SYN-01",
+      "reason": "validated evidence supports claim",
+      "state": "SUPPORTED",
+      "supporting_evidence": [
+        "evi_ev-toolchain_EV-ENV-SYN-01"
+      ]
+    },
+    {
+      "assertion_id": "as_EV-STREAM-SCHEMA",
+      "claim": "no live stream captured",
+      "evidence_class": "EV-STREAM-SCHEMA",
+      "provenance_ref": null,
+      "reason": "no evidence acquired",
+      "state": "UNKNOWN",
+      "supporting_evidence": []
+    },
+    {
+      "assertion_id": "as_EV-ATTRIBUTION",
+      "claim": "no live attribution captured",
+      "evidence_class": "EV-ATTRIBUTION",
+      "provenance_ref": null,
+      "reason": "no evidence acquired",
+      "state": "UNKNOWN",
+      "supporting_evidence": []
+    },
+    {
+      "assertion_id": "as_EV-HOOK-PROTOCOL",
+      "claim": "not acquired",
+      "evidence_class": "EV-HOOK-PROTOCOL",
+      "provenance_ref": null,
+      "reason": "no evidence acquired",
+      "state": "UNKNOWN",
+      "supporting_evidence": []
+    },
+    {
+      "assertion_id": "as_EV-PERMISSION-MODES",
+      "claim": "not acquired",
+      "evidence_class": "EV-PERMISSION-MODES",
+      "provenance_ref": null,
+      "reason": "no evidence acquired",
+      "state": "UNKNOWN",
+      "supporting_evidence": []
+    },
+    {
+      "assertion_id": "as_EV-TS07",
+      "claim": "no live stream+attribution observations",
+      "evidence_class": "EV-TS07",
+      "provenance_ref": null,
+      "reason": "no evidence acquired",
+      "state": "UNKNOWN",
+      "supporting_evidence": []
+    }
+  ],
+  "authorization_ref": "evauth-synthetic-ts-demo@1",
+  "completeness": "INCOMPLETE",
+  "created_at": "2026-09-29T00:00:00Z",
+  "environment_id": "EV-ENV-SYN-01",
+  "evidence_items": [
+    {
+      "artifact": {
+        "binary_identity": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+        "byte_length": 89,
+        "capture_timestamp": "2026-09-29T00:00:00Z",
+        "content_hash": "sha256:c1c669bf30f3224d3a1a412d16ff0b06eafe94f691916c66bef258fb457f22e6",
+        "environment_id": "EV-ENV-SYN-01",
+        "evidence_class": "EV-HOST-IDENTITY",
+        "evidence_id": "evi_ev-host-identity_EV-ENV-SYN-01",
+        "evidence_type": "identity-tuple",
+        "host_identity": {
+          "architecture": "synthetic",
+          "binary_sha256": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+          "channel": "synthetic",
+          "executable_source": "SYNTHETIC_TEST_ONLY",
+          "platform": "synthetic-os",
+          "product": "claude-code-SYNTHETIC-DEMO",
+          "version": "0.0.0-demo"
+        },
+        "provenance": {
+          "from_binary": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+          "from_environment": "EV-ENV-SYN-01",
+          "from_raw_artifact": "evi_ev-host-identity_EV-ENV-SYN-01",
+          "normalization_method": null,
+          "normalized_hash": null,
+          "raw_hash": "sha256:c1c669bf30f3224d3a1a412d16ff0b06eafe94f691916c66bef258fb457f22e6",
+          "under_authorization": "evauth-synthetic-ts-demo@1",
+          "what": "M7-evidence-capture",
+          "when": "2026-09-29T00:00:00Z",
+          "where": "EV-ENV-SYN-01",
+          "who": "authorized:evauth-synthetic-ts-demo@1"
+        },
+        "redaction_status": "NONE",
+        "redactions": [],
+        "schema": "dkskill.certification_evidence/1",
+        "source": "probe:EV-HOST-IDENTITY",
+        "stored_content": {
+          "platform": "synthetic-os",
+          "product": "claude-code-SYNTHETIC-DEMO",
+          "version": "0.0.0-demo"
+        },
+        "validity": "VALID"
+      },
+      "assertion": {
+        "assertion_id": "as_EV-HOST-IDENTITY",
+        "claim": "EV-HOST-IDENTITY observed",
+        "evidence_class": "EV-HOST-IDENTITY",
+        "provenance_ref": "evi_ev-host-identity_EV-ENV-SYN-01",
+        "reason": "validated evidence supports claim",
+        "state": "SUPPORTED",
+        "supporting_evidence": [
+          "evi_ev-host-identity_EV-ENV-SYN-01"
+        ]
+      },
+      "evidence_class": "EV-HOST-IDENTITY",
+      "normalized": null,
+      "status": "VALID"
+    },
+    {
+      "artifact": {
+        "binary_identity": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+        "byte_length": 84,
+        "capture_timestamp": "2026-09-29T00:00:00Z",
+        "content_hash": "sha256:2e79844e5b32e22851d309bd85f88b30f0692a4003021f1f3efab3f45f234406",
+        "environment_id": "EV-ENV-SYN-01",
+        "evidence_class": "EV-BINARY-IDENTITY",
+        "evidence_id": "evi_ev-binary-identity_EV-ENV-SYN-01",
+        "evidence_type": "binary-sha256",
+        "host_identity": {
+          "architecture": "synthetic",
+          "binary_sha256": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+          "channel": "synthetic",
+          "executable_source": "SYNTHETIC_TEST_ONLY",
+          "platform": "synthetic-os",
+          "product": "claude-code-SYNTHETIC-DEMO",
+          "version": "0.0.0-demo"
+        },
+        "provenance": {
+          "from_binary": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+          "from_environment": "EV-ENV-SYN-01",
+          "from_raw_artifact": "evi_ev-binary-identity_EV-ENV-SYN-01",
+          "normalization_method": null,
+          "normalized_hash": null,
+          "raw_hash": "sha256:2e79844e5b32e22851d309bd85f88b30f0692a4003021f1f3efab3f45f234406",
+          "under_authorization": "evauth-synthetic-ts-demo@1",
+          "what": "M7-evidence-capture",
+          "when": "2026-09-29T00:00:00Z",
+          "where": "EV-ENV-SYN-01",
+          "who": "authorized:evauth-synthetic-ts-demo@1"
+        },
+        "redaction_status": "NONE",
+        "redactions": [],
+        "schema": "dkskill.certification_evidence/1",
+        "source": "probe:EV-BINARY-IDENTITY",
+        "stored_content": {
+          "binary_sha256": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"
+        },
+        "validity": "VALID"
+      },
+      "assertion": {
+        "assertion_id": "as_EV-BINARY-IDENTITY",
+        "claim": "EV-BINARY-IDENTITY observed",
+        "evidence_class": "EV-BINARY-IDENTITY",
+        "provenance_ref": "evi_ev-binary-identity_EV-ENV-SYN-01",
+        "reason": "validated evidence supports claim",
+        "state": "SUPPORTED",
+        "supporting_evidence": [
+          "evi_ev-binary-identity_EV-ENV-SYN-01"
+        ]
+      },
+      "evidence_class": "EV-BINARY-IDENTITY",
+      "normalized": null,
+      "status": "VALID"
+    },
+    {
+      "artifact": {
+        "binary_identity": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+        "byte_length": 24,
+        "capture_timestamp": "2026-09-29T00:00:00Z",
+        "content_hash": "sha256:e4217d72ec44efd7beb1d92981557b274fe548a6c4397f1a466d53bc3dc5c4a2",
+        "environment_id": "EV-ENV-SYN-01",
+        "evidence_class": "EV-VERSION",
+        "evidence_id": "evi_ev-version_EV-ENV-SYN-01",
+        "evidence_type": "version-string",
+        "host_identity": {
+          "architecture": "synthetic",
+          "binary_sha256": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+          "channel": "synthetic",
+          "executable_source": "SYNTHETIC_TEST_ONLY",
+          "platform": "synthetic-os",
+          "product": "claude-code-SYNTHETIC-DEMO",
+          "version": "0.0.0-demo"
+        },
+        "provenance": {
+          "from_binary": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+          "from_environment": "EV-ENV-SYN-01",
+          "from_raw_artifact": "evi_ev-version_EV-ENV-SYN-01",
+          "normalization_method": null,
+          "normalized_hash": null,
+          "raw_hash": "sha256:e4217d72ec44efd7beb1d92981557b274fe548a6c4397f1a466d53bc3dc5c4a2",
+          "under_authorization": "evauth-synthetic-ts-demo@1",
+          "what": "M7-evidence-capture",
+          "when": "2026-09-29T00:00:00Z",
+          "where": "EV-ENV-SYN-01",
+          "who": "authorized:evauth-synthetic-ts-demo@1"
+        },
+        "redaction_status": "NONE",
+        "redactions": [],
+        "schema": "dkskill.certification_evidence/1",
+        "source": "probe:EV-VERSION",
+        "stored_content": {
+          "version": "0.0.0-demo"
+        },
+        "validity": "VALID"
+      },
+      "assertion": {
+        "assertion_id": "as_EV-VERSION",
+        "claim": "EV-VERSION observed",
+        "evidence_class": "EV-VERSION",
+        "provenance_ref": "evi_ev-version_EV-ENV-SYN-01",
+        "reason": "validated evidence supports claim",
+        "state": "SUPPORTED",
+        "supporting_evidence": [
+          "evi_ev-version_EV-ENV-SYN-01"
+        ]
+      },
+      "evidence_class": "EV-VERSION",
+      "normalized": null,
+      "status": "VALID"
+    },
+    {
+      "artifact": {
+        "binary_identity": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+        "byte_length": 27,
+        "capture_timestamp": "2026-09-29T00:00:00Z",
+        "content_hash": "sha256:859551e8c36403456c4d667d0d338acc3022fe7394f7341eb35f63fb2b311a2c",
+        "environment_id": "EV-ENV-SYN-01",
+        "evidence_class": "EV-PLATFORM",
+        "evidence_id": "evi_ev-platform_EV-ENV-SYN-01",
+        "evidence_type": "platform",
+        "host_identity": {
+          "architecture": "synthetic",
+          "binary_sha256": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+          "channel": "synthetic",
+          "executable_source": "SYNTHETIC_TEST_ONLY",
+          "platform": "synthetic-os",
+          "product": "claude-code-SYNTHETIC-DEMO",
+          "version": "0.0.0-demo"
+        },
+        "provenance": {
+          "from_binary": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+          "from_environment": "EV-ENV-SYN-01",
+          "from_raw_artifact": "evi_ev-platform_EV-ENV-SYN-01",
+          "normalization_method": null,
+          "normalized_hash": null,
+          "raw_hash": "sha256:859551e8c36403456c4d667d0d338acc3022fe7394f7341eb35f63fb2b311a2c",
+          "under_authorization": "evauth-synthetic-ts-demo@1",
+          "what": "M7-evidence-capture",
+          "when": "2026-09-29T00:00:00Z",
+          "where": "EV-ENV-SYN-01",
+          "who": "authorized:evauth-synthetic-ts-demo@1"
+        },
+        "redaction_status": "NONE",
+        "redactions": [],
+        "schema": "dkskill.certification_evidence/1",
+        "source": "probe:EV-PLATFORM",
+        "stored_content": {
+          "platform": "synthetic-os"
+        },
+        "validity": "VALID"
+      },
+      "assertion": {
+        "assertion_id": "as_EV-PLATFORM",
+        "claim": "EV-PLATFORM observed",
+        "evidence_class": "EV-PLATFORM",
+        "provenance_ref": "evi_ev-platform_EV-ENV-SYN-01",
+        "reason": "validated evidence supports claim",
+        "state": "SUPPORTED",
+        "supporting_evidence": [
+          "evi_ev-platform_EV-ENV-SYN-01"
+        ]
+      },
+      "evidence_class": "EV-PLATFORM",
+      "normalized": null,
+      "status": "VALID"
+    },
+    {
+      "artifact": {
+        "binary_identity": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+        "byte_length": 28,
+        "capture_timestamp": "2026-09-29T00:00:00Z",
+        "content_hash": "sha256:9f922be9520fa1b953f4be14bcc8913826f5c6e448da4d7c96d76b143ff3c2ae",
+        "environment_id": "EV-ENV-SYN-01",
+        "evidence_class": "EV-ARCHITECTURE",
+        "evidence_id": "evi_ev-architecture_EV-ENV-SYN-01",
+        "evidence_type": "architecture",
+        "host_identity": {
+          "architecture": "synthetic",
+          "binary_sha256": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+          "channel": "synthetic",
+          "executable_source": "SYNTHETIC_TEST_ONLY",
+          "platform": "synthetic-os",
+          "product": "claude-code-SYNTHETIC-DEMO",
+          "version": "0.0.0-demo"
+        },
+        "provenance": {
+          "from_binary": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+          "from_environment": "EV-ENV-SYN-01",
+          "from_raw_artifact": "evi_ev-architecture_EV-ENV-SYN-01",
+          "normalization_method": null,
+          "normalized_hash": null,
+          "raw_hash": "sha256:9f922be9520fa1b953f4be14bcc8913826f5c6e448da4d7c96d76b143ff3c2ae",
+          "under_authorization": "evauth-synthetic-ts-demo@1",
+          "what": "M7-evidence-capture",
+          "when": "2026-09-29T00:00:00Z",
+          "where": "EV-ENV-SYN-01",
+          "who": "authorized:evauth-synthetic-ts-demo@1"
+        },
+        "redaction_status": "NONE",
+        "redactions": [],
+        "schema": "dkskill.certification_evidence/1",
+        "source": "probe:EV-ARCHITECTURE",
+        "stored_content": {
+          "architecture": "synthetic"
+        },
+        "validity": "VALID"
+      },
+      "assertion": {
+        "assertion_id": "as_EV-ARCHITECTURE",
+        "claim": "EV-ARCHITECTURE observed",
+        "evidence_class": "EV-ARCHITECTURE",
+        "provenance_ref": "evi_ev-architecture_EV-ENV-SYN-01",
+        "reason": "validated evidence supports claim",
+        "state": "SUPPORTED",
+        "supporting_evidence": [
+          "evi_ev-architecture_EV-ENV-SYN-01"
+        ]
+      },
+      "evidence_class": "EV-ARCHITECTURE",
+      "normalized": null,
+      "status": "VALID"
+    },
+    {
+      "artifact": {
+        "binary_identity": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+        "byte_length": 23,
+        "capture_timestamp": "2026-09-29T00:00:00Z",
+        "content_hash": "sha256:eca0b144e829d15aee42c20b5e22a3918964e341f8bb66f8a85b6612070bcbcc",
+        "environment_id": "EV-ENV-SYN-01",
+        "evidence_class": "EV-CHANNEL",
+        "evidence_id": "evi_ev-channel_EV-ENV-SYN-01",
+        "evidence_type": "channel",
+        "host_identity": {
+          "architecture": "synthetic",
+          "binary_sha256": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+          "channel": "synthetic",
+          "executable_source": "SYNTHETIC_TEST_ONLY",
+          "platform": "synthetic-os",
+          "product": "claude-code-SYNTHETIC-DEMO",
+          "version": "0.0.0-demo"
+        },
+        "provenance": {
+          "from_binary": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+          "from_environment": "EV-ENV-SYN-01",
+          "from_raw_artifact": "evi_ev-channel_EV-ENV-SYN-01",
+          "normalization_method": null,
+          "normalized_hash": null,
+          "raw_hash": "sha256:eca0b144e829d15aee42c20b5e22a3918964e341f8bb66f8a85b6612070bcbcc",
+          "under_authorization": "evauth-synthetic-ts-demo@1",
+          "what": "M7-evidence-capture",
+          "when": "2026-09-29T00:00:00Z",
+          "where": "EV-ENV-SYN-01",
+          "who": "authorized:evauth-synthetic-ts-demo@1"
+        },
+        "redaction_status": "NONE",
+        "redactions": [],
+        "schema": "dkskill.certification_evidence/1",
+        "source": "probe:EV-CHANNEL",
+        "stored_content": {
+          "channel": "synthetic"
+        },
+        "validity": "VALID"
+      },
+      "assertion": {
+        "assertion_id": "as_EV-CHANNEL",
+        "claim": "EV-CHANNEL observed",
+        "evidence_class": "EV-CHANNEL",
+        "provenance_ref": "evi_ev-channel_EV-ENV-SYN-01",
+        "reason": "validated evidence supports claim",
+        "state": "SUPPORTED",
+        "supporting_evidence": [
+          "evi_ev-channel_EV-ENV-SYN-01"
+        ]
+      },
+      "evidence_class": "EV-CHANNEL",
+      "normalized": null,
+      "status": "VALID"
+    },
+    {
+      "artifact": {
+        "binary_identity": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+        "byte_length": 95,
+        "capture_timestamp": "2026-09-29T00:00:00Z",
+        "content_hash": "sha256:1bcd061902df47642691991b78f94e5e175f887dd94ba452c53207f1c30a9080",
+        "environment_id": "EV-ENV-SYN-01",
+        "evidence_class": "EV-ENVIRONMENT",
+        "evidence_id": "evi_ev-environment_EV-ENV-SYN-01",
+        "evidence_type": "environment-identity",
+        "host_identity": {
+          "architecture": "synthetic",
+          "binary_sha256": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+          "channel": "synthetic",
+          "executable_source": "SYNTHETIC_TEST_ONLY",
+          "platform": "synthetic-os",
+          "product": "claude-code-SYNTHETIC-DEMO",
+          "version": "0.0.0-demo"
+        },
+        "provenance": {
+          "from_binary": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+          "from_environment": "EV-ENV-SYN-01",
+          "from_raw_artifact": "evi_ev-environment_EV-ENV-SYN-01",
+          "normalization_method": null,
+          "normalized_hash": null,
+          "raw_hash": "sha256:1bcd061902df47642691991b78f94e5e175f887dd94ba452c53207f1c30a9080",
+          "under_authorization": "evauth-synthetic-ts-demo@1",
+          "what": "M7-evidence-capture",
+          "when": "2026-09-29T00:00:00Z",
+          "where": "EV-ENV-SYN-01",
+          "who": "authorized:evauth-synthetic-ts-demo@1"
+        },
+        "redaction_status": "NONE",
+        "redactions": [],
+        "schema": "dkskill.certification_evidence/1",
+        "source": "probe:EV-ENVIRONMENT",
+        "stored_content": {
+          "environment_id": "EV-ENV-SYN-01",
+          "isolation": "operator-attested isolated profile (reference)"
+        },
+        "validity": "VALID"
+      },
+      "assertion": {
+        "assertion_id": "as_EV-ENVIRONMENT",
+        "claim": "EV-ENVIRONMENT observed",
+        "evidence_class": "EV-ENVIRONMENT",
+        "provenance_ref": "evi_ev-environment_EV-ENV-SYN-01",
+        "reason": "validated evidence supports claim",
+        "state": "SUPPORTED",
+        "supporting_evidence": [
+          "evi_ev-environment_EV-ENV-SYN-01"
+        ]
+      },
+      "evidence_class": "EV-ENVIRONMENT",
+      "normalized": null,
+      "status": "VALID"
+    },
+    {
+      "artifact": {
+        "binary_identity": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+        "byte_length": 21,
+        "capture_timestamp": "2026-09-29T00:00:00Z",
+        "content_hash": "sha256:f67dccc65d786d084eaf182405e10cf9a6ee496002776aa727fb0c9cd5524d69",
+        "environment_id": "EV-ENV-SYN-01",
+        "evidence_class": "EV-NETWORK",
+        "evidence_id": "evi_ev-network_EV-ENV-SYN-01",
+        "evidence_type": "network-isolation",
+        "host_identity": {
+          "architecture": "synthetic",
+          "binary_sha256": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+          "channel": "synthetic",
+          "executable_source": "SYNTHETIC_TEST_ONLY",
+          "platform": "synthetic-os",
+          "product": "claude-code-SYNTHETIC-DEMO",
+          "version": "0.0.0-demo"
+        },
+        "provenance": {
+          "from_binary": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+          "from_environment": "EV-ENV-SYN-01",
+          "from_raw_artifact": "evi_ev-network_EV-ENV-SYN-01",
+          "normalization_method": null,
+          "normalized_hash": null,
+          "raw_hash": "sha256:f67dccc65d786d084eaf182405e10cf9a6ee496002776aa727fb0c9cd5524d69",
+          "under_authorization": "evauth-synthetic-ts-demo@1",
+          "what": "M7-evidence-capture",
+          "when": "2026-09-29T00:00:00Z",
+          "where": "EV-ENV-SYN-01",
+          "who": "authorized:evauth-synthetic-ts-demo@1"
+        },
+        "redaction_status": "NONE",
+        "redactions": [],
+        "schema": "dkskill.certification_evidence/1",
+        "source": "probe:EV-NETWORK",
+        "stored_content": {
+          "status": "VERIFIED"
+        },
+        "validity": "VALID"
+      },
+      "assertion": {
+        "assertion_id": "as_EV-NETWORK",
+        "claim": "EV-NETWORK observed",
+        "evidence_class": "EV-NETWORK",
+        "provenance_ref": "evi_ev-network_EV-ENV-SYN-01",
+        "reason": "validated evidence supports claim",
+        "state": "SUPPORTED",
+        "supporting_evidence": [
+          "evi_ev-network_EV-ENV-SYN-01"
+        ]
+      },
+      "evidence_class": "EV-NETWORK",
+      "normalized": null,
+      "status": "VALID"
+    },
+    {
+      "artifact": {
+        "binary_identity": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+        "byte_length": 45,
+        "capture_timestamp": "2026-09-29T00:00:00Z",
+        "content_hash": "sha256:dc0e40ad303b9908590fe0741d84023dfab762bd2e2cc09769319fa8438c9bf8",
+        "environment_id": "EV-ENV-SYN-01",
+        "evidence_class": "EV-TOOLCHAIN",
+        "evidence_id": "evi_ev-toolchain_EV-ENV-SYN-01",
+        "evidence_type": "toolchain",
+        "host_identity": {
+          "architecture": "synthetic",
+          "binary_sha256": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+          "channel": "synthetic",
+          "executable_source": "SYNTHETIC_TEST_ONLY",
+          "platform": "synthetic-os",
+          "product": "claude-code-SYNTHETIC-DEMO",
+          "version": "0.0.0-demo"
+        },
+        "provenance": {
+          "from_binary": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+          "from_environment": "EV-ENV-SYN-01",
+          "from_raw_artifact": "evi_ev-toolchain_EV-ENV-SYN-01",
+          "normalization_method": null,
+          "normalized_hash": null,
+          "raw_hash": "sha256:dc0e40ad303b9908590fe0741d84023dfab762bd2e2cc09769319fa8438c9bf8",
+          "under_authorization": "evauth-synthetic-ts-demo@1",
+          "what": "M7-evidence-capture",
+          "when": "2026-09-29T00:00:00Z",
+          "where": "EV-ENV-SYN-01",
+          "who": "authorized:evauth-synthetic-ts-demo@1"
+        },
+        "redaction_status": "NONE",
+        "redactions": [],
+        "schema": "dkskill.certification_evidence/1",
+        "source": "probe:EV-TOOLCHAIN",
+        "stored_content": {
+          "toolchain": "SYNTHETIC_TEST_ONLY toolchain"
+        },
+        "validity": "VALID"
+      },
+      "assertion": {
+        "assertion_id": "as_EV-TOOLCHAIN",
+        "claim": "EV-TOOLCHAIN observed",
+        "evidence_class": "EV-TOOLCHAIN",
+        "provenance_ref": "evi_ev-toolchain_EV-ENV-SYN-01",
+        "reason": "validated evidence supports claim",
+        "state": "SUPPORTED",
+        "supporting_evidence": [
+          "evi_ev-toolchain_EV-ENV-SYN-01"
+        ]
+      },
+      "evidence_class": "EV-TOOLCHAIN",
+      "normalized": null,
+      "status": "VALID"
+    },
+    {
+      "artifact": null,
+      "assertion": {
+        "assertion_id": "as_EV-STREAM-SCHEMA",
+        "claim": "no live stream captured",
+        "evidence_class": "EV-STREAM-SCHEMA",
+        "provenance_ref": null,
+        "reason": "no evidence acquired",
+        "state": "UNKNOWN",
+        "supporting_evidence": []
+      },
+      "evidence_class": "EV-STREAM-SCHEMA",
+      "normalized": null,
+      "status": "INCOMPLETE"
+    },
+    {
+      "artifact": null,
+      "assertion": {
+        "assertion_id": "as_EV-ATTRIBUTION",
+        "claim": "no live attribution captured",
+        "evidence_class": "EV-ATTRIBUTION",
+        "provenance_ref": null,
+        "reason": "no evidence acquired",
+        "state": "UNKNOWN",
+        "supporting_evidence": []
+      },
+      "evidence_class": "EV-ATTRIBUTION",
+      "normalized": null,
+      "status": "INCOMPLETE"
+    },
+    {
+      "artifact": null,
+      "assertion": {
+        "assertion_id": "as_EV-HOOK-PROTOCOL",
+        "claim": "not acquired",
+        "evidence_class": "EV-HOOK-PROTOCOL",
+        "provenance_ref": null,
+        "reason": "no evidence acquired",
+        "state": "UNKNOWN",
+        "supporting_evidence": []
+      },
+      "evidence_class": "EV-HOOK-PROTOCOL",
+      "normalized": null,
+      "status": "INCOMPLETE"
+    },
+    {
+      "artifact": null,
+      "assertion": {
+        "assertion_id": "as_EV-PERMISSION-MODES",
+        "claim": "not acquired",
+        "evidence_class": "EV-PERMISSION-MODES",
+        "provenance_ref": null,
+        "reason": "no evidence acquired",
+        "state": "UNKNOWN",
+        "supporting_evidence": []
+      },
+      "evidence_class": "EV-PERMISSION-MODES",
+      "normalized": null,
+      "status": "INCOMPLETE"
+    },
+    {
+      "artifact": null,
+      "assertion": {
+        "assertion_id": "as_EV-TS07",
+        "claim": "no live stream+attribution observations",
+        "evidence_class": "EV-TS07",
+        "provenance_ref": null,
+        "reason": "no evidence acquired",
+        "state": "UNKNOWN",
+        "supporting_evidence": []
+      },
+      "evidence_class": "EV-TS07",
+      "normalized": null,
+      "status": "INCOMPLETE"
+    }
+  ],
+  "missing_classes": [
+    "EV-STREAM-SCHEMA",
+    "EV-ATTRIBUTION",
+    "EV-HOOK-PROTOCOL",
+    "EV-PERMISSION-MODES",
+    "EV-TS07"
+  ],
+  "package_hash": "sha256:f18721f074e595df53b7635c4123ed29f5eb8d51f91a0a1379d4466436091a2b",
+  "package_id": "pkg-ts07-incomplete",
+  "previous_package_hash": null,
+  "schema": "dkskill.evidence_package/1",
+  "synthetic_test_only": true,
+  "target_architecture": "synthetic",
+  "target_binary_sha256": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+  "target_channel": "synthetic",
+  "target_host_identity": {
+    "architecture": "synthetic",
+    "binary_sha256": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+    "channel": "synthetic",
+    "executable_source": "SYNTHETIC_TEST_ONLY",
+    "platform": "synthetic-os",
+    "product": "claude-code-SYNTHETIC-DEMO",
+    "version": "0.0.0-demo"
+  },
+  "target_platform": "synthetic-os",
+  "target_profile_id": "synthetic-ts-demo@1",
+  "target_version": "0.0.0-demo",
+  "ts07_status": "UNRESOLVED",
+  "ts11_status": "NOT_APPLICABLE",
+  "validity": "VALID",
+  "version": 1
+}

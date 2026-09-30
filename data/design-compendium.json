@@ -1,0 +1,1706 @@
+{
+  "categories": [
+    "ARCHITECTURE_REQUIREMENT",
+    "SECURITY_REQUIREMENT",
+    "COMPATIBILITY_REQUIREMENT",
+    "EVIDENCE_REQUIREMENT",
+    "CERTIFICATION_REQUIREMENT",
+    "GOVERNANCE_REQUIREMENT",
+    "PUBLIC_PRODUCT_REQUIREMENT",
+    "OWNER_DECISION",
+    "DESIGN_GAP",
+    "TEST_REQUIREMENT",
+    "INVARIANT",
+    "FUTURE_IMPLEMENTATION"
+  ],
+  "certification_performed": false,
+  "compendium_hash": "sha256:49257681f08e66c2958d283d23623c313acf70e4718ac88ae1c51290a37ecd3f",
+  "current_state": {
+    "attr_valid_for": "[\"2.1.283\"]",
+    "benchmark_pin": "2.1.283",
+    "certified_count": "0",
+    "dot_claude": "UNTOUCHED",
+    "m8": "EXECUTION_BLOCKED",
+    "m9_l4": "BLOCKED",
+    "overall_readiness": "NOT_READY",
+    "runtime": "ABSENT"
+  },
+  "decisions_made": 0,
+  "dependency_graph": [
+    {
+      "from": "OD-01",
+      "to": [
+        "channel evidence",
+        "identity completeness",
+        "M4 eligibility",
+        "overall readiness"
+      ]
+    },
+    {
+      "from": "OD-02",
+      "to": [
+        "binary binding",
+        "identity attestation",
+        "M4 eligibility"
+      ]
+    },
+    {
+      "from": "OD-03",
+      "to": [
+        "signature validation",
+        "M6",
+        "publication"
+      ]
+    },
+    {
+      "from": "OD-04",
+      "to": [
+        "trust-root validation",
+        "signing trust"
+      ]
+    },
+    {
+      "from": "OD-05",
+      "to": [
+        "key lifecycle",
+        "signing security"
+      ]
+    },
+    {
+      "from": "OD-06",
+      "to": [
+        "compromise recovery",
+        "signing/publication continuity"
+      ]
+    },
+    {
+      "from": "OD-07",
+      "to": [
+        "signing authority",
+        "M6 authorization"
+      ]
+    },
+    {
+      "from": "OD-08",
+      "to": [
+        "publication authority",
+        "registry publication"
+      ]
+    },
+    {
+      "from": "OD-09",
+      "to": [
+        "trust-root governance",
+        "signing trust"
+      ]
+    },
+    {
+      "from": "OD-10",
+      "to": [
+        "activation criteria",
+        "overall certification readiness"
+      ]
+    },
+    {
+      "from": "GAP-01",
+      "to": [
+        "channel evidence"
+      ]
+    },
+    {
+      "from": "GAP-02",
+      "to": [
+        "authoritative binary binding"
+      ]
+    },
+    {
+      "from": "GAP-03R",
+      "to": [
+        "signing/publication payload completeness"
+      ]
+    },
+    {
+      "from": "GAP-04R-ALGO",
+      "to": [
+        "signature verification"
+      ]
+    },
+    {
+      "from": "GAP-04R-ROOT",
+      "to": [
+        "trust-root bootstrap"
+      ]
+    },
+    {
+      "from": "GAP-04R-STORE",
+      "to": [
+        "key protection"
+      ]
+    },
+    {
+      "from": "GAP-04R-RECOVERY",
+      "to": [
+        "compromise recovery"
+      ]
+    },
+    {
+      "from": "M9 L4",
+      "to": [
+        "authoritative identity evidence",
+        "M4",
+        "certification"
+      ]
+    },
+    {
+      "from": "M8",
+      "to": [
+        "controlled evidence execution only",
+        "never certification by itself"
+      ]
+    }
+  ],
+  "full_suite_reference": "pre-M24: 649/649 pass",
+  "invariant_ledger": [
+    {
+      "consequence_if_violated": "frozen invariant broken => STOP; no certification; investigate before any action",
+      "current_value": "sha256:627c9447dbf06065f8ae3b606809340d63ae5da7583d92355329ad03059a0c96",
+      "description": "production registry hash",
+      "expected_value": "sha256:627c9447dbf06065f8ae3b606809340d63ae5da7583d92355329ad03059a0c96",
+      "invariant_id": "I-01",
+      "mutation_detection": "compare actual vs expected; any difference => VIOLATION",
+      "proof_check": "sha256(canonicalFile(buildRegistry())) exact equality",
+      "source_artifact": "M1 registry"
+    },
+    {
+      "consequence_if_violated": "frozen invariant broken => STOP; no certification; investigate before any action",
+      "current_value": "0",
+      "description": "certified profile count",
+      "expected_value": "0",
+      "invariant_id": "I-02",
+      "mutation_detection": "compare actual vs expected; any difference => VIOLATION",
+      "proof_check": "count profiles with certification_status===CERTIFIED",
+      "source_artifact": "M1 registry"
+    },
+    {
+      "consequence_if_violated": "frozen invariant broken => STOP; no certification; investigate before any action",
+      "current_value": "2.1.283",
+      "description": "benchmark pinned version",
+      "expected_value": "2.1.283",
+      "invariant_id": "I-03",
+      "mutation_detection": "compare actual vs expected; any difference => VIOLATION",
+      "proof_check": "exact string equality",
+      "source_artifact": "Phase 4 pin"
+    },
+    {
+      "consequence_if_violated": "frozen invariant broken => STOP; no certification; investigate before any action",
+      "current_value": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+      "description": "pinned benchmark SHA-256",
+      "expected_value": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+      "invariant_id": "I-04",
+      "mutation_detection": "compare actual vs expected; any difference => VIOLATION",
+      "proof_check": "exact string equality",
+      "source_artifact": "Phase 4 pin"
+    },
+    {
+      "consequence_if_violated": "frozen invariant broken => STOP; no certification; investigate before any action",
+      "current_value": "[\"2.1.283\"]",
+      "description": "ATTR_VALID_FOR",
+      "expected_value": "[\"2.1.283\"]",
+      "invariant_id": "I-05",
+      "mutation_detection": "compare actual vs expected; any difference => VIOLATION",
+      "proof_check": "exact array equality",
+      "source_artifact": "M2 equivalence"
+    },
+    {
+      "consequence_if_violated": "frozen invariant broken => STOP; no certification; investigate before any action",
+      "current_value": "version/channel UNKNOWN",
+      "description": "real-host public identity limitation",
+      "expected_value": "version/channel UNKNOWN",
+      "invariant_id": "I-06",
+      "mutation_detection": "compare actual vs expected; any difference => VIOLATION",
+      "proof_check": "M17 probe leaves version/channel UNKNOWN",
+      "source_artifact": "M17/M18"
+    },
+    {
+      "consequence_if_violated": "frozen invariant broken => STOP; no certification; investigate before any action",
+      "current_value": "EXECUTION_BLOCKED",
+      "description": "M8 state",
+      "expected_value": "EXECUTION_BLOCKED",
+      "invariant_id": "I-07",
+      "mutation_detection": "compare actual vs expected; any difference => VIOLATION",
+      "proof_check": "deterministic state assertion (STOP-NETWORK-UNVERIFIED)",
+      "source_artifact": "M8"
+    },
+    {
+      "consequence_if_violated": "frozen invariant broken => STOP; no certification; investigate before any action",
+      "current_value": "BLOCKED (not achieved)",
+      "description": "M9 L4",
+      "expected_value": "BLOCKED",
+      "invariant_id": "I-08",
+      "mutation_detection": "compare actual vs expected; any difference => VIOLATION",
+      "proof_check": "deterministic state assertion (current env UNVERIFIED)",
+      "source_artifact": "M9"
+    },
+    {
+      "consequence_if_violated": "frozen invariant broken => STOP; no certification; investigate before any action",
+      "current_value": "true",
+      "description": "/runtime/ absent",
+      "expected_value": "true",
+      "invariant_id": "I-09",
+      "mutation_detection": "compare actual vs expected; any difference => VIOLATION",
+      "proof_check": "existence check (must be absent)",
+      "source_artifact": "repo"
+    },
+    {
+      "consequence_if_violated": "frozen invariant broken => STOP; no certification; investigate before any action",
+      "current_value": "UNTOUCHED (static inspection only)",
+      "description": "real ~/.claude untouched",
+      "expected_value": "UNTOUCHED (static inspection only)",
+      "invariant_id": "I-10",
+      "mutation_detection": "compare actual vs expected; any difference => VIOLATION",
+      "proof_check": "static non-mutating inspection; no content access; no modification",
+      "source_artifact": "repo"
+    },
+    {
+      "consequence_if_violated": "frozen invariant broken => STOP; no certification; investigate before any action",
+      "current_value": "sha256:2a61f74bff7ee17a98e84c5237451e099a86c6d69bed65c2f53ed972279ef3a4",
+      "description": "M17 byte-identical",
+      "expected_value": "sha256:2a61f74bff7ee17a98e84c5237451e099a86c6d69bed65c2f53ed972279ef3a4",
+      "invariant_id": "I-11",
+      "mutation_detection": "compare actual vs expected; any difference => VIOLATION",
+      "proof_check": "exact SHA-256 of claude-identity-probe.ts",
+      "source_artifact": "M17 probe"
+    },
+    {
+      "consequence_if_violated": "frozen invariant broken => STOP; no certification; investigate before any action",
+      "current_value": "sha256:d179a6c51dbe71d8c29494da3f67bfefb3a76ba39de3c2de7e18e0fb149fe244",
+      "description": "M19 byte-identical",
+      "expected_value": "sha256:d179a6c51dbe71d8c29494da3f67bfefb3a76ba39de3c2de7e18e0fb149fe244",
+      "invariant_id": "I-12",
+      "mutation_detection": "compare actual vs expected; any difference => VIOLATION",
+      "proof_check": "exact SHA-256 of certification-identity-attestation.ts",
+      "source_artifact": "M19"
+    },
+    {
+      "consequence_if_violated": "frozen invariant broken => STOP; no certification; investigate before any action",
+      "current_value": "sha256:9acd76978730d0f2fe01e4dee244b74c441b8334cb1ce0c2844b068e9a41e26c",
+      "description": "M20 byte-identical",
+      "expected_value": "sha256:9acd76978730d0f2fe01e4dee244b74c441b8334cb1ce0c2844b068e9a41e26c",
+      "invariant_id": "I-13",
+      "mutation_detection": "compare actual vs expected; any difference => VIOLATION",
+      "proof_check": "exact SHA-256 of evidence-attestation-binding-spec.json",
+      "source_artifact": "M20"
+    },
+    {
+      "consequence_if_violated": "frozen invariant broken => STOP; no certification; investigate before any action",
+      "current_value": "sha256:bea8e82e593883e0b2bdf3de2aa8f49f6906edf3b0549b8c5e4cc4cd48a7a061",
+      "description": "M21 byte-identical",
+      "expected_value": "sha256:bea8e82e593883e0b2bdf3de2aa8f49f6906edf3b0549b8c5e4cc4cd48a7a061",
+      "invariant_id": "I-14",
+      "mutation_detection": "compare actual vs expected; any difference => VIOLATION",
+      "proof_check": "exact SHA-256 of signing-publication-binding-spec.json",
+      "source_artifact": "M21"
+    },
+    {
+      "consequence_if_violated": "frozen invariant broken => STOP; no certification; investigate before any action",
+      "current_value": "sha256:00b03aa2d83910c40861474836f57e8a3bf90969a7f56eb859d557c1386f90c1",
+      "description": "M22 byte-identical",
+      "expected_value": "sha256:00b03aa2d83910c40861474836f57e8a3bf90969a7f56eb859d557c1386f90c1",
+      "invariant_id": "I-15",
+      "mutation_detection": "compare actual vs expected; any difference => VIOLATION",
+      "proof_check": "exact SHA-256 of certification-governance-state-machine-spec.json",
+      "source_artifact": "M22"
+    },
+    {
+      "consequence_if_violated": "frozen invariant broken => STOP; no certification; investigate before any action",
+      "current_value": "sha256:dab90b46e17a1af4afb0f011b6e62720f9dad932486a0e33349e7d81766bfbfa",
+      "description": "M23 dossier byte-identical",
+      "expected_value": "sha256:dab90b46e17a1af4afb0f011b6e62720f9dad932486a0e33349e7d81766bfbfa",
+      "invariant_id": "I-16",
+      "mutation_detection": "compare actual vs expected; any difference => VIOLATION",
+      "proof_check": "exact SHA-256 of owner-decision-dossier.json",
+      "source_artifact": "M23"
+    },
+    {
+      "consequence_if_violated": "frozen invariant broken => STOP; no certification; investigate before any action",
+      "current_value": "all OPEN",
+      "description": "OD-01..OD-10 all OPEN",
+      "expected_value": "all OPEN",
+      "invariant_id": "I-17",
+      "mutation_detection": "compare actual vs expected; any difference => VIOLATION",
+      "proof_check": "verify every OD current_status === OPEN",
+      "source_artifact": "M23"
+    },
+    {
+      "consequence_if_violated": "frozen invariant broken => STOP; no certification; investigate before any action",
+      "current_value": "OPEN_DESIGN_GAP",
+      "description": "GAP-01/GAP-02 OPEN",
+      "expected_value": "OPEN_DESIGN_GAP",
+      "invariant_id": "I-18",
+      "mutation_detection": "compare actual vs expected; any difference => VIOLATION",
+      "proof_check": "verify gap status OPEN with no closure record",
+      "source_artifact": "M22/M23"
+    },
+    {
+      "consequence_if_violated": "frozen invariant broken => STOP; no certification; investigate before any action",
+      "current_value": "OPEN_OWNER_DECISION",
+      "description": "GAP-03R & GAP-04R-* OPEN",
+      "expected_value": "OPEN_OWNER_DECISION",
+      "invariant_id": "I-19",
+      "mutation_detection": "compare actual vs expected; any difference => VIOLATION",
+      "proof_check": "verify gap status OPEN_OWNER_DECISION",
+      "source_artifact": "M21/M22/M23"
+    },
+    {
+      "consequence_if_violated": "frozen invariant broken => STOP; no certification; investigate before any action",
+      "current_value": "NOT_READY",
+      "description": "overall readiness",
+      "expected_value": "NOT_READY",
+      "invariant_id": "I-20",
+      "mutation_detection": "compare actual vs expected; any difference => VIOLATION",
+      "proof_check": "recomputeReadiness(current).overall === NOT_READY",
+      "source_artifact": "M22/M23"
+    }
+  ],
+  "owner_authority_map": [
+    {
+      "authority": "specification owner",
+      "holder": "DK Pandey",
+      "status": "ASSIGNED"
+    },
+    {
+      "authority": "safety reviewer",
+      "holder": "DK Pandey",
+      "status": "ASSIGNED"
+    },
+    {
+      "authority": "certification authority",
+      "holder": "OPEN",
+      "status": "OPEN"
+    },
+    {
+      "authority": "signing authority",
+      "holder": "OPEN",
+      "status": "OPEN"
+    },
+    {
+      "authority": "publication authority",
+      "holder": "OPEN",
+      "status": "OPEN"
+    },
+    {
+      "authority": "trust-root governance authority",
+      "holder": "OPEN",
+      "status": "OPEN"
+    },
+    {
+      "authority": "key-management authority",
+      "holder": "OPEN",
+      "status": "OPEN"
+    }
+  ],
+  "platform_cells": [
+    {
+      "certified": false,
+      "note": "per exact cell; no inheritance; missing=NOT_CERTIFIED",
+      "platform": "windows"
+    },
+    {
+      "certified": false,
+      "note": "per exact cell; no inheritance; missing=NOT_CERTIFIED",
+      "platform": "macos"
+    },
+    {
+      "certified": false,
+      "note": "per exact cell; no inheritance; missing=NOT_CERTIFIED",
+      "platform": "linux"
+    }
+  ],
+  "publication_performed": false,
+  "reading_map": [
+    {
+      "action": "Review M23 owner decision register",
+      "artifact": "owner-decision-dossier.json",
+      "authority": "DK Pandey",
+      "blocking_condition": "decisions OPEN",
+      "evidence": "n/a",
+      "must_not_infer": "that any decision is pre-made",
+      "prerequisite": "M23 complete",
+      "resulting_state": "informed owner",
+      "step": 1
+    },
+    {
+      "action": "Resolve OD-01..OD-10 via explicit owner decisions",
+      "artifact": "owner-decision-dossier.json",
+      "authority": "owner",
+      "blocking_condition": "decision OPEN",
+      "evidence": "per-decision evidence",
+      "must_not_infer": "that OPEN means accepted",
+      "prerequisite": "reviewed dossier",
+      "resulting_state": "decisions recorded",
+      "step": 2
+    },
+    {
+      "action": "Close GAP-01/GAP-02 with required real evidence",
+      "artifact": "M20/M22 specs",
+      "authority": "certification system",
+      "blocking_condition": "no proven source",
+      "evidence": "channel + binary evidence",
+      "must_not_infer": "that weak metadata closes a gap",
+      "prerequisite": "OD decided",
+      "resulting_state": "gaps closed w/ evidence",
+      "step": 3
+    },
+    {
+      "action": "Resolve GAP-03R & GAP-04R-* via owner decisions + security design",
+      "artifact": "M21 spec",
+      "authority": "owner + signing authority",
+      "blocking_condition": "OPEN owner decisions",
+      "evidence": "algorithm/root/store/recovery",
+      "must_not_infer": "that a default exists",
+      "prerequisite": "OD-03..06 decided",
+      "resulting_state": "gaps closed",
+      "step": 4
+    },
+    {
+      "action": "Establish M9 L4 independently verified isolation",
+      "artifact": "M9",
+      "authority": "certification env owner",
+      "blocking_condition": "current L0",
+      "evidence": "independent observer evidence",
+      "must_not_infer": "that config implies isolation",
+      "prerequisite": "dedicated env",
+      "resulting_state": "L4 VERIFIED",
+      "step": 5
+    },
+    {
+      "action": "Establish M8 authorization for the narrow evidence op",
+      "artifact": "M8",
+      "authority": "owner",
+      "blocking_condition": "EXECUTION_BLOCKED",
+      "evidence": "execution authorization",
+      "must_not_infer": "that L4 auto-authorizes M8",
+      "prerequisite": "M9 L4",
+      "resulting_state": "M8 authorized",
+      "step": 6
+    },
+    {
+      "action": "Acquire exact identity evidence",
+      "artifact": "M7",
+      "authority": "certification system",
+      "blocking_condition": "no evidence",
+      "evidence": "per-field observations",
+      "must_not_infer": "missing fields",
+      "prerequisite": "M8 authorized",
+      "resulting_state": "evidence acquired",
+      "step": 7
+    },
+    {
+      "action": "Establish authoritative binary binding",
+      "artifact": "M19/M20",
+      "authority": "independent observer",
+      "blocking_condition": "weak sources",
+      "evidence": "exact byte hash (L4)",
+      "must_not_infer": "filename/path=binary",
+      "prerequisite": "evidence op",
+      "resulting_state": "binary OBSERVED",
+      "step": 8
+    },
+    {
+      "action": "Establish authoritative channel evidence",
+      "artifact": "M18/M20",
+      "authority": "controlled/independent observer",
+      "blocking_condition": "no source",
+      "evidence": "direct channel obs",
+      "must_not_infer": "version=channel",
+      "prerequisite": "evidence op",
+      "resulting_state": "channel OBSERVED",
+      "step": 9
+    },
+    {
+      "action": "Build complete identity attestation",
+      "artifact": "M19",
+      "authority": "certification system",
+      "blocking_condition": "INCOMPLETE",
+      "evidence": "attestation",
+      "must_not_infer": "that complete=certified",
+      "prerequisite": "fields OBSERVED",
+      "resulting_state": "COMPLETE_UNSIGNED",
+      "step": 10
+    },
+    {
+      "action": "Bind evidence -> attestation",
+      "artifact": "M20",
+      "authority": "certification system",
+      "blocking_condition": "mismatch",
+      "evidence": "hash chain",
+      "must_not_infer": "latest-evidence binding",
+      "prerequisite": "attestation",
+      "resulting_state": "bound",
+      "step": 11
+    },
+    {
+      "action": "Run required M4 certification gates",
+      "artifact": "M4",
+      "authority": "M4",
+      "blocking_condition": "gate FAIL/BLOCKED",
+      "evidence": "gate evidence",
+      "must_not_infer": "that a gate can be skipped",
+      "prerequisite": "attestation bound",
+      "resulting_state": "gates evaluated",
+      "step": 12
+    },
+    {
+      "action": "Obtain explicit owner authorization (M4)",
+      "artifact": "M4",
+      "authority": "owner",
+      "blocking_condition": "absent",
+      "evidence": "owner approval",
+      "must_not_infer": "implicit approval",
+      "prerequisite": "gates PASS",
+      "resulting_state": "authorized",
+      "step": 13
+    },
+    {
+      "action": "Produce M5 publication proposal",
+      "artifact": "M5",
+      "authority": "M5",
+      "blocking_condition": "mismatch",
+      "evidence": "exact binds",
+      "must_not_infer": "changed cell",
+      "prerequisite": "certified",
+      "resulting_state": "proposal",
+      "step": 14
+    },
+    {
+      "action": "Perform M6 governance validation",
+      "artifact": "M6",
+      "authority": "M6",
+      "blocking_condition": "auth mismatch",
+      "evidence": "authorization",
+      "must_not_infer": "wildcard auth",
+      "prerequisite": "proposal",
+      "resulting_state": "validated",
+      "step": 15
+    },
+    {
+      "action": "Validate signing/publication binding",
+      "artifact": "M21",
+      "authority": "signing authority",
+      "blocking_condition": "algorithm OPEN",
+      "evidence": "signature over exact payload",
+      "must_not_infer": "transplant signature",
+      "prerequisite": "authorized",
+      "resulting_state": "binding valid",
+      "step": 16
+    },
+    {
+      "action": "Validate exact registry precondition",
+      "artifact": "M6",
+      "authority": "M6",
+      "blocking_condition": "stale registry",
+      "evidence": "precondition hash",
+      "must_not_infer": "precondition bypass",
+      "prerequisite": "signature valid",
+      "resulting_state": "precondition valid",
+      "step": 17
+    },
+    {
+      "action": "Sign only after every prerequisite",
+      "artifact": "M6/M21",
+      "authority": "signing authority",
+      "blocking_condition": "any prereq unmet",
+      "evidence": "signature",
+      "must_not_infer": "premature signing",
+      "prerequisite": "all valid",
+      "resulting_state": "signed",
+      "step": 18
+    },
+    {
+      "action": "Publish only after every M6 gate passes",
+      "artifact": "M6",
+      "authority": "publication authority",
+      "blocking_condition": "a gate not PASS",
+      "evidence": "all gates",
+      "must_not_infer": "partial publish",
+      "prerequisite": "signed",
+      "resulting_state": "published",
+      "step": 19
+    },
+    {
+      "action": "Mutate exactly one exact M13 cell atomically",
+      "artifact": "M6/M13",
+      "authority": "M6",
+      "blocking_condition": "wrong cell",
+      "evidence": "exact cell",
+      "must_not_infer": "inheritance/sibling reuse",
+      "prerequisite": "published",
+      "resulting_state": "cell certified",
+      "step": 20
+    },
+    {
+      "action": "Recompute certification state",
+      "artifact": "M13",
+      "authority": "M13",
+      "blocking_condition": "n/a",
+      "evidence": "registry",
+      "must_not_infer": "that count auto-grows",
+      "prerequisite": "cell certified",
+      "resulting_state": "state updated",
+      "step": 21
+    },
+    {
+      "action": "Preserve immutable evidence and audit trail",
+      "artifact": "M6",
+      "authority": "M6",
+      "blocking_condition": "history mutation",
+      "evidence": "audit chain",
+      "must_not_infer": "rewrite history",
+      "prerequisite": "published",
+      "resulting_state": "immutable",
+      "step": 22
+    },
+    {
+      "action": "Re-verify universal matrix invariants",
+      "artifact": "M13/M24",
+      "authority": "certification system",
+      "blocking_condition": "invariant broken",
+      "evidence": "invariant checks",
+      "must_not_infer": "that prior invariants still hold without checking",
+      "prerequisite": "done",
+      "resulting_state": "invariants re-verified",
+      "step": 23
+    }
+  ],
+  "reading_map_title": "Future Owner-Authorized Certification Run — Required Order",
+  "registry_mutated": false,
+  "report_only": true,
+  "runtime_created": false,
+  "safe_default": "OPEN / NOT_READY / NO_CERTIFICATION / NO_PUBLICATION",
+  "schema": "dkskill.design_compendium/1",
+  "security_traceability": [
+    {
+      "artifact": "M15-M17",
+      "boundary": "credential access",
+      "certification_blocked": true,
+      "control": "no credential access",
+      "current_state": "enforced",
+      "failure_behavior": "reject",
+      "threat": "read credentials"
+    },
+    {
+      "artifact": "M16/M17",
+      "boundary": "~/.claude isolation",
+      "certification_blocked": true,
+      "control": "path rejection",
+      "current_state": "enforced",
+      "failure_behavior": "REJECTED",
+      "threat": "read ~/.claude"
+    },
+    {
+      "artifact": "M15-M24",
+      "boundary": "arbitrary execution",
+      "certification_blocked": true,
+      "control": "no exec primitives",
+      "current_state": "enforced",
+      "failure_behavior": "n/a",
+      "threat": "run arbitrary code"
+    },
+    {
+      "artifact": "M14-M16",
+      "boundary": "privileged execution",
+      "certification_blocked": true,
+      "control": "read-only core",
+      "current_state": "enforced",
+      "failure_behavior": "refuse",
+      "threat": "privilege escalation"
+    },
+    {
+      "artifact": "M15-M24",
+      "boundary": "hidden network access",
+      "certification_blocked": true,
+      "control": "offline-first; no network",
+      "current_state": "enforced",
+      "failure_behavior": "n/a",
+      "threat": "exfiltration"
+    },
+    {
+      "artifact": "M14-M16",
+      "boundary": "telemetry",
+      "certification_blocked": true,
+      "control": "no telemetry",
+      "current_state": "enforced",
+      "failure_behavior": "n/a",
+      "threat": "silent telemetry"
+    },
+    {
+      "artifact": "M19/M20",
+      "boundary": "evidence laundering",
+      "certification_blocked": true,
+      "control": "provenance + M9 L4",
+      "current_state": "blocked",
+      "failure_behavior": "INCOMPLETE",
+      "threat": "weak-source promotion"
+    },
+    {
+      "artifact": "M20/M21",
+      "boundary": "stale evidence",
+      "certification_blocked": true,
+      "control": "freshness + env binding",
+      "current_state": "blocked",
+      "failure_behavior": "EXPIRED",
+      "threat": "reuse stale"
+    },
+    {
+      "artifact": "M18-M22",
+      "boundary": "inferred evidence",
+      "certification_blocked": true,
+      "control": "no inference",
+      "current_state": "blocked",
+      "failure_behavior": "UNKNOWN",
+      "threat": "infer channel/binary"
+    },
+    {
+      "artifact": "M23",
+      "boundary": "option substitution",
+      "certification_blocked": true,
+      "control": "exact option + re-review",
+      "current_state": "blocked",
+      "failure_behavior": "reject",
+      "threat": "swap decision option"
+    },
+    {
+      "artifact": "M23",
+      "boundary": "decision replay",
+      "certification_blocked": true,
+      "control": "decision bound to evidence+time",
+      "current_state": "blocked",
+      "failure_behavior": "reject",
+      "threat": "replay owner decision"
+    },
+    {
+      "artifact": "M21",
+      "boundary": "signing substitution",
+      "certification_blocked": true,
+      "control": "exact payload binding",
+      "current_state": "blocked",
+      "failure_behavior": "REJECTED",
+      "threat": "swap signature payload"
+    },
+    {
+      "artifact": "M21",
+      "boundary": "trust-root substitution",
+      "certification_blocked": true,
+      "control": "governed root",
+      "current_state": "OPEN",
+      "failure_behavior": "REJECTED",
+      "threat": "swap root"
+    },
+    {
+      "artifact": "M21",
+      "boundary": "key-provider substitution",
+      "certification_blocked": true,
+      "control": "selected provider only",
+      "current_state": "OPEN",
+      "failure_behavior": "reject",
+      "threat": "swap provider"
+    },
+    {
+      "artifact": "M21/M23",
+      "boundary": "compromised-key recovery ambiguity",
+      "certification_blocked": true,
+      "control": "explicit policy required",
+      "current_state": "OPEN",
+      "failure_behavior": "BLOCKED",
+      "threat": "undefined recovery"
+    },
+    {
+      "artifact": "M5/M6",
+      "boundary": "synthetic-to-production escalation",
+      "certification_blocked": true,
+      "control": "synthetic_test_only isolation; PG-13/GG-18",
+      "current_state": "blocked",
+      "failure_behavior": "REJECTED",
+      "threat": "promote synthetic"
+    },
+    {
+      "artifact": "M22/M23",
+      "boundary": "accidental activation",
+      "certification_blocked": true,
+      "control": "activation_all_met=false + owner auth",
+      "current_state": "blocked",
+      "failure_behavior": "NOT_READY",
+      "threat": "activate without prereqs"
+    },
+    {
+      "artifact": "M6",
+      "boundary": "registry mutation without authorization",
+      "certification_blocked": true,
+      "control": "signed governance + precondition",
+      "current_state": "blocked",
+      "failure_behavior": "NO_REGISTRY_MUTATION",
+      "threat": "unsigned mutation"
+    },
+    {
+      "artifact": "M13",
+      "boundary": "cross-platform certification leakage",
+      "certification_blocked": true,
+      "control": "exact cell; no inheritance",
+      "current_state": "blocked",
+      "failure_behavior": "NOT_CERTIFIED",
+      "threat": "inherit certification"
+    }
+  ],
+  "synthetic_vs_production": [
+    {
+      "item": "synthetic readiness (DF-10)",
+      "note": "synthetic readiness != production certification",
+      "side": "SYNTHETIC_TEST_ONLY"
+    },
+    {
+      "item": "synthetic signature mechanics",
+      "note": "synthetic signature mechanics != production trust",
+      "side": "SYNTHETIC_TEST_ONLY"
+    },
+    {
+      "item": "synthetic M9 L4 fixtures",
+      "note": "synthetic M9 L4 != real M9 L4",
+      "side": "SYNTHETIC_TEST_ONLY"
+    },
+    {
+      "item": "synthetic identity fixtures",
+      "note": "synthetic identity != real-host identity",
+      "side": "SYNTHETIC_TEST_ONLY"
+    },
+    {
+      "item": "production compatibility registry",
+      "note": "immutable; certified 0",
+      "side": "REAL_PRODUCTION_EVIDENCE"
+    },
+    {
+      "item": "real dkskill doctor output",
+      "note": "read-only; UNKNOWN by default",
+      "side": "PUBLIC_PRODUCT"
+    },
+    {
+      "item": "M19-M24 specs",
+      "note": "design only; no runtime/certification",
+      "side": "DESIGN_SPEC"
+    }
+  ],
+  "test_traceability": [
+    {
+      "artifact": "M13 universal",
+      "does_not_prove": "real-host certification",
+      "proves": "resolver/adapter/matrix logic",
+      "synthetic_only": true,
+      "test_file": "universal-compatibility.test.ts + platform-adapter + global-certification-matrix",
+      "tests": "in-suite"
+    },
+    {
+      "artifact": "M14 product core",
+      "does_not_prove": "runtime behavior",
+      "proves": "product spec consistency",
+      "synthetic_only": false,
+      "test_file": "product-core-spec.test.ts",
+      "tests": 21
+    },
+    {
+      "artifact": "M15 foundation",
+      "does_not_prove": "real Claude compatibility",
+      "proves": "manifest/integrity/env/adapter/doctor/install",
+      "synthetic_only": true,
+      "test_file": "product-foundation.test.ts",
+      "tests": 17
+    },
+    {
+      "artifact": "M16 package+doctor",
+      "does_not_prove": "certification",
+      "proves": "clean-clone install + real doctor safety",
+      "synthetic_only": true,
+      "test_file": "public-smoke.test.ts",
+      "tests": 13
+    },
+    {
+      "artifact": "M17 identity probe",
+      "does_not_prove": "real version/channel",
+      "proves": "safe identity observation; UNKNOWN default",
+      "synthetic_only": true,
+      "test_file": "claude-identity-probe.test.ts",
+      "tests": 16
+    },
+    {
+      "artifact": "M18 metadata assessment",
+      "does_not_prove": "a channel source exists",
+      "proves": "no safe autonomous source",
+      "synthetic_only": true,
+      "test_file": "version-metadata-assessment.test.ts",
+      "tests": 11
+    },
+    {
+      "artifact": "M19 attestation",
+      "does_not_prove": "real certification",
+      "proves": "attestation states + matrix binding",
+      "synthetic_only": true,
+      "test_file": "certification-identity-attestation.test.ts",
+      "tests": 15
+    },
+    {
+      "artifact": "M20 evidence binding",
+      "does_not_prove": "real evidence",
+      "proves": "binding spec consistency",
+      "synthetic_only": true,
+      "test_file": "evidence-attestation-binding-spec.test.ts",
+      "tests": 16
+    },
+    {
+      "artifact": "M21 signing binding",
+      "does_not_prove": "real signing",
+      "proves": "signing/key spec consistency",
+      "synthetic_only": true,
+      "test_file": "signing-publication-binding-spec.test.ts",
+      "tests": 20
+    },
+    {
+      "artifact": "M22 state machine",
+      "does_not_prove": "real certification",
+      "proves": "end-to-end spec + NOT_READY",
+      "synthetic_only": true,
+      "test_file": "certification-governance-state-machine-spec.test.ts",
+      "tests": 19
+    },
+    {
+      "artifact": "M23 dossier",
+      "does_not_prove": "owner decisions made",
+      "proves": "decision package + readiness fn",
+      "synthetic_only": true,
+      "test_file": "owner-decision-dossier.test.ts",
+      "tests": 18
+    },
+    {
+      "artifact": "M24 compendium",
+      "does_not_prove": "certification",
+      "proves": "traceability + invariants",
+      "synthetic_only": true,
+      "test_file": "design-compendium.test.ts",
+      "tests": "in-suite"
+    }
+  ],
+  "traceability_matrix": [
+    {
+      "artifact": "universal-compatibility.ts/.json",
+      "blocking_condition": "none",
+      "category": "ARCHITECTURE_REQUIREMENT",
+      "current_state": "implemented",
+      "dependency": "M3 HCL",
+      "design_gap": null,
+      "evidence_requirement": "n/a",
+      "future_action": "maintain",
+      "id": "TR-01",
+      "module": "M13",
+      "owner_decision": null,
+      "requirement": "one universal compatibility core across platforms",
+      "schema": "dkskill.universal_compatibility/1",
+      "source": "M13",
+      "test": "universal-compatibility.test.ts"
+    },
+    {
+      "artifact": "universal-compatibility.ts",
+      "blocking_condition": "incomplete identity",
+      "category": "COMPATIBILITY_REQUIREMENT",
+      "current_state": "implemented",
+      "dependency": "adapters",
+      "design_gap": null,
+      "evidence_requirement": "exact identity",
+      "future_action": "maintain",
+      "id": "TR-02",
+      "module": "M13/M3",
+      "owner_decision": null,
+      "requirement": "exact host identity (never version/platform alone)",
+      "schema": "dkskill.user_compatibility_result/1",
+      "source": "M3",
+      "test": "universal-compatibility.test.ts"
+    },
+    {
+      "artifact": "global-certification-matrix.ts",
+      "blocking_condition": "missing cell=NOT_CERTIFIED",
+      "category": "COMPATIBILITY_REQUIREMENT",
+      "current_state": "implemented; certified 0",
+      "dependency": "registry",
+      "design_gap": null,
+      "evidence_requirement": "per-cell evidence",
+      "future_action": "certify per cell",
+      "id": "TR-03",
+      "module": "M13",
+      "owner_decision": null,
+      "requirement": "per platform/arch/channel/version/runtime facets; no cross inference",
+      "schema": "dkskill.global_certification_matrix/1",
+      "source": "M13",
+      "test": "global-certification-matrix.test.ts"
+    },
+    {
+      "artifact": "hcl.ts",
+      "blocking_condition": "unverified host",
+      "category": "SECURITY_REQUIREMENT",
+      "current_state": "implemented",
+      "dependency": "H-Q1",
+      "design_gap": null,
+      "evidence_requirement": "n/a",
+      "future_action": "maintain",
+      "id": "TR-04",
+      "module": "M13/M3",
+      "owner_decision": null,
+      "requirement": "fail-closed enforcement; UNVERIFIED != UNSUPPORTED",
+      "schema": "dkskill.host_compatibility_result/1",
+      "source": "M3",
+      "test": "universal-compatibility.test.ts"
+    },
+    {
+      "artifact": "capability-catalogue.json",
+      "blocking_condition": "NOT_YET_VALIDATED",
+      "category": "COMPATIBILITY_REQUIREMENT",
+      "current_state": "implemented",
+      "dependency": "catalogue",
+      "design_gap": null,
+      "evidence_requirement": "per-cap evidence",
+      "future_action": "validate caps",
+      "id": "TR-05",
+      "module": "M0/M3",
+      "owner_decision": null,
+      "requirement": "capability states preserved (M0)",
+      "schema": "dkskill.capability_catalogue/1",
+      "source": "M0",
+      "test": "capability-catalogue.test.ts"
+    },
+    {
+      "artifact": "hcl.ts",
+      "blocking_condition": "UNRESOLVED facet",
+      "category": "COMPATIBILITY_REQUIREMENT",
+      "current_state": "implemented",
+      "dependency": "registry",
+      "design_gap": null,
+      "evidence_requirement": "facet evidence",
+      "future_action": "validate facets",
+      "id": "TR-06",
+      "module": "M3",
+      "owner_decision": null,
+      "requirement": "facet states explicit",
+      "schema": "dkskill.host_facet/1",
+      "source": "M3",
+      "test": "universal-compatibility.test.ts"
+    },
+    {
+      "artifact": "attribution-equivalence.json",
+      "blocking_condition": "out-of-scope=UNKNOWN",
+      "category": "COMPATIBILITY_REQUIREMENT",
+      "current_state": "implemented",
+      "dependency": "ATTR scope",
+      "design_gap": null,
+      "evidence_requirement": "real-host TS-07",
+      "future_action": "TS-07",
+      "id": "TR-07",
+      "module": "M2",
+      "owner_decision": null,
+      "requirement": "attribution@1 scope [\"2.1.283\"]",
+      "schema": "dkskill.attribution_equivalence/1",
+      "source": "M2",
+      "test": "attribution-equivalence.test.ts"
+    },
+    {
+      "artifact": "certification-identity-attestation.ts",
+      "blocking_condition": "weak provenance",
+      "category": "EVIDENCE_REQUIREMENT",
+      "current_state": "design",
+      "dependency": "M7",
+      "design_gap": null,
+      "evidence_requirement": "provenance >= CONTROLLED",
+      "future_action": "acquire evidence",
+      "id": "TR-08",
+      "module": "M7/M19/M20",
+      "owner_decision": null,
+      "requirement": "evidence provenance + hash chain",
+      "schema": "dkskill.certification_identity_attestation/1",
+      "source": "M19/M20",
+      "test": "certification-identity-attestation.test.ts"
+    },
+    {
+      "artifact": "network-isolation.ts",
+      "blocking_condition": "L4 absent",
+      "category": "EVIDENCE_REQUIREMENT",
+      "current_state": "BLOCKED (L0)",
+      "dependency": "M9",
+      "design_gap": null,
+      "evidence_requirement": "independent L4",
+      "future_action": "establish L4",
+      "id": "TR-09",
+      "module": "M9/M20",
+      "owner_decision": null,
+      "requirement": "M9 L4 independent verification for authoritative identity",
+      "schema": "dkskill.network_isolation_verification/1",
+      "source": "M9/M20",
+      "test": "network-isolation.test.ts"
+    },
+    {
+      "artifact": "certification.ts",
+      "blocking_condition": "TS-07 unresolved",
+      "category": "EVIDENCE_REQUIREMENT",
+      "current_state": "UNRESOLVED",
+      "dependency": "M8",
+      "design_gap": null,
+      "evidence_requirement": "live stream+attribution",
+      "future_action": "resolve TS-07",
+      "id": "TR-10",
+      "module": "M4/M7",
+      "owner_decision": null,
+      "requirement": "TS-07 resolved",
+      "schema": "dkskill.certification_result/1",
+      "source": "M4",
+      "test": "certification.test.ts"
+    },
+    {
+      "artifact": "certification.ts",
+      "blocking_condition": "TS-11 unresolved",
+      "category": "EVIDENCE_REQUIREMENT",
+      "current_state": "UNRESOLVED",
+      "dependency": "M8",
+      "design_gap": null,
+      "evidence_requirement": "NM calibration",
+      "future_action": "resolve TS-11",
+      "id": "TR-11",
+      "module": "M4/M7",
+      "owner_decision": null,
+      "requirement": "TS-11 resolved",
+      "schema": "dkskill.certification_result/1",
+      "source": "M4",
+      "test": "certification.test.ts"
+    },
+    {
+      "artifact": "certification-identity-attestation.ts",
+      "blocking_condition": "INCOMPLETE",
+      "category": "CERTIFICATION_REQUIREMENT",
+      "current_state": "design",
+      "dependency": "M20",
+      "design_gap": null,
+      "evidence_requirement": "all required fields OBSERVED",
+      "future_action": "build attestation",
+      "id": "TR-12",
+      "module": "M19",
+      "owner_decision": null,
+      "requirement": "identity attestation (COMPLETE_UNSIGNED)",
+      "schema": "dkskill.certification_identity_attestation/1",
+      "source": "M19",
+      "test": "certification-identity-attestation.test.ts"
+    },
+    {
+      "artifact": "evidence-attestation-binding-spec.json",
+      "blocking_condition": "unproven mechanism",
+      "category": "EVIDENCE_REQUIREMENT",
+      "current_state": "OPEN gap",
+      "dependency": "M9",
+      "design_gap": "GAP-02",
+      "evidence_requirement": "exact byte hash (L4)",
+      "future_action": "close GAP-02",
+      "id": "TR-13",
+      "module": "M19/M20",
+      "owner_decision": null,
+      "requirement": "authoritative binary binding",
+      "schema": "dkskill.evidence_attestation_binding_spec/1",
+      "source": "M20",
+      "test": "evidence-attestation-binding-spec.test.ts"
+    },
+    {
+      "artifact": "version-metadata-assessment.ts",
+      "blocking_condition": "no proven source",
+      "category": "EVIDENCE_REQUIREMENT",
+      "current_state": "OPEN gap",
+      "dependency": "M7/M9",
+      "design_gap": "GAP-01",
+      "evidence_requirement": "direct channel obs (>= CONTROLLED)",
+      "future_action": "close GAP-01",
+      "id": "TR-14",
+      "module": "M18/M20",
+      "owner_decision": null,
+      "requirement": "authoritative channel evidence",
+      "schema": "dkskill.version_metadata_assessment/1",
+      "source": "M18/M20",
+      "test": "version-metadata-assessment.test.ts"
+    },
+    {
+      "artifact": "certification-governance-state-machine-spec.json",
+      "blocking_condition": "gate FAIL/BLOCKED",
+      "category": "CERTIFICATION_REQUIREMENT",
+      "current_state": "NOT satisfied",
+      "dependency": "evidence",
+      "design_gap": null,
+      "evidence_requirement": "all mandatory gates PASS",
+      "future_action": "run M4 (authorized)",
+      "id": "TR-15",
+      "module": "M4/M22",
+      "owner_decision": null,
+      "requirement": "M4 certification gates",
+      "schema": "dkskill.certification_governance_state_machine_spec/1",
+      "source": "M4/M22",
+      "test": "certification-governance-state-machine-spec.test.ts"
+    },
+    {
+      "artifact": "certification-governance-state-machine-spec.json",
+      "blocking_condition": "proposal mismatch",
+      "category": "GOVERNANCE_REQUIREMENT",
+      "current_state": "NOT_READY",
+      "dependency": "M4",
+      "design_gap": null,
+      "evidence_requirement": "exact binds",
+      "future_action": "propose (authorized)",
+      "id": "TR-16",
+      "module": "M5/M22",
+      "owner_decision": null,
+      "requirement": "M5 publication proposal gate",
+      "schema": "dkskill.certification_publication/1",
+      "source": "M5/M22",
+      "test": "certification-governance-state-machine-spec.test.ts"
+    },
+    {
+      "artifact": "signing-publication-binding-spec.json",
+      "blocking_condition": "auth mismatch",
+      "category": "GOVERNANCE_REQUIREMENT",
+      "current_state": "NOT_READY",
+      "dependency": "M5",
+      "design_gap": null,
+      "evidence_requirement": "authorization_payload_hash",
+      "future_action": "authorize (owner)",
+      "id": "TR-17",
+      "module": "M6/M21",
+      "owner_decision": null,
+      "requirement": "M6 governance + authorization",
+      "schema": "dkskill.registry_governance/1",
+      "source": "M6/M21",
+      "test": "signing-publication-binding-spec.test.ts"
+    },
+    {
+      "artifact": "signing-publication-binding-spec.json",
+      "blocking_condition": "algorithm/root OPEN",
+      "category": "GOVERNANCE_REQUIREMENT",
+      "current_state": "OPEN decisions",
+      "dependency": "M6",
+      "design_gap": "GAP-04R-ALGO",
+      "evidence_requirement": "valid signature over exact payload",
+      "future_action": "close GAP-04R-*",
+      "id": "TR-18",
+      "module": "M21",
+      "owner_decision": "OD-03",
+      "requirement": "signing/publication binding",
+      "schema": "dkskill.signing_publication_binding_spec/1",
+      "source": "M21",
+      "test": "signing-publication-binding-spec.test.ts"
+    },
+    {
+      "artifact": "registry-governance.ts",
+      "blocking_condition": "precondition mismatch",
+      "category": "GOVERNANCE_REQUIREMENT",
+      "current_state": "no publication",
+      "dependency": "signature",
+      "design_gap": null,
+      "evidence_requirement": "valid precondition",
+      "future_action": "publish (atomic)",
+      "id": "TR-19",
+      "module": "M6/M13",
+      "owner_decision": null,
+      "requirement": "exact registry cell publication",
+      "schema": "dkskill.registry_publication_record/1",
+      "source": "M6",
+      "test": "registry-governance.test.ts"
+    },
+    {
+      "artifact": "signing-publication-binding-spec.json",
+      "blocking_condition": "transplant attempt",
+      "category": "SECURITY_REQUIREMENT",
+      "current_state": "design",
+      "dependency": "signature",
+      "design_gap": null,
+      "evidence_requirement": "bound identities",
+      "future_action": "maintain",
+      "id": "TR-20",
+      "module": "M21/M22",
+      "owner_decision": null,
+      "requirement": "replay protection",
+      "schema": null,
+      "source": "M21",
+      "test": "signing-publication-binding-spec.test.ts"
+    },
+    {
+      "artifact": "registry-governance.ts",
+      "blocking_condition": "n/a",
+      "category": "GOVERNANCE_REQUIREMENT",
+      "current_state": "design",
+      "dependency": "governance",
+      "design_gap": null,
+      "evidence_requirement": "revocation record",
+      "future_action": "maintain",
+      "id": "TR-21",
+      "module": "M6/M21",
+      "owner_decision": null,
+      "requirement": "revocation",
+      "schema": "dkskill.registry_publication_record/1",
+      "source": "M6",
+      "test": "registry-governance.test.ts"
+    },
+    {
+      "artifact": "registry-governance.ts",
+      "blocking_condition": "n/a",
+      "category": "GOVERNANCE_REQUIREMENT",
+      "current_state": "design",
+      "dependency": "governance",
+      "design_gap": null,
+      "evidence_requirement": "supersession record",
+      "future_action": "maintain",
+      "id": "TR-22",
+      "module": "M6/M21",
+      "owner_decision": null,
+      "requirement": "supersession",
+      "schema": "dkskill.registry_publication_record/1",
+      "source": "M6",
+      "test": "registry-governance.test.ts"
+    },
+    {
+      "artifact": "signing-publication-binding-spec.json",
+      "blocking_condition": "no keys",
+      "category": "GOVERNANCE_REQUIREMENT",
+      "current_state": "OPEN",
+      "dependency": "trust root",
+      "design_gap": "GAP-04R-STORE",
+      "evidence_requirement": "key metadata",
+      "future_action": "close GAP-04R-STORE",
+      "id": "TR-23",
+      "module": "M21",
+      "owner_decision": "OD-05",
+      "requirement": "key lifecycle",
+      "schema": null,
+      "source": "M21",
+      "test": "signing-publication-binding-spec.test.ts"
+    },
+    {
+      "artifact": "signing-publication-binding-spec.json",
+      "blocking_condition": "bootstrap undefined",
+      "category": "GOVERNANCE_REQUIREMENT",
+      "current_state": "OPEN",
+      "dependency": "owner",
+      "design_gap": "GAP-04R-ROOT",
+      "evidence_requirement": "governed root",
+      "future_action": "close GAP-04R-ROOT",
+      "id": "TR-24",
+      "module": "M21",
+      "owner_decision": "OD-04",
+      "requirement": "trust root",
+      "schema": null,
+      "source": "M21",
+      "test": "signing-publication-binding-spec.test.ts"
+    },
+    {
+      "artifact": "signing-publication-binding-spec.json",
+      "blocking_condition": "undefined",
+      "category": "GOVERNANCE_REQUIREMENT",
+      "current_state": "OPEN",
+      "dependency": "owner",
+      "design_gap": "GAP-04R-RECOVERY",
+      "evidence_requirement": "recovery policy",
+      "future_action": "close GAP-04R-RECOVERY",
+      "id": "TR-25",
+      "module": "M21",
+      "owner_decision": "OD-06",
+      "requirement": "compromised-key recovery",
+      "schema": null,
+      "source": "M21",
+      "test": "signing-publication-binding-spec.test.ts"
+    },
+    {
+      "artifact": "owner-decision-dossier.json",
+      "blocking_condition": "not authorized",
+      "category": "OWNER_DECISION",
+      "current_state": "OPEN",
+      "dependency": "all prereqs",
+      "design_gap": null,
+      "evidence_requirement": "explicit owner decision",
+      "future_action": "OD-10",
+      "id": "TR-26",
+      "module": "M4/M6/M23",
+      "owner_decision": "OD-10",
+      "requirement": "owner authorization for certification",
+      "schema": "dkskill.owner_decision_dossier/1",
+      "source": "M23",
+      "test": "owner-decision-dossier.test.ts"
+    },
+    {
+      "artifact": "design-compendium.json",
+      "blocking_condition": "synthetic->prod",
+      "category": "SECURITY_REQUIREMENT",
+      "current_state": "enforced",
+      "dependency": "flags",
+      "design_gap": null,
+      "evidence_requirement": "n/a",
+      "future_action": "maintain",
+      "id": "TR-27",
+      "module": "all",
+      "owner_decision": null,
+      "requirement": "synthetic-test-only boundaries",
+      "schema": null,
+      "source": "M13-M23",
+      "test": "design-compendium.test.ts"
+    },
+    {
+      "artifact": "compatibility-registry.json",
+      "blocking_condition": "unauthorized mutation",
+      "category": "INVARIANT",
+      "current_state": "byte-identical",
+      "dependency": "signed governance",
+      "design_gap": null,
+      "evidence_requirement": "n/a",
+      "future_action": "maintain",
+      "id": "TR-28",
+      "module": "M1/M6",
+      "owner_decision": null,
+      "requirement": "production registry immutability",
+      "schema": "dkskill.compat_registry/1",
+      "source": "M1",
+      "test": "compatibility-registry.test.ts"
+    },
+    {
+      "artifact": "evidence-execution.ts",
+      "blocking_condition": "network UNVERIFIED",
+      "category": "CERTIFICATION_REQUIREMENT",
+      "current_state": "EXECUTION_BLOCKED",
+      "dependency": "M9",
+      "design_gap": null,
+      "evidence_requirement": "network VERIFIED",
+      "future_action": "M9 L4 then authorize",
+      "id": "TR-29",
+      "module": "M8",
+      "owner_decision": null,
+      "requirement": "M8 execution gate",
+      "schema": "dkskill.evidence_execution_gate/1",
+      "source": "M8",
+      "test": "evidence-execution.test.ts"
+    },
+    {
+      "artifact": "network-isolation.ts",
+      "blocking_condition": "no independent observer",
+      "category": "EVIDENCE_REQUIREMENT",
+      "current_state": "UNVERIFIED (L0)",
+      "dependency": "observer",
+      "design_gap": null,
+      "evidence_requirement": "L4 independent",
+      "future_action": "establish L4",
+      "id": "TR-30",
+      "module": "M9",
+      "owner_decision": null,
+      "requirement": "M9 network-isolation gate",
+      "schema": "dkskill.network_isolation_verification/1",
+      "source": "M9",
+      "test": "network-isolation.test.ts"
+    },
+    {
+      "artifact": "global-certification-matrix.ts",
+      "blocking_condition": "no inheritance",
+      "category": "CERTIFICATION_REQUIREMENT",
+      "current_state": "certified 0",
+      "dependency": "M4-M6",
+      "design_gap": null,
+      "evidence_requirement": "per-cell evidence",
+      "future_action": "certify per cell",
+      "id": "TR-31",
+      "module": "M13",
+      "owner_decision": null,
+      "requirement": "universal platform certification",
+      "schema": "dkskill.global_certification_record/1",
+      "source": "M13",
+      "test": "global-certification-matrix.test.ts"
+    },
+    {
+      "artifact": "global-certification-matrix.ts",
+      "blocking_condition": "fewer than 3 certified",
+      "category": "GOVERNANCE_REQUIREMENT",
+      "current_state": "implemented; 0 certified",
+      "dependency": "registry",
+      "design_gap": null,
+      "evidence_requirement": "certified versions",
+      "future_action": "certify versions",
+      "id": "TR-32",
+      "module": "M13",
+      "owner_decision": null,
+      "requirement": "latest-3 lifecycle",
+      "schema": "dkskill.global_certification_matrix/1",
+      "source": "M13",
+      "test": "global-certification-matrix.test.ts"
+    },
+    {
+      "artifact": "GLOBAL-SECURITY-AND-TRUST-MODEL.md",
+      "blocking_condition": "private in public",
+      "category": "SECURITY_REQUIREMENT",
+      "current_state": "enforced",
+      "dependency": "boundary",
+      "design_gap": null,
+      "evidence_requirement": "n/a",
+      "future_action": "maintain",
+      "id": "TR-33",
+      "module": "M13/M14/M15",
+      "owner_decision": null,
+      "requirement": "public/private trust boundary",
+      "schema": null,
+      "source": "M13-M15",
+      "test": "product-foundation.test.ts"
+    },
+    {
+      "artifact": "claude-identity-probe.ts",
+      "blocking_condition": "credential access",
+      "category": "SECURITY_REQUIREMENT",
+      "current_state": "enforced",
+      "dependency": "safety rules",
+      "design_gap": null,
+      "evidence_requirement": "n/a",
+      "future_action": "maintain",
+      "id": "TR-34",
+      "module": "M13/M15/M16/M17",
+      "owner_decision": null,
+      "requirement": "credential isolation",
+      "schema": "dkskill.claude_identity_observation/1",
+      "source": "M17",
+      "test": "claude-identity-probe.test.ts"
+    },
+    {
+      "artifact": "product-core-spec.ts",
+      "blocking_condition": "n/a",
+      "category": "PUBLIC_PRODUCT_REQUIREMENT",
+      "current_state": "specified; 1 skill",
+      "dependency": "taxonomy",
+      "design_gap": null,
+      "evidence_requirement": "n/a",
+      "future_action": "implement modules",
+      "id": "TR-35",
+      "module": "M14",
+      "owner_decision": null,
+      "requirement": "dkskill product core (one primary skill)",
+      "schema": "dkskill.product_core_spec/1",
+      "source": "M14",
+      "test": "product-core-spec.test.ts"
+    },
+    {
+      "artifact": "install.ts",
+      "blocking_condition": "unsafe dir",
+      "category": "PUBLIC_PRODUCT_REQUIREMENT",
+      "current_state": "implemented (fail-closed)",
+      "dependency": "integrity",
+      "design_gap": null,
+      "evidence_requirement": "n/a",
+      "future_action": "maintain",
+      "id": "TR-36",
+      "module": "M15/M16",
+      "owner_decision": null,
+      "requirement": "installation lifecycle",
+      "schema": "dkskill.install_result/1",
+      "source": "M15/M16",
+      "test": "public-smoke.test.ts"
+    },
+    {
+      "artifact": "dkskill-doctor.ts",
+      "blocking_condition": "n/a",
+      "category": "PUBLIC_PRODUCT_REQUIREMENT",
+      "current_state": "read-only; real",
+      "dependency": "resolver",
+      "design_gap": null,
+      "evidence_requirement": "n/a",
+      "future_action": "maintain",
+      "id": "TR-37",
+      "module": "M16",
+      "owner_decision": null,
+      "requirement": "dkskill doctor behavior",
+      "schema": "dkskill.public_doctor_report/1",
+      "source": "M16",
+      "test": "public-smoke.test.ts"
+    },
+    {
+      "artifact": "claude-identity-probe.ts",
+      "blocking_condition": "no safe source",
+      "category": "EVIDENCE_REQUIREMENT",
+      "current_state": "UNKNOWN by default",
+      "dependency": "M18",
+      "design_gap": null,
+      "evidence_requirement": "explicit/safe probe",
+      "future_action": "GAP-01/02",
+      "id": "TR-38",
+      "module": "M17",
+      "owner_decision": null,
+      "requirement": "safe Claude identity probe",
+      "schema": "dkskill.claude_identity_observation/1",
+      "source": "M17",
+      "test": "claude-identity-probe.test.ts"
+    },
+    {
+      "artifact": "version-metadata-assessment.json",
+      "blocking_condition": "no source",
+      "category": "DESIGN_GAP",
+      "current_state": "IMPLEMENTATION_NOT_JUSTIFIED",
+      "dependency": "evidence",
+      "design_gap": "GAP-01",
+      "evidence_requirement": "proven source",
+      "future_action": "owner decision",
+      "id": "TR-39",
+      "module": "M18",
+      "owner_decision": null,
+      "requirement": "version/channel source limitations",
+      "schema": "dkskill.version_metadata_assessment/1",
+      "source": "M18",
+      "test": "version-metadata-assessment.test.ts"
+    },
+    {
+      "artifact": "owner-decision-dossier.json",
+      "blocking_condition": "all OPEN",
+      "category": "OWNER_DECISION",
+      "current_state": "all OPEN",
+      "dependency": "evidence",
+      "design_gap": null,
+      "evidence_requirement": "explicit decisions",
+      "future_action": "owner review",
+      "id": "TR-40",
+      "module": "M23",
+      "owner_decision": "OD-10",
+      "requirement": "M23 owner decisions OD-01..OD-10",
+      "schema": "dkskill.owner_decision_dossier/1",
+      "source": "M23",
+      "test": "owner-decision-dossier.test.ts"
+    },
+    {
+      "artifact": "SKILL-TAXONOMY.md",
+      "blocking_condition": "no copying gstack",
+      "category": "FUTURE_IMPLEMENTATION",
+      "current_state": "NOT_YET_DECIDED",
+      "dependency": "certified facets + owner decision",
+      "design_gap": null,
+      "evidence_requirement": "n/a",
+      "future_action": "design coverage later (original names)",
+      "id": "TR-41",
+      "module": "M14/future",
+      "owner_decision": null,
+      "requirement": "gstack capability-surface coverage via ORIGINAL dkskill names/modules",
+      "schema": null,
+      "source": "M14",
+      "test": null
+    },
+    {
+      "artifact": "owner-decision-dossier.json",
+      "blocking_condition": "none closed",
+      "category": "INVARIANT",
+      "current_state": "all OPEN",
+      "dependency": "owner/evidence",
+      "design_gap": null,
+      "evidence_requirement": "n/a",
+      "future_action": "preserve",
+      "id": "TR-42",
+      "module": "M22/M23",
+      "owner_decision": null,
+      "requirement": "remaining open gaps preserved",
+      "schema": "dkskill.owner_decision_dossier/1",
+      "source": "M23",
+      "test": "design-compendium.test.ts"
+    }
+  ],
+  "version": 1
+}

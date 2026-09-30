@@ -1,0 +1,122 @@
+{
+  "certified_count": 0,
+  "dimensions": {
+    "architectures": [
+      "x64"
+    ],
+    "channels": [
+      "native"
+    ],
+    "platforms": [
+      "windows"
+    ],
+    "versions": [
+      "2.1.283",
+      "2.1.284"
+    ]
+  },
+  "latest_3_certified_versions": [],
+  "matrix_hash": "sha256:4dd7c3906be3f25a5d1096bc3029447417b92a5411e106a1ad0abaa0b34f55dc",
+  "no_inheritance": {
+    "architecture": true,
+    "channel": true,
+    "platform": true,
+    "version": true
+  },
+  "records": [
+    {
+      "attribution_in_scope": true,
+      "binary_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+      "capability_summary": {
+        "total": 25,
+        "verified": 17
+      },
+      "cert_state": "NOT_VALIDATED",
+      "combo": {
+        "architecture": "x64",
+        "channel": "native",
+        "platform": "windows",
+        "version": "2.1.283"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "RESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "RESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": "cc-2.1.283-win32-x64-native@1",
+      "registry_state": "PROBED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": false,
+      "version_lifecycle": "UNVERIFIED"
+    },
+    {
+      "attribution_in_scope": false,
+      "binary_sha256": null,
+      "capability_summary": {
+        "total": 25,
+        "verified": 0
+      },
+      "cert_state": "NOT_VALIDATED",
+      "combo": {
+        "architecture": "x64",
+        "channel": "native",
+        "platform": "windows",
+        "version": "2.1.284"
+      },
+      "evidence_ref": null,
+      "facet_states": [
+        {
+          "family": "hook_protocol",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "stream_schema",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "attribution",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "settings_layout",
+          "state": "UNRESOLVED"
+        },
+        {
+          "family": "permission_modes",
+          "state": "UNRESOLVED"
+        }
+      ],
+      "immutable": true,
+      "profile_id": "cc-2.1.284-win32-x64-native@1",
+      "registry_state": "NOT_VALIDATED",
+      "schema": "dkskill.global_certification_record/1",
+      "signed": false,
+      "synthetic_test_only": false,
+      "version_lifecycle": "UNVERIFIED"
+    }
+  ],
+  "requires_signed_authorization": true,
+  "schema": "dkskill.global_certification_matrix/1",
+  "synthetic_test_only": false,
+  "version": 1
+}

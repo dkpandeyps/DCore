@@ -1,0 +1,12 @@
+{
+  "attempt_id": "att_01KDVDNA02MC3MD3RERQF4YS0P",
+  "event_id": "tev_123",
+  "input_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "kind": "tool_use",
+  "lifecycle": "PROPOSED",
+  "rx_ms": 120,
+  "schema": "aebs.tool_event/1",
+  "seq": 3,
+  "tool_name": "PowerShell",
+  "tool_use_id": "toolu_synthetic"
+}

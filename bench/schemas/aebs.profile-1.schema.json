@@ -1,0 +1,59 @@
+{
+  "$id": "aebs.profile/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "description": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "foreign_hooks_ref": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "id": {
+      "$ref": "aebs.defs#/$defs/profileId"
+    },
+    "intentional_differences": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "native_config_ref": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "schema": {
+      "const": "aebs.profile/1"
+    },
+    "sut": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "version_ref": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "version_ref"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "description",
+    "sut",
+    "native_config_ref"
+  ],
+  "title": "Profile v1 (data model §2.7)",
+  "type": "object"
+}

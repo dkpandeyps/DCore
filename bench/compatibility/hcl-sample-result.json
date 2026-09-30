@@ -1,0 +1,369 @@
+{
+  "attribution": {
+    "facet": "attribution@1",
+    "in_scope": true,
+    "note": "attribution@1 consumed as PROBED/evidence-level only; real-host NOT_VALIDATED (TS-07). Unknown text => A9/unknown.",
+    "real_host": "NOT_VALIDATED",
+    "table_valid_scope": [
+      "2.1.283"
+    ]
+  },
+  "capability_results": [
+    {
+      "capability_id": "CAP-HOOK-PRETOOLUSE-INTERCEPT",
+      "criticality": "CRITICAL",
+      "min_state": "VERIFIED",
+      "required": true,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOOK-POSTTOOLUSE-INTERCEPT",
+      "criticality": "HIGH",
+      "min_state": null,
+      "required": false,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOOK-SUBAGENT-INTERCEPT",
+      "criticality": "CRITICAL",
+      "min_state": "VERIFIED",
+      "required": true,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-MCP-MATCHER",
+      "criticality": "CRITICAL",
+      "min_state": "VERIFIED",
+      "required": true,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": true,
+      "satisfied": false,
+      "state": "PARTIALLY_VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOOK-DENY-REASON-VISIBLE",
+      "criticality": "CRITICAL",
+      "min_state": "VERIFIED",
+      "required": true,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-PERMISSION-PRECEDENCE",
+      "criticality": "CRITICAL",
+      "min_state": "VERIFIED",
+      "required": true,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-UPDATEDINPUT-NARROWING",
+      "criticality": "MEDIUM",
+      "min_state": null,
+      "required": false,
+      "required_for": "optional_functionality",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "PARTIALLY_VERIFIED"
+    },
+    {
+      "capability_id": "CAP-SUBAGENT-TOOL-RESTRICTIONS",
+      "criticality": "HIGH",
+      "min_state": null,
+      "required": false,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-SKILL-TOOL-FLAGS",
+      "criticality": "HIGH",
+      "min_state": null,
+      "required": false,
+      "required_for": "optional_functionality",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "PARTIALLY_VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOOK-ENV-IDENTIFIERS",
+      "criticality": "HIGH",
+      "min_state": null,
+      "required": false,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-SETTINGS-PRECEDENCE",
+      "criticality": "HIGH",
+      "min_state": null,
+      "required": false,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-MANAGED-SETTINGS",
+      "criticality": "HIGH",
+      "min_state": null,
+      "required": false,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "PARTIALLY_VERIFIED"
+    },
+    {
+      "capability_id": "CAP-PERMISSION-MODE-CEILING",
+      "criticality": "HIGH",
+      "min_state": null,
+      "required": false,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-PROTECTED-PATHS",
+      "criticality": "MEDIUM",
+      "min_state": null,
+      "required": false,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "PARTIALLY_VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOOK-CONCURRENCY",
+      "criticality": "HIGH",
+      "min_state": null,
+      "required": false,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-DENY-PRECEDENCE",
+      "criticality": "CRITICAL",
+      "min_state": "VERIFIED",
+      "required": true,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-STOP-HOOK",
+      "criticality": "MEDIUM",
+      "min_state": null,
+      "required": false,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-SESSIONSTART-CONTEXT",
+      "criticality": "HIGH",
+      "min_state": null,
+      "required": false,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-COMPACTION-CONTEXT",
+      "criticality": "HIGH",
+      "min_state": null,
+      "required": false,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-CONFIG-RELOAD",
+      "criticality": "LOW",
+      "min_state": null,
+      "required": false,
+      "required_for": "optional_functionality",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOOK-HEARTBEAT",
+      "criticality": "CRITICAL",
+      "min_state": "VERIFIED",
+      "required": true,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOOK-TIMEOUT-FAILOPEN",
+      "criticality": "CRITICAL",
+      "min_state": "VERIFIED",
+      "required": true,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-STREAM-SCHEMA",
+      "criticality": "HIGH",
+      "min_state": null,
+      "required": false,
+      "required_for": "benchmark_attribution_only",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "PARTIALLY_VERIFIED"
+    },
+    {
+      "capability_id": "CAP-ATTRIBUTION-TEXT",
+      "criticality": "HIGH",
+      "min_state": null,
+      "required": false,
+      "required_for": "benchmark_attribution_only",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "PARTIALLY_VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOST-IDENTITY-DETECT",
+      "criticality": "HIGH",
+      "min_state": null,
+      "required": false,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "NOT_YET_VALIDATED"
+    }
+  ],
+  "certification_status": "NOT_CERTIFIED",
+  "enforcement_decision": "ENFORCEMENT_REFUSED",
+  "facet_results": [
+    {
+      "facet_id": "hook_protocol@1",
+      "family": "hook_protocol",
+      "state": "RESOLVED",
+      "validation_status": "PROBED"
+    },
+    {
+      "facet_id": "stream_schema@1",
+      "family": "stream_schema",
+      "state": "RESOLVED",
+      "validation_status": "PROBED"
+    },
+    {
+      "facet_id": "attribution@1",
+      "family": "attribution",
+      "state": "RESOLVED",
+      "validation_status": "PROBED"
+    },
+    {
+      "facet_id": "settings_layout@1",
+      "family": "settings_layout",
+      "state": "RESOLVED",
+      "validation_status": "PROBED"
+    },
+    {
+      "facet_id": "permission_modes@1",
+      "family": "permission_modes",
+      "state": "RESOLVED",
+      "validation_status": "PROBED"
+    }
+  ],
+  "feature_id": "dkskill.core_safety_enforcement",
+  "field_sources": [
+    {
+      "field": "product",
+      "source": "registry-declared",
+      "value": "claude-code"
+    },
+    {
+      "field": "version",
+      "source": "operator-declared",
+      "value": "2.1.283"
+    },
+    {
+      "field": "platform",
+      "source": "os",
+      "value": "win32"
+    },
+    {
+      "field": "architecture",
+      "source": "os",
+      "value": "x64"
+    },
+    {
+      "field": "channel",
+      "source": "operator-declared",
+      "value": "native"
+    },
+    {
+      "field": "binary_sha256",
+      "source": "operator-hash",
+      "value": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A"
+    },
+    {
+      "field": "executable_source",
+      "source": "observed",
+      "value": "operator-supplied (pinned)"
+    }
+  ],
+  "identity_status": "IDENTIFIED",
+  "limitations": [
+    "TS-07 UNRESOLVED: stream/attr@1 not re-validated as a certification; attr@1 valid only for this version.",
+    "Several safety-relevant capabilities are PARTIALLY_VERIFIED (e.g., MCP matching non-stdio, U-01); a safety-critical capability is not fully VERIFIED, so this profile MUST NOT be CERTIFIED (H-Q1).",
+    "Phase 2 evidence is historical observation on this identity, not a certification."
+  ],
+  "missing_fields": [],
+  "observed_identity": {
+    "architecture": "x64",
+    "binary_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+    "channel": "native",
+    "executable_source": "operator-supplied (pinned)",
+    "platform": "win32",
+    "product": "claude-code",
+    "version": "2.1.283"
+  },
+  "profile_id": "cc-2.1.283-win32-x64-native@1",
+  "profile_resolution": "EXACT_MATCH",
+  "reason_codes": [
+    "CAP_UNMET:CAP-MCP-MATCHER:PARTIALLY_VERIFIED",
+    "SELFCHECK_CRITICAL_NOT_PASS",
+    "PROFILE_NOT_CERTIFIED"
+  ],
+  "schema": "dkskill.host_compatibility_result/1",
+  "self_check_results": [
+    {
+      "critical": true,
+      "description": "PreToolUse nonce heartbeat",
+      "id": "T2-HEARTBEAT",
+      "result": "NOT_RUN"
+    }
+  ],
+  "validation_status": "PROBED",
+  "version": 1
+}

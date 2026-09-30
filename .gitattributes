@@ -1,0 +1,4 @@
+# Reproducibility: the project verifies byte-exact SHA-256 hashes of committed
+# files. Disable all end-of-line conversion so every checkout (including fresh
+# clones on Windows) is byte-identical to the committed LF content.
+* -text

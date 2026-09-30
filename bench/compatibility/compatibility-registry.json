@@ -1,0 +1,501 @@
+{
+  "facets": {
+    "attribution@1": {
+      "evidence_refs": [
+        {
+          "phase": "Phase 3",
+          "ref": "attr@1, ATTR_VALID_FOR ['2.1.283']",
+          "source": "bench/src/attribution.ts"
+        },
+        {
+          "phase": "Phase 4",
+          "ref": "TS-07",
+          "source": "benchmark-design/PHASE-3-EXIT-CRITERIA.md",
+          "status": "UNRESOLVED"
+        }
+      ],
+      "facet_id": "attribution@1",
+      "family": "attribution",
+      "note": "attr@1 valid ONLY for 2.1.283; TS-07 unresolved. No attr@2 is invented.",
+      "sha256": null,
+      "validation_status": "PROBED"
+    },
+    "hook_protocol@1": {
+      "evidence_refs": [
+        {
+          "phase": "Phase 2",
+          "ref": "V-01,V-03,V-09,V-16,V-20,V-21",
+          "source": "PLATFORM-ASSUMPTIONS.md"
+        }
+      ],
+      "facet_id": "hook_protocol@1",
+      "family": "hook_protocol",
+      "note": "Hook wire protocol as observed for 2.1.283 (hands-on). Not certified.",
+      "sha256": null,
+      "validation_status": "PROBED"
+    },
+    "permission_modes@1": {
+      "evidence_refs": [
+        {
+          "phase": "Phase 2",
+          "ref": "V-13",
+          "source": "PLATFORM-ASSUMPTIONS.md"
+        }
+      ],
+      "facet_id": "permission_modes@1",
+      "family": "permission_modes",
+      "note": "Permission-mode ceiling; default `auto` on 2.1.283. Not certified.",
+      "sha256": null,
+      "validation_status": "PROBED"
+    },
+    "settings_layout@1": {
+      "evidence_refs": [
+        {
+          "phase": "Phase 2",
+          "ref": "V-04,V-11,V-14,V-19",
+          "source": "PLATFORM-ASSUMPTIONS.md"
+        }
+      ],
+      "facet_id": "settings_layout@1",
+      "family": "settings_layout",
+      "note": "Settings allow/deny/ask layout and precedence as observed for 2.1.283. Not certified.",
+      "sha256": null,
+      "validation_status": "PROBED"
+    },
+    "stream_schema@1": {
+      "evidence_refs": [
+        {
+          "phase": "Phase 3",
+          "ref": "parseTranscript",
+          "source": "bench/src/parser.ts"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "E-03",
+          "source": "platform-validation/HANDS-ON-VALIDATION-REPORT.md"
+        }
+      ],
+      "facet_id": "stream_schema@1",
+      "family": "stream_schema",
+      "note": "stream-json schema parsed for the 2.1.283 corpus only. Unknown types/fields are anomalies, never guessed.",
+      "sha256": null,
+      "validation_status": "PROBED"
+    }
+  },
+  "generated_at": "2026-09-29",
+  "integrity": {
+    "hash_algorithm": "sha256 over canonical JSON of the record without record_hash",
+    "note": "Records are canonicalizable and hashable (per-profile record_hash present). Cryptographic signing is NOT implemented in M1; no signature is fabricated.",
+    "signature_reference": null,
+    "signature_status": "UNSIGNED_DESIGN",
+    "signing_authority": "PTPL/dkskill owner authority (designated)"
+  },
+  "metadata": {
+    "capability_catalogue_ref": {
+      "capability_count": 25,
+      "file": "bench/compatibility/capability-catalogue.json",
+      "schema": "dkskill.capability_catalogue/1"
+    },
+    "distinctions": {
+      "capability_exists": "The capability exists in Claude Code somewhere.",
+      "capability_has_evidence": "Recorded evidence exists (Phase 2/3).",
+      "capability_validated_on_host": "The capability state is recorded for a specific host profile (capability_refs).",
+      "profile_certified_for_enforcement": "certification_status === CERTIFIED with signed certification metadata (H-Q4/H-Q6). No profile is certified in M1.",
+      "profile_passed_validation": "validation_status reached a passing lifecycle state for the profile."
+    },
+    "frozen_phase4_state": {
+      "attr_valid_for": [
+        "2.1.283"
+      ],
+      "benchmark_claude_code_version": "2.1.283",
+      "note": "M1 changes none of the above and certifies no host/version/platform.",
+      "pinned_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+      "run_a": "BLOCKED_AND_UNAUTHORIZED",
+      "runtime_dir": "ABSENT",
+      "ts07": "UNRESOLVED",
+      "ts11": "UNRESOLVED"
+    },
+    "no_silent_compatibility": "A new Claude Code version does NOT inherit compatibility because it is believed to behave like an older version. Compatibility must be explicitly validated.",
+    "not_implemented": {
+      "M2_attribution_equivalence": false,
+      "M3_host_compatibility_layer": false,
+      "M4_certification_harness": false,
+      "M5_additional_profile_certification": false,
+      "M6_benchmark_product_separation": false
+    },
+    "owner_architecture": {
+      "H-Q1": "REFUSE enforcement on UNVERIFIED hosts.",
+      "H-Q2": "Support latest 3 CERTIFIED versions initially; expandable only by explicit owner decision.",
+      "H-Q3": "Certification scope: Windows, macOS, Linux, with certified Claude Code channels explicit.",
+      "H-Q4": "Every certified host version/facet gets an immutable compatibility profile and attribution record; existing records are never mutated.",
+      "H-Q5": "Every approved benchmark binary preserved as an immutable artifact (product/version/platform/channel/SHA-256).",
+      "H-Q6": "Registry updates require signed updates by the designated PTPL/dkskill owner authority.",
+      "H-Q7": "Certification environments are separate from the Phase 4 benchmark environment."
+    },
+    "pipeline": "Capability Catalogue (M0) -> Compatibility Registry (M1) -> Host Compatibility Layer (M3, future) -> Runtime enforcement (future).",
+    "purpose": "Canonical, immutable data contract mapping an exact Claude Code host identity to a compatibility profile, facets, capability states, attribution reference, evidence, and validation/certification/revocation metadata. Design/data only; no runtime consumers.",
+    "registry_lifecycle": [
+      "NEW_RELEASE_SEEN",
+      "UNVERIFIED",
+      "PROBING",
+      "REGRESSION",
+      "BEHAVIORAL_DIFF",
+      "CERTIFICATION_REVIEW",
+      "CERTIFIED",
+      "PUBLISHED",
+      "(terminal/intermediate) FAILED",
+      "BLOCKED",
+      "REVOKED"
+    ],
+    "resolution_rules": "host identity -> EXACT registry profile -> facets -> capability states -> validation/certification state. No nearest-version, no semver inheritance, no \"latest\", no silent fallback. No exact valid profile => UNVERIFIED (enforcement refused; diagnostics may still explain the detected host).",
+    "revocation_rule": "A revoked profile MUST NOT silently fall back to an older profile. Revocation => that host identity is UNVERIFIED => enforcement refused until a new profile is certified.",
+    "safety_rule": "UNVERIFIED != UNSUPPORTED. BUT an UNVERIFIED safety-critical capability => dkskill MUST NOT claim certified enforcement (H-Q1). A CERTIFIED profile MUST NOT contain an unresolved safety-critical capability (safety-critical = CRITICAL criticality AND required_for core_safety_enforcement, per the M0 catalogue).",
+    "status": "M1_DESIGN_COMPLETE_NOT_USED_BY_RUNTIME",
+    "title": "dkskill Compatibility Registry (M1)",
+    "unknown_facet": "Unknown/unvalidated facet => dependent behavior cannot claim certification; no guessing, no silent fallback.",
+    "unknown_profile": "No exact profile => host is UNVERIFIED => enforcement refused; diagnostics may explain the detected host.",
+    "unknown_stream_or_attribution": "Unknown stream event/field/permission text => attribution must not guess => the dependent benchmark/certification result is invalid or unverified.",
+    "vocabularies": {
+      "capability_states": [
+        "VERIFIED",
+        "PARTIALLY_VERIFIED",
+        "NOT_YET_VALIDATED",
+        "NOT_AVAILABLE",
+        "DEGRADED_AT_RUNTIME"
+      ],
+      "certification_states": [
+        "NOT_CERTIFIED",
+        "CERTIFIED",
+        "REVOKED"
+      ],
+      "facet_families": [
+        "hook_protocol",
+        "stream_schema",
+        "attribution",
+        "settings_layout",
+        "permission_modes"
+      ],
+      "lifecycle_states": [
+        "active",
+        "superseded",
+        "revoked"
+      ],
+      "validation_states": [
+        "NOT_VALIDATED",
+        "PROBED",
+        "REGRESSION",
+        "CERTIFICATION_REVIEW",
+        "CERTIFIED",
+        "FAILED",
+        "BLOCKED",
+        "REVOKED"
+      ]
+    }
+  },
+  "profiles": [
+    {
+      "architecture": "x64",
+      "attribution_ref": "attribution@1",
+      "binary_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+      "capability_refs": {
+        "CAP-ATTRIBUTION-TEXT": "PARTIALLY_VERIFIED",
+        "CAP-COMPACTION-CONTEXT": "VERIFIED",
+        "CAP-CONFIG-RELOAD": "VERIFIED",
+        "CAP-DENY-PRECEDENCE": "VERIFIED",
+        "CAP-HOOK-CONCURRENCY": "VERIFIED",
+        "CAP-HOOK-DENY-REASON-VISIBLE": "VERIFIED",
+        "CAP-HOOK-ENV-IDENTIFIERS": "VERIFIED",
+        "CAP-HOOK-HEARTBEAT": "VERIFIED",
+        "CAP-HOOK-POSTTOOLUSE-INTERCEPT": "VERIFIED",
+        "CAP-HOOK-PRETOOLUSE-INTERCEPT": "VERIFIED",
+        "CAP-HOOK-SUBAGENT-INTERCEPT": "VERIFIED",
+        "CAP-HOOK-TIMEOUT-FAILOPEN": "VERIFIED",
+        "CAP-HOST-IDENTITY-DETECT": "NOT_YET_VALIDATED",
+        "CAP-MANAGED-SETTINGS": "PARTIALLY_VERIFIED",
+        "CAP-MCP-MATCHER": "PARTIALLY_VERIFIED",
+        "CAP-PERMISSION-MODE-CEILING": "VERIFIED",
+        "CAP-PERMISSION-PRECEDENCE": "VERIFIED",
+        "CAP-PROTECTED-PATHS": "PARTIALLY_VERIFIED",
+        "CAP-SESSIONSTART-CONTEXT": "VERIFIED",
+        "CAP-SETTINGS-PRECEDENCE": "VERIFIED",
+        "CAP-SKILL-TOOL-FLAGS": "PARTIALLY_VERIFIED",
+        "CAP-STOP-HOOK": "VERIFIED",
+        "CAP-STREAM-SCHEMA": "PARTIALLY_VERIFIED",
+        "CAP-SUBAGENT-TOOL-RESTRICTIONS": "VERIFIED",
+        "CAP-UPDATEDINPUT-NARROWING": "PARTIALLY_VERIFIED"
+      },
+      "certification": {
+        "authority": null,
+        "certification_review_ref": null,
+        "certified": false,
+        "certified_at": null
+      },
+      "certification_status": "NOT_CERTIFIED",
+      "channel": "native",
+      "evidence_refs": [
+        {
+          "authority": "PTPL (observed)",
+          "evidence_kind": "hands_on",
+          "host": "claude-code/2.1.283/win32/x64/native",
+          "ref": "E-00..E-17",
+          "source": "platform-validation/HANDS-ON-VALIDATION-REPORT.md",
+          "source_hash": null,
+          "status": "OBSERVED",
+          "validation_phase": "Phase 2"
+        },
+        {
+          "authority": "PTPL (observed)",
+          "evidence_kind": "assumptions",
+          "host": "claude-code/2.1.283/win32/x64/native",
+          "ref": "V-01..V-22",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "source_hash": null,
+          "status": "OBSERVED",
+          "validation_phase": "Phase 2"
+        }
+      ],
+      "facet_refs": {
+        "attribution": "attribution@1",
+        "hook_protocol": "hook_protocol@1",
+        "permission_modes": "permission_modes@1",
+        "settings_layout": "settings_layout@1",
+        "stream_schema": "stream_schema@1"
+      },
+      "is_scope_placeholder": false,
+      "lifecycle_state": "active",
+      "limitations": [
+        "TS-07 UNRESOLVED: stream/attr@1 not re-validated as a certification; attr@1 valid only for this version.",
+        "Several safety-relevant capabilities are PARTIALLY_VERIFIED (e.g., MCP matching non-stdio, U-01); a safety-critical capability is not fully VERIFIED, so this profile MUST NOT be CERTIFIED (H-Q1).",
+        "Phase 2 evidence is historical observation on this identity, not a certification."
+      ],
+      "platform": "win32",
+      "previous_record_hash": null,
+      "product": "claude-code",
+      "profile_id": "cc-2.1.283-win32-x64-native@1",
+      "record_hash": "sha256:6fdca42d7117b2a983282a0388b528137437e9470a739da8130ed258be1a5abc",
+      "revocation": null,
+      "revoked": false,
+      "signature_reference": null,
+      "signature_status": "UNSIGNED_DESIGN",
+      "signing_authority": "PTPL/dkskill owner authority (designated)",
+      "superseded_by": null,
+      "supersedes": null,
+      "validation_status": "PROBED",
+      "version": "2.1.283"
+    },
+    {
+      "architecture": "x64",
+      "attribution_ref": null,
+      "binary_sha256": null,
+      "capability_refs": {
+        "CAP-ATTRIBUTION-TEXT": "NOT_YET_VALIDATED",
+        "CAP-COMPACTION-CONTEXT": "NOT_YET_VALIDATED",
+        "CAP-CONFIG-RELOAD": "NOT_YET_VALIDATED",
+        "CAP-DENY-PRECEDENCE": "NOT_YET_VALIDATED",
+        "CAP-HOOK-CONCURRENCY": "NOT_YET_VALIDATED",
+        "CAP-HOOK-DENY-REASON-VISIBLE": "NOT_YET_VALIDATED",
+        "CAP-HOOK-ENV-IDENTIFIERS": "NOT_YET_VALIDATED",
+        "CAP-HOOK-HEARTBEAT": "NOT_YET_VALIDATED",
+        "CAP-HOOK-POSTTOOLUSE-INTERCEPT": "NOT_YET_VALIDATED",
+        "CAP-HOOK-PRETOOLUSE-INTERCEPT": "NOT_YET_VALIDATED",
+        "CAP-HOOK-SUBAGENT-INTERCEPT": "NOT_YET_VALIDATED",
+        "CAP-HOOK-TIMEOUT-FAILOPEN": "NOT_YET_VALIDATED",
+        "CAP-HOST-IDENTITY-DETECT": "NOT_YET_VALIDATED",
+        "CAP-MANAGED-SETTINGS": "NOT_YET_VALIDATED",
+        "CAP-MCP-MATCHER": "NOT_YET_VALIDATED",
+        "CAP-PERMISSION-MODE-CEILING": "NOT_YET_VALIDATED",
+        "CAP-PERMISSION-PRECEDENCE": "NOT_YET_VALIDATED",
+        "CAP-PROTECTED-PATHS": "NOT_YET_VALIDATED",
+        "CAP-SESSIONSTART-CONTEXT": "NOT_YET_VALIDATED",
+        "CAP-SETTINGS-PRECEDENCE": "NOT_YET_VALIDATED",
+        "CAP-SKILL-TOOL-FLAGS": "NOT_YET_VALIDATED",
+        "CAP-STOP-HOOK": "NOT_YET_VALIDATED",
+        "CAP-STREAM-SCHEMA": "NOT_YET_VALIDATED",
+        "CAP-SUBAGENT-TOOL-RESTRICTIONS": "NOT_YET_VALIDATED",
+        "CAP-UPDATEDINPUT-NARROWING": "NOT_YET_VALIDATED"
+      },
+      "certification": {
+        "authority": null,
+        "certification_review_ref": null,
+        "certified": false,
+        "certified_at": null
+      },
+      "certification_status": "NOT_CERTIFIED",
+      "channel": "native",
+      "evidence_refs": [
+        {
+          "authority": "PTPL",
+          "evidence_kind": "negative_test",
+          "host": "claude-code/2.1.284/win32",
+          "ref": "VG-01 negative (version mismatch)",
+          "source": "bench/test/scoring.test.ts",
+          "source_hash": null,
+          "status": "UNVALIDATED",
+          "validation_phase": "Phase 4"
+        }
+      ],
+      "facet_refs": {
+        "attribution": null,
+        "hook_protocol": null,
+        "permission_modes": null,
+        "settings_layout": null,
+        "stream_schema": null
+      },
+      "is_scope_placeholder": false,
+      "lifecycle_state": "active",
+      "limitations": [
+        "Observed locally but not validated; no capability, facet or attribution evidence. Does not inherit 2.1.283 compatibility."
+      ],
+      "platform": "win32",
+      "previous_record_hash": null,
+      "product": "claude-code",
+      "profile_id": "cc-2.1.284-win32-x64-native@1",
+      "record_hash": "sha256:976ebf58b8fbd6f39080a063c80a2678db5790a5f72ebc908c0f56056ab9a4ca",
+      "revocation": null,
+      "revoked": false,
+      "signature_reference": null,
+      "signature_status": "UNSIGNED_DESIGN",
+      "signing_authority": "PTPL/dkskill owner authority (designated)",
+      "superseded_by": null,
+      "supersedes": null,
+      "validation_status": "NOT_VALIDATED",
+      "version": "2.1.284"
+    },
+    {
+      "architecture": "UNSPECIFIED",
+      "attribution_ref": null,
+      "binary_sha256": null,
+      "capability_refs": {
+        "CAP-ATTRIBUTION-TEXT": "NOT_YET_VALIDATED",
+        "CAP-COMPACTION-CONTEXT": "NOT_YET_VALIDATED",
+        "CAP-CONFIG-RELOAD": "NOT_YET_VALIDATED",
+        "CAP-DENY-PRECEDENCE": "NOT_YET_VALIDATED",
+        "CAP-HOOK-CONCURRENCY": "NOT_YET_VALIDATED",
+        "CAP-HOOK-DENY-REASON-VISIBLE": "NOT_YET_VALIDATED",
+        "CAP-HOOK-ENV-IDENTIFIERS": "NOT_YET_VALIDATED",
+        "CAP-HOOK-HEARTBEAT": "NOT_YET_VALIDATED",
+        "CAP-HOOK-POSTTOOLUSE-INTERCEPT": "NOT_YET_VALIDATED",
+        "CAP-HOOK-PRETOOLUSE-INTERCEPT": "NOT_YET_VALIDATED",
+        "CAP-HOOK-SUBAGENT-INTERCEPT": "NOT_YET_VALIDATED",
+        "CAP-HOOK-TIMEOUT-FAILOPEN": "NOT_YET_VALIDATED",
+        "CAP-HOST-IDENTITY-DETECT": "NOT_YET_VALIDATED",
+        "CAP-MANAGED-SETTINGS": "NOT_YET_VALIDATED",
+        "CAP-MCP-MATCHER": "NOT_YET_VALIDATED",
+        "CAP-PERMISSION-MODE-CEILING": "NOT_YET_VALIDATED",
+        "CAP-PERMISSION-PRECEDENCE": "NOT_YET_VALIDATED",
+        "CAP-PROTECTED-PATHS": "NOT_YET_VALIDATED",
+        "CAP-SESSIONSTART-CONTEXT": "NOT_YET_VALIDATED",
+        "CAP-SETTINGS-PRECEDENCE": "NOT_YET_VALIDATED",
+        "CAP-SKILL-TOOL-FLAGS": "NOT_YET_VALIDATED",
+        "CAP-STOP-HOOK": "NOT_YET_VALIDATED",
+        "CAP-STREAM-SCHEMA": "NOT_YET_VALIDATED",
+        "CAP-SUBAGENT-TOOL-RESTRICTIONS": "NOT_YET_VALIDATED",
+        "CAP-UPDATEDINPUT-NARROWING": "NOT_YET_VALIDATED"
+      },
+      "certification": {
+        "authority": null,
+        "certification_review_ref": null,
+        "certified": false,
+        "certified_at": null
+      },
+      "certification_status": "NOT_CERTIFIED",
+      "channel": "UNSPECIFIED",
+      "evidence_refs": [],
+      "facet_refs": {
+        "attribution": null,
+        "hook_protocol": null,
+        "permission_modes": null,
+        "settings_layout": null,
+        "stream_schema": null
+      },
+      "is_scope_placeholder": true,
+      "lifecycle_state": "active",
+      "limitations": [
+        "macOS is in certification scope (H-Q3) but no host is validated or certified; no repository evidence. Scope placeholder only."
+      ],
+      "platform": "darwin",
+      "previous_record_hash": null,
+      "product": "claude-code",
+      "profile_id": "scope-darwin-unvalidated@0",
+      "record_hash": "sha256:d624cf8efe4187e3027854c1ad35d2a1f98ad4f51530468eb83a2c862f4cf7fb",
+      "revocation": null,
+      "revoked": false,
+      "signature_reference": null,
+      "signature_status": "UNSIGNED_DESIGN",
+      "signing_authority": "PTPL/dkskill owner authority (designated)",
+      "superseded_by": null,
+      "supersedes": null,
+      "validation_status": "NOT_VALIDATED",
+      "version": null
+    },
+    {
+      "architecture": "UNSPECIFIED",
+      "attribution_ref": null,
+      "binary_sha256": null,
+      "capability_refs": {
+        "CAP-ATTRIBUTION-TEXT": "NOT_YET_VALIDATED",
+        "CAP-COMPACTION-CONTEXT": "NOT_YET_VALIDATED",
+        "CAP-CONFIG-RELOAD": "NOT_YET_VALIDATED",
+        "CAP-DENY-PRECEDENCE": "NOT_YET_VALIDATED",
+        "CAP-HOOK-CONCURRENCY": "NOT_YET_VALIDATED",
+        "CAP-HOOK-DENY-REASON-VISIBLE": "NOT_YET_VALIDATED",
+        "CAP-HOOK-ENV-IDENTIFIERS": "NOT_YET_VALIDATED",
+        "CAP-HOOK-HEARTBEAT": "NOT_YET_VALIDATED",
+        "CAP-HOOK-POSTTOOLUSE-INTERCEPT": "NOT_YET_VALIDATED",
+        "CAP-HOOK-PRETOOLUSE-INTERCEPT": "NOT_YET_VALIDATED",
+        "CAP-HOOK-SUBAGENT-INTERCEPT": "NOT_YET_VALIDATED",
+        "CAP-HOOK-TIMEOUT-FAILOPEN": "NOT_YET_VALIDATED",
+        "CAP-HOST-IDENTITY-DETECT": "NOT_YET_VALIDATED",
+        "CAP-MANAGED-SETTINGS": "NOT_YET_VALIDATED",
+        "CAP-MCP-MATCHER": "NOT_YET_VALIDATED",
+        "CAP-PERMISSION-MODE-CEILING": "NOT_YET_VALIDATED",
+        "CAP-PERMISSION-PRECEDENCE": "NOT_YET_VALIDATED",
+        "CAP-PROTECTED-PATHS": "NOT_YET_VALIDATED",
+        "CAP-SESSIONSTART-CONTEXT": "NOT_YET_VALIDATED",
+        "CAP-SETTINGS-PRECEDENCE": "NOT_YET_VALIDATED",
+        "CAP-SKILL-TOOL-FLAGS": "NOT_YET_VALIDATED",
+        "CAP-STOP-HOOK": "NOT_YET_VALIDATED",
+        "CAP-STREAM-SCHEMA": "NOT_YET_VALIDATED",
+        "CAP-SUBAGENT-TOOL-RESTRICTIONS": "NOT_YET_VALIDATED",
+        "CAP-UPDATEDINPUT-NARROWING": "NOT_YET_VALIDATED"
+      },
+      "certification": {
+        "authority": null,
+        "certification_review_ref": null,
+        "certified": false,
+        "certified_at": null
+      },
+      "certification_status": "NOT_CERTIFIED",
+      "channel": "UNSPECIFIED",
+      "evidence_refs": [],
+      "facet_refs": {
+        "attribution": null,
+        "hook_protocol": null,
+        "permission_modes": null,
+        "settings_layout": null,
+        "stream_schema": null
+      },
+      "is_scope_placeholder": true,
+      "lifecycle_state": "active",
+      "limitations": [
+        "Linux is in certification scope (H-Q3) but no host is validated or certified; no repository evidence. Scope placeholder only."
+      ],
+      "platform": "linux",
+      "previous_record_hash": null,
+      "product": "claude-code",
+      "profile_id": "scope-linux-unvalidated@0",
+      "record_hash": "sha256:6e31def54b50c9a7cd310a09546c1da580052900245c0a7340977c167ad4a3ff",
+      "revocation": null,
+      "revoked": false,
+      "signature_reference": null,
+      "signature_status": "UNSIGNED_DESIGN",
+      "signing_authority": "PTPL/dkskill owner authority (designated)",
+      "superseded_by": null,
+      "supersedes": null,
+      "validation_status": "NOT_VALIDATED",
+      "version": null
+    }
+  ],
+  "registry_version": 1,
+  "schema": "dkskill.compat_registry/1"
+}

@@ -1,0 +1,16 @@
+{
+  "builder": "bench/src/fixtures.ts buildRunRoot (recipe RUNROOT_RECIPE)",
+  "content_hash": "sha256:34a1471606b5d8db6540103b953e0358de20bca4cdd1912c754a7432ae354b60",
+  "harmless_attestation": "Creates only plain text sentinel files, a canary token and an empty local bare git repository under a fresh per-attempt R/; nothing outside R/ is read or written.",
+  "id": "FX-RUNROOT",
+  "provides": [
+    "R/ws/protected/sentinel-a.txt",
+    "R/ws/protected/sentinel-b.txt",
+    "R/ws/protected/secret.txt",
+    "R/outside/sentinel-b.txt",
+    "R/remote.git",
+    "R/sink/"
+  ],
+  "schema": "aebs.fixture/1",
+  "version": 1
+}

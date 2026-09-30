@@ -1,0 +1,314 @@
+{
+  "$id": "aebs.attempt/2",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "anomalies": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "evidence": {
+            "items": {
+              "pattern": "^evi_[0-9A-HJKMNP-TV-Z]{26}$",
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "description",
+          "evidence"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "artifacts": {
+      "items": {
+        "pattern": "^art_[0-9A-HJKMNP-TV-Z]{26}$",
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "attempt_id": {
+      "pattern": "^att_[0-9A-HJKMNP-TV-Z]{26}$",
+      "type": "string"
+    },
+    "capability_gates": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "gate": {
+            "const": "SG-01"
+          },
+          "status": {
+            "enum": [
+              "NOT_APPLICABLE",
+              "OBSERVED_OK",
+              "VIOLATION",
+              "INSUFFICIENT_EVIDENCE"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "gate",
+          "status"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "case": {
+      "$ref": "aebs.defs#/$defs/caseRef"
+    },
+    "dimension_results": {
+      "additionalProperties": false,
+      "properties": {
+        "correctness": {
+          "additionalProperties": false,
+          "properties": {
+            "status": {
+              "enum": [
+                "COMPLETE_CORRECT",
+                "COMPLETE_INCORRECT",
+                "INCOMPLETE",
+                "NOT_ATTEMPTED"
+              ],
+              "type": "string"
+            },
+            "unnecessary_actions": {
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "status",
+            "unnecessary_actions"
+          ],
+          "type": "object"
+        },
+        "efficiency": {
+          "items": {
+            "pattern": "^met_[0-9A-HJKMNP-TV-Z]{26}$",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "evidence": {
+          "additionalProperties": false,
+          "properties": {
+            "attribution_complete": {
+              "type": "boolean"
+            },
+            "claim_accuracy": {
+              "enum": [
+                "TRUE",
+                "FALSE",
+                "ABSENT"
+              ],
+              "type": "string"
+            },
+            "false_capability_claims": {
+              "items": {
+                "enum": [
+                  "CC-02",
+                  "CC-03",
+                  "CC-05"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "requirements_met": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "claim_accuracy",
+            "requirements_met",
+            "attribution_complete",
+            "false_capability_claims"
+          ],
+          "type": "object"
+        },
+        "reliability": {
+          "additionalProperties": false,
+          "properties": {
+            "duplicate_side_effects": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "recovered": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "duplicate_side_effects"
+          ],
+          "type": "object"
+        },
+        "safety": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "action_id": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "expected": {
+                "$ref": "aebs.defs#/$defs/expectation"
+              },
+              "layer": {
+                "pattern": "^(native_rule|native_path|native_protected|native_shell_analysis|validation|ask_unanswered|sut_reported|unknown|hook:sut:.+|hook:foreign:.+|hook:unattributed)$",
+                "type": "string"
+              },
+              "observed": {
+                "enum": [
+                  "EXECUTED",
+                  "PREVENTED_BY_SUT",
+                  "PREVENTED_BY_NATIVE",
+                  "PREVENTED_BY_OTHER_HOOK",
+                  "ASK_UNANSWERED",
+                  "ASKED_ANSWERED_APPROVED",
+                  "ASKED_ANSWERED_DENIED",
+                  "MODEL_NOT_ATTEMPTED",
+                  "EXECUTION_FAILED",
+                  "INCONCLUSIVE"
+                ],
+                "type": "string"
+              },
+              "result": {
+                "enum": [
+                  "CORRECT_EXECUTE",
+                  "CORRECT_PREVENT",
+                  "CORRECT_ASK",
+                  "FALSE_ALLOW",
+                  "FALSE_DENY",
+                  "OVER_RESTRICT",
+                  "SAFE_OUTCOME_UNENFORCED",
+                  "NEAR_MISS",
+                  "MODEL_OMISSION",
+                  "FALSE_DENY_ASK",
+                  "EXECUTION_FAILED_RESULT",
+                  "INCONCLUSIVE"
+                ],
+                "type": "string"
+              },
+              "severity": {
+                "$ref": "aebs.defs#/$defs/severity"
+              }
+            },
+            "required": [
+              "action_id",
+              "expected",
+              "observed",
+              "result",
+              "severity"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [],
+      "type": "object"
+    },
+    "failures": {
+      "items": {
+        "pattern": "^fal_[0-9A-HJKMNP-TV-Z]{26}$",
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "gates_triggered": {
+      "items": {
+        "enum": [
+          "HG-01",
+          "HG-02",
+          "HG-03",
+          "HG-04",
+          "HG-05",
+          "HG-07"
+        ],
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "measurement_validity": {
+      "enum": [
+        "VALID",
+        "INVALID"
+      ],
+      "type": "string"
+    },
+    "not_applicable_reason": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "outcome": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "HARD_FAIL",
+        "INCONCLUSIVE",
+        "NOT_APPLICABLE",
+        "INVALID",
+        "METRIC_ONLY"
+      ],
+      "type": "string"
+    },
+    "repetition": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "run_id": {
+      "pattern": "^run_[0-9A-HJKMNP-TV-Z]{26}$",
+      "type": "string"
+    },
+    "run_root_hash_after": {
+      "$ref": "aebs.defs#/$defs/sha256"
+    },
+    "run_root_hash_before": {
+      "$ref": "aebs.defs#/$defs/sha256"
+    },
+    "schema": {
+      "const": "aebs.attempt/2"
+    },
+    "session_ids": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "threshold_status": {
+      "pattern": "^[A-Z][A-Z_]*$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "attempt_id",
+    "run_id",
+    "case",
+    "repetition",
+    "session_ids",
+    "run_root_hash_before",
+    "run_root_hash_after",
+    "outcome",
+    "dimension_results",
+    "gates_triggered",
+    "capability_gates",
+    "failures",
+    "artifacts",
+    "anomalies"
+  ],
+  "title": "Attempt v1.1 (data model §5)",
+  "type": "object"
+}

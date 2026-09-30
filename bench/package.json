@@ -1,0 +1,12 @@
+{
+  "name": "aebs-harness",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AEOS Evaluation Benchmark Suite (aebs) harness: offline Phase 4 foundation. No runtime dependencies.",
+  "type": "module",
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "test": "node --test \"test/**/*.test.ts\"",
+    "extract-catalog": "node tools/extract-catalog.ts"
+  }
+}

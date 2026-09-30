@@ -1,0 +1,267 @@
+{
+  "profile": {
+    "architecture": "synthetic",
+    "artifact_hash": "sha256:18cab894b04d35e5f76f8a69347911cb7879e7d27c191b50ad4221653edfaab5",
+    "attribution_evidence_ref": "evi_attr",
+    "binary_sha256": "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
+    "capability_evidence_refs": [
+      "evi_CAP-HOOK-PRETOOLUSE-INTERCEPT",
+      "evi_CAP-HOOK-POSTTOOLUSE-INTERCEPT",
+      "evi_CAP-HOOK-SUBAGENT-INTERCEPT",
+      "evi_CAP-MCP-MATCHER",
+      "evi_CAP-HOOK-DENY-REASON-VISIBLE",
+      "evi_CAP-PERMISSION-PRECEDENCE",
+      "evi_CAP-UPDATEDINPUT-NARROWING",
+      "evi_CAP-SUBAGENT-TOOL-RESTRICTIONS",
+      "evi_CAP-SKILL-TOOL-FLAGS",
+      "evi_CAP-HOOK-ENV-IDENTIFIERS",
+      "evi_CAP-SETTINGS-PRECEDENCE",
+      "evi_CAP-MANAGED-SETTINGS",
+      "evi_CAP-PERMISSION-MODE-CEILING",
+      "evi_CAP-PROTECTED-PATHS",
+      "evi_CAP-HOOK-CONCURRENCY",
+      "evi_CAP-DENY-PRECEDENCE",
+      "evi_CAP-STOP-HOOK",
+      "evi_CAP-SESSIONSTART-CONTEXT",
+      "evi_CAP-COMPACTION-CONTEXT",
+      "evi_CAP-CONFIG-RELOAD",
+      "evi_CAP-HOOK-HEARTBEAT",
+      "evi_CAP-HOOK-TIMEOUT-FAILOPEN",
+      "evi_CAP-STREAM-SCHEMA",
+      "evi_CAP-ATTRIBUTION-TEXT",
+      "evi_CAP-HOST-IDENTITY-DETECT"
+    ],
+    "certification_environment_id": "CERT-ENV-SYN",
+    "certification_result_ref": "run_cert_synthetic_sample",
+    "certification_timestamp": "2026-09-29T00:00:00Z",
+    "channel": "synthetic",
+    "claude_code_version": "2.1.283",
+    "compatibility_profile_ref": "synthetic-test-only@1",
+    "evidence_chain_head": "sha256:4fbacbc9e8d3379edef9324526b9c7936f32e5e489f5e469d542758577af94f4",
+    "facet_evidence_refs": [
+      "evi_hook_protocol",
+      "evi_stream_schema",
+      "evi_attribution",
+      "evi_settings_layout",
+      "evi_permission_modes"
+    ],
+    "host_identity": {
+      "architecture": "synthetic",
+      "binary_sha256": "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
+      "channel": "synthetic",
+      "executable_source": null,
+      "platform": "synthetic-os",
+      "product": "claude-code-synthetic",
+      "version": "2.1.283"
+    },
+    "issuer": {
+      "authority": "SYNTHETIC_TEST_ONLY",
+      "synthetic": true
+    },
+    "lifecycle_state": "CERTIFIED",
+    "owner_review_ref": "review:SYNTHETIC_TEST_ONLY:APPROVE",
+    "platform": "synthetic-os",
+    "previous_artifact_hash": null,
+    "profile_id": "synthetic-test-only-profile@1",
+    "publication_status": "REJECTED",
+    "revocation": null,
+    "schema": "dkskill.certification_profile/1",
+    "signature_status": "SIGNED",
+    "supersedes": null,
+    "synthetic_test_only": true,
+    "version": 1
+  },
+  "proposal": {
+    "applies_to_registry": false,
+    "attribution_ref": "evi_attr",
+    "capability_refs": [
+      "evi_CAP-HOOK-PRETOOLUSE-INTERCEPT",
+      "evi_CAP-HOOK-POSTTOOLUSE-INTERCEPT",
+      "evi_CAP-HOOK-SUBAGENT-INTERCEPT",
+      "evi_CAP-MCP-MATCHER",
+      "evi_CAP-HOOK-DENY-REASON-VISIBLE",
+      "evi_CAP-PERMISSION-PRECEDENCE",
+      "evi_CAP-UPDATEDINPUT-NARROWING",
+      "evi_CAP-SUBAGENT-TOOL-RESTRICTIONS",
+      "evi_CAP-SKILL-TOOL-FLAGS",
+      "evi_CAP-HOOK-ENV-IDENTIFIERS",
+      "evi_CAP-SETTINGS-PRECEDENCE",
+      "evi_CAP-MANAGED-SETTINGS",
+      "evi_CAP-PERMISSION-MODE-CEILING",
+      "evi_CAP-PROTECTED-PATHS",
+      "evi_CAP-HOOK-CONCURRENCY",
+      "evi_CAP-DENY-PRECEDENCE",
+      "evi_CAP-STOP-HOOK",
+      "evi_CAP-SESSIONSTART-CONTEXT",
+      "evi_CAP-COMPACTION-CONTEXT",
+      "evi_CAP-CONFIG-RELOAD",
+      "evi_CAP-HOOK-HEARTBEAT",
+      "evi_CAP-HOOK-TIMEOUT-FAILOPEN",
+      "evi_CAP-STREAM-SCHEMA",
+      "evi_CAP-ATTRIBUTION-TEXT",
+      "evi_CAP-HOST-IDENTITY-DETECT"
+    ],
+    "created_at": "2026-09-29T00:00:00Z",
+    "evidence_chain_head": "sha256:4fbacbc9e8d3379edef9324526b9c7936f32e5e489f5e469d542758577af94f4",
+    "facet_refs": [
+      "evi_hook_protocol",
+      "evi_stream_schema",
+      "evi_attribution",
+      "evi_settings_layout",
+      "evi_permission_modes"
+    ],
+    "operation": "UPDATE_STATUS",
+    "owner_approval_ref": "review:SYNTHETIC_TEST_ONLY:APPROVE",
+    "proposal_hash": "sha256:f2ef8d37778f1999b47cae7668a78d4982e453de2bccaee49584cc2ab06a3a74",
+    "proposal_id": "proposal-synthetic-test-only-profile@1",
+    "publication_state": "REJECTED",
+    "revokes": null,
+    "schema": "dkskill.compatibility_registry_update_proposal/1",
+    "source_certification_result_id": "run_cert_synthetic_sample",
+    "source_profile_id": "synthetic-test-only-profile@1",
+    "supersedes": null,
+    "target_identity": {
+      "architecture": "synthetic",
+      "binary_sha256": "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
+      "channel": "synthetic",
+      "platform": "synthetic-os",
+      "product": "claude-code-synthetic",
+      "version": "2.1.283"
+    },
+    "version": 1
+  },
+  "publication": {
+    "eligible": false,
+    "gates": [
+      {
+        "gate_id": "PG-01",
+        "name": "exact host identity",
+        "reasons": [
+          "identity_complete=true"
+        ],
+        "result": "PASS"
+      },
+      {
+        "gate_id": "PG-02",
+        "name": "exact compatibility-profile reference",
+        "reasons": [
+          "ref=synthetic-test-only@1"
+        ],
+        "result": "PASS"
+      },
+      {
+        "gate_id": "PG-03",
+        "name": "exact Claude Code version",
+        "reasons": [
+          "version=2.1.283"
+        ],
+        "result": "PASS"
+      },
+      {
+        "gate_id": "PG-04",
+        "name": "exact binary identity",
+        "reasons": [
+          "sha256=present"
+        ],
+        "result": "PASS"
+      },
+      {
+        "gate_id": "PG-05",
+        "name": "platform/architecture/channel identity",
+        "reasons": [
+          "synthetic-os/synthetic/synthetic"
+        ],
+        "result": "PASS"
+      },
+      {
+        "gate_id": "PG-06",
+        "name": "M4 certification state",
+        "reasons": [
+          "m4_decision=CERTIFIED"
+        ],
+        "result": "PASS"
+      },
+      {
+        "gate_id": "PG-07",
+        "name": "all mandatory M4 gates passed",
+        "reasons": [],
+        "result": "PASS"
+      },
+      {
+        "gate_id": "PG-08",
+        "name": "evidence-chain integrity",
+        "reasons": [
+          "records=1"
+        ],
+        "result": "PASS"
+      },
+      {
+        "gate_id": "PG-09",
+        "name": "no required evidence missing",
+        "reasons": [
+          "chain_head=present",
+          "m4_not_run=false"
+        ],
+        "result": "PASS"
+      },
+      {
+        "gate_id": "PG-10",
+        "name": "no unresolved safety-critical limitation",
+        "reasons": [
+          "CG-05=PASS"
+        ],
+        "result": "PASS"
+      },
+      {
+        "gate_id": "PG-11",
+        "name": "owner approval",
+        "reasons": [
+          "owner=APPROVE"
+        ],
+        "result": "PASS"
+      },
+      {
+        "gate_id": "PG-12",
+        "name": "certification environment validity",
+        "reasons": [
+          "env=CERT-ENV-SYN"
+        ],
+        "result": "PASS"
+      },
+      {
+        "gate_id": "PG-13",
+        "name": "no synthetic-test-only publication",
+        "reasons": [
+          "synthetic=true"
+        ],
+        "result": "FAIL"
+      },
+      {
+        "gate_id": "PG-14",
+        "name": "publication authorization",
+        "reasons": [
+          "authorized=true",
+          "signature=SIGNED",
+          "issuer_synthetic=true"
+        ],
+        "result": "NOT_RUN"
+      },
+      {
+        "gate_id": "PG-15",
+        "name": "supersession/revocation consistency",
+        "reasons": [
+          "revoked=false"
+        ],
+        "result": "PASS"
+      }
+    ],
+    "reason_codes": [
+      "PG-13:FAIL",
+      "PG-14:NOT_RUN"
+    ],
+    "state": "REJECTED"
+  },
+  "schema": "dkskill.certification_publication/1",
+  "synthetic_test_only": true,
+  "version": 1
+}

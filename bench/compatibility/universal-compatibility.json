@@ -1,0 +1,110 @@
+{
+  "attribution_valid_for": [
+    "2.1.283"
+  ],
+  "default_enforcement_level": "L1",
+  "facet_catalogue": [
+    {
+      "compatibility_relationship": "facet must RESOLVE for the exact profile; UNKNOWN never means compatible",
+      "evidence_requirements": [
+        "facet resolved against a certified profile",
+        "evidence bound to the exact identity"
+      ],
+      "facet_id": "hook_protocol@1",
+      "family": "hook_protocol",
+      "lifecycle": "PROBED->VALIDATED->CERTIFIED (no auto-inheritance)",
+      "provenance": "M1 registry facet_refs + M0/M2 evidence",
+      "schema": "dkskill.host_facet/1",
+      "schema_version": "1",
+      "scope": "per certified profile",
+      "validation_status": "per-profile"
+    },
+    {
+      "compatibility_relationship": "facet must RESOLVE for the exact profile; UNKNOWN never means compatible",
+      "evidence_requirements": [
+        "facet resolved against a certified profile",
+        "evidence bound to the exact identity"
+      ],
+      "facet_id": "stream_schema@1",
+      "family": "stream_schema",
+      "lifecycle": "PROBED->VALIDATED->CERTIFIED (no auto-inheritance)",
+      "provenance": "M1 registry facet_refs + M0/M2 evidence",
+      "schema": "dkskill.host_facet/1",
+      "schema_version": "1",
+      "scope": "per certified profile",
+      "validation_status": "per-profile"
+    },
+    {
+      "compatibility_relationship": "facet must RESOLVE for the exact profile; UNKNOWN never means compatible",
+      "evidence_requirements": [
+        "facet resolved against a certified profile",
+        "evidence bound to the exact identity"
+      ],
+      "facet_id": "attribution@1",
+      "family": "attribution",
+      "lifecycle": "PROBED->VALIDATED->CERTIFIED (no auto-inheritance)",
+      "provenance": "M1 registry facet_refs + M0/M2 evidence",
+      "schema": "dkskill.host_facet/1",
+      "schema_version": "1",
+      "scope": "per certified profile",
+      "validation_status": "per-profile"
+    },
+    {
+      "compatibility_relationship": "facet must RESOLVE for the exact profile; UNKNOWN never means compatible",
+      "evidence_requirements": [
+        "facet resolved against a certified profile",
+        "evidence bound to the exact identity"
+      ],
+      "facet_id": "settings_layout@1",
+      "family": "settings_layout",
+      "lifecycle": "PROBED->VALIDATED->CERTIFIED (no auto-inheritance)",
+      "provenance": "M1 registry facet_refs + M0/M2 evidence",
+      "schema": "dkskill.host_facet/1",
+      "schema_version": "1",
+      "scope": "per certified profile",
+      "validation_status": "per-profile"
+    },
+    {
+      "compatibility_relationship": "facet must RESOLVE for the exact profile; UNKNOWN never means compatible",
+      "evidence_requirements": [
+        "facet resolved against a certified profile",
+        "evidence bound to the exact identity"
+      ],
+      "facet_id": "permission_modes@1",
+      "family": "permission_modes",
+      "lifecycle": "PROBED->VALIDATED->CERTIFIED (no auto-inheritance)",
+      "provenance": "M1 registry facet_refs + M0/M2 evidence",
+      "schema": "dkskill.host_facet/1",
+      "schema_version": "1",
+      "scope": "per certified profile",
+      "validation_status": "per-profile"
+    }
+  ],
+  "latest_certified_policy": "latest-3",
+  "no_inheritance": {
+    "architecture": true,
+    "channel": true,
+    "platform": true,
+    "version": true
+  },
+  "pipeline": [
+    "ENVIRONMENT",
+    "HOST_IDENTITY",
+    "EXACT_VERSION/PLATFORM/ARCH/CHANNEL",
+    "COMPATIBILITY_PROFILE",
+    "CAPABILITIES",
+    "FACETS",
+    "ATTRIBUTION",
+    "EVIDENCE",
+    "CERTIFICATION_STATE",
+    "FAIL_CLOSED_DECISION",
+    "USER_SAFE_EXECUTION"
+  ],
+  "schema": "dkskill.universal_compatibility/1",
+  "supported_platforms": [
+    "windows",
+    "macos",
+    "linux"
+  ],
+  "version": 1
+}

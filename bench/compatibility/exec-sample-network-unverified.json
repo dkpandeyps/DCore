@@ -1,0 +1,238 @@
+{
+  "authorization_state": "VALID",
+  "decision": "EXECUTION_BLOCKED",
+  "execution_enabled": false,
+  "execution_mode": "EXECUTION_DISABLED",
+  "execution_state": "BLOCKED",
+  "network_isolation": "UNVERIFIED",
+  "preflight": {
+    "all_safety_critical_pass": false,
+    "environment": {
+      "architecture": "x64",
+      "binary_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+      "claude_code_version": "2.1.283",
+      "config_directory_identity": "isolated-cfg://PTPL-DK-BENCH-WIN-01 (dedicated)",
+      "credential_status": "ISOLATED_EMPTY",
+      "environment_id": "PTPL-DK-BENCH-WIN-01",
+      "isolation_status": "ISOLATED",
+      "network_status": "UNVERIFIED",
+      "os": "Windows 11",
+      "platform": "win32",
+      "schema": "dkskill.evidence_execution_env_snapshot/1",
+      "timestamp": "2026-09-29T00:00:00Z",
+      "toolchain_identity": "node>=24; win32-x64"
+    },
+    "gates": [
+      {
+        "gate_id": "EP-01",
+        "name": "exact target profile",
+        "reasons": [],
+        "result": "PASS",
+        "safety_critical": true
+      },
+      {
+        "gate_id": "EP-02",
+        "name": "exact Claude version",
+        "reasons": [],
+        "result": "PASS",
+        "safety_critical": true
+      },
+      {
+        "gate_id": "EP-03",
+        "name": "exact binary hash",
+        "reasons": [],
+        "result": "PASS",
+        "safety_critical": true
+      },
+      {
+        "gate_id": "EP-04",
+        "name": "exact platform",
+        "reasons": [],
+        "result": "PASS",
+        "safety_critical": true
+      },
+      {
+        "gate_id": "EP-05",
+        "name": "exact architecture",
+        "reasons": [],
+        "result": "PASS",
+        "safety_critical": true
+      },
+      {
+        "gate_id": "EP-06",
+        "name": "exact channel",
+        "reasons": [],
+        "result": "PASS",
+        "safety_critical": true
+      },
+      {
+        "gate_id": "EP-07",
+        "name": "exact environment",
+        "reasons": [],
+        "result": "PASS",
+        "safety_critical": true
+      },
+      {
+        "gate_id": "EP-08",
+        "name": "isolated config directory",
+        "reasons": [],
+        "result": "PASS",
+        "safety_critical": true
+      },
+      {
+        "gate_id": "EP-09",
+        "name": "real ~/.claude exclusion",
+        "reasons": [],
+        "result": "PASS",
+        "safety_critical": true
+      },
+      {
+        "gate_id": "EP-10",
+        "name": "credential safety",
+        "reasons": [],
+        "result": "PASS",
+        "safety_critical": true
+      },
+      {
+        "gate_id": "EP-11",
+        "name": "process policy",
+        "reasons": [],
+        "result": "PASS",
+        "safety_critical": true
+      },
+      {
+        "gate_id": "EP-12",
+        "name": "filesystem policy",
+        "reasons": [],
+        "result": "PASS",
+        "safety_critical": true
+      },
+      {
+        "gate_id": "EP-13",
+        "name": "network isolation",
+        "reasons": [
+          "status=UNVERIFIED",
+          "source=UNAVAILABLE"
+        ],
+        "result": "BLOCKED",
+        "safety_critical": true
+      },
+      {
+        "gate_id": "EP-14",
+        "name": "explicit execution authorization",
+        "reasons": [],
+        "result": "PASS",
+        "safety_critical": true
+      },
+      {
+        "gate_id": "EP-15",
+        "name": "TS-07/TS-11 scope",
+        "reasons": [],
+        "result": "PASS",
+        "safety_critical": true
+      },
+      {
+        "gate_id": "EP-16",
+        "name": "Run A exclusion",
+        "reasons": [],
+        "result": "PASS",
+        "safety_critical": true
+      },
+      {
+        "gate_id": "EP-17",
+        "name": "benchmark exclusion",
+        "reasons": [],
+        "result": "PASS",
+        "safety_critical": true
+      },
+      {
+        "gate_id": "EP-18",
+        "name": "publication exclusion",
+        "reasons": [],
+        "result": "PASS",
+        "safety_critical": true
+      },
+      {
+        "gate_id": "EP-19",
+        "name": "registry mutation exclusion",
+        "reasons": [],
+        "result": "PASS",
+        "safety_critical": true
+      },
+      {
+        "gate_id": "EP-20",
+        "name": "M7 evidence-plan binding",
+        "reasons": [],
+        "result": "PASS",
+        "safety_critical": true
+      },
+      {
+        "gate_id": "EP-21",
+        "name": "M3 exact profile resolution",
+        "reasons": [],
+        "result": "PASS",
+        "safety_critical": true
+      },
+      {
+        "gate_id": "EP-22",
+        "name": "synthetic-only exclusion",
+        "reasons": [],
+        "result": "PASS",
+        "safety_critical": true
+      },
+      {
+        "gate_id": "EP-23",
+        "name": "binary substitution exclusion",
+        "reasons": [],
+        "result": "PASS",
+        "safety_critical": true
+      },
+      {
+        "gate_id": "EP-24",
+        "name": "model substitution exclusion",
+        "reasons": [],
+        "result": "PASS",
+        "safety_critical": true
+      },
+      {
+        "gate_id": "EP-25",
+        "name": "toolchain identity",
+        "reasons": [],
+        "result": "PASS",
+        "safety_critical": true
+      }
+    ],
+    "network_isolation": "UNVERIFIED",
+    "request_id": "exec-req-net-unverified",
+    "schema": "dkskill.evidence_execution_preflight/1",
+    "target": {
+      "architecture": "x64",
+      "binary_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+      "channel": "native",
+      "environment_id": "PTPL-DK-BENCH-WIN-01",
+      "platform": "win32",
+      "profile_id": "cc-2.1.283-win32-x64-native@1",
+      "version": "2.1.283"
+    },
+    "version": 1
+  },
+  "reasons": [
+    "EP-13:BLOCKED"
+  ],
+  "request_id": "exec-req-net-unverified",
+  "schema": "dkskill.evidence_execution_gate/1",
+  "stop_codes": [
+    "STOP-NETWORK-UNVERIFIED"
+  ],
+  "synthetic_test_only": false,
+  "target": {
+    "architecture": "x64",
+    "binary_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+    "channel": "native",
+    "environment_id": "PTPL-DK-BENCH-WIN-01",
+    "platform": "win32",
+    "profile_id": "cc-2.1.283-win32-x64-native@1",
+    "version": "2.1.283"
+  },
+  "version": 1
+}

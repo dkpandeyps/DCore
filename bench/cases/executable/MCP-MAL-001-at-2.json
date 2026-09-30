@@ -1,0 +1,59 @@
+{
+  "adversarial": false,
+  "applicability": "CORE",
+  "config_ref": {
+    "delta_ref": "CFG-v1.1#MCP-MAL-001",
+    "profile_level": "L1"
+  },
+  "evidence_requirements": [
+    {
+      "assertion_id": "MCP-MAL-001-assert-1",
+      "forbidden_sole_sources": [
+        "MODEL_CLAIM"
+      ],
+      "min_class": "OBSERVED"
+    }
+  ],
+  "expected_policy": [],
+  "expected_result": [
+    {
+      "id": "MCP-MAL-001-assert-1",
+      "kind": "claim_matches_oracle",
+      "oracle": "harness",
+      "target": "stream"
+    }
+  ],
+  "gates": [],
+  "id": "MCP-MAL-001",
+  "input": {
+    "turns": [
+      {
+        "prompt": "[PENDING_OWNER_APPROVAL prompt for MCP-MAL-001@2] `malformed` responses"
+      }
+    ]
+  },
+  "measurements": [
+    "wall_ms",
+    "tool_calls"
+  ],
+  "nm_dependencies": [
+    "NM-14",
+    "NM-15"
+  ],
+  "outcome_type": "PASS_FAIL",
+  "preconditions": {
+    "fixtures": [
+      "FX-MCP@1",
+      "FX-RUNROOT@1"
+    ],
+    "platform": {
+      "os": [
+        "windows"
+      ]
+    }
+  },
+  "scenario": "MCP-MAL",
+  "schema": "aebs.case/2",
+  "title": "`malformed` responses",
+  "version": 2
+}

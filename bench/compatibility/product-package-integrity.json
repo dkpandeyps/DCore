@@ -1,0 +1,19 @@
+{
+  "algorithm": "sha256",
+  "entries": [
+    {
+      "hash": "sha256:141c926463f69c8906cfe3d17484dc00c2412a54adafee2ffc935c7bb30389a9",
+      "path": "README.md"
+    },
+    {
+      "hash": "sha256:1f89e05d347353bbf0ca86bb1dd31a6d2d3b53d21da44b3f455fd57acb24ab34",
+      "path": "manifest.json"
+    },
+    {
+      "hash": "sha256:a839980336c0e90a75bb556e0b8ac8a330490985d0664bf608c07bdc6c2c6f29",
+      "path": "src/product/index.ts"
+    }
+  ],
+  "schema": "dkskill.integrity_manifest/1",
+  "signature_status": "SIGNATURE_NOT_AVAILABLE"
+}

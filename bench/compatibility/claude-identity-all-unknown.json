@@ -1,0 +1,40 @@
+{
+  "architecture": "x64",
+  "binary_hash_state": "UNAVAILABLE",
+  "binary_path": null,
+  "binary_path_state": "UNAVAILABLE",
+  "binary_sha256": null,
+  "binary_size": null,
+  "channel": null,
+  "channel_state": "UNKNOWN",
+  "claude_version": null,
+  "config_accessed": false,
+  "credentials_accessed": false,
+  "evidence_class": "NONE",
+  "execution_performed": false,
+  "identity_status": "INCOMPLETE",
+  "network_contacted": false,
+  "observation_hash": "sha256:845651cc1dedf7ace1e0759ea01895782290390ed8ae9178970c3c37f5a1557a",
+  "observation_id": "obs-claude-identity",
+  "observed_at": "2026-09-30T00:00:00Z",
+  "operating_system": "linux",
+  "os_version": "10.0.0",
+  "product": "claude-code",
+  "provenance": {
+    "architecture": "SAFE_OS_API",
+    "binary_sha256": "UNAVAILABLE",
+    "channel": "UNKNOWN",
+    "operating_system": "SAFE_OS_API",
+    "product": "PRODUCT_DEFAULT",
+    "runtime": "SAFE_OS_API",
+    "version": "UNKNOWN"
+  },
+  "reasons": [
+    "identity INCOMPLETE: not all required fields safely observed"
+  ],
+  "runtime": "node",
+  "safe": true,
+  "schema": "dkskill.claude_identity_observation/1",
+  "version": 1,
+  "version_state": "UNKNOWN"
+}

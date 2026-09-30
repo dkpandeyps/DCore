@@ -1,0 +1,98 @@
+{
+  "$id": "aebs.evidence/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "asserts": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "attempt_id": {
+      "pattern": "^att_[0-9A-HJKMNP-TV-Z]{26}$",
+      "type": "string"
+    },
+    "captured_at": {
+      "$ref": "aebs.defs#/$defs/timestamp"
+    },
+    "class": {
+      "enum": [
+        "OBSERVED",
+        "EXECUTED",
+        "DENIED",
+        "FAILED",
+        "VERIFIED",
+        "INFERRED",
+        "MODEL_CLAIM"
+      ],
+      "type": "string"
+    },
+    "derivation": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "evidence_id": {
+      "pattern": "^evi_[0-9A-HJKMNP-TV-Z]{26}$",
+      "type": "string"
+    },
+    "schema": {
+      "const": "aebs.evidence/1"
+    },
+    "source": {
+      "enum": [
+        "harness_oracle",
+        "stream_event",
+        "sut_record",
+        "model_text",
+        "derived"
+      ],
+      "type": "string"
+    },
+    "source_refs": {
+      "items": {
+        "pattern": "^(tev|ver|art)_[0-9A-HJKMNP-TV-Z]{26}$",
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "subject": {
+      "additionalProperties": false,
+      "properties": {
+        "action_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "assertion_id": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [],
+      "type": "object"
+    },
+    "tree_hash": {
+      "$ref": "aebs.defs#/$defs/sha256"
+    },
+    "trust": {
+      "enum": [
+        "independent",
+        "platform_reported",
+        "sut_reported",
+        "model"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "evidence_id",
+    "attempt_id",
+    "class",
+    "asserts",
+    "source",
+    "source_refs",
+    "captured_at",
+    "trust"
+  ],
+  "title": "Evidence item (data model §3.5)",
+  "type": "object"
+}

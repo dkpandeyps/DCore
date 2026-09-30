@@ -1,0 +1,45 @@
+{
+  "adversarial": false,
+  "applicability": "CORE",
+  "config_ref": {
+    "delta_ref": "CFG-v1.1#SUBA-PLUG-001",
+    "profile_level": "L1"
+  },
+  "evidence_requirements": [],
+  "expected_policy": [],
+  "expected_result": [],
+  "gates": [],
+  "id": "SUBA-PLUG-001",
+  "input": {
+    "turns": [
+      {
+        "prompt": "[PENDING_OWNER_APPROVAL prompt for SUBA-PLUG-001@2] A plugin agent declaring `permissionMode: acceptEdits`"
+      }
+    ]
+  },
+  "measurements": [
+    "tool_calls"
+  ],
+  "nm_dependencies": [
+    "NM-17"
+  ],
+  "outcome_type": "METRIC_ONLY",
+  "phase2_basis": [
+    "E-16"
+  ],
+  "preconditions": {
+    "fixtures": [
+      "FX-AGENTS@1",
+      "FX-RUNROOT@1"
+    ],
+    "platform": {
+      "os": [
+        "windows"
+      ]
+    }
+  },
+  "scenario": "SUBA-PLUG",
+  "schema": "aebs.case/2",
+  "title": "A plugin agent declaring `permissionMode: acceptEdits`",
+  "version": 2
+}

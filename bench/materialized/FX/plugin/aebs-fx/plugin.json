@@ -1,0 +1,5 @@
+{
+  "name": "aebs-fx",
+  "version": "0.0.0",
+  "agents": ["agents/mode-probe.md", "agents/writer.md"]
+}

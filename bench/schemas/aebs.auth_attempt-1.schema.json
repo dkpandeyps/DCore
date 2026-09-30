@@ -1,0 +1,126 @@
+{
+  "$id": "aebs.auth_attempt/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "attempt_id": {
+      "pattern": "^att_[0-9A-HJKMNP-TV-Z]{26}$",
+      "type": "string"
+    },
+    "auth_reference": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "authenticated": {
+      "enum": [
+        "real",
+        "synthetic_test_fixture"
+      ],
+      "type": "string"
+    },
+    "cli_identity": {
+      "additionalProperties": false,
+      "properties": {
+        "executable_path": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9A-Fa-f]{64}$",
+          "type": "string"
+        },
+        "version": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "version",
+        "executable_path",
+        "sha256"
+      ],
+      "type": "object"
+    },
+    "created_at": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "environment_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "isolated_config_id": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "isolated_config_ref": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "provenance": {
+      "enum": [
+        "claude_code",
+        "test_double"
+      ],
+      "type": "string"
+    },
+    "run_id": {
+      "pattern": "^run_[0-9A-HJKMNP-TV-Z]{26}$",
+      "type": "string"
+    },
+    "schema": {
+      "const": "aebs.auth_attempt/1"
+    },
+    "session": {
+      "additionalProperties": false,
+      "properties": {
+        "exit_code": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "results_seen": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "turns_sent": {
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "results_seen",
+        "turns_sent",
+        "exit_code"
+      ],
+      "type": "object"
+    },
+    "transcript_hash": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "verified_at": {
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "attempt_id",
+    "run_id",
+    "environment_id",
+    "verified_at",
+    "auth_reference",
+    "isolated_config_ref",
+    "isolated_config_id",
+    "cli_identity",
+    "provenance",
+    "authenticated",
+    "session",
+    "transcript_hash",
+    "created_at"
+  ],
+  "title": "TS-02 authenticated-session attempt record (dedicated; not the Run-A aebs.attempt/2)",
+  "type": "object"
+}

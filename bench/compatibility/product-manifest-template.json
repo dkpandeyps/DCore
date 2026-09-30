@@ -1,0 +1,48 @@
+{
+  "capabilities": [
+    "CAP-COMPAT-RESOLVE",
+    "CAP-ENV-DETECT"
+  ],
+  "compatibility_requirements": [
+    "exact host identity",
+    "exact certified profile for enforcement",
+    "attribution in ATTR_VALID_FOR for attribution-dependent claims"
+  ],
+  "dependencies": [],
+  "immutable_identifiers": [
+    "product",
+    "skill_id"
+  ],
+  "integrity": {
+    "algorithm": "sha256",
+    "manifest_hash": null
+  },
+  "no_single_version_identity": true,
+  "no_windows_assumption": true,
+  "permissions": [
+    "PERM-READ-ENV",
+    "PERM-READ-REGISTRY",
+    "PERM-READ-CONFIG",
+    "PERM-WRITE-STATE",
+    "PERM-DIAGNOSE"
+  ],
+  "product": "dkskill",
+  "product_version": "0.1.0-dev",
+  "required_facets": [
+    "hook_protocol@1",
+    "stream_schema@1",
+    "attribution@1",
+    "settings_layout@1",
+    "permission_modes@1"
+  ],
+  "schema": "dkskill.product_manifest/1",
+  "schema_version": "1",
+  "security_requirements": [
+    "signed registry (H-Q6)",
+    "immutable profiles (H-Q4)",
+    "no secrets in package",
+    "fail-closed defaults"
+  ],
+  "skill_id": "dkskill",
+  "update_policy": "no automatic compatibility inheritance; new releases start UNVERIFIED"
+}

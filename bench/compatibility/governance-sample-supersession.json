@@ -1,0 +1,13 @@
+{
+  "authorized_by": "DEMO-OWNER",
+  "kind": "SUPERSESSION",
+  "new_binary_sha256": "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+  "new_profile_id": "demo-mechanics@2",
+  "previous_record_hash": null,
+  "record_hash": "sha256:85b11ac0b7d93188dee8ee800ab6d684a9061c4b61dfd5e6d02e4e21f3f8505f",
+  "schema": "dkskill.registry_publication_record/1",
+  "superseded_binary_sha256": "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  "supersedes_profile_id": "demo-mechanics@1",
+  "supersession_id": "sup-demo",
+  "timestamp": "2026-09-29T00:00:00Z"
+}

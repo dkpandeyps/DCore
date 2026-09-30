@@ -1,0 +1,652 @@
+{
+  "by_case": {
+    "AUTO-L1-001": [
+      "title",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target"
+    ],
+    "AUTO-L1-002": [
+      "title",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target",
+      "git_workspace.branches_refs",
+      "git_workspace.unresolved"
+    ],
+    "AUTO-L1-003": [
+      "title",
+      "prompt",
+      "git_workspace.branches_refs",
+      "git_workspace.unresolved"
+    ],
+    "AUTO-L2-001": [
+      "title",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target",
+      "git_workspace.branches_refs",
+      "git_workspace.unresolved"
+    ],
+    "AUTO-L2-002": [
+      "title",
+      "prompt",
+      "git_workspace.branches_refs",
+      "git_workspace.unresolved"
+    ],
+    "AUTO-RELAX-001": [
+      "title",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target",
+      "git_workspace.branches_refs",
+      "git_workspace.unresolved"
+    ],
+    "AUTO-RELAX-002": [
+      "title",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target",
+      "git_workspace.branches_refs",
+      "git_workspace.unresolved"
+    ],
+    "AUTO-RESTART-001": [
+      "title",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target",
+      "git_workspace.branches_refs",
+      "git_workspace.unresolved"
+    ],
+    "EVID-ATTR-001": [
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "expected_assertions",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "EVID-CLAIM-001": [
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "EVID-CLAIM-002": [
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "EVID-CONTRA-001": [
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "EVID-FAB-001": [
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "EVID-PART-001": [
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "HOOK-COEX-001": [
+      "severity",
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "expected_assertions",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "HOOK-COEX-002": [
+      "severity",
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "expected_assertions",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "HOOK-COEX-003": [
+      "severity",
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "expected_assertions",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "HOOK-DIS-001": [
+      "severity",
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "expected_assertions",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "HOOK-LAT-001": [
+      "severity",
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "expected_assertions",
+      "side_effect_target"
+    ],
+    "HOOK-ORD-001": [
+      "severity",
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "expected_assertions",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "HOOK-RELOAD-001": [
+      "severity",
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "expected_assertions",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "HOOK-REWR-001": [
+      "severity",
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "expected_assertions",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "HOOK-TMO-001": [
+      "severity",
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "expected_assertions",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "MCP-DENY-001": [
+      "severity",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target"
+    ],
+    "MCP-HOST-001": [
+      "severity",
+      "prompt"
+    ],
+    "MCP-INPUT-001": [
+      "severity",
+      "prompt",
+      "expected_assertions"
+    ],
+    "MCP-MAL-001": [
+      "severity",
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "MCP-OBS-001": [
+      "severity",
+      "rp_rule",
+      "prompt",
+      "action_signature_targets",
+      "expected_assertions",
+      "side_effect_target"
+    ],
+    "MCP-UNVAL-001": [
+      "severity",
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "expected_assertions",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "MCP-UNVAL-002": [
+      "severity",
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "expected_assertions",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "PERM-ALLOW-001": [
+      "rp_rule",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target"
+    ],
+    "PERM-ASK-001": [
+      "prompt",
+      "action_signature_targets",
+      "expected_assertions",
+      "side_effect_target"
+    ],
+    "PERM-CHG-001": [
+      "prompt"
+    ],
+    "PERM-CHG-002": [
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target"
+    ],
+    "PERM-DENY-001": [
+      "prompt"
+    ],
+    "PERM-DENY-002": [
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target"
+    ],
+    "PERM-DENY-003": [
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target"
+    ],
+    "PERM-PROT-001": [
+      "prompt"
+    ],
+    "PERM-PROT-002": [
+      "prompt"
+    ],
+    "PERM-TOOL-001": [
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target"
+    ],
+    "RECV-HOOK-001": [
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "expected_assertions",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "RECV-MAL-001": [
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "RECV-PART-001": [
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "RECV-RESTART-001": [
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "RECV-STALE-001": [
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "RECV-TERM-001": [
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "expected_assertions",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "RECV-TMO-001": [
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "RECV-TOOL-001": [
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "SAFE-AMB-001": [
+      "prompt"
+    ],
+    "SAFE-BYP-001": [
+      "prompt"
+    ],
+    "SAFE-BYP-002": [
+      "prompt"
+    ],
+    "SAFE-COMP-001": [
+      "prompt"
+    ],
+    "SAFE-COMP-002": [
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target"
+    ],
+    "SAFE-DEST-001": [
+      "prompt"
+    ],
+    "SAFE-DEST-002": [
+      "rp_rule",
+      "prompt"
+    ],
+    "SAFE-DEST-003": [
+      "prompt"
+    ],
+    "SAFE-NET-001": [
+      "prompt"
+    ],
+    "SAFE-NET-002": [
+      "rp_rule",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target"
+    ],
+    "SAFE-PKG-001": [
+      "prompt"
+    ],
+    "SHEL-BASH-001": [
+      "title",
+      "severity",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target"
+    ],
+    "SHEL-BASH-002": [
+      "title",
+      "severity",
+      "prompt"
+    ],
+    "SHEL-BASH-003": [
+      "title",
+      "severity",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target"
+    ],
+    "SHEL-BASH-004": [
+      "title",
+      "severity",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "expected_assertions",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "SHEL-PS-001": [
+      "title",
+      "severity",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target"
+    ],
+    "SHEL-PS-002": [
+      "title",
+      "severity",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target"
+    ],
+    "SHEL-PS-003": [
+      "title",
+      "severity",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target"
+    ],
+    "SHEL-PS-004": [
+      "title",
+      "severity",
+      "prompt"
+    ],
+    "SHEL-PS-005": [
+      "title",
+      "severity",
+      "prompt"
+    ],
+    "SHEL-PS-006": [
+      "title",
+      "severity",
+      "prompt"
+    ],
+    "SHEL-PS-007": [
+      "title",
+      "severity",
+      "prompt"
+    ],
+    "SHEL-PS-008": [
+      "title",
+      "severity",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target"
+    ],
+    "STAT-COMPACT-001": [
+      "severity",
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "d2_permitted_outcomes"
+    ],
+    "STAT-CONC-001": [
+      "severity",
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "expected_assertions",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "STAT-CONC-002": [
+      "severity",
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "expected_assertions",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "STAT-CORRUPT-001": [
+      "severity",
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "expected_assertions",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "STAT-INTEG-001": [
+      "severity",
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "expected_assertions",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "STAT-RESUME-001": [
+      "severity",
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "expected_assertions",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "STAT-STALE-001": [
+      "severity",
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "SUBA-DIS-001": [
+      "severity",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target"
+    ],
+    "SUBA-ESC-001": [
+      "severity",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target"
+    ],
+    "SUBA-NEST-001": [
+      "severity",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target"
+    ],
+    "SUBA-PLUG-001": [
+      "severity",
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "expected_assertions",
+      "side_effect_target"
+    ],
+    "SUBA-PLUG-002": [
+      "severity",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target"
+    ],
+    "SUBA-TOOL-001": [
+      "severity",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target"
+    ],
+    "SUBA-TYPE-001": [
+      "severity",
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "TASK-DOC-001": [
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target"
+    ],
+    "TASK-EDIT-001": [
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target"
+    ],
+    "TASK-EDIT-002": [
+      "prompt"
+    ],
+    "TASK-FIX-001": [
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target"
+    ],
+    "TASK-FIX-002": [
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target"
+    ],
+    "TASK-IMPOSS-001": [
+      "rp_rule",
+      "base_expectation",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target",
+      "d2_permitted_outcomes"
+    ],
+    "TASK-NOOP-001": [
+      "rp_rule",
+      "prompt",
+      "action_signature_targets",
+      "side_effect_target"
+    ]
+  },
+  "fixture": {
+    "FX-AGENTS@1": [
+      "PROPOSED — SOURCE SILENT: the exact agent prompt bodies and the plugin manifest details are not specified beyond tool lists and permissionMode."
+    ],
+    "FX-APP@1": [
+      "PROPOSED — SOURCE SILENT: the exact project files, the specific seeded bug, and the hidden test assertions are not specified in the approved documents (they must be authored and approved).",
+      "PROPOSED — SOURCE SILENT: whether FX-APP@1 also initializes a git repo in ws/ (overlaps GAP-08)."
+    ],
+    "FX-INJECT@1": [
+      "PROPOSED — SOURCE SILENT: the exact planted-instruction wording is not specified in the approved documents."
+    ],
+    "FX-MCP@1": [
+      "PROPOSED — SOURCE SILENT: exact tool input/output schemas, the hostile text string, and the fileread traversal-handling contract are not specified.",
+      "PROPOSED — SOURCE SILENT: MCP-UNVAL-001/002 (plugin and remote MCP) remain NOT_APPLICABLE until validated (U-01); no fixture is proposed for them."
+    ],
+    "FX-PKG@1": [
+      "PROPOSED — SOURCE SILENT: the tarball's exact package name/version and file contents are not specified."
+    ],
+    "FX-SINK@1": [
+      "PROPOSED — SOURCE SILENT: the exact /docs body, the port-selection method, and the request-log schema are not specified."
+    ]
+  },
+  "total": 449
+}

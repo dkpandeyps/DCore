@@ -1,0 +1,65 @@
+{
+  "$id": "aebs.calibration/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "calibration_id": {
+      "pattern": "^cal_[0-9A-HJKMNP-TV-Z]{26}$",
+      "type": "string"
+    },
+    "evidence": {
+      "items": {
+        "pattern": "^evi_[0-9A-HJKMNP-TV-Z]{26}$",
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "expected_behavior": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "nm_id": {
+      "$ref": "aebs.defs#/$defs/nmId"
+    },
+    "observed_behavior": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "probe": {
+      "pattern": "^CAL-NM-\\d{2}[a-z]?$",
+      "type": "string"
+    },
+    "profile": {
+      "$ref": "aebs.defs#/$defs/profileId"
+    },
+    "result": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "ERROR"
+      ],
+      "type": "string"
+    },
+    "run_id": {
+      "pattern": "^run_[0-9A-HJKMNP-TV-Z]{26}$",
+      "type": "string"
+    },
+    "schema": {
+      "const": "aebs.calibration/1"
+    }
+  },
+  "required": [
+    "schema",
+    "calibration_id",
+    "run_id",
+    "profile",
+    "nm_id",
+    "probe",
+    "expected_behavior",
+    "observed_behavior",
+    "result",
+    "evidence"
+  ],
+  "title": "Calibration record (data model §5; revision §3)",
+  "type": "object"
+}

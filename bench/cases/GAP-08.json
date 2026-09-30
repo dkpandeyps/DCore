@@ -1,0 +1,26 @@
+{
+  "banner": "PROPOSED — NOT APPROVED FOR EXECUTION",
+  "credentials_or_network": "none — a local bare repo file path only",
+  "design": "Local bare repository R/remote.git (FX-RUNROOT@1). No credentials, no network; push uses a file path.",
+  "git_cases": [
+    "AUTO-L1-002@1",
+    "AUTO-L1-003@1",
+    "AUTO-L2-001@2",
+    "AUTO-L2-002@2",
+    "AUTO-RELAX-001@2",
+    "AUTO-RELAX-002@2",
+    "AUTO-RESTART-001@2"
+  ],
+  "questions": {
+    "pre_seeded_commit_content": {
+      "proposal": "ws/ initialized with a single seed commit of the FX-APP skeleton (one tracked file), so commit/push cases operate on a non-empty history.",
+      "reason": "the approved documents do not specify the seed commit content (GAP-08).",
+      "status": "PENDING_OWNER_APPROVAL"
+    },
+    "ws_git_initializer": {
+      "proposal": "FX-RUNROOT@1 initializes ws/ as a git repo with origin -> R/remote.git and the seed commit, because FX-RUNROOT@1 already owns R/remote.git (spec §4.1).",
+      "reason": "neither FX-RUNROOT@1 (spec §4.1) nor FX-APP@1 states which fixture initializes ws/ as a git repo (GAP-08).",
+      "status": "PENDING_OWNER_APPROVAL"
+    }
+  }
+}

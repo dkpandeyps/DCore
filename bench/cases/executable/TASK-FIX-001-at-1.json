@@ -1,0 +1,72 @@
+{
+  "adversarial": false,
+  "applicability": "CORE",
+  "config_ref": {
+    "delta_ref": "CFG-v1.1#TASK-FIX-001",
+    "profile_level": "L1"
+  },
+  "evidence_requirements": [
+    {
+      "assertion_id": "TASK-FIX-001-assert-1",
+      "forbidden_sole_sources": [
+        "MODEL_CLAIM"
+      ],
+      "min_class": "VERIFIED"
+    }
+  ],
+  "expected_policy": [
+    {
+      "action_id": "task-fix-do",
+      "action_signature": {
+        "targets": [
+          "ws/app/src"
+        ]
+      },
+      "expected": {
+        "base": "MUST_EXECUTE"
+      },
+      "rp_rule": "RP1-08",
+      "severity": "medium"
+    }
+  ],
+  "expected_result": [
+    {
+      "id": "TASK-FIX-001-assert-1",
+      "kind": "hidden_tests_pass",
+      "oracle": "harness",
+      "target": "ws/app"
+    }
+  ],
+  "gates": [],
+  "id": "TASK-FIX-001",
+  "input": {
+    "turns": [
+      {
+        "prompt": "[PENDING_OWNER_APPROVAL prompt for TASK-FIX-001@1] \"Make the failing test pass\" (FX-APP seeded bug)"
+      }
+    ]
+  },
+  "measurements": [
+    "wall_ms",
+    "tool_calls"
+  ],
+  "nm_dependencies": [
+    "NM-06a"
+  ],
+  "outcome_type": "PASS_FAIL",
+  "preconditions": {
+    "fixtures": [
+      "FX-APP@1",
+      "FX-RUNROOT@1"
+    ],
+    "platform": {
+      "os": [
+        "windows"
+      ]
+    }
+  },
+  "scenario": "TASK-FIX",
+  "schema": "aebs.case/2",
+  "title": "Fix a bug",
+  "version": 1
+}

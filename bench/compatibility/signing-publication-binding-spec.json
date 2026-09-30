@@ -1,0 +1,1066 @@
+{
+  "attestation_certification_binding": {
+    "binds": [
+      "exact attestation_hash reference"
+    ],
+    "failure_behavior": {
+      "latest_attestation": "FORBIDDEN — reference must be exact, never \"latest\"",
+      "mismatch": "REJECTED",
+      "missing": "BLOCKED",
+      "replay": "REJECTED",
+      "revoked": "REJECTED",
+      "superseded": "REJECTED",
+      "tampered": "REJECTED"
+    },
+    "from": "M4 certification",
+    "to": "identity attestation"
+  },
+  "certification_publication_binding": {
+    "binds": [
+      "certification_result_hash",
+      "attestation_hash",
+      "exact profile identity",
+      "exact matrix cell",
+      "compatibility profile identity/version",
+      "proposed registry delta",
+      "expected pre-publication registry state",
+      "publication proposal identity"
+    ],
+    "failure_behavior": {
+      "cell_differs": "REJECTED",
+      "different_attestation": "REJECTED",
+      "different_certification": "REJECTED",
+      "precondition_differs": "BLOCKED",
+      "profile_hash_differs": "REJECTED",
+      "revoked": "REJECTED",
+      "stale": "BLOCKED",
+      "superseded": "REJECTED"
+    },
+    "from": "M5 publication proposal",
+    "to": "M4 certification result"
+  },
+  "compromised_key": {
+    "assess_historical": "records after boundary are suspect",
+    "earliest_trustworthy_boundary": "determined by incident authority",
+    "identify_affected_signatures": "by key_id + time",
+    "preserve_audit": "immutable history preserved",
+    "production_recovery_policy": "OPEN_DESIGN_GAP — not invented for existing data",
+    "replacement_key": "new distinct key registered",
+    "revoke_key": "yes",
+    "stop_new_signing": "immediate",
+    "supersede_or_revoke_affected": "as required"
+  },
+  "design_only": true,
+  "fixture_specs": [
+    {
+      "expected": "binding valid (still unsigned; M21 signs nothing)",
+      "id": "SX-01",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "valid complete binding"
+    },
+    {
+      "expected": "REJECTED/BLOCKED fail-closed",
+      "id": "SX-02",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "attestation mismatch"
+    },
+    {
+      "expected": "REJECTED/BLOCKED fail-closed",
+      "id": "SX-03",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "certification mismatch"
+    },
+    {
+      "expected": "REJECTED/BLOCKED fail-closed",
+      "id": "SX-04",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "proposal mismatch"
+    },
+    {
+      "expected": "REJECTED/BLOCKED fail-closed",
+      "id": "SX-05",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "authorization mismatch"
+    },
+    {
+      "expected": "REJECTED/BLOCKED fail-closed",
+      "id": "SX-06",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "matrix-cell mismatch"
+    },
+    {
+      "expected": "REJECTED/BLOCKED fail-closed",
+      "id": "SX-07",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "stale authorization"
+    },
+    {
+      "expected": "REJECTED/BLOCKED fail-closed",
+      "id": "SX-08",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "revoked key"
+    },
+    {
+      "expected": "REJECTED/BLOCKED fail-closed",
+      "id": "SX-09",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "retired key"
+    },
+    {
+      "expected": "REJECTED/BLOCKED fail-closed",
+      "id": "SX-10",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "compromised key"
+    },
+    {
+      "expected": "REJECTED/BLOCKED fail-closed",
+      "id": "SX-11",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "key rotation"
+    },
+    {
+      "expected": "REJECTED/BLOCKED fail-closed",
+      "id": "SX-12",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "signature replay"
+    },
+    {
+      "expected": "REJECTED/BLOCKED fail-closed",
+      "id": "SX-13",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "cross-registry replay"
+    },
+    {
+      "expected": "REJECTED/BLOCKED fail-closed",
+      "id": "SX-14",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "cross-product replay"
+    },
+    {
+      "expected": "REJECTED/BLOCKED fail-closed",
+      "id": "SX-15",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "registry precondition mismatch"
+    },
+    {
+      "expected": "REJECTED/BLOCKED fail-closed",
+      "id": "SX-16",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "concurrent stale proposal"
+    },
+    {
+      "expected": "REJECTED/BLOCKED fail-closed",
+      "id": "SX-17",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "trust-root mismatch"
+    },
+    {
+      "expected": "REJECTED/BLOCKED fail-closed",
+      "id": "SX-18",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "canonicalization mismatch"
+    },
+    {
+      "expected": "REJECTED/BLOCKED fail-closed",
+      "id": "SX-19",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "historical supersession"
+    },
+    {
+      "expected": "REJECTED/BLOCKED fail-closed",
+      "id": "SX-20",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "historical revocation"
+    }
+  ],
+  "future_test_specs": [
+    "attestation binding",
+    "certification binding",
+    "proposal binding",
+    "authorization binding",
+    "signature payload determinism",
+    "key identity validation",
+    "key lifecycle transitions",
+    "key rotation",
+    "key revocation",
+    "compromised-key handling",
+    "trust-root validation",
+    "replay protection",
+    "matrix-cell exactness",
+    "registry precondition",
+    "immutable history",
+    "publication atomicity",
+    "secret exclusion",
+    "static no-execution/no-network/no-real-key guarantees"
+  ],
+  "gap03_status": "REFINED",
+  "gap04_status": "PARTIALLY_DEFINED",
+  "immutable_history": [
+    "old attestation→certification→proposal→publication→registry state remain auditable",
+    "supersession creates a NEW record",
+    "revocation never rewrites history",
+    "key rotation never rewrites historical signatures",
+    "no in-place mutation of historical certification evidence"
+  ],
+  "key_identity_model": [
+    "key_id",
+    "signer identity",
+    "algorithm",
+    "public-key fingerprint",
+    "creation time",
+    "activation time",
+    "expiration time",
+    "status",
+    "predecessor key",
+    "successor key",
+    "trust-root reference"
+  ],
+  "key_lifecycle": [
+    {
+      "allowed_predecessor": [],
+      "allowed_successor": [
+        "GENERATED",
+        "REJECTED"
+      ],
+      "authorization_requirement": "owner proposal",
+      "new_signatures_permitted": false,
+      "prior_signatures_remain_valid": false,
+      "publication_impact": "none",
+      "state": "PROPOSED"
+    },
+    {
+      "allowed_predecessor": [
+        "PROPOSED"
+      ],
+      "allowed_successor": [
+        "REGISTERED"
+      ],
+      "authorization_requirement": "key generation ceremony (out of scope; OPEN_DESIGN_DECISION)",
+      "new_signatures_permitted": false,
+      "prior_signatures_remain_valid": false,
+      "publication_impact": "none",
+      "state": "GENERATED"
+    },
+    {
+      "allowed_predecessor": [
+        "GENERATED"
+      ],
+      "allowed_successor": [
+        "ACTIVE"
+      ],
+      "authorization_requirement": "trust-root registration",
+      "new_signatures_permitted": false,
+      "prior_signatures_remain_valid": false,
+      "publication_impact": "recognized by trust root",
+      "state": "REGISTERED"
+    },
+    {
+      "allowed_predecessor": [
+        "REGISTERED"
+      ],
+      "allowed_successor": [
+        "RETIRED",
+        "REVOKED",
+        "COMPROMISED"
+      ],
+      "authorization_requirement": "authorized signer role",
+      "new_signatures_permitted": true,
+      "prior_signatures_remain_valid": true,
+      "publication_impact": "may sign publications",
+      "state": "ACTIVE"
+    },
+    {
+      "allowed_predecessor": [
+        "ACTIVE"
+      ],
+      "allowed_successor": [
+        "REVOKED"
+      ],
+      "authorization_requirement": "planned rotation",
+      "new_signatures_permitted": false,
+      "prior_signatures_remain_valid": true,
+      "publication_impact": "no new signing; prior signatures remain verifiable",
+      "state": "RETIRED"
+    },
+    {
+      "allowed_predecessor": [
+        "ACTIVE",
+        "RETIRED",
+        "COMPROMISED"
+      ],
+      "allowed_successor": [],
+      "authorization_requirement": "revocation authority",
+      "new_signatures_permitted": false,
+      "prior_signatures_remain_valid": true,
+      "publication_impact": "no new signing; prior-signature validity per revocation effective time",
+      "state": "REVOKED"
+    },
+    {
+      "allowed_predecessor": [
+        "ACTIVE"
+      ],
+      "allowed_successor": [
+        "REVOKED"
+      ],
+      "authorization_requirement": "incident authority",
+      "new_signatures_permitted": false,
+      "prior_signatures_remain_valid": false,
+      "publication_impact": "stop new signing; signatures after earliest-trustworthy-boundary suspect",
+      "state": "COMPROMISED"
+    }
+  ],
+  "key_revocation": {
+    "authority": "revocation authority (M6/owner)",
+    "distinct_from": [
+      "ARTIFACT REVOKED",
+      "PROFILE REVOKED",
+      "ATTESTATION REVOKED",
+      "REGISTRY ENTRY REVOKED"
+    ],
+    "rules": {
+      "affected_key_id": "recorded",
+      "affected_signatures": "identified",
+      "effective_time": "recorded",
+      "future_publication": "blocked",
+      "historical_publication": "remains valid if before effective time (policy per trust root)",
+      "profile_response": "unaffected unless separately revoked",
+      "registry_response": "no historical mutation; explicit records"
+    }
+  },
+  "key_rotation": {
+    "auditable": "key transition is auditable",
+    "distinct_key_id": "new key has a distinct key_id",
+    "historical_records": "unchanged (immutable)",
+    "old_key_after_retirement": "cannot sign",
+    "old_signatures": "remain independently verifiable",
+    "registry_history": "immutable",
+    "successor_trust": "trust root recognizes the authorized successor",
+    "trust_root_continuity": "OPEN_DESIGN_GAP if undefined by M6"
+  },
+  "m13_matrix_binding": {
+    "no_inheritance": true,
+    "reject_if_cell_differs_across": [
+      "attestation",
+      "certification",
+      "proposal",
+      "signature payload",
+      "publication record",
+      "registry entry"
+    ],
+    "rule": "every publication identifies exactly platform × architecture × channel × version (+ runtime facet where applicable)"
+  },
+  "m5_lifecycle": {
+    "publishable": [
+      "APPROVED_FOR_PUBLICATION"
+    ],
+    "revocable": [
+      "PUBLISHED",
+      "APPROVED_FOR_PUBLICATION"
+    ],
+    "signable": [
+      "APPROVED_FOR_PUBLICATION"
+    ],
+    "states": [
+      "DRAFT",
+      "REVIEW_REQUIRED",
+      "APPROVED_FOR_PUBLICATION",
+      "PUBLISHED",
+      "REJECTED",
+      "REVOKED",
+      "SUPERSEDED"
+    ],
+    "supersedable": [
+      "PUBLISHED"
+    ]
+  },
+  "m6_lifecycle": {
+    "forbidden_transitions": [
+      {
+        "from": "REQUESTED",
+        "reason": "must pass VALIDATING + APPROVED + APPLYING with valid signature",
+        "to": "PUBLISHED"
+      },
+      {
+        "from": "VALIDATING",
+        "reason": "requires APPROVED (authorization + signature) first",
+        "to": "APPLYING"
+      },
+      {
+        "from": "REJECTED",
+        "reason": "rejected proposals cannot publish",
+        "to": "PUBLISHED"
+      },
+      {
+        "from": "PUBLISHED",
+        "reason": "no re-apply; supersession creates a new record",
+        "to": "APPLYING"
+      }
+    ],
+    "states": [
+      "REQUESTED",
+      "VALIDATING",
+      "APPROVED",
+      "APPLYING",
+      "PUBLISHED",
+      "REJECTED",
+      "FAILED",
+      "REVOKED",
+      "SUPERSEDED",
+      "ROLLED_BACK"
+    ]
+  },
+  "newly_discovered_gaps": [
+    {
+      "id": "GAP-03R",
+      "note": "signature payload contract specified; any M6-undefined field is an owner decision",
+      "question": "M6 signature payload field contract completeness (does M6 define every bound field?)",
+      "status": "OPEN_DESIGN_DECISION"
+    },
+    {
+      "id": "GAP-04R-ALGO",
+      "note": "no algorithm inferred",
+      "question": "signing algorithm selection (not frozen by the project)",
+      "status": "OPEN_DESIGN_DECISION"
+    },
+    {
+      "id": "GAP-04R-ROOT",
+      "note": "requires owner decision",
+      "question": "trust-root bootstrap (how initial trust is established)",
+      "status": "OPEN_DESIGN_GAP"
+    },
+    {
+      "id": "GAP-04R-STORE",
+      "note": "no provider chosen",
+      "question": "key-storage provider (HSM/KMS/other)",
+      "status": "OPEN_DESIGN_DECISION"
+    },
+    {
+      "id": "GAP-04R-RECOVERY",
+      "note": "not invented; none exists yet",
+      "question": "compromised-key recovery policy for existing production data",
+      "status": "OPEN_DESIGN_GAP"
+    }
+  ],
+  "object_graph": [
+    {
+      "authority": "certification env + independent observer",
+      "canonical_identifier": "attestation_id",
+      "content_hash": "sha256(canonical(identity attestation))",
+      "immutable_fields": [
+        "identity tuple",
+        "observation_sources",
+        "evidence_hashes",
+        "attestation_hash"
+      ],
+      "mutable_lifecycle_metadata": [
+        "attestation_status"
+      ],
+      "object": "identity attestation",
+      "predecessor": null,
+      "publication_state_ref": "n/a",
+      "successor": "certification_result",
+      "trust_boundary": "certification system"
+    },
+    {
+      "authority": "M4 + owner review",
+      "canonical_identifier": "run_id",
+      "content_hash": "sha256(canonical(M4 certification result))",
+      "immutable_fields": [
+        "gate_results",
+        "attestation_hash ref",
+        "final_decision"
+      ],
+      "mutable_lifecycle_metadata": [
+        "owner_review"
+      ],
+      "object": "M4 certification result",
+      "predecessor": "attestation_hash",
+      "publication_state_ref": "n/a",
+      "successor": "certification_profile",
+      "trust_boundary": "certification system"
+    },
+    {
+      "authority": "M5",
+      "canonical_identifier": "profile_id",
+      "content_hash": "sha256(canonical(M5 certification profile))",
+      "immutable_fields": [
+        "identity",
+        "certification_result_ref",
+        "artifact_hash"
+      ],
+      "mutable_lifecycle_metadata": [
+        "publication_status"
+      ],
+      "object": "M5 certification profile",
+      "predecessor": "certification_result_hash",
+      "publication_state_ref": "M5 lifecycle",
+      "successor": "publication_proposal",
+      "trust_boundary": "publication layer"
+    },
+    {
+      "authority": "M5",
+      "canonical_identifier": "proposal_id",
+      "content_hash": "sha256(canonical(M5 publication proposal))",
+      "immutable_fields": [
+        "source_profile_id",
+        "certification_result ref",
+        "attestation ref",
+        "matrix cell",
+        "proposed delta",
+        "expected registry precondition",
+        "proposal_hash"
+      ],
+      "mutable_lifecycle_metadata": [
+        "publication_state"
+      ],
+      "object": "M5 publication proposal",
+      "predecessor": "profile_hash",
+      "publication_state_ref": "M5 lifecycle",
+      "successor": "authorization",
+      "trust_boundary": "publication layer"
+    },
+    {
+      "authority": "M6 owner authority",
+      "canonical_identifier": "authorization_id",
+      "content_hash": "sha256(canonical(M6 authorization))",
+      "immutable_fields": [
+        "authorization_payload_hash",
+        "authorized signer role",
+        "authorized matrix cell",
+        "expected registry precondition"
+      ],
+      "mutable_lifecycle_metadata": [
+        "authorization_state"
+      ],
+      "object": "M6 authorization",
+      "predecessor": "proposal_hash",
+      "publication_state_ref": "M6 lifecycle",
+      "successor": "signature_payload",
+      "trust_boundary": "governance"
+    },
+    {
+      "authority": "M6 signing authority",
+      "canonical_identifier": "payload_hash",
+      "content_hash": "sha256(canonical(M6 signature payload))",
+      "immutable_fields": [
+        "all bound hashes",
+        "signer identity",
+        "key identity",
+        "schema versions",
+        "timestamp"
+      ],
+      "mutable_lifecycle_metadata": [],
+      "object": "M6 signature payload",
+      "predecessor": "authorization_payload_hash",
+      "publication_state_ref": "M6 lifecycle",
+      "successor": "publication_record",
+      "trust_boundary": "governance"
+    },
+    {
+      "authority": "M6",
+      "canonical_identifier": "publication_id",
+      "content_hash": "sha256(canonical(M6 publication record))",
+      "immutable_fields": [
+        "signature",
+        "signer",
+        "key",
+        "authorization",
+        "attestation",
+        "certification",
+        "proposal",
+        "matrix cell",
+        "registry precondition",
+        "resulting state",
+        "record_hash",
+        "previous_record_hash"
+      ],
+      "mutable_lifecycle_metadata": [],
+      "object": "M6 publication record",
+      "predecessor": "payload_hash",
+      "publication_state_ref": "M6 lifecycle",
+      "successor": "registry_version",
+      "trust_boundary": "governance"
+    },
+    {
+      "authority": "M6 governance",
+      "canonical_identifier": "registry_version",
+      "content_hash": "sha256(canonical(registry entry/version))",
+      "immutable_fields": [
+        "registry hash",
+        "entry",
+        "previous registry hash"
+      ],
+      "mutable_lifecycle_metadata": [],
+      "object": "registry entry/version",
+      "predecessor": "publication_id",
+      "publication_state_ref": "PUBLISHED",
+      "successor": "matrix_cell",
+      "trust_boundary": "registry"
+    },
+    {
+      "authority": "M13 (derived)",
+      "canonical_identifier": "platform×arch×channel×version",
+      "content_hash": "sha256(canonical(M13 matrix cell))",
+      "immutable_fields": [
+        "cert_state",
+        "profile_id",
+        "binary_sha256"
+      ],
+      "mutable_lifecycle_metadata": [],
+      "object": "M13 matrix cell",
+      "predecessor": "registry_version",
+      "publication_state_ref": "CERTIFIED (only when published)",
+      "successor": null,
+      "trust_boundary": "compatibility matrix"
+    }
+  ],
+  "objective": "Define the exact conceptual chain from a COMPLETE_UNSIGNED attestation through M4/M5/M6 signing/governance to an immutable registry update bound to exactly one M13 matrix cell, and the signing-key lifecycle — without signing, generating keys, or mutating the registry. Closes/refines GAP-03/GAP-04 only.",
+  "preserved_open_gaps": [
+    {
+      "id": "GAP-01",
+      "note": "unchanged by M21",
+      "question": "direct Claude Code channel evidence source",
+      "status": "OPEN_DESIGN_GAP"
+    },
+    {
+      "id": "GAP-02",
+      "note": "unchanged by M21",
+      "question": "exact certified-executable binary-binding mechanism",
+      "status": "OPEN_DESIGN_GAP"
+    }
+  ],
+  "privacy_secret_boundary": {
+    "assertion": "NO_PRIVATE_KEY_MATERIAL_IN_PUBLIC_ARTIFACTS",
+    "forbidden": [
+      "private keys",
+      "credentials",
+      "OAuth tokens",
+      "cookies",
+      "API keys",
+      "user files",
+      "~/.claude contents",
+      "secrets",
+      "environment secrets"
+    ]
+  },
+  "publication_authorization_binding": {
+    "binds": [
+      "authorization_payload_hash over exact proposal",
+      "proposal hash",
+      "authorized matrix cell",
+      "authorized registry version/precondition",
+      "authorized signer role",
+      "authorization expiration"
+    ],
+    "failure_behavior": {
+      "expired": "BLOCKED",
+      "implicit_inheritance": "FORBIDDEN",
+      "latest_proposal": "FORBIDDEN",
+      "proposal_b_with_auth_a": "REJECTED",
+      "replay": "REJECTED",
+      "revoked": "REJECTED",
+      "wildcard": "FORBIDDEN"
+    },
+    "from": "M6 authorization",
+    "to": "M5 publication proposal"
+  },
+  "registry_atomicity": {
+    "on_any_failure": "NO_REGISTRY_MUTATION",
+    "protections": [
+      "concurrent proposals (compare-and-swap)",
+      "stale proposals (precondition hash)",
+      "replayed signatures (bound identities)",
+      "duplicate publication (publication_id uniqueness)",
+      "wrong registry version (precondition)",
+      "wrong matrix cell (exact cell)",
+      "partial application (all-or-nothing)"
+    ],
+    "transaction_boundary": [
+      "proposal validated",
+      "authorization validated",
+      "signature validated",
+      "registry precondition validated",
+      "publication applied",
+      "resulting registry hash recorded"
+    ]
+  },
+  "replay_protection": [
+    {
+      "bound_identities": [
+        "payload_hash",
+        "registry version",
+        "matrix cell",
+        "product",
+        "environment"
+      ],
+      "vector": "signature replay"
+    },
+    {
+      "bound_identities": [
+        "publication_id",
+        "registry precondition"
+      ],
+      "vector": "publication replay"
+    },
+    {
+      "bound_identities": [
+        "authorization_payload_hash",
+        "proposal hash",
+        "expiration"
+      ],
+      "vector": "authorization replay"
+    },
+    {
+      "bound_identities": [
+        "attestation_hash",
+        "environment_id",
+        "freshness"
+      ],
+      "vector": "attestation replay"
+    },
+    {
+      "bound_identities": [
+        "registry identity",
+        "registry version"
+      ],
+      "vector": "cross-registry replay"
+    },
+    {
+      "bound_identities": [
+        "product identity"
+      ],
+      "vector": "cross-product replay"
+    },
+    {
+      "bound_identities": [
+        "exact matrix cell"
+      ],
+      "vector": "cross-cell replay"
+    },
+    {
+      "bound_identities": [
+        "environment_id"
+      ],
+      "vector": "cross-environment replay"
+    },
+    {
+      "bound_identities": [
+        "previous_record_hash",
+        "supersession reference"
+      ],
+      "vector": "superseded-record replay"
+    }
+  ],
+  "schema": "dkskill.signing_publication_binding_spec/1",
+  "security_threat_model": [
+    {
+      "attack": "attestation substitution",
+      "binding_control": "signature payload binds attestation_hash",
+      "detection": "hash mismatch",
+      "fail_closed_state": "REJECTED",
+      "history_intact": true
+    },
+    {
+      "attack": "certification substitution",
+      "binding_control": "binds certification_result_hash",
+      "detection": "hash mismatch",
+      "fail_closed_state": "REJECTED",
+      "history_intact": true
+    },
+    {
+      "attack": "proposal substitution",
+      "binding_control": "binds publication_proposal_hash",
+      "detection": "hash mismatch",
+      "fail_closed_state": "REJECTED",
+      "history_intact": true
+    },
+    {
+      "attack": "authorization substitution",
+      "binding_control": "authorization_payload_hash binds exact proposal",
+      "detection": "hash mismatch",
+      "fail_closed_state": "REJECTED",
+      "history_intact": true
+    },
+    {
+      "attack": "signature replay",
+      "binding_control": "payload binds registry version + matrix cell + product + environment",
+      "detection": "replay across any bound identity fails",
+      "fail_closed_state": "REJECTED",
+      "history_intact": true
+    },
+    {
+      "attack": "wrong matrix-cell publication",
+      "binding_control": "exact cell bound across all objects",
+      "detection": "cell mismatch",
+      "fail_closed_state": "REJECTED",
+      "history_intact": true
+    },
+    {
+      "attack": "cross-registry replay",
+      "binding_control": "binds registry identity + version",
+      "detection": "registry mismatch",
+      "fail_closed_state": "REJECTED",
+      "history_intact": true
+    },
+    {
+      "attack": "cross-product replay",
+      "binding_control": "binds product identity",
+      "detection": "product mismatch",
+      "fail_closed_state": "REJECTED",
+      "history_intact": true
+    },
+    {
+      "attack": "stale authorization",
+      "binding_control": "authorization expiration + precondition",
+      "detection": "expired/mismatched",
+      "fail_closed_state": "BLOCKED",
+      "history_intact": true
+    },
+    {
+      "attack": "revoked-key signing",
+      "binding_control": "key validity layer",
+      "detection": "key REVOKED at signing time",
+      "fail_closed_state": "REJECTED",
+      "history_intact": true
+    },
+    {
+      "attack": "compromised signing key",
+      "binding_control": "earliest-trustworthy-boundary + revoke + replace",
+      "detection": "incident detection",
+      "fail_closed_state": "BLOCKED (supersede/revoke affected)",
+      "history_intact": true
+    },
+    {
+      "attack": "signer impersonation",
+      "binding_control": "signer authorization layer + trust root",
+      "detection": "unauthorized signer",
+      "fail_closed_state": "REJECTED",
+      "history_intact": true
+    },
+    {
+      "attack": "trust-root substitution",
+      "binding_control": "governed trust-root; bootstrap OPEN_DESIGN_GAP",
+      "detection": "root not recognized",
+      "fail_closed_state": "REJECTED",
+      "history_intact": true
+    },
+    {
+      "attack": "key-rotation confusion",
+      "binding_control": "distinct key_id + trusted successor; old signatures independently verifiable",
+      "detection": "wrong key_id",
+      "fail_closed_state": "REJECTED",
+      "history_intact": true
+    },
+    {
+      "attack": "publication rollback attack",
+      "binding_control": "immutable history; rollback creates explicit reversal record",
+      "detection": "history mutation attempt",
+      "fail_closed_state": "REJECTED",
+      "history_intact": true
+    },
+    {
+      "attack": "concurrent stale proposal",
+      "binding_control": "compare-and-swap registry precondition",
+      "detection": "stale registry hash",
+      "fail_closed_state": "BLOCKED (no mutation)",
+      "history_intact": true
+    },
+    {
+      "attack": "registry precondition bypass",
+      "binding_control": "atomic precondition validation before apply",
+      "detection": "precondition mismatch",
+      "fail_closed_state": "NO_REGISTRY_MUTATION",
+      "history_intact": true
+    },
+    {
+      "attack": "historical-record mutation",
+      "binding_control": "immutability + hash chain",
+      "detection": "chain break",
+      "fail_closed_state": "REJECTED",
+      "history_intact": true
+    },
+    {
+      "attack": "signature payload ambiguity",
+      "binding_control": "payload binds ALL identities/hashes + schema versions",
+      "detection": "ambiguous payload",
+      "fail_closed_state": "REJECTED",
+      "history_intact": true
+    },
+    {
+      "attack": "canonicalization mismatch",
+      "binding_control": "single canonical serialization + version",
+      "detection": "canonical hash mismatch",
+      "fail_closed_state": "REJECTED",
+      "history_intact": true
+    }
+  ],
+  "signature_payload": {
+    "algorithm_status": "OPEN_DESIGN_DECISION",
+    "binds": [
+      "attestation_hash",
+      "certification_result_hash",
+      "publication_proposal_hash",
+      "exact M13 matrix-cell identity",
+      "registry identity",
+      "registry version/update identity",
+      "publication record identity",
+      "signer identity",
+      "signing-key identity/version",
+      "authorization identity/hash",
+      "canonical serialization version",
+      "schema versions",
+      "timestamp/freshness"
+    ],
+    "canonical_serialization": "project canonical JSON + sha256:<hex> (single version)",
+    "prevents": [
+      "signing one attestation while publishing another",
+      "signing one matrix cell while publishing another",
+      "signing one proposal while applying another",
+      "signature reuse across registry versions",
+      "signature reuse after supersession",
+      "cross-product replay",
+      "cross-environment replay"
+    ]
+  },
+  "signed_publication_record": {
+    "binds": [
+      "signature payload",
+      "signature",
+      "signer identity",
+      "key identity",
+      "authorization",
+      "attestation",
+      "certification result",
+      "publication proposal",
+      "matrix cell",
+      "registry precondition",
+      "registry resulting state",
+      "publication timestamp",
+      "schema versions"
+    ],
+    "separate_verification_concerns": [
+      "integrity verification",
+      "signer authorization",
+      "key validity",
+      "publication authorization",
+      "certification validity"
+    ]
+  },
+  "signer_identity_model": [
+    {
+      "authority": "approves publication per existing M6 governance (OPEN GAP if M6 underspecifies)",
+      "distinct_from": [
+        "signing authority",
+        "signing key",
+        "trust root",
+        "publication system"
+      ],
+      "role": "human owner/approver"
+    },
+    {
+      "authority": "holds authorized signer role",
+      "distinct_from": [
+        "human owner",
+        "signing key",
+        "trust root"
+      ],
+      "role": "signing authority"
+    },
+    {
+      "authority": "produces the signature (no private material in artifacts)",
+      "distinct_from": [
+        "signer",
+        "trust root"
+      ],
+      "role": "signing key"
+    },
+    {
+      "authority": "authenticates signer keys",
+      "distinct_from": [
+        "signing key",
+        "signer"
+      ],
+      "role": "trust root"
+    },
+    {
+      "authority": "applies validated, signed, authorized updates only",
+      "distinct_from": [
+        "signer",
+        "trust root"
+      ],
+      "role": "publication system"
+    }
+  ],
+  "spec_hash": "sha256:f036aabd7a0b8e0c1aaabd87786420f2a8f533d1261889ce2f745b9502d09186",
+  "trust_root_model": {
+    "authenticates": "authorized signer keys",
+    "bootstrap": "OPEN_DESIGN_GAP",
+    "governance": "trust-root changes are governed (owner)",
+    "key_trust": "a key becomes trusted via trust-root registration",
+    "revocation": "revoked keys cease to be trusted",
+    "rotation_continuity": "trust root recognizes authorized successors"
+  },
+  "verification_layers": [
+    {
+      "fail_closed": "layer 1 failure => REJECTED/BLOCKED; never proceeds",
+      "layer": "canonical hash integrity",
+      "lower_success_implies_higher": false,
+      "order": 1
+    },
+    {
+      "fail_closed": "layer 2 failure => REJECTED/BLOCKED; never proceeds",
+      "layer": "signature cryptographic validity",
+      "lower_success_implies_higher": false,
+      "order": 2
+    },
+    {
+      "fail_closed": "layer 3 failure => REJECTED/BLOCKED; never proceeds",
+      "layer": "key validity",
+      "lower_success_implies_higher": false,
+      "order": 3
+    },
+    {
+      "fail_closed": "layer 4 failure => REJECTED/BLOCKED; never proceeds",
+      "layer": "signer authorization",
+      "lower_success_implies_higher": false,
+      "order": 4
+    },
+    {
+      "fail_closed": "layer 5 failure => REJECTED/BLOCKED; never proceeds",
+      "layer": "publication authorization",
+      "lower_success_implies_higher": false,
+      "order": 5
+    },
+    {
+      "fail_closed": "layer 6 failure => REJECTED/BLOCKED; never proceeds",
+      "layer": "attestation validity",
+      "lower_success_implies_higher": false,
+      "order": 6
+    },
+    {
+      "fail_closed": "layer 7 failure => REJECTED/BLOCKED; never proceeds",
+      "layer": "certification validity",
+      "lower_success_implies_higher": false,
+      "order": 7
+    },
+    {
+      "fail_closed": "layer 8 failure => REJECTED/BLOCKED; never proceeds",
+      "layer": "matrix-cell validity",
+      "lower_success_implies_higher": false,
+      "order": 8
+    },
+    {
+      "fail_closed": "layer 9 failure => REJECTED/BLOCKED; never proceeds",
+      "layer": "registry precondition",
+      "lower_success_implies_higher": false,
+      "order": 9
+    },
+    {
+      "fail_closed": "layer 10 failure => REJECTED/BLOCKED; never proceeds",
+      "layer": "registry resulting-state consistency",
+      "lower_success_implies_higher": false,
+      "order": 10
+    }
+  ],
+  "version": 1
+}

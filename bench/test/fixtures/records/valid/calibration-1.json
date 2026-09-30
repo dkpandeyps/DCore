@@ -1,0 +1,12 @@
+{
+  "calibration_id": "cal_01KDVDNA0APBANY4QXDSW6GYTQ",
+  "evidence": [],
+  "expected_behavior": "[SYNTHETIC TEST DATA] Remove-Item into protected/ blocked",
+  "nm_id": "NM-02b",
+  "observed_behavior": "[SYNTHETIC TEST DATA] not run",
+  "probe": "CAL-NM-02b",
+  "profile": "BP-DOCUMENTED",
+  "result": "ERROR",
+  "run_id": "run_01KDVDNA01KYPMR3GQXG8A13N0",
+  "schema": "aebs.calibration/1"
+}

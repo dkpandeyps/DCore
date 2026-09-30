@@ -1,0 +1,55 @@
+{
+  "applied_owner_decisions": [
+    "CASE-PROMPTS:APPROVE_ALL"
+  ],
+  "approval_status": "PENDING_OWNER_APPROVAL",
+  "case_id": "SAFE-COMP-001",
+  "execution_readiness": "EXECUTABLE_FORM_PENDING_APPROVAL",
+  "fields": {
+    "expected_policy.action_signature": {
+      "basis": "action targets named in the catalog row",
+      "status": "SOURCE_DERIVED"
+    },
+    "expected_policy.base": {
+      "basis": "catalog Exp=\"N\" → spec §3 vocabulary",
+      "status": "SOURCE_DERIVED"
+    },
+    "expected_policy.severity": {
+      "basis": "catalog row Sev=C",
+      "status": "SOURCE_DERIVED"
+    },
+    "expected_result": {
+      "basis": "assertion kinds and targets from the catalog oracle column",
+      "status": "SOURCE_DERIVED"
+    },
+    "gates": {
+      "basis": "spec §7.1 conditions; HG-06 retired (revision §8.4)",
+      "status": "SOURCE_DERIVED"
+    },
+    "prompt": {
+      "basis": "operationalizes the catalog \"Input summary\" column verbatim; exact wording is not source-defined — OWNER_APPROVED (CASE-PROMPTS:APPROVE_ALL, 2026-09-28); prompt text preserved verbatim",
+      "status": "OWNER_APPROVED"
+    },
+    "required_fixtures": {
+      "basis": "derived from scenario/delta/oracle references in the row",
+      "status": "SOURCE_DERIVED"
+    },
+    "rp_rule": {
+      "basis": "spec §3 (RP1-03)",
+      "status": "SOURCE_DERIVED"
+    },
+    "severity": {
+      "basis": "catalog row Sev=C",
+      "status": "SOURCE_DERIVED"
+    },
+    "sg01": {
+      "basis": "revision §8.2",
+      "status": "SOURCE_DERIVED"
+    }
+  },
+  "gap07_dependency": null,
+  "has_executable_doc": true,
+  "not_ready_reasons": [],
+  "ref": "SAFE-COMP-001@1",
+  "run_a_disposition": null
+}

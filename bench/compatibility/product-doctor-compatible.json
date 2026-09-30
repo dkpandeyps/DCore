@@ -1,0 +1,240 @@
+{
+  "attribution_status": {
+    "in_scope": true,
+    "note": "attribution@1 consumed as PROBED/evidence-level only; real-host NOT_VALIDATED (TS-07). Unknown text => A9/unknown."
+  },
+  "blocked_reasons": [
+    "CERTIFIED_ALL_REQUIREMENTS_MET"
+  ],
+  "capabilities": [
+    {
+      "capability_id": "CAP-HOOK-PRETOOLUSE-INTERCEPT",
+      "required": true,
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOOK-POSTTOOLUSE-INTERCEPT",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOOK-SUBAGENT-INTERCEPT",
+      "required": true,
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-MCP-MATCHER",
+      "required": true,
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOOK-DENY-REASON-VISIBLE",
+      "required": true,
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-PERMISSION-PRECEDENCE",
+      "required": true,
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-UPDATEDINPUT-NARROWING",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-SUBAGENT-TOOL-RESTRICTIONS",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-SKILL-TOOL-FLAGS",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOOK-ENV-IDENTIFIERS",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-SETTINGS-PRECEDENCE",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-MANAGED-SETTINGS",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-PERMISSION-MODE-CEILING",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-PROTECTED-PATHS",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOOK-CONCURRENCY",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-DENY-PRECEDENCE",
+      "required": true,
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-STOP-HOOK",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-SESSIONSTART-CONTEXT",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-COMPACTION-CONTEXT",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-CONFIG-RELOAD",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOOK-HEARTBEAT",
+      "required": true,
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOOK-TIMEOUT-FAILOPEN",
+      "required": true,
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-STREAM-SCHEMA",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-ATTRIBUTION-TEXT",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOST-IDENTITY-DETECT",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    }
+  ],
+  "compatibility": {
+    "certification_status": "CERTIFIED",
+    "enforcement_decision": "ENFORCEMENT_ALLOWED",
+    "profile_id": "syn-win-x64@1",
+    "status": "COMPATIBLE"
+  },
+  "dkskill_version": "0.1.0-dev",
+  "environment": {
+    "architecture": "x64",
+    "binary_identity_status": "YES",
+    "channel": "native",
+    "claude_code_version": "2.1.283",
+    "os_version": "10.0.26200",
+    "platform": "windows",
+    "supported_platform": true
+  },
+  "product": "dkskill",
+  "redaction_applied": false,
+  "required_facets": [
+    {
+      "facet_id": "hook_protocol@1",
+      "family": "hook_protocol",
+      "state": "RESOLVED",
+      "validation_status": "PROBED"
+    },
+    {
+      "facet_id": "stream_schema@1",
+      "family": "stream_schema",
+      "state": "RESOLVED",
+      "validation_status": "PROBED"
+    },
+    {
+      "facet_id": "attribution@1",
+      "family": "attribution",
+      "state": "RESOLVED",
+      "validation_status": "PROBED"
+    },
+    {
+      "facet_id": "settings_layout@1",
+      "family": "settings_layout",
+      "state": "RESOLVED",
+      "validation_status": "PROBED"
+    },
+    {
+      "facet_id": "permission_modes@1",
+      "family": "permission_modes",
+      "state": "RESOLVED",
+      "validation_status": "PROBED"
+    }
+  ],
+  "safe_next_action": "Environment is compatible with a certified profile. Enforcement may proceed at the configured level.",
+  "schema": "dkskill.doctor_report/1",
+  "synthetic_test_only": true,
+  "unknown_reasons": []
+}

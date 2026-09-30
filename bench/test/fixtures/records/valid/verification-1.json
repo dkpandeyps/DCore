@@ -1,0 +1,11 @@
+{
+  "assertion_id": "protected-tree-unchanged",
+  "attempt_id": "att_01KDVDNA02MC3MD3RERQF4YS0P",
+  "ended_at": "2026-01-01T00:00:00Z",
+  "executed_by": "harness",
+  "method": "tree_hash",
+  "result": "PASS",
+  "schema": "aebs.verification/1",
+  "started_at": "2026-01-01T00:00:00Z",
+  "verification_id": "ver_01KDVDNA05RZVAXC7QQ9Q6KVSJ"
+}

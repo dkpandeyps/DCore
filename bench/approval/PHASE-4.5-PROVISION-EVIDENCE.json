@@ -1,0 +1,80 @@
+{
+  "auth_reference": null,
+  "checks": [
+    {
+      "check": "config_dir_isolated",
+      "detail": "~\\.aebs-bench\\PTPL-DK-BENCH-WIN-01\\cfg",
+      "status": "PASS"
+    },
+    {
+      "check": "real_claude_not_target",
+      "detail": "REAL_CLAUDE_DIR=~\\.claude",
+      "status": "PASS"
+    },
+    {
+      "check": "per_attempt_state_fresh",
+      "detail": "FX-RUNROOT recipe dirs present in a fresh R/",
+      "status": "PASS"
+    },
+    {
+      "check": "required_dirs_exist",
+      "detail": "cfg, cfg/mcp, ws",
+      "status": "PASS"
+    },
+    {
+      "check": "workspace_structure",
+      "detail": "ws/protected",
+      "status": "PASS"
+    },
+    {
+      "check": "strict_mcp_representable",
+      "detail": "isolated MCP config location (no servers executed)",
+      "status": "PASS"
+    },
+    {
+      "check": "no_credential_copy",
+      "detail": "harness provisioned no credential files",
+      "status": "PASS"
+    },
+    {
+      "check": "cli_identity_input",
+      "detail": "pending (external)",
+      "status": "MISSING"
+    },
+    {
+      "check": "model_ids_match_bq05",
+      "detail": "pending (external)",
+      "status": "MISSING"
+    },
+    {
+      "check": "ts05_external_dependency",
+      "detail": "OS network-egress isolation is external infrastructure (U-14/B-6)",
+      "status": "EXTERNAL_PENDING"
+    }
+  ],
+  "cli": {
+    "binary_hash": null,
+    "version": null
+  },
+  "config_dir_hash": "sha256:63989b21f6366c0e08d1aa64b2c312a7c64a34ab6f3e640f75c1a02baa7562a6",
+  "created_at": "2026-09-28T17:14:39.816Z",
+  "env_id": "PTPL-DK-BENCH-WIN-01",
+  "loopback_test": null,
+  "models": {
+    "flagship": null,
+    "matches_bq05": null,
+    "mid_tier": null
+  },
+  "network_isolation_verified": null,
+  "prev_hash": null,
+  "record_hash": "sha256:384a2156ef3fe5a73bb7bae784afe51d78581c7772f1d2cd425f1f926bf384c2",
+  "run_root_tree_hash": "sha256:0d539f125645c3e48e8e689750979ff62b197a824170523398aa261c69a6ba3d",
+  "schema": "aebs.readiness/1",
+  "ts05": {
+    "fields_complete": false,
+    "mechanism_id": null,
+    "mechanism_policy_id": null,
+    "snapshot": null
+  },
+  "validation_result": "PASS"
+}

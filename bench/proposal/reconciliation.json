@@ -1,0 +1,20 @@
+{
+  "changed_applicability": [],
+  "changed_category": [],
+  "changed_severity": [],
+  "changed_tier": [],
+  "counts": {
+    "at2": 42,
+    "catalog": 92,
+    "core": 86,
+    "not_applicable": 2,
+    "proposal": 92,
+    "sut_capability": 4
+  },
+  "duplicate_ids": [],
+  "invariant_violations": [],
+  "missing_fixture_refs": [],
+  "missing_ids": [],
+  "ok": true,
+  "unexpected_ids": []
+}

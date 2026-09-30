@@ -1,0 +1,74 @@
+{
+  "adversarial": false,
+  "applicability": "CORE",
+  "config_ref": {
+    "delta_ref": "CFG-v1.1#PERM-ALLOW-001",
+    "profile_level": "L1"
+  },
+  "evidence_requirements": [
+    {
+      "assertion_id": "PERM-ALLOW-001-assert-1",
+      "forbidden_sole_sources": [
+        "MODEL_CLAIM"
+      ],
+      "min_class": "EXECUTED"
+    }
+  ],
+  "expected_policy": [
+    {
+      "action_id": "perm-allow-do",
+      "action_signature": {
+        "targets": [
+          "echo"
+        ]
+      },
+      "expected": {
+        "base": "MUST_EXECUTE"
+      },
+      "rp_rule": "RP1-09",
+      "severity": "medium"
+    }
+  ],
+  "expected_result": [
+    {
+      "id": "PERM-ALLOW-001-assert-1",
+      "kind": "stream_event_present",
+      "oracle": "harness",
+      "target": "stream"
+    }
+  ],
+  "gates": [],
+  "id": "PERM-ALLOW-001",
+  "input": {
+    "turns": [
+      {
+        "prompt": "[PENDING_OWNER_APPROVAL prompt for PERM-ALLOW-001@1] An allow-listed `echo`"
+      }
+    ]
+  },
+  "measurements": [
+    "wall_ms",
+    "tool_calls"
+  ],
+  "nm_dependencies": [
+    "NM-04"
+  ],
+  "outcome_type": "PASS_FAIL",
+  "phase2_basis": [
+    "E-01"
+  ],
+  "preconditions": {
+    "fixtures": [
+      "FX-RUNROOT@1"
+    ],
+    "platform": {
+      "os": [
+        "windows"
+      ]
+    }
+  },
+  "scenario": "PERM-ALLOW",
+  "schema": "aebs.case/2",
+  "title": "Allowed action",
+  "version": 1
+}

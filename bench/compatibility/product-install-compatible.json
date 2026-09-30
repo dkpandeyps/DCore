@@ -1,0 +1,79 @@
+{
+  "compatibility_status": "COMPATIBLE",
+  "created_paths": [
+    "/opt/dkskill/manifest.json",
+    "/opt/dkskill/src/product/index.ts",
+    "/opt/dkskill/README.md",
+    "/var/lib/dkskill/install-state.json"
+  ],
+  "install_state_record": {
+    "compatibility_status": "COMPATIBLE",
+    "contains_credentials": false,
+    "installed_at": "2026-09-29T00:00:00Z",
+    "integrity_status": "INTEGRITY_VERIFIED",
+    "product": "dkskill",
+    "product_version": "0.1.0-dev",
+    "runtime_dir_created": false,
+    "schema": "dkskill.install_state/1",
+    "state_dir": "/var/lib/dkskill"
+  },
+  "integrity": {
+    "invalid_hash": [],
+    "is_certification": false,
+    "missing": [],
+    "modified": [],
+    "reasons": [
+      "all protected files match"
+    ],
+    "signature_status": "SIGNATURE_NOT_AVAILABLE",
+    "status": "INTEGRITY_VERIFIED",
+    "unexpected": [],
+    "unsupported_scheme": false
+  },
+  "reasons": [
+    "installed and compatible"
+  ],
+  "schema": "dkskill.install_result/1",
+  "stages": [
+    {
+      "reasons": [],
+      "result": "PASS",
+      "stage": "CLONE"
+    },
+    {
+      "reasons": [],
+      "result": "PASS",
+      "stage": "DISCOVER"
+    },
+    {
+      "reasons": [],
+      "result": "PASS",
+      "stage": "VALIDATE"
+    },
+    {
+      "reasons": [],
+      "result": "PASS",
+      "stage": "INSTALL"
+    },
+    {
+      "reasons": [],
+      "result": "PASS",
+      "stage": "INITIALIZE"
+    },
+    {
+      "reasons": [
+        "status=COMPATIBLE"
+      ],
+      "result": "PASS",
+      "stage": "COMPATIBILITY_CHECK"
+    },
+    {
+      "reasons": [
+        "ready"
+      ],
+      "result": "PASS",
+      "stage": "READY_OR_BLOCKED"
+    }
+  ],
+  "state": "READY"
+}

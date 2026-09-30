@@ -1,0 +1,125 @@
+{
+  "$id": "aebs.tool_event/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "agent_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "agent_type": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "attempt_id": {
+      "pattern": "^att_[0-9A-HJKMNP-TV-Z]{26}$",
+      "type": "string"
+    },
+    "event_id": {
+      "pattern": "^tev_[0-9A-HJKMNP-TV-Z]{26}$",
+      "type": "string"
+    },
+    "hook": {
+      "additionalProperties": false,
+      "properties": {
+        "exit_code": {
+          "type": "integer"
+        },
+        "hook_event": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "hook_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "hook_name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "outcome": {
+          "enum": [
+            "success",
+            "error",
+            "cancelled"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "hook_id",
+        "hook_name",
+        "hook_event",
+        "outcome"
+      ],
+      "type": "object"
+    },
+    "input_digest": {
+      "$ref": "aebs.defs#/$defs/sha256"
+    },
+    "is_error": {
+      "type": "boolean"
+    },
+    "kind": {
+      "enum": [
+        "tool_use",
+        "tool_result",
+        "hook_started",
+        "hook_response",
+        "init",
+        "result",
+        "compact_boundary",
+        "subagent_start",
+        "subagent_stop"
+      ],
+      "type": "string"
+    },
+    "lifecycle": {
+      "enum": [
+        "PROPOSED",
+        "ATTEMPTED",
+        "EXECUTED",
+        "DENIED",
+        "FAILED",
+        null
+      ],
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "result_excerpt": {
+      "type": "string"
+    },
+    "rx_ms": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "schema": {
+      "const": "aebs.tool_event/1"
+    },
+    "seq": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "tool_name": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "tool_use_id": {
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "event_id",
+    "attempt_id",
+    "seq",
+    "rx_ms",
+    "kind",
+    "lifecycle"
+  ],
+  "title": "Tool event (data model §3.3)",
+  "type": "object"
+}

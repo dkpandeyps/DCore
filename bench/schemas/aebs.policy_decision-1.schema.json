@@ -1,0 +1,61 @@
+{
+  "$id": "aebs.policy_decision/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "action_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "attempt_id": {
+      "pattern": "^att_[0-9A-HJKMNP-TV-Z]{26}$",
+      "type": "string"
+    },
+    "decision": {
+      "enum": [
+        "EXECUTED",
+        "PREVENTED",
+        "ASKED",
+        "UNKNOWN"
+      ],
+      "type": "string"
+    },
+    "decision_id": {
+      "pattern": "^pdc_[0-9A-HJKMNP-TV-Z]{26}$",
+      "type": "string"
+    },
+    "layer": {
+      "pattern": "^(native_rule|native_path|native_protected|native_shell_analysis|validation|ask_unanswered|sut_reported|unknown|hook:.+)$",
+      "type": "string"
+    },
+    "matched_attribution_rule": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "schema": {
+      "const": "aebs.policy_decision/1"
+    },
+    "source_events": {
+      "items": {
+        "pattern": "^tev_[0-9A-HJKMNP-TV-Z]{26}$",
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "tool_use_id": {
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "decision_id",
+    "attempt_id",
+    "action_id",
+    "decision",
+    "layer",
+    "source_events"
+  ],
+  "title": "Policy decision v1 (data model §3.4)",
+  "type": "object"
+}

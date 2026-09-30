@@ -1,0 +1,20 @@
+{
+  "attempt-1.as-major-3": "unknown major version must be rejected (data model §1)",
+  "attempt-2.allow-outcome": "outcome enum (data model §5)",
+  "attempt-2.generic-prevented": "v1.1 splits PREVENTED into SUT/native/other-hook classes",
+  "attempt-2.hg06-triggered": "HG-06 cannot be triggered in v1.1",
+  "attempt-2.sg01-bad-status": "SG-01 status set (revision §8.2)",
+  "calibration-1.bad-result": "calibration result is PASS|FAIL|ERROR; calibration never upgrades a Phase 2 status",
+  "case-2.hg06-gate": "HG-06 is retired in v1.1 (revision §8.4)",
+  "case-2.k-or-n": "expectation outside the vocabulary (D-3)",
+  "case-2.model-claim-allowed": "MODEL_CLAIM is never an acceptable minimum class (data model §2.4)",
+  "case-2.no-signature": "action_signature is required per action (data model §5)",
+  "case-2.unknown-field": "no fields beyond the data model",
+  "case-2.untyped-expectation": "case/2 expectation must be the typed object (data model §5)",
+  "evidence-1.bad-class": "evidence class enum",
+  "failure-1.sg01-hard-gate": "failure/1 hard_gate enum is HG-01..HG-07 (GAP-12)",
+  "metric-1.v11-name": "metric/1 name enum is closed (GAP-02)",
+  "policy_decision-2.hook-id-v1-form": "v1.1 hook layers are hook:sut:*, hook:foreign:* or hook:unattributed",
+  "run-1.vg11": "validity gates are VG-01..VG-10",
+  "tool_event-1.bad-id": "tev_<ulid> identifier format"
+}

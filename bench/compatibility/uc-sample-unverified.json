@@ -1,0 +1,261 @@
+{
+  "attribution": {
+    "facet": null,
+    "in_scope": false,
+    "note": "version outside ATTR_VALID_FOR or no attribution facet => attribution is A9/unknown, table_valid=false; dependent claims unverified. No attr@2.",
+    "real_host": "NOT_VALIDATED",
+    "table_valid_scope": [
+      "2.1.283"
+    ]
+  },
+  "capabilities": [
+    {
+      "capability_id": "CAP-HOOK-PRETOOLUSE-INTERCEPT",
+      "required": true,
+      "safety_critical": true,
+      "satisfied": false,
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "capability_id": "CAP-HOOK-POSTTOOLUSE-INTERCEPT",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "capability_id": "CAP-HOOK-SUBAGENT-INTERCEPT",
+      "required": true,
+      "safety_critical": true,
+      "satisfied": false,
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "capability_id": "CAP-MCP-MATCHER",
+      "required": true,
+      "safety_critical": true,
+      "satisfied": false,
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "capability_id": "CAP-HOOK-DENY-REASON-VISIBLE",
+      "required": true,
+      "safety_critical": true,
+      "satisfied": false,
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "capability_id": "CAP-PERMISSION-PRECEDENCE",
+      "required": true,
+      "safety_critical": true,
+      "satisfied": false,
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "capability_id": "CAP-UPDATEDINPUT-NARROWING",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "capability_id": "CAP-SUBAGENT-TOOL-RESTRICTIONS",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "capability_id": "CAP-SKILL-TOOL-FLAGS",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "capability_id": "CAP-HOOK-ENV-IDENTIFIERS",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "capability_id": "CAP-SETTINGS-PRECEDENCE",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "capability_id": "CAP-MANAGED-SETTINGS",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "capability_id": "CAP-PERMISSION-MODE-CEILING",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "capability_id": "CAP-PROTECTED-PATHS",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "capability_id": "CAP-HOOK-CONCURRENCY",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "capability_id": "CAP-DENY-PRECEDENCE",
+      "required": true,
+      "safety_critical": true,
+      "satisfied": false,
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "capability_id": "CAP-STOP-HOOK",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "capability_id": "CAP-SESSIONSTART-CONTEXT",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "capability_id": "CAP-COMPACTION-CONTEXT",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "capability_id": "CAP-CONFIG-RELOAD",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "capability_id": "CAP-HOOK-HEARTBEAT",
+      "required": true,
+      "safety_critical": true,
+      "satisfied": false,
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "capability_id": "CAP-HOOK-TIMEOUT-FAILOPEN",
+      "required": true,
+      "safety_critical": true,
+      "satisfied": false,
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "capability_id": "CAP-STREAM-SCHEMA",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "capability_id": "CAP-ATTRIBUTION-TEXT",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "capability_id": "CAP-HOST-IDENTITY-DETECT",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "NOT_YET_VALIDATED"
+    }
+  ],
+  "certification_status": null,
+  "enforcement_decision": "ENFORCEMENT_REFUSED",
+  "enforcement_level": "L1",
+  "explanation": "Unverified: this exact environment has no certified evidence yet. UNVERIFIED is NOT unsupported — enforcement is refused (fail closed) until certified.",
+  "facets": [
+    {
+      "facet_id": null,
+      "family": "hook_protocol",
+      "state": "UNRESOLVED",
+      "validation_status": null
+    },
+    {
+      "facet_id": null,
+      "family": "stream_schema",
+      "state": "UNRESOLVED",
+      "validation_status": null
+    },
+    {
+      "facet_id": null,
+      "family": "attribution",
+      "state": "UNRESOLVED",
+      "validation_status": null
+    },
+    {
+      "facet_id": null,
+      "family": "settings_layout",
+      "state": "UNRESOLVED",
+      "validation_status": null
+    },
+    {
+      "facet_id": null,
+      "family": "permission_modes",
+      "state": "UNRESOLVED",
+      "validation_status": null
+    }
+  ],
+  "fail_closed": true,
+  "known": [],
+  "normalized_identity": {
+    "architecture": "x64",
+    "binary_sha256": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+    "channel": "native",
+    "executable_source": null,
+    "platform": "win32",
+    "product": "claude-code",
+    "version": "2.1.999"
+  },
+  "observed_host": {
+    "architecture": "x64",
+    "binary_sha256": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+    "channel": "native",
+    "os": "Windows 11",
+    "os_version": null,
+    "product": "claude-code",
+    "runtime_facet": null,
+    "version": "2.1.999"
+  },
+  "outcome": "UNVERIFIED",
+  "platform": "windows",
+  "profile_id": null,
+  "profile_resolution": "NO_MATCH",
+  "reason_codes": [
+    "PROFILE_NO_MATCH"
+  ],
+  "schema": "dkskill.user_compatibility_result/1",
+  "supported_platform": true,
+  "synthetic_test_only": true,
+  "unknown": [
+    "no exact certified profile for this identity (UNVERIFIED != UNSUPPORTED)",
+    "attribution out of ATTR_VALID_FOR scope => A9/unknown"
+  ],
+  "validation_status": null,
+  "version": 1
+}

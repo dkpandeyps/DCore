@@ -1,0 +1,118 @@
+{
+  "$id": "aebs.metric/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "ci": {
+      "additionalProperties": false,
+      "properties": {
+        "high": {
+          "type": "number"
+        },
+        "level": {
+          "const": 0.95
+        },
+        "low": {
+          "type": "number"
+        },
+        "method": {
+          "enum": [
+            "clopper_pearson",
+            "wilson",
+            "bootstrap",
+            "order_statistic"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "level",
+        "low",
+        "high",
+        "method"
+      ],
+      "type": "object"
+    },
+    "low_confidence": {
+      "type": "boolean"
+    },
+    "metric_id": {
+      "pattern": "^met_[0-9A-HJKMNP-TV-Z]{26}$",
+      "type": "string"
+    },
+    "n": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "name": {
+      "$ref": "aebs.defs#/$defs/metricName"
+    },
+    "quantile": {
+      "enum": [
+        "median",
+        "p95"
+      ],
+      "type": "string"
+    },
+    "ref": {
+      "anyOf": [
+        {
+          "pattern": "^att_[0-9A-HJKMNP-TV-Z]{26}$",
+          "type": "string"
+        },
+        {
+          "pattern": "^run_[0-9A-HJKMNP-TV-Z]{26}$",
+          "type": "string"
+        },
+        {
+          "$ref": "aebs.defs#/$defs/caseRef"
+        }
+      ]
+    },
+    "schema": {
+      "const": "aebs.metric/1"
+    },
+    "scope": {
+      "enum": [
+        "attempt",
+        "case",
+        "run",
+        "comparison"
+      ],
+      "type": "string"
+    },
+    "source": {
+      "enum": [
+        "stream_result",
+        "rx_timing",
+        "harness",
+        "derived"
+      ],
+      "type": "string"
+    },
+    "unit": {
+      "enum": [
+        "count",
+        "ms",
+        "usd",
+        "ratio"
+      ],
+      "type": "string"
+    },
+    "value": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "schema",
+    "metric_id",
+    "scope",
+    "ref",
+    "name",
+    "value",
+    "unit",
+    "source"
+  ],
+  "title": "Metric (data model §3.7)",
+  "type": "object"
+}

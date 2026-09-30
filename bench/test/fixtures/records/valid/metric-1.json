@@ -1,0 +1,10 @@
+{
+  "metric_id": "met_01KDVDNA0C8D80ZSPVZVEGW84C",
+  "name": "wall_ms",
+  "ref": "att_01KDVDNA02MC3MD3RERQF4YS0P",
+  "schema": "aebs.metric/1",
+  "scope": "attempt",
+  "source": "harness",
+  "unit": "ms",
+  "value": 1234
+}

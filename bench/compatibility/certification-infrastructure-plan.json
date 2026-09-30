@@ -1,0 +1,421 @@
+{
+  "audit_hash": "sha256:61a19706fc984134b30f4126b24cb8cbfa94cf426cdd8dc5e25fbeadd34aeb4f",
+  "certified_profiles": 0,
+  "current_workstation_role": "PTPL-DK-BENCH-WIN-01 is NOT a control plane and is not modified; it remains UNVERIFIED",
+  "environment_templates": [
+    {
+      "architecture": "x64",
+      "binary_sha256": null,
+      "channel": "native",
+      "claude_code_version": null,
+      "credentials_isolated": true,
+      "enforcement_boundary": {
+        "boundary_id": "bnd-cert-win-x64",
+        "demonstrates_denied_connectivity": true,
+        "enforcement_actually_enforced": true,
+        "enforcement_identity": "network-egress-enforcer",
+        "establishable": true,
+        "kind": "INFRA_EGRESS",
+        "minimal": true,
+        "requires_overbroad_change": false,
+        "schema": "dkskill.certification_enforcement_boundary/1"
+      },
+      "environment_id": "cert-win-x64",
+      "is_current_workstation": false,
+      "lifecycle_state": "PROVISIONED",
+      "observer": {
+        "enforcement_identity": "network-egress-enforcer",
+        "environment_bound": true,
+        "evidence_path": "observations -> hashed evidence -> EVIDENCE_STORE",
+        "external_to_certified_host": true,
+        "failure_behavior": "unavailable/contradictory observation => BLOCKED (fail closed); never inferred",
+        "freshness_established": true,
+        "identity": "external-control-plane",
+        "is_host_self_report": false,
+        "observation_path": "control-plane observes egress attempts from the certified environment",
+        "observer_id": "obs-external-control-plane",
+        "provenance": "control-plane attestation with environment binding + timestamps",
+        "schema": "dkskill.certification_observer/1",
+        "tamper_evident": true,
+        "trust_plane": "CERTIFICATION_CONTROL_PLANE"
+      },
+      "platform": "windows",
+      "readiness": "REQUIRES_PAID_INFRASTRUCTURE_AUTHORIZATION",
+      "reasons": [
+        "design is valid but real provisioning needs paid infrastructure — STOP pending separate owner confirmation"
+      ],
+      "reproducible_identity": true,
+      "requires_paid_infrastructure": true,
+      "schema": "dkskill.certification_environment/1",
+      "trust_plane": "CERTIFICATION_TEST_ENVIRONMENT"
+    },
+    {
+      "architecture": "arm64",
+      "binary_sha256": null,
+      "channel": "native",
+      "claude_code_version": null,
+      "credentials_isolated": true,
+      "enforcement_boundary": {
+        "boundary_id": "bnd-cert-macos-arm64",
+        "demonstrates_denied_connectivity": true,
+        "enforcement_actually_enforced": true,
+        "enforcement_identity": "network-egress-enforcer",
+        "establishable": true,
+        "kind": "INFRA_EGRESS",
+        "minimal": true,
+        "requires_overbroad_change": false,
+        "schema": "dkskill.certification_enforcement_boundary/1"
+      },
+      "environment_id": "cert-macos-arm64",
+      "is_current_workstation": false,
+      "lifecycle_state": "PROVISIONED",
+      "observer": {
+        "enforcement_identity": "network-egress-enforcer",
+        "environment_bound": true,
+        "evidence_path": "observations -> hashed evidence -> EVIDENCE_STORE",
+        "external_to_certified_host": true,
+        "failure_behavior": "unavailable/contradictory observation => BLOCKED (fail closed); never inferred",
+        "freshness_established": true,
+        "identity": "external-control-plane",
+        "is_host_self_report": false,
+        "observation_path": "control-plane observes egress attempts from the certified environment",
+        "observer_id": "obs-external-control-plane",
+        "provenance": "control-plane attestation with environment binding + timestamps",
+        "schema": "dkskill.certification_observer/1",
+        "tamper_evident": true,
+        "trust_plane": "CERTIFICATION_CONTROL_PLANE"
+      },
+      "platform": "macos",
+      "readiness": "REQUIRES_PAID_INFRASTRUCTURE_AUTHORIZATION",
+      "reasons": [
+        "design is valid but real provisioning needs paid infrastructure — STOP pending separate owner confirmation"
+      ],
+      "reproducible_identity": true,
+      "requires_paid_infrastructure": true,
+      "schema": "dkskill.certification_environment/1",
+      "trust_plane": "CERTIFICATION_TEST_ENVIRONMENT"
+    },
+    {
+      "architecture": "x64",
+      "binary_sha256": null,
+      "channel": "native",
+      "claude_code_version": null,
+      "credentials_isolated": true,
+      "enforcement_boundary": {
+        "boundary_id": "bnd-cert-linux-x64",
+        "demonstrates_denied_connectivity": true,
+        "enforcement_actually_enforced": true,
+        "enforcement_identity": "network-egress-enforcer",
+        "establishable": true,
+        "kind": "INFRA_EGRESS",
+        "minimal": true,
+        "requires_overbroad_change": false,
+        "schema": "dkskill.certification_enforcement_boundary/1"
+      },
+      "environment_id": "cert-linux-x64",
+      "is_current_workstation": false,
+      "lifecycle_state": "PROVISIONED",
+      "observer": {
+        "enforcement_identity": "network-egress-enforcer",
+        "environment_bound": true,
+        "evidence_path": "observations -> hashed evidence -> EVIDENCE_STORE",
+        "external_to_certified_host": true,
+        "failure_behavior": "unavailable/contradictory observation => BLOCKED (fail closed); never inferred",
+        "freshness_established": true,
+        "identity": "external-control-plane",
+        "is_host_self_report": false,
+        "observation_path": "control-plane observes egress attempts from the certified environment",
+        "observer_id": "obs-external-control-plane",
+        "provenance": "control-plane attestation with environment binding + timestamps",
+        "schema": "dkskill.certification_observer/1",
+        "tamper_evident": true,
+        "trust_plane": "CERTIFICATION_CONTROL_PLANE"
+      },
+      "platform": "linux",
+      "readiness": "REQUIRES_PAID_INFRASTRUCTURE_AUTHORIZATION",
+      "reasons": [
+        "design is valid but real provisioning needs paid infrastructure — STOP pending separate owner confirmation"
+      ],
+      "reproducible_identity": true,
+      "requires_paid_infrastructure": true,
+      "schema": "dkskill.certification_environment/1",
+      "trust_plane": "CERTIFICATION_TEST_ENVIRONMENT"
+    }
+  ],
+  "evidence_store": {
+    "environment_binding": true,
+    "freshness_tracking": true,
+    "hashing": "sha256",
+    "retention_policy": "immutable; append-only; private",
+    "schema": "dkskill.certification_evidence_store/1",
+    "secret_free": true,
+    "store_id": "evidence-store-private",
+    "tamper_detection": true,
+    "trust_plane": "EVIDENCE_STORE",
+    "visibility": "PRIVATE"
+  },
+  "infrastructure_status": "DESIGN_VALIDATED",
+  "l4_readiness_current_host": "BLOCKED",
+  "lifecycle": {
+    "destroy_recreate_supported": true,
+    "forbidden_auto_transitions": [
+      {
+        "from": "EVIDENCE_CAPTURED",
+        "reason": "M4 (with owner review) is the certification authority; capture never auto-certifies",
+        "to": "CERTIFIED"
+      },
+      {
+        "from": "EVIDENCE_CAPTURED",
+        "reason": "validation requires M7/M9 checks, not mere capture",
+        "to": "EVIDENCE_VALIDATED"
+      },
+      {
+        "from": "CERTIFIED",
+        "reason": "M5/M6 (signed, owner-authorized) is the publication authority; certification never auto-publishes",
+        "to": "PUBLISHED"
+      }
+    ],
+    "schema": "dkskill.certification_environment_lifecycle/1",
+    "states": [
+      "PROVISIONED",
+      "READY",
+      "PROBING",
+      "EVIDENCE_CAPTURED",
+      "EVIDENCE_VALIDATED",
+      "CERTIFICATION_REVIEW",
+      "CERTIFIED",
+      "PUBLISHED",
+      "REVOKED",
+      "DESTROYED"
+    ]
+  },
+  "m8_state": "EXECUTION_BLOCKED",
+  "m9_state": "UNVERIFIED",
+  "observer_architecture": {
+    "enforcement_identity": "network-egress-enforcer",
+    "environment_bound": true,
+    "evidence_path": "observations -> hashed evidence -> EVIDENCE_STORE",
+    "external_to_certified_host": true,
+    "failure_behavior": "unavailable/contradictory observation => BLOCKED (fail closed); never inferred",
+    "freshness_established": true,
+    "identity": "external-control-plane",
+    "is_host_self_report": false,
+    "observation_path": "control-plane observes egress attempts from the certified environment",
+    "observer_id": "obs-external-control-plane",
+    "provenance": "control-plane attestation with environment binding + timestamps",
+    "schema": "dkskill.certification_observer/1",
+    "tamper_evident": true,
+    "trust_plane": "CERTIFICATION_CONTROL_PLANE"
+  },
+  "plan_id": "dkskill-cert-infra-plan",
+  "provisioning_status": "REQUIRES_PAID_INFRASTRUCTURE_AUTHORIZATION",
+  "public_private_boundary": {
+    "private_items": [
+      "certification credentials",
+      "certification hosts",
+      "observer infrastructure",
+      "private evidence payloads",
+      "internal audit material",
+      "benchmark credentials",
+      "infrastructure secrets",
+      "private network addresses"
+    ],
+    "public_items": [
+      "source code",
+      "capability catalogue",
+      "approved compatibility profiles",
+      "signed public registry",
+      "installation/use instructions"
+    ],
+    "rule": "private material is NEVER placed in the public repository; public compatibility artifacts contain only owner-approved published fields"
+  },
+  "publication": "NONE",
+  "reasons": [
+    "design validated; real provisioning requires separate paid-infrastructure authorization; nothing certified or published; current host unchanged"
+  ],
+  "scale_model": {
+    "audit_retention": "hash-chained audit retained; never rewritten (revocation/correction appends)",
+    "concurrency": "independent environments may certify concurrently; no shared trust plane",
+    "cost_boundaries": "design-only in this phase; real paid infrastructure requires separate owner confirmation (REQUIRES_PAID_INFRASTRUCTURE_AUTHORIZATION)",
+    "credential_isolation": "per-environment ephemeral credentials, never developer/OAuth credentials, never cross-environment",
+    "environment_recreation": "environments are reproducibly provisioned and destroy/recreate on demand",
+    "evidence_retention": "immutable hashed evidence retained privately; public artifacts carry only approved fields",
+    "per_platform_environment": "one dedicated environment per platform (windows/macos/linux); no shared state",
+    "per_version_environment": "one environment per certified Claude Code version/channel facet; no inheritance"
+  },
+  "schema": "dkskill.certification_infrastructure/1",
+  "supported_platforms": [
+    "windows",
+    "macos",
+    "linux"
+  ],
+  "synthetic_test_only": true,
+  "threat_model": [
+    {
+      "control": "independent observer required (M9); self-report rejected",
+      "evidence": "observer independence contract",
+      "failure_behavior": "BLOCKED (never L4)",
+      "residual_risk": "observer collusion (mitigated by trust-boundary separation)",
+      "threat": "host self-attestation treated as independent",
+      "threat_id": "TH-01"
+    },
+    {
+      "control": "test host is untrusted by design; enforcement + observation are external",
+      "evidence": "external enforcement/observation evidence",
+      "failure_behavior": "evidence from a compromised host cannot alone certify; fail closed",
+      "residual_risk": "sophisticated host+observer co-compromise",
+      "threat": "compromised test host",
+      "threat_id": "TH-02"
+    },
+    {
+      "control": "observer distinct from enforcer; tamper-evident, environment-bound",
+      "evidence": "tamper-evident provenance",
+      "failure_behavior": "contradiction/failed integrity => BLOCKED",
+      "residual_risk": "observer+enforcer co-compromise",
+      "threat": "compromised observer",
+      "threat_id": "TH-03"
+    },
+    {
+      "control": "enforcement distinct from observer; controlled denied-test must be observed",
+      "evidence": "controlled-behavior evidence",
+      "failure_behavior": "denial not demonstrable => BLOCKED",
+      "residual_risk": "enforcer+observer collusion",
+      "threat": "compromised enforcement point",
+      "threat_id": "TH-04"
+    },
+    {
+      "control": "freshness required (observed_at/expiry/max_age)",
+      "evidence": "freshness metadata",
+      "failure_behavior": "stale => cannot verify",
+      "residual_risk": "clock skew (bounded)",
+      "threat": "stale evidence",
+      "threat_id": "TH-05"
+    },
+    {
+      "control": "environment binding + freshness + hash chain",
+      "evidence": "nonce/binding + audit chain",
+      "failure_behavior": "replay detected => BLOCKED",
+      "residual_risk": "replay within freshness window (bounded)",
+      "threat": "replayed evidence",
+      "threat_id": "TH-06"
+    },
+    {
+      "control": "sha256 hashing + hash-chained audit",
+      "evidence": "raw+normalized hashes",
+      "failure_behavior": "hash mismatch => BLOCKED",
+      "residual_risk": "hash collision (negligible)",
+      "threat": "tampered evidence",
+      "threat_id": "TH-07"
+    },
+    {
+      "control": "exact binary SHA-256 (M8 EP-03)",
+      "evidence": "binary identity evidence",
+      "failure_behavior": "mismatch => HARD STOP",
+      "residual_risk": "supply-chain of the pinned binary (out of scope)",
+      "threat": "wrong Claude binary",
+      "threat_id": "TH-08"
+    },
+    {
+      "control": "exact version (M8 EP-02)",
+      "evidence": "version identity",
+      "failure_behavior": "mismatch => HARD STOP",
+      "residual_risk": "none material",
+      "threat": "wrong version",
+      "threat_id": "TH-09"
+    },
+    {
+      "control": "exact platform (M8 EP-04); no cross-platform inference",
+      "evidence": "platform identity",
+      "failure_behavior": "mismatch => HARD STOP",
+      "residual_risk": "none material",
+      "threat": "wrong platform",
+      "threat_id": "TH-10"
+    },
+    {
+      "control": "exact architecture (M8 EP-05)",
+      "evidence": "arch identity",
+      "failure_behavior": "mismatch => HARD STOP",
+      "residual_risk": "none material",
+      "threat": "wrong architecture",
+      "threat_id": "TH-11"
+    },
+    {
+      "control": "no secrets persisted; secret-free evidence store",
+      "evidence": "secret scan",
+      "failure_behavior": "secret detected => reject/redact, fail closed",
+      "residual_risk": "out-of-band leakage (process hygiene)",
+      "threat": "credential leakage",
+      "threat_id": "TH-12"
+    },
+    {
+      "control": "per-environment isolated credentials; no copying",
+      "evidence": "credential isolation record",
+      "failure_behavior": "reuse detected => BLOCKED",
+      "residual_risk": "operator error (procedural)",
+      "threat": "cross-environment credential reuse",
+      "threat_id": "TH-13"
+    },
+    {
+      "control": "signed, immutable, hash-chained registry (M6)",
+      "evidence": "signature + hash chain",
+      "failure_behavior": "tamper => rejected",
+      "residual_risk": "signing-key compromise (key mgmt)",
+      "threat": "registry tampering",
+      "threat_id": "TH-14"
+    },
+    {
+      "control": "M5/M6 owner-authorized signed publication only",
+      "evidence": "authorization + signature",
+      "failure_behavior": "unauthorized => rejected",
+      "residual_risk": "authority key compromise",
+      "threat": "unauthorized publication",
+      "threat_id": "TH-15"
+    },
+    {
+      "control": "environment binding + reproducible identity",
+      "evidence": "environment id binding",
+      "failure_behavior": "mismatch => BLOCKED",
+      "residual_risk": "identity spoofing (mitigated by binding)",
+      "threat": "environment substitution",
+      "threat_id": "TH-16"
+    },
+    {
+      "control": "synthetic_test_only flag; M5 PG-13 / M6 GG-18 reject synthetic",
+      "evidence": "synthetic flag propagation",
+      "failure_behavior": "synthetic => cannot publish",
+      "residual_risk": "flag stripping (guarded by tests)",
+      "threat": "synthetic evidence accidentally promoted",
+      "threat_id": "TH-17"
+    },
+    {
+      "control": "only M9 L4 independent verification; inference rejected",
+      "evidence": "independent verification",
+      "failure_behavior": "inference => UNVERIFIED",
+      "residual_risk": "observer collusion",
+      "threat": "network isolation falsely inferred",
+      "threat_id": "TH-18"
+    },
+    {
+      "control": "M0/M3 states preserved; UNKNOWN never upgraded",
+      "evidence": "capability state records",
+      "failure_behavior": "unknown => not verified",
+      "residual_risk": "none material",
+      "threat": "unknown capability treated as verified",
+      "threat_id": "TH-19"
+    }
+  ],
+  "trust_planes": [
+    "CERTIFICATION_CONTROL_PLANE",
+    "CERTIFICATION_TEST_ENVIRONMENT",
+    "EVIDENCE_STORE",
+    "REGISTRY_PUBLICATION_CONTROL"
+  ],
+  "version": 1,
+  "version_matrix_policy": {
+    "no_architecture_inheritance": true,
+    "no_channel_inheritance": true,
+    "no_platform_inheritance": true,
+    "no_version_inheritance": true,
+    "rule": "one certified facet = one independently evidenced identity; no 2.1.283->2.1.284, Windows->macOS, macOS->Linux, or x64->arm64 inheritance without a future owner-approved rule"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "adversarial": false,
+  "applicability": "CORE",
+  "config_ref": {
+    "delta_ref": "CFG-v1.1#HOOK-RELOAD-001",
+    "profile_level": "REP"
+  },
+  "evidence_requirements": [
+    {
+      "assertion_id": "HOOK-RELOAD-001-assert-1",
+      "forbidden_sole_sources": [
+        "MODEL_CLAIM"
+      ],
+      "min_class": "OBSERVED"
+    }
+  ],
+  "expected_policy": [],
+  "expected_result": [
+    {
+      "id": "HOOK-RELOAD-001-assert-1",
+      "kind": "stream_event_present",
+      "oracle": "harness",
+      "target": "stream"
+    }
+  ],
+  "gates": [],
+  "id": "HOOK-RELOAD-001",
+  "input": {
+    "turns": [
+      {
+        "prompt": "[PENDING_OWNER_APPROVAL prompt for HOOK-RELOAD-001@2] The harness edits the hook configuration between turns"
+      }
+    ]
+  },
+  "measurements": [
+    "wall_ms",
+    "tool_calls"
+  ],
+  "nm_dependencies": [
+    "NM-18"
+  ],
+  "outcome_type": "PASS_FAIL",
+  "phase2_basis": [
+    "E-09"
+  ],
+  "preconditions": {
+    "fixtures": [
+      "FX-HOOKS@2",
+      "FX-RUNROOT@1"
+    ],
+    "platform": {
+      "os": [
+        "windows"
+      ]
+    }
+  },
+  "scenario": "HOOK-RELOAD",
+  "schema": "aebs.case/2",
+  "title": "Mid-session reload",
+  "version": 2
+}

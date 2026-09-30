@@ -1,0 +1,591 @@
+{
+  "assessment_id": "path-path-req",
+  "audit_hash": "sha256:dc3aaec119be38b71ab32f692889a6d373d6270212781f7d322f89d3c9ebb6f8",
+  "contradictions": [],
+  "current_real_achieved_level": "L0",
+  "current_real_independence_satisfied": false,
+  "current_real_network_isolation": "UNVERIFIED",
+  "environment_id": "PTPL-DK-BENCH-WIN-01",
+  "evidence_classes_assessed": [
+    "INDEPENDENT_OBSERVER"
+  ],
+  "evidence_plan": {
+    "contradiction_handling": "any leak/unknown-traffic during the test fails closed",
+    "controlled_test": "a controlled outbound-connection attempt that is observed to be denied by the independent observer",
+    "enforcement_mechanism": "egress policy actually enforced (not merely configured)",
+    "evidence_artifacts": [
+      "independent observer attestation",
+      "controlled-test transcript (metadata only)",
+      "enforcement-state observation"
+    ],
+    "expected_observations": [
+      "denied outbound attempt observed independently",
+      "no successful egress",
+      "enforcement confirmed active at test time"
+    ],
+    "freshness": "observed_at + expiry; stale/expired cannot verify",
+    "hashing": "raw + normalized SHA-256; hash-chained audit",
+    "hypothetical": true,
+    "independent_observer": "an observer that is NOT the enforcer and NOT the host self-report (external control plane / hypervisor host / separate observer environment)",
+    "isolation_boundary": "outbound-deny at an enforcement point outside the observed process (infrastructure, hypervisor, or dedicated host)",
+    "m8_consumption": "only a genuine M9 VERIFIED result may satisfy M8 EP-13; a further explicit M8 authorization and full preflight are still required",
+    "m9_validation": "submit as an M9 INDEPENDENT_VERIFICATION observation; M9 runVerification decides VERIFIED (L4) — never weakened",
+    "prerequisite_environment": "a dedicated environment with an enforced egress-deny boundary, provisioned under a separate owner authorization",
+    "provenance": "who/what/when/where/how, bound to environment + profile, verifier identity recorded",
+    "requires_new_owner_authorization": true,
+    "schema": "dkskill.network_isolation_path_evidence_plan/1",
+    "steps": [
+      {
+        "detail": "obtain a new explicit owner authorization for environment provisioning + evidence acquisition",
+        "step": "1. authorize"
+      },
+      {
+        "detail": "provision the enforced egress-deny boundary + independent observer (separate authorization)",
+        "step": "2. provision"
+      },
+      {
+        "detail": "run a controlled denied-connection test observed independently",
+        "step": "3. controlled test"
+      },
+      {
+        "detail": "collect independent attestation + enforcement observation (secret-safe, hashed)",
+        "step": "4. collect"
+      },
+      {
+        "detail": "run M9 verification; only genuine L4 yields VERIFIED",
+        "step": "5. M9 validate"
+      },
+      {
+        "detail": "if VERIFIED, a separate M8 authorization + preflight may then be sought",
+        "step": "6. M8 gate"
+      }
+    ]
+  },
+  "future_authorizations_required": [
+    "OPT-DEDICATED-MACHINE: provision dedicated isolated machine (REQUIRES_SEPARATE_AUTHORIZATION)",
+    "OPT-DEDICATED-MACHINE: provision independent verifier (REQUIRES_SEPARATE_AUTHORIZATION)",
+    "OPT-EXT-EGRESS: provision independent control plane (REQUIRES_SEPARATE_AUTHORIZATION)",
+    "OPT-EXT-EGRESS: provision infrastructure egress policy (REQUIRES_SEPARATE_AUTHORIZATION)",
+    "OPT-HOST-PLUS-OBSERVER: configure host outbound-deny (REQUIRES_SEPARATE_AUTHORIZATION)",
+    "OPT-HOST-PLUS-OBSERVER: provision an independent observer (REQUIRES_SEPARATE_AUTHORIZATION)",
+    "OPT-HYPERVISOR: provision VM with no egress (REQUIRES_SEPARATE_AUTHORIZATION)",
+    "OPT-HYPERVISOR: provision hypervisor-side observer (REQUIRES_SEPARATE_AUTHORIZATION)",
+    "OPT-NETNS-SANDBOX: provision independent observer of the sandbox (REQUIRES_SEPARATE_AUTHORIZATION)",
+    "OPT-NETNS-SANDBOX: provision sandbox (REQUIRES_SEPARATE_AUTHORIZATION)",
+    "OPT-SEPARATE-OBSERVER: provision enforcement boundary (REQUIRES_SEPARATE_AUTHORIZATION)",
+    "OPT-SEPARATE-OBSERVER: provision separate observer environment (REQUIRES_SEPARATE_AUTHORIZATION)",
+    "REQ-04: close \"no isolation boundary exists\" (REQUIRES_SEPARATE_AUTHORIZATION)",
+    "REQ-06: close \"enforcement point must be provisioned\" (REQUIRES_SEPARATE_AUTHORIZATION)",
+    "REQ-21: close \"a controlled denied-connection test must be observed\" (REQUIRES_SEPARATE_AUTHORIZATION)",
+    "REQ-22: close \"enforcement (not mere configuration) must be demonstrated\" (REQUIRES_SEPARATE_AUTHORIZATION)"
+  ],
+  "gap_matrix": [
+    {
+      "blocking": true,
+      "can_m11_close": false,
+      "current_evidence": "no outbound-deny policy observed (M10)",
+      "current_level": "L0",
+      "future_authorization_required": true,
+      "gap": "no isolation boundary exists",
+      "required_evidence": "a defined boundary at which egress is denied",
+      "requirement": "isolation boundary",
+      "requirement_id": "REQ-04",
+      "schema": "dkskill.network_isolation_path_gap/1"
+    },
+    {
+      "blocking": true,
+      "can_m11_close": false,
+      "current_evidence": "no enforcement point present",
+      "current_level": "L0",
+      "future_authorization_required": true,
+      "gap": "enforcement point must be provisioned",
+      "required_evidence": "the point where denial is enforced",
+      "requirement": "enforcement point",
+      "requirement_id": "REQ-06",
+      "schema": "dkskill.network_isolation_path_gap/1"
+    },
+    {
+      "blocking": false,
+      "can_m11_close": false,
+      "current_evidence": "independent observer available",
+      "current_level": "L4",
+      "future_authorization_required": true,
+      "gap": "none",
+      "required_evidence": "the observer is not the enforcer/self",
+      "requirement": "observation independence",
+      "requirement_id": "REQ-08",
+      "schema": "dkskill.network_isolation_path_gap/1"
+    },
+    {
+      "blocking": false,
+      "can_m11_close": false,
+      "current_evidence": "independent-class source present",
+      "current_level": "L4",
+      "future_authorization_required": true,
+      "gap": "must be fresh + enforcement-demonstrated",
+      "required_evidence": "independent verifier or external control plane",
+      "requirement": "external observer or equivalent",
+      "requirement_id": "REQ-10",
+      "schema": "dkskill.network_isolation_path_gap/1"
+    },
+    {
+      "blocking": true,
+      "can_m11_close": false,
+      "current_evidence": "no denied-connection test observed",
+      "current_level": "L0",
+      "future_authorization_required": true,
+      "gap": "a controlled denied-connection test must be observed",
+      "required_evidence": "a real denied attempt is observed",
+      "requirement": "demonstrate denied connectivity",
+      "requirement_id": "REQ-21",
+      "schema": "dkskill.network_isolation_path_gap/1"
+    },
+    {
+      "blocking": true,
+      "can_m11_close": false,
+      "current_evidence": "denial not demonstrated as enforced",
+      "current_level": "L0",
+      "future_authorization_required": true,
+      "gap": "enforcement (not mere configuration) must be demonstrated",
+      "required_evidence": "the denial is actually enforced, not just configured",
+      "requirement": "demonstrate denial is enforced",
+      "requirement_id": "REQ-22",
+      "schema": "dkskill.network_isolation_path_gap/1"
+    },
+    {
+      "blocking": false,
+      "can_m11_close": false,
+      "current_evidence": "environment matches PTPL-DK-BENCH-WIN-01",
+      "current_level": "L1",
+      "future_authorization_required": false,
+      "gap": "none",
+      "required_evidence": "exact PTPL-DK-BENCH-WIN-01 identity",
+      "requirement": "environment identity",
+      "requirement_id": "REQ-01",
+      "schema": "dkskill.network_isolation_path_gap/1"
+    },
+    {
+      "blocking": false,
+      "can_m11_close": false,
+      "current_evidence": "profile matches",
+      "current_level": "L1",
+      "future_authorization_required": false,
+      "gap": "none",
+      "required_evidence": "cc-2.1.283-win32-x64-native@1",
+      "requirement": "exact target profile",
+      "requirement_id": "REQ-02",
+      "schema": "dkskill.network_isolation_path_gap/1"
+    }
+  ],
+  "independence_findings": [
+    {
+      "can_contribute_to_l4": true,
+      "freshness": "FRESH",
+      "independence_class": "INDEPENDENT_OBSERVER",
+      "note": "independent + fresh + enforcement-demonstrated: can contribute to L4",
+      "source_id": "indep",
+      "supportable_level": "L4"
+    }
+  ],
+  "limitations": [
+    "M11 is assessment/design only; it changes nothing and verifies nothing. The current real environment remains UNVERIFIED / L0."
+  ],
+  "m8_state_observed": "EXECUTION_BLOCKED (STOP-NETWORK-UNVERIFIED)",
+  "m9_state_observed": "UNVERIFIED",
+  "options": [
+    {
+      "additional_evidence_for_l4": [
+        "fresh independent attestation bound to this environment",
+        "controlled denied-connection test observed by the independent plane"
+      ],
+      "architecture": "network/infrastructure enforces outbound-deny; a separate control plane independently observes and attests enforcement",
+      "authorization": "REQUIRES_SEPARATE_AUTHORIZATION",
+      "coexists_with_benchmark_isolation": true,
+      "controls_enforcement": "infrastructure operator",
+      "enforcement_point": "network/infrastructure egress",
+      "evidence_produced": "independently attested denied-egress observations",
+      "false_positive_risks": [
+        "attestation actually produced by the enforcer itself (not independent)",
+        "stale attestation replayed"
+      ],
+      "m9_level_supported": "L4",
+      "name": "infrastructure-level egress policy with independent observation",
+      "observation_point": "external control plane / independent collector",
+      "observer_independent": true,
+      "observes_enforcement": "independent control plane",
+      "option_id": "OPT-EXT-EGRESS",
+      "path_status": "FEASIBLE_WITH_PREREQUISITES",
+      "prerequisites": [
+        "provision infrastructure egress policy",
+        "provision independent control plane"
+      ],
+      "requires_config_change": true,
+      "requires_external_infra": true,
+      "schema": "dkskill.network_isolation_path_option/1",
+      "unresolved_gaps": [
+        "no such infrastructure present on the current host"
+      ]
+    },
+    {
+      "additional_evidence_for_l4": [
+        "host observer attestation bound to the guest environment",
+        "controlled test from guest observed denied by host"
+      ],
+      "architecture": "guest VM has no egress; the hypervisor host independently observes the guest has no outbound path",
+      "authorization": "REQUIRES_SEPARATE_AUTHORIZATION",
+      "coexists_with_benchmark_isolation": true,
+      "controls_enforcement": "hypervisor",
+      "enforcement_point": "hypervisor virtual network",
+      "evidence_produced": "host-observed guest egress denial",
+      "false_positive_risks": [
+        "guest self-report mistaken for host observation"
+      ],
+      "m9_level_supported": "L4",
+      "name": "hypervisor / VM-level network isolation with independent host observer",
+      "observation_point": "hypervisor host (outside the guest)",
+      "observer_independent": true,
+      "observes_enforcement": "hypervisor host observer",
+      "option_id": "OPT-HYPERVISOR",
+      "path_status": "FEASIBLE_WITH_PREREQUISITES",
+      "prerequisites": [
+        "provision VM with no egress",
+        "provision hypervisor-side observer"
+      ],
+      "requires_config_change": true,
+      "requires_external_infra": true,
+      "schema": "dkskill.network_isolation_path_option/1",
+      "unresolved_gaps": [
+        "current environment is not a guest under an observing hypervisor"
+      ]
+    },
+    {
+      "additional_evidence_for_l4": [
+        "independent observer (not the host) attests denial",
+        "outbound-deny policy actually enforced"
+      ],
+      "architecture": "host firewall denies outbound; a separate, independent observer confirms denial",
+      "authorization": "REQUIRES_SEPARATE_AUTHORIZATION",
+      "coexists_with_benchmark_isolation": true,
+      "controls_enforcement": "host admin",
+      "enforcement_point": "host firewall (outbound-deny)",
+      "evidence_produced": "independently confirmed host egress denial",
+      "false_positive_risks": [
+        "host self-inspection substituted for the independent observer",
+        "firewall configured but not enforced"
+      ],
+      "m9_level_supported": "L4",
+      "name": "host-level enforcement combined with an independent observation point",
+      "observation_point": "independent observer outside the host",
+      "observer_independent": true,
+      "observes_enforcement": "independent observer",
+      "option_id": "OPT-HOST-PLUS-OBSERVER",
+      "path_status": "BLOCKED_BY_REQUIRED_CONFIGURATION_CHANGE",
+      "prerequisites": [
+        "configure host outbound-deny",
+        "provision an independent observer"
+      ],
+      "requires_config_change": true,
+      "requires_external_infra": true,
+      "schema": "dkskill.network_isolation_path_option/1",
+      "unresolved_gaps": [
+        "no independent observer present",
+        "no outbound-deny policy present"
+      ]
+    },
+    {
+      "additional_evidence_for_l4": [
+        "an INDEPENDENT observer of the sandbox (not the sandbox self-report)"
+      ],
+      "architecture": "process runs in a sandbox/namespace with no egress; independence depends on who observes it",
+      "authorization": "REQUIRES_SEPARATE_AUTHORIZATION",
+      "coexists_with_benchmark_isolation": true,
+      "controls_enforcement": "sandbox runtime",
+      "enforcement_point": "namespace/sandbox network",
+      "evidence_produced": "process-scoped egress denial",
+      "false_positive_risks": [
+        "sandbox self-report treated as independent",
+        "scope broadened from PROCESS_ONLY to HOST_ONLY"
+      ],
+      "m9_level_supported": "L3",
+      "name": "controlled network namespace / sandbox boundary",
+      "observation_point": "depends (self vs external)",
+      "observer_independent": false,
+      "observes_enforcement": "undetermined — must be independent",
+      "option_id": "OPT-NETNS-SANDBOX",
+      "path_status": "BLOCKED_BY_MISSING_INDEPENDENT_OBSERVER",
+      "prerequisites": [
+        "provision sandbox",
+        "provision independent observer of the sandbox"
+      ],
+      "requires_config_change": true,
+      "requires_external_infra": false,
+      "schema": "dkskill.network_isolation_path_option/1",
+      "unresolved_gaps": [
+        "no independent observer of the sandbox",
+        "scope is process-only, not host-only"
+      ]
+    },
+    {
+      "additional_evidence_for_l4": [
+        "a real enforcement boundary to observe",
+        "controlled denied-connection test"
+      ],
+      "architecture": "a dedicated observer environment watches the target’s egress from outside",
+      "authorization": "REQUIRES_SEPARATE_AUTHORIZATION",
+      "coexists_with_benchmark_isolation": true,
+      "controls_enforcement": "undetermined",
+      "enforcement_point": "must exist elsewhere",
+      "evidence_produced": "independent observation of egress attempts",
+      "false_positive_risks": [
+        "observing an environment that is not actually the target",
+        "no enforcement to observe"
+      ],
+      "m9_level_supported": "L4",
+      "name": "separate observer environment",
+      "observation_point": "separate observer environment",
+      "observer_independent": true,
+      "observes_enforcement": "separate observer",
+      "option_id": "OPT-SEPARATE-OBSERVER",
+      "path_status": "BLOCKED_BY_ENVIRONMENT",
+      "prerequisites": [
+        "provision enforcement boundary",
+        "provision separate observer environment"
+      ],
+      "requires_config_change": true,
+      "requires_external_infra": true,
+      "schema": "dkskill.network_isolation_path_option/1",
+      "unresolved_gaps": [
+        "no enforcement boundary present to observe"
+      ]
+    },
+    {
+      "additional_evidence_for_l4": [
+        "fresh independent verification bound to the dedicated environment",
+        "controlled test showing enforced denial"
+      ],
+      "architecture": "a dedicated machine with enforced no-egress plus an independent verifier",
+      "authorization": "REQUIRES_SEPARATE_AUTHORIZATION",
+      "coexists_with_benchmark_isolation": true,
+      "controls_enforcement": "environment owner",
+      "enforcement_point": "dedicated machine network boundary",
+      "evidence_produced": "independently verified no-egress on a dedicated machine",
+      "false_positive_risks": [
+        "reusing the current non-isolated host",
+        "self-attestation"
+      ],
+      "m9_level_supported": "L4",
+      "name": "dedicated isolated machine/environment",
+      "observation_point": "independent verifier",
+      "observer_independent": true,
+      "observes_enforcement": "independent verifier",
+      "option_id": "OPT-DEDICATED-MACHINE",
+      "path_status": "FEASIBLE_WITH_PREREQUISITES",
+      "prerequisites": [
+        "provision dedicated isolated machine",
+        "provision independent verifier"
+      ],
+      "requires_config_change": true,
+      "requires_external_infra": true,
+      "schema": "dkskill.network_isolation_path_option/1",
+      "unresolved_gaps": [
+        "current host is not a dedicated isolated machine"
+      ]
+    }
+  ],
+  "path_status": "FEASIBLE_WITH_PREREQUISITES",
+  "reasons": [
+    "path_status=FEASIBLE_WITH_PREREQUISITES"
+  ],
+  "requirements": [
+    {
+      "category": "binding",
+      "description": "exact PTPL-DK-BENCH-WIN-01 identity",
+      "name": "environment identity",
+      "required_for_l4": true,
+      "requirement_id": "REQ-01",
+      "schema": "dkskill.network_isolation_path_requirement/1"
+    },
+    {
+      "category": "binding",
+      "description": "cc-2.1.283-win32-x64-native@1",
+      "name": "exact target profile",
+      "required_for_l4": true,
+      "requirement_id": "REQ-02",
+      "schema": "dkskill.network_isolation_path_requirement/1"
+    },
+    {
+      "category": "binding",
+      "description": "exact host/platform/arch",
+      "name": "host/platform binding",
+      "required_for_l4": true,
+      "requirement_id": "REQ-03",
+      "schema": "dkskill.network_isolation_path_requirement/1"
+    },
+    {
+      "category": "enforcement",
+      "description": "a defined boundary at which egress is denied",
+      "name": "isolation boundary",
+      "required_for_l4": true,
+      "requirement_id": "REQ-04",
+      "schema": "dkskill.network_isolation_path_requirement/1"
+    },
+    {
+      "category": "enforcement",
+      "description": "an authority that controls the boundary",
+      "name": "network-control authority",
+      "required_for_l4": true,
+      "requirement_id": "REQ-05",
+      "schema": "dkskill.network_isolation_path_requirement/1"
+    },
+    {
+      "category": "enforcement",
+      "description": "the point where denial is enforced",
+      "name": "enforcement point",
+      "required_for_l4": true,
+      "requirement_id": "REQ-06",
+      "schema": "dkskill.network_isolation_path_requirement/1"
+    },
+    {
+      "category": "observation",
+      "description": "a source that observes enforcement",
+      "name": "observation source",
+      "required_for_l4": true,
+      "requirement_id": "REQ-07",
+      "schema": "dkskill.network_isolation_path_requirement/1"
+    },
+    {
+      "category": "observation",
+      "description": "the observer is not the enforcer/self",
+      "name": "observation independence",
+      "required_for_l4": true,
+      "requirement_id": "REQ-08",
+      "schema": "dkskill.network_isolation_path_requirement/1"
+    },
+    {
+      "category": "observation",
+      "description": "ability to attempt and observe a denied connection",
+      "name": "controlled test capability",
+      "required_for_l4": true,
+      "requirement_id": "REQ-09",
+      "schema": "dkskill.network_isolation_path_requirement/1"
+    },
+    {
+      "category": "observation",
+      "description": "independent verifier or external control plane",
+      "name": "external observer or equivalent",
+      "required_for_l4": true,
+      "requirement_id": "REQ-10",
+      "schema": "dkskill.network_isolation_path_requirement/1"
+    },
+    {
+      "category": "evidence",
+      "description": "who/what/when/where/how",
+      "name": "evidence provenance",
+      "required_for_l4": true,
+      "requirement_id": "REQ-11",
+      "schema": "dkskill.network_isolation_path_requirement/1"
+    },
+    {
+      "category": "evidence",
+      "description": "fresh, non-stale, non-expired",
+      "name": "evidence freshness",
+      "required_for_l4": true,
+      "requirement_id": "REQ-12",
+      "schema": "dkskill.network_isolation_path_requirement/1"
+    },
+    {
+      "category": "evidence",
+      "description": "hash-chained, tamper-detectable",
+      "name": "tamper evidence",
+      "required_for_l4": true,
+      "requirement_id": "REQ-13",
+      "schema": "dkskill.network_isolation_path_requirement/1"
+    },
+    {
+      "category": "evidence",
+      "description": "material contradiction fails closed",
+      "name": "contradiction handling",
+      "required_for_l4": true,
+      "requirement_id": "REQ-14",
+      "schema": "dkskill.network_isolation_path_requirement/1"
+    },
+    {
+      "category": "binding",
+      "description": "evidence bound to this environment",
+      "name": "environment binding of evidence",
+      "required_for_l4": true,
+      "requirement_id": "REQ-15",
+      "schema": "dkskill.network_isolation_path_requirement/1"
+    },
+    {
+      "category": "binding",
+      "description": "claim never exceeds proven scope",
+      "name": "scope binding",
+      "required_for_l4": true,
+      "requirement_id": "REQ-16",
+      "schema": "dkskill.network_isolation_path_requirement/1"
+    },
+    {
+      "category": "evidence",
+      "description": "evidence cannot be replayed to fake current state",
+      "name": "replay resistance",
+      "required_for_l4": false,
+      "requirement_id": "REQ-17",
+      "schema": "dkskill.network_isolation_path_requirement/1"
+    },
+    {
+      "category": "safety",
+      "description": "no secret persisted",
+      "name": "secret safety",
+      "required_for_l4": true,
+      "requirement_id": "REQ-18",
+      "schema": "dkskill.network_isolation_path_requirement/1"
+    },
+    {
+      "category": "independence",
+      "description": "self-report alone insufficient",
+      "name": "no self-attestation as sole proof",
+      "required_for_l4": true,
+      "requirement_id": "REQ-19",
+      "schema": "dkskill.network_isolation_path_requirement/1"
+    },
+    {
+      "category": "independence",
+      "description": "absence of connections is not proof",
+      "name": "no inferred isolation",
+      "required_for_l4": true,
+      "requirement_id": "REQ-20",
+      "schema": "dkskill.network_isolation_path_requirement/1"
+    },
+    {
+      "category": "behavior",
+      "description": "a real denied attempt is observed",
+      "name": "demonstrate denied connectivity",
+      "required_for_l4": true,
+      "requirement_id": "REQ-21",
+      "schema": "dkskill.network_isolation_path_requirement/1"
+    },
+    {
+      "category": "behavior",
+      "description": "the denial is actually enforced, not just configured",
+      "name": "demonstrate denial is enforced",
+      "required_for_l4": true,
+      "requirement_id": "REQ-22",
+      "schema": "dkskill.network_isolation_path_requirement/1"
+    },
+    {
+      "category": "independence",
+      "description": "host self-report != independent",
+      "name": "distinguish self-report from independent observation",
+      "required_for_l4": true,
+      "requirement_id": "REQ-23",
+      "schema": "dkskill.network_isolation_path_requirement/1"
+    }
+  ],
+  "schema": "dkskill.network_isolation_path_assessment/1",
+  "supportable_level": "L4",
+  "synthetic_test_only": true,
+  "target_profile_id": "cc-2.1.283-win32-x64-native@1",
+  "version": 1,
+  "would_support_l4": true
+}

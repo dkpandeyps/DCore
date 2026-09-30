@@ -1,0 +1,136 @@
+{
+  "achieved_level": "L0",
+  "architecture": "x64",
+  "audit_hash": "sha256:586b2c97a13a757d85bb96f21b312193e9cfb4d9fad16e93b9bd7fecce574bb9",
+  "contradictions": [],
+  "environment_id": "PTPL-DK-BENCH-WIN-01",
+  "evidence_hashes": [
+    "sha256:19dbd2087c669ecabd6509cd66263b4077e64644a7ef5a50213e6e569626b46d"
+  ],
+  "evidence_items": [
+    {
+      "applicable": true,
+      "evidence_id": "evi_l4-stale",
+      "freshness": "STALE",
+      "in_scope": true,
+      "normalized_hash": "sha256:19dbd2087c669ecabd6509cd66263b4077e64644a7ef5a50213e6e569626b46d",
+      "observation": {
+        "architecture": "x64",
+        "claim": "SYNTHETIC_TEST_ONLY INDEPENDENT_VERIFICATION observation",
+        "collection_method": "synthetic",
+        "environment_id": "PTPL-DK-BENCH-WIN-01",
+        "evidence_class": "INDEPENDENT_VERIFICATION",
+        "expires_at": null,
+        "host_id": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+        "level": "L4",
+        "limitations": [],
+        "max_age_ms": 3600000,
+        "mechanism": "EXTERNAL_CONNECTION_ATTEMPTS",
+        "observation_id": "l4-stale",
+        "observed_at": "2026-09-01T00:00:00Z",
+        "os": "Windows 11",
+        "result": "OBSERVED",
+        "revoked": false,
+        "schema": "dkskill.network_isolation_observation/1",
+        "scope": "OUTBOUND_DENY",
+        "signal": "ISOLATION_SUPPORTING",
+        "source": "synthetic-source",
+        "source_type": "INDEPENDENT",
+        "verifier": "SYNTHETIC-VERIFIER"
+      },
+      "raw_hash": "sha256:65b9cf967508146472675b54c393dcb14ef525c23d9c916770ebc9ed42fbe938",
+      "schema": "dkskill.network_isolation_evidence/1"
+    }
+  ],
+  "freshness_state": "STALE",
+  "host_identity": {
+    "architecture": "x64",
+    "binary_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+    "channel": "native",
+    "executable_source": "native",
+    "platform": "win32",
+    "product": "claude-code",
+    "version": "2.1.283"
+  },
+  "limitations": [
+    "No L4 independent verification present; host-level network isolation remains UNVERIFIED."
+  ],
+  "mechanisms_evaluated": [
+    {
+      "mechanism": "WINDOWS_FIREWALL_STATE",
+      "note": "not independently observed; requires future authorized read-only collection",
+      "result": "UNKNOWN"
+    },
+    {
+      "mechanism": "FIREWALL_PROFILES",
+      "note": "not independently observed; requires future authorized read-only collection",
+      "result": "UNKNOWN"
+    },
+    {
+      "mechanism": "EFFECTIVE_FIREWALL_RULES",
+      "note": "not independently observed; requires future authorized read-only collection",
+      "result": "UNKNOWN"
+    },
+    {
+      "mechanism": "NETWORK_ADAPTER_STATE",
+      "note": "not independently observed; requires future authorized read-only collection",
+      "result": "UNKNOWN"
+    },
+    {
+      "mechanism": "ROUTING_STATE",
+      "note": "not independently observed; requires future authorized read-only collection",
+      "result": "UNKNOWN"
+    },
+    {
+      "mechanism": "ACTIVE_CONNECTIONS",
+      "note": "not independently observed; requires future authorized read-only collection",
+      "result": "UNKNOWN"
+    },
+    {
+      "mechanism": "DNS_CONFIG",
+      "note": "not independently observed; requires future authorized read-only collection",
+      "result": "UNKNOWN"
+    },
+    {
+      "mechanism": "PROXY_CONFIG",
+      "note": "not independently observed; requires future authorized read-only collection",
+      "result": "UNKNOWN"
+    },
+    {
+      "mechanism": "PROCESS_NETWORK_ASSOCIATION",
+      "note": "not independently observed; requires future authorized read-only collection",
+      "result": "UNKNOWN"
+    },
+    {
+      "mechanism": "OS_NETWORK_POLICY",
+      "note": "not independently observed; requires future authorized read-only collection",
+      "result": "UNKNOWN"
+    },
+    {
+      "mechanism": "EXTERNAL_CONNECTION_ATTEMPTS",
+      "note": "INDEPENDENT_VERIFICATION/STALE/ISOLATION_SUPPORTING",
+      "result": "OBSERVED"
+    },
+    {
+      "mechanism": "ISOLATED_ENV_CONTROLS",
+      "note": "not independently observed; requires future authorized read-only collection",
+      "result": "UNKNOWN"
+    }
+  ],
+  "network_isolation": "UNVERIFIED",
+  "observation_source": "supplied-observations",
+  "observation_timestamp": "2026-09-29T00:00:00Z",
+  "os": "Windows 11",
+  "proven_scope": null,
+  "reasons": [
+    "achieved_level=L0; L4 independent verification absent — configuration/claim/host-state/controlled-behavior alone are insufficient"
+  ],
+  "requested_scope": "OUTBOUND_DENY",
+  "schema": "dkskill.network_isolation_verification/1",
+  "state": "UNVERIFIED",
+  "synthetic_test_only": true,
+  "verification_id": "verif-ni-req-real",
+  "verification_method": "read-only offline evidence assessment (no live probe)",
+  "verifier": "SYNTHETIC-VERIFIER",
+  "version": 1
+}

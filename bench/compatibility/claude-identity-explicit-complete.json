@@ -1,0 +1,40 @@
+{
+  "architecture": "x64",
+  "binary_hash_state": "OBSERVED",
+  "binary_path": null,
+  "binary_path_state": "UNAVAILABLE",
+  "binary_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "binary_size": null,
+  "channel": "native",
+  "channel_state": "OBSERVED",
+  "claude_version": "2.1.283",
+  "config_accessed": false,
+  "credentials_accessed": false,
+  "evidence_class": "EXPLICIT_INPUT",
+  "execution_performed": false,
+  "identity_status": "COMPLETE",
+  "network_contacted": false,
+  "observation_hash": "sha256:4b262e3df4dcb02986339b44d76feeff62cf3269fbba3a09c6644732cbab1dd9",
+  "observation_id": "obs-claude-identity",
+  "observed_at": "2026-09-30T00:00:00Z",
+  "operating_system": "Windows 11",
+  "os_version": "10.0.0",
+  "product": "claude-code",
+  "provenance": {
+    "architecture": "SAFE_OS_API",
+    "binary_sha256": "EXPLICIT_INPUT",
+    "channel": "EXPLICIT_INPUT",
+    "operating_system": "SAFE_OS_API",
+    "product": "EXPLICIT_INPUT",
+    "runtime": "SAFE_OS_API",
+    "version": "EXPLICIT_INPUT"
+  },
+  "reasons": [
+    "observation complete"
+  ],
+  "runtime": "node",
+  "safe": true,
+  "schema": "dkskill.claude_identity_observation/1",
+  "version": 1,
+  "version_state": "OBSERVED"
+}

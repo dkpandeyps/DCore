@@ -1,0 +1,2139 @@
+{
+  "activation_all_met": false,
+  "activation_checklist": [
+    {
+      "item": "channel evidence",
+      "met": false
+    },
+    {
+      "item": "binary binding",
+      "met": false
+    },
+    {
+      "item": "M9 L4",
+      "met": false
+    },
+    {
+      "item": "TS-07",
+      "met": false
+    },
+    {
+      "item": "TS-11",
+      "met": false
+    },
+    {
+      "item": "M4",
+      "met": false
+    },
+    {
+      "item": "M5",
+      "met": false
+    },
+    {
+      "item": "M6",
+      "met": false
+    },
+    {
+      "item": "signing algorithm",
+      "met": false
+    },
+    {
+      "item": "trust root",
+      "met": false
+    },
+    {
+      "item": "key storage",
+      "met": false
+    },
+    {
+      "item": "recovery",
+      "met": false
+    },
+    {
+      "item": "owner authorization",
+      "met": false
+    },
+    {
+      "item": "exact M13 cell",
+      "met": false
+    },
+    {
+      "item": "registry precondition",
+      "met": false
+    }
+  ],
+  "current_readiness": {
+    "certified": false,
+    "conceptually_eligible": false,
+    "dimensions": {
+      "BINARY_READY": "NOT_READY",
+      "CHANNEL_READY": "NOT_READY",
+      "EVIDENCE_READY": "BLOCKED",
+      "IDENTITY_READY": "NOT_READY",
+      "M4_READY": "BLOCKED",
+      "M5_READY": "BLOCKED",
+      "M6_AUTH_READY": "NOT_READY",
+      "M9_L4_READY": "BLOCKED",
+      "OVERALL_READINESS": "NOT_READY",
+      "REGISTRY_READY": "NOT_READY",
+      "SIGNING_READY": "NOT_READY"
+    },
+    "overall": "NOT_READY",
+    "reasons": [
+      "one or more readiness dimensions are not READY",
+      "owner activation not authorized"
+    ]
+  },
+  "decision_fixtures": [
+    {
+      "expected_overall": "NOT_READY",
+      "id": "DF-01",
+      "inputs": {
+        "benchmark_pin_validated": false,
+        "decisions": {
+          "OD-01": "OPEN",
+          "OD-02": "OPEN",
+          "OD-03": "OPEN",
+          "OD-04": "OPEN",
+          "OD-05": "OPEN",
+          "OD-06": "OPEN",
+          "OD-07": "OPEN",
+          "OD-08": "OPEN",
+          "OD-09": "OPEN",
+          "OD-10": "OPEN"
+        },
+        "exact_cell_bound": false,
+        "gaps": {
+          "GAP-01": "OPEN",
+          "GAP-02": "OPEN",
+          "GAP-03R": "OPEN",
+          "GAP-04R-ALGO": "OPEN",
+          "GAP-04R-RECOVERY": "OPEN",
+          "GAP-04R-ROOT": "OPEN",
+          "GAP-04R-STORE": "OPEN"
+        },
+        "m4_gates": "NOT_PASS",
+        "m5": "NOT_READY",
+        "m6": "NOT_READY",
+        "m8": "BLOCKED",
+        "m9_l4": "UNVERIFIED",
+        "owner_activation_authorized": false,
+        "ts07": "UNRESOLVED",
+        "ts11": "UNRESOLVED"
+      },
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "all decisions OPEN"
+    },
+    {
+      "expected_overall": "NOT_READY",
+      "id": "DF-02",
+      "inputs": {
+        "benchmark_pin_validated": false,
+        "decisions": {
+          "OD-01": "ACCEPTED",
+          "OD-02": "OPEN",
+          "OD-03": "OPEN",
+          "OD-04": "OPEN",
+          "OD-05": "OPEN",
+          "OD-06": "OPEN",
+          "OD-07": "OPEN",
+          "OD-08": "OPEN",
+          "OD-09": "OPEN",
+          "OD-10": "OPEN"
+        },
+        "exact_cell_bound": false,
+        "gaps": {
+          "GAP-01": "CLOSED",
+          "GAP-02": "OPEN",
+          "GAP-03R": "OPEN",
+          "GAP-04R-ALGO": "OPEN",
+          "GAP-04R-RECOVERY": "OPEN",
+          "GAP-04R-ROOT": "OPEN",
+          "GAP-04R-STORE": "OPEN"
+        },
+        "m4_gates": "NOT_PASS",
+        "m5": "NOT_READY",
+        "m6": "NOT_READY",
+        "m8": "BLOCKED",
+        "m9_l4": "UNVERIFIED",
+        "owner_activation_authorized": false,
+        "ts07": "UNRESOLVED",
+        "ts11": "UNRESOLVED"
+      },
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "one decision accepted (OD-01)"
+    },
+    {
+      "expected_overall": "NOT_READY",
+      "id": "DF-03",
+      "inputs": {
+        "benchmark_pin_validated": false,
+        "decisions": {
+          "OD-01": "REJECTED",
+          "OD-02": "OPEN",
+          "OD-03": "OPEN",
+          "OD-04": "OPEN",
+          "OD-05": "OPEN",
+          "OD-06": "OPEN",
+          "OD-07": "OPEN",
+          "OD-08": "OPEN",
+          "OD-09": "OPEN",
+          "OD-10": "OPEN"
+        },
+        "exact_cell_bound": false,
+        "gaps": {
+          "GAP-01": "OPEN",
+          "GAP-02": "OPEN",
+          "GAP-03R": "OPEN",
+          "GAP-04R-ALGO": "OPEN",
+          "GAP-04R-RECOVERY": "OPEN",
+          "GAP-04R-ROOT": "OPEN",
+          "GAP-04R-STORE": "OPEN"
+        },
+        "m4_gates": "NOT_PASS",
+        "m5": "NOT_READY",
+        "m6": "NOT_READY",
+        "m8": "BLOCKED",
+        "m9_l4": "UNVERIFIED",
+        "owner_activation_authorized": false,
+        "ts07": "UNRESOLVED",
+        "ts11": "UNRESOLVED"
+      },
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "one decision rejected (OD-01)"
+    },
+    {
+      "expected_overall": "NOT_READY",
+      "id": "DF-04",
+      "inputs": {
+        "benchmark_pin_validated": false,
+        "decisions": {
+          "OD-01": "DEFERRED",
+          "OD-02": "OPEN",
+          "OD-03": "OPEN",
+          "OD-04": "OPEN",
+          "OD-05": "OPEN",
+          "OD-06": "OPEN",
+          "OD-07": "OPEN",
+          "OD-08": "OPEN",
+          "OD-09": "OPEN",
+          "OD-10": "OPEN"
+        },
+        "exact_cell_bound": false,
+        "gaps": {
+          "GAP-01": "OPEN",
+          "GAP-02": "OPEN",
+          "GAP-03R": "OPEN",
+          "GAP-04R-ALGO": "OPEN",
+          "GAP-04R-RECOVERY": "OPEN",
+          "GAP-04R-ROOT": "OPEN",
+          "GAP-04R-STORE": "OPEN"
+        },
+        "m4_gates": "NOT_PASS",
+        "m5": "NOT_READY",
+        "m6": "NOT_READY",
+        "m8": "BLOCKED",
+        "m9_l4": "UNVERIFIED",
+        "owner_activation_authorized": false,
+        "ts07": "UNRESOLVED",
+        "ts11": "UNRESOLVED"
+      },
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "one decision deferred (OD-01)"
+    },
+    {
+      "expected_overall": "NOT_READY",
+      "id": "DF-05",
+      "inputs": {
+        "benchmark_pin_validated": true,
+        "decisions": {
+          "OD-01": "ACCEPTED",
+          "OD-02": "ACCEPTED",
+          "OD-03": "ACCEPTED",
+          "OD-04": "ACCEPTED",
+          "OD-05": "ACCEPTED",
+          "OD-06": "ACCEPTED",
+          "OD-07": "ACCEPTED",
+          "OD-08": "ACCEPTED",
+          "OD-09": "ACCEPTED",
+          "OD-10": "ACCEPTED"
+        },
+        "exact_cell_bound": true,
+        "gaps": {
+          "GAP-01": "CLOSED",
+          "GAP-02": "CLOSED",
+          "GAP-03R": "CLOSED",
+          "GAP-04R-ALGO": "CLOSED",
+          "GAP-04R-RECOVERY": "CLOSED",
+          "GAP-04R-ROOT": "CLOSED",
+          "GAP-04R-STORE": "CLOSED"
+        },
+        "m4_gates": "PASS",
+        "m5": "READY",
+        "m6": "READY",
+        "m8": "READY",
+        "m9_l4": "UNVERIFIED",
+        "owner_activation_authorized": true,
+        "ts07": "RESOLVED",
+        "ts11": "RESOLVED"
+      },
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "all satisfied except M9"
+    },
+    {
+      "expected_overall": "NOT_READY",
+      "id": "DF-06",
+      "inputs": {
+        "benchmark_pin_validated": true,
+        "decisions": {
+          "OD-01": "OPEN",
+          "OD-02": "ACCEPTED",
+          "OD-03": "ACCEPTED",
+          "OD-04": "ACCEPTED",
+          "OD-05": "ACCEPTED",
+          "OD-06": "ACCEPTED",
+          "OD-07": "ACCEPTED",
+          "OD-08": "ACCEPTED",
+          "OD-09": "ACCEPTED",
+          "OD-10": "ACCEPTED"
+        },
+        "exact_cell_bound": true,
+        "gaps": {
+          "GAP-01": "OPEN",
+          "GAP-02": "CLOSED",
+          "GAP-03R": "CLOSED",
+          "GAP-04R-ALGO": "CLOSED",
+          "GAP-04R-RECOVERY": "CLOSED",
+          "GAP-04R-ROOT": "CLOSED",
+          "GAP-04R-STORE": "CLOSED"
+        },
+        "m4_gates": "PASS",
+        "m5": "READY",
+        "m6": "READY",
+        "m8": "READY",
+        "m9_l4": "VERIFIED",
+        "owner_activation_authorized": true,
+        "ts07": "RESOLVED",
+        "ts11": "RESOLVED"
+      },
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "all satisfied except GAP-01"
+    },
+    {
+      "expected_overall": "NOT_READY",
+      "id": "DF-07",
+      "inputs": {
+        "benchmark_pin_validated": true,
+        "decisions": {
+          "OD-01": "ACCEPTED",
+          "OD-02": "OPEN",
+          "OD-03": "ACCEPTED",
+          "OD-04": "ACCEPTED",
+          "OD-05": "ACCEPTED",
+          "OD-06": "ACCEPTED",
+          "OD-07": "ACCEPTED",
+          "OD-08": "ACCEPTED",
+          "OD-09": "ACCEPTED",
+          "OD-10": "ACCEPTED"
+        },
+        "exact_cell_bound": true,
+        "gaps": {
+          "GAP-01": "CLOSED",
+          "GAP-02": "OPEN",
+          "GAP-03R": "CLOSED",
+          "GAP-04R-ALGO": "CLOSED",
+          "GAP-04R-RECOVERY": "CLOSED",
+          "GAP-04R-ROOT": "CLOSED",
+          "GAP-04R-STORE": "CLOSED"
+        },
+        "m4_gates": "PASS",
+        "m5": "READY",
+        "m6": "READY",
+        "m8": "READY",
+        "m9_l4": "VERIFIED",
+        "owner_activation_authorized": true,
+        "ts07": "RESOLVED",
+        "ts11": "RESOLVED"
+      },
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "all satisfied except GAP-02"
+    },
+    {
+      "expected_overall": "NOT_READY",
+      "id": "DF-08",
+      "inputs": {
+        "benchmark_pin_validated": true,
+        "decisions": {
+          "OD-01": "ACCEPTED",
+          "OD-02": "ACCEPTED",
+          "OD-03": "OPEN",
+          "OD-04": "ACCEPTED",
+          "OD-05": "ACCEPTED",
+          "OD-06": "ACCEPTED",
+          "OD-07": "ACCEPTED",
+          "OD-08": "ACCEPTED",
+          "OD-09": "ACCEPTED",
+          "OD-10": "ACCEPTED"
+        },
+        "exact_cell_bound": true,
+        "gaps": {
+          "GAP-01": "CLOSED",
+          "GAP-02": "CLOSED",
+          "GAP-03R": "OPEN",
+          "GAP-04R-ALGO": "CLOSED",
+          "GAP-04R-RECOVERY": "CLOSED",
+          "GAP-04R-ROOT": "CLOSED",
+          "GAP-04R-STORE": "CLOSED"
+        },
+        "m4_gates": "PASS",
+        "m5": "READY",
+        "m6": "READY",
+        "m8": "READY",
+        "m9_l4": "VERIFIED",
+        "owner_activation_authorized": true,
+        "ts07": "RESOLVED",
+        "ts11": "RESOLVED"
+      },
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "all satisfied except signing governance"
+    },
+    {
+      "expected_overall": "NOT_READY",
+      "id": "DF-09",
+      "inputs": {
+        "benchmark_pin_validated": true,
+        "decisions": {
+          "OD-01": "ACCEPTED",
+          "OD-02": "ACCEPTED",
+          "OD-03": "ACCEPTED",
+          "OD-04": "ACCEPTED",
+          "OD-05": "ACCEPTED",
+          "OD-06": "ACCEPTED",
+          "OD-07": "ACCEPTED",
+          "OD-08": "ACCEPTED",
+          "OD-09": "ACCEPTED",
+          "OD-10": "ACCEPTED"
+        },
+        "exact_cell_bound": true,
+        "gaps": {
+          "GAP-01": "CLOSED",
+          "GAP-02": "CLOSED",
+          "GAP-03R": "CLOSED",
+          "GAP-04R-ALGO": "CLOSED",
+          "GAP-04R-RECOVERY": "CLOSED",
+          "GAP-04R-ROOT": "CLOSED",
+          "GAP-04R-STORE": "CLOSED"
+        },
+        "m4_gates": "PASS",
+        "m5": "READY",
+        "m6": "READY",
+        "m8": "READY",
+        "m9_l4": "VERIFIED",
+        "owner_activation_authorized": false,
+        "ts07": "RESOLVED",
+        "ts11": "RESOLVED"
+      },
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "all satisfied except owner activation"
+    },
+    {
+      "expected_overall": "READY",
+      "id": "DF-10",
+      "inputs": {
+        "benchmark_pin_validated": true,
+        "decisions": {
+          "OD-01": "ACCEPTED",
+          "OD-02": "ACCEPTED",
+          "OD-03": "ACCEPTED",
+          "OD-04": "ACCEPTED",
+          "OD-05": "ACCEPTED",
+          "OD-06": "ACCEPTED",
+          "OD-07": "ACCEPTED",
+          "OD-08": "ACCEPTED",
+          "OD-09": "ACCEPTED",
+          "OD-10": "ACCEPTED"
+        },
+        "exact_cell_bound": true,
+        "gaps": {
+          "GAP-01": "CLOSED",
+          "GAP-02": "CLOSED",
+          "GAP-03R": "CLOSED",
+          "GAP-04R-ALGO": "CLOSED",
+          "GAP-04R-RECOVERY": "CLOSED",
+          "GAP-04R-ROOT": "CLOSED",
+          "GAP-04R-STORE": "CLOSED"
+        },
+        "m4_gates": "PASS",
+        "m5": "READY",
+        "m6": "READY",
+        "m8": "READY",
+        "m9_l4": "VERIFIED",
+        "owner_activation_authorized": true,
+        "ts07": "RESOLVED",
+        "ts11": "RESOLVED"
+      },
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "fully satisfied synthetic readiness"
+    }
+  ],
+  "decisions_made": 0,
+  "dependency_map": [
+    {
+      "affects": [
+        "CHANNEL_READY",
+        "IDENTITY_READY",
+        "EVIDENCE_READY",
+        "OVERALL_READINESS"
+      ],
+      "decision_or_gap": "OD-01/GAP-01"
+    },
+    {
+      "affects": [
+        "BINARY_READY",
+        "IDENTITY_READY",
+        "EVIDENCE_READY",
+        "OVERALL_READINESS"
+      ],
+      "decision_or_gap": "OD-02/GAP-02"
+    },
+    {
+      "affects": [
+        "M9_L4_READY",
+        "EVIDENCE_READY",
+        "M4_READY",
+        "OVERALL_READINESS"
+      ],
+      "decision_or_gap": "M9 L4"
+    },
+    {
+      "affects": [
+        "EVIDENCE_READY",
+        "M4_READY",
+        "OVERALL_READINESS"
+      ],
+      "decision_or_gap": "TS-07/TS-11"
+    },
+    {
+      "affects": [
+        "SIGNING_READY",
+        "REGISTRY_READY",
+        "OVERALL_READINESS"
+      ],
+      "decision_or_gap": "OD-03/04/05/06 + GAP-03R"
+    },
+    {
+      "affects": [
+        "M6_AUTH_READY",
+        "REGISTRY_READY",
+        "OVERALL_READINESS"
+      ],
+      "decision_or_gap": "OD-07/08/09"
+    },
+    {
+      "affects": [
+        "OVERALL_READINESS"
+      ],
+      "decision_or_gap": "OD-10 owner activation"
+    }
+  ],
+  "design_only": true,
+  "dossier_hash": "sha256:7a4bc82e93b7fcb39bef960dff449a00de0302ee87de0382817edbcab3c8cbca",
+  "evidence_requests": [
+    {
+      "decision_id": "OD-01",
+      "evidence_id": "ER-01",
+      "expected_result": "field OBSERVED at required provenance",
+      "failure_result": "UNKNOWN / INCOMPLETE / CONTRADICTED (fail closed)",
+      "m9_dependency": true,
+      "purpose": "establish channel",
+      "required_environment": "PTPL certification environment (M9-L4)",
+      "required_freshness": "within evidence validity window",
+      "required_hash": "sha256 evidence hash bound to attestation",
+      "required_m7_class": "EV-CHANNEL",
+      "required_observer": "controlled/independent observer",
+      "required_provenance": "CONTROLLED_OBSERVATION"
+    },
+    {
+      "decision_id": "OD-02",
+      "evidence_id": "ER-02",
+      "expected_result": "field OBSERVED at required provenance",
+      "failure_result": "UNKNOWN / INCOMPLETE / CONTRADICTED (fail closed)",
+      "m9_dependency": true,
+      "purpose": "establish exact binary hash",
+      "required_environment": "PTPL certification environment (M9-L4)",
+      "required_freshness": "within evidence validity window",
+      "required_hash": "sha256 evidence hash bound to attestation",
+      "required_m7_class": "EV-BINARY-IDENTITY",
+      "required_observer": "independent observer in L4 env",
+      "required_provenance": "CONTROLLED/INDEPENDENT"
+    },
+    {
+      "decision_id": "OD-03",
+      "evidence_id": "ER-03",
+      "expected_result": "field OBSERVED at required provenance",
+      "failure_result": "UNKNOWN / INCOMPLETE / CONTRADICTED (fail closed)",
+      "m9_dependency": false,
+      "purpose": "algorithm decision analysis",
+      "required_environment": "PTPL certification environment (M9-L4)",
+      "required_freshness": "within evidence validity window",
+      "required_hash": "sha256 evidence hash bound to attestation",
+      "required_m7_class": "n/a",
+      "required_observer": "owner",
+      "required_provenance": "CERTIFICATION_ATTESTATION"
+    },
+    {
+      "decision_id": "OD-04",
+      "evidence_id": "ER-04",
+      "expected_result": "field OBSERVED at required provenance",
+      "failure_result": "UNKNOWN / INCOMPLETE / CONTRADICTED (fail closed)",
+      "m9_dependency": false,
+      "purpose": "trust-root establishment record",
+      "required_environment": "PTPL certification environment (M9-L4)",
+      "required_freshness": "within evidence validity window",
+      "required_hash": "sha256 evidence hash bound to attestation",
+      "required_m7_class": "n/a",
+      "required_observer": "owner",
+      "required_provenance": "CERTIFICATION_ATTESTATION"
+    },
+    {
+      "decision_id": "OD-05",
+      "evidence_id": "ER-05",
+      "expected_result": "field OBSERVED at required provenance",
+      "failure_result": "UNKNOWN / INCOMPLETE / CONTRADICTED (fail closed)",
+      "m9_dependency": false,
+      "purpose": "key-storage selection",
+      "required_environment": "PTPL certification environment (M9-L4)",
+      "required_freshness": "within evidence validity window",
+      "required_hash": "sha256 evidence hash bound to attestation",
+      "required_m7_class": "n/a",
+      "required_observer": "owner",
+      "required_provenance": "CERTIFICATION_ATTESTATION"
+    },
+    {
+      "decision_id": "OD-06",
+      "evidence_id": "ER-06",
+      "expected_result": "field OBSERVED at required provenance",
+      "failure_result": "UNKNOWN / INCOMPLETE / CONTRADICTED (fail closed)",
+      "m9_dependency": false,
+      "purpose": "recovery policy",
+      "required_environment": "PTPL certification environment (M9-L4)",
+      "required_freshness": "within evidence validity window",
+      "required_hash": "sha256 evidence hash bound to attestation",
+      "required_m7_class": "n/a",
+      "required_observer": "owner",
+      "required_provenance": "CERTIFICATION_ATTESTATION"
+    },
+    {
+      "decision_id": "OD-10",
+      "evidence_id": "ER-07",
+      "expected_result": "field OBSERVED at required provenance",
+      "failure_result": "UNKNOWN / INCOMPLETE / CONTRADICTED (fail closed)",
+      "m9_dependency": true,
+      "purpose": "activation prerequisite proof",
+      "required_environment": "PTPL certification environment (M9-L4)",
+      "required_freshness": "within evidence validity window",
+      "required_hash": "sha256 evidence hash bound to attestation",
+      "required_m7_class": "n/a",
+      "required_observer": "owner + certification system",
+      "required_provenance": "CERTIFICATION_ATTESTATION"
+    }
+  ],
+  "future_test_specs": [
+    "decision register schema",
+    "gap dependency graph",
+    "readiness recomputation",
+    "scenario transitions",
+    "evidence requirements",
+    "activation checklist",
+    "decision tree",
+    "platform/cell isolation",
+    "owner authority boundaries",
+    "fail-closed behavior",
+    "synthetic/production separation",
+    "static no-execution/no-network/no-signing/no-key-generation guarantees"
+  ],
+  "gap_register": [
+    {
+      "blocks_certification_stages": [
+        "M4_EVALUATION",
+        "CERTIFICATION_DECISION"
+      ],
+      "blocks_publication_stages": [
+        "M5_PUBLICATION_PROPOSAL",
+        "PUBLICATION"
+      ],
+      "blocks_signing_stages": [
+        "SIGNATURE_VALIDATION"
+      ],
+      "closure_criteria": "a proven channel evidence source demonstrated",
+      "definition": "direct Claude Code channel evidence source (>= CONTROLLED)",
+      "evidence_needed": "controlled/independent channel observation bound to the cert env",
+      "gap_id": "GAP-01",
+      "owner_decision_needed": "OD-01",
+      "requires_owner_authorization": true,
+      "requires_real_world_evidence": true,
+      "safe_default": "OPEN / NOT_READY",
+      "scope": "PARTICULAR_FACETS",
+      "source_milestone": "M18/M20/M22",
+      "status": "OPEN",
+      "verification_criteria": "a proven channel evidence source demonstrated — independently verified",
+      "why_unresolved": "no proven machine-readable channel source"
+    },
+    {
+      "blocks_certification_stages": [
+        "M4_EVALUATION",
+        "CERTIFICATION_DECISION"
+      ],
+      "blocks_publication_stages": [
+        "M5_PUBLICATION_PROPOSAL",
+        "PUBLICATION"
+      ],
+      "blocks_signing_stages": [
+        "SIGNATURE_VALIDATION"
+      ],
+      "closure_criteria": "binary binding proven end-to-end in an L4 env",
+      "definition": "exact certified-executable binary-binding mechanism",
+      "evidence_needed": "exact byte hash in an L4 env bound to the certified installation",
+      "gap_id": "GAP-02",
+      "owner_decision_needed": "OD-02",
+      "requires_owner_authorization": true,
+      "requires_real_world_evidence": true,
+      "safe_default": "OPEN / NOT_READY",
+      "scope": "PARTICULAR_FACETS",
+      "source_milestone": "M19/M20/M22",
+      "status": "OPEN",
+      "verification_criteria": "binary binding proven end-to-end in an L4 env — independently verified",
+      "why_unresolved": "authority of the byte hash depends on unproven L4 cert-env control"
+    },
+    {
+      "blocks_certification_stages": [
+        "M4_EVALUATION",
+        "CERTIFICATION_DECISION"
+      ],
+      "blocks_publication_stages": [
+        "M5_PUBLICATION_PROPOSAL",
+        "PUBLICATION"
+      ],
+      "blocks_signing_stages": [
+        "SIGNATURE_VALIDATION"
+      ],
+      "closure_criteria": "payload contract finalized",
+      "definition": "signature-payload field-contract completeness",
+      "evidence_needed": "finalized payload field contract",
+      "gap_id": "GAP-03R",
+      "owner_decision_needed": "OD-03",
+      "requires_owner_authorization": true,
+      "requires_real_world_evidence": false,
+      "safe_default": "OPEN / NOT_READY",
+      "scope": "ALL_PLATFORMS",
+      "source_milestone": "M21/M22",
+      "status": "OPEN",
+      "verification_criteria": "payload contract finalized — independently verified",
+      "why_unresolved": "some M6 payload fields require an owner decision"
+    },
+    {
+      "blocks_certification_stages": [
+        "M4_EVALUATION",
+        "CERTIFICATION_DECISION"
+      ],
+      "blocks_publication_stages": [
+        "M5_PUBLICATION_PROPOSAL",
+        "PUBLICATION"
+      ],
+      "blocks_signing_stages": [
+        "SIGNATURE_VALIDATION"
+      ],
+      "closure_criteria": "algorithm approved",
+      "definition": "signature algorithm",
+      "evidence_needed": "owner-approved algorithm",
+      "gap_id": "GAP-04R-ALGO",
+      "owner_decision_needed": "OD-03",
+      "requires_owner_authorization": true,
+      "requires_real_world_evidence": false,
+      "safe_default": "OPEN / NOT_READY",
+      "scope": "ALL_PLATFORMS",
+      "source_milestone": "M21/M22",
+      "status": "OPEN",
+      "verification_criteria": "algorithm approved — independently verified",
+      "why_unresolved": "no approved algorithm"
+    },
+    {
+      "blocks_certification_stages": [
+        "M4_EVALUATION",
+        "CERTIFICATION_DECISION"
+      ],
+      "blocks_publication_stages": [
+        "M5_PUBLICATION_PROPOSAL",
+        "PUBLICATION"
+      ],
+      "blocks_signing_stages": [
+        "SIGNATURE_VALIDATION"
+      ],
+      "closure_criteria": "trust root established",
+      "definition": "trust-root bootstrap",
+      "evidence_needed": "governed root establishment",
+      "gap_id": "GAP-04R-ROOT",
+      "owner_decision_needed": "OD-04",
+      "requires_owner_authorization": true,
+      "requires_real_world_evidence": true,
+      "safe_default": "OPEN / NOT_READY",
+      "scope": "ALL_PLATFORMS",
+      "source_milestone": "M21/M22",
+      "status": "OPEN",
+      "verification_criteria": "trust root established — independently verified",
+      "why_unresolved": "no root established"
+    },
+    {
+      "blocks_certification_stages": [
+        "M4_EVALUATION",
+        "CERTIFICATION_DECISION"
+      ],
+      "blocks_publication_stages": [
+        "M5_PUBLICATION_PROPOSAL",
+        "PUBLICATION"
+      ],
+      "blocks_signing_stages": [
+        "SIGNATURE_VALIDATION"
+      ],
+      "closure_criteria": "key storage selected + isolated",
+      "definition": "key-storage model",
+      "evidence_needed": "selected key-storage model",
+      "gap_id": "GAP-04R-STORE",
+      "owner_decision_needed": "OD-05",
+      "requires_owner_authorization": true,
+      "requires_real_world_evidence": true,
+      "safe_default": "OPEN / NOT_READY",
+      "scope": "ALL_PLATFORMS",
+      "source_milestone": "M21/M22",
+      "status": "OPEN",
+      "verification_criteria": "key storage selected + isolated — independently verified",
+      "why_unresolved": "no provider chosen"
+    },
+    {
+      "blocks_certification_stages": [
+        "M4_EVALUATION",
+        "CERTIFICATION_DECISION"
+      ],
+      "blocks_publication_stages": [
+        "M5_PUBLICATION_PROPOSAL",
+        "PUBLICATION"
+      ],
+      "blocks_signing_stages": [
+        "SIGNATURE_VALIDATION"
+      ],
+      "closure_criteria": "recovery policy established",
+      "definition": "compromised-key recovery governance",
+      "evidence_needed": "owner-approved recovery policy",
+      "gap_id": "GAP-04R-RECOVERY",
+      "owner_decision_needed": "OD-06",
+      "requires_owner_authorization": true,
+      "requires_real_world_evidence": false,
+      "safe_default": "OPEN / NOT_READY",
+      "scope": "ALL_PLATFORMS",
+      "source_milestone": "M21/M22",
+      "status": "OPEN",
+      "verification_criteria": "recovery policy established — independently verified",
+      "why_unresolved": "no recovery policy"
+    }
+  ],
+  "master_decision_register": [
+    {
+      "acceptable_evidence_sources": [
+        "controlled-install attestation",
+        "independent observer"
+      ],
+      "consequences": {
+        "controlled-install attestation": "selecting \"controlled-install attestation\" requires the minimum evidence and re-review; no auto-effect",
+        "independent observer": "selecting \"independent observer\" requires the minimum evidence and re-review; no auto-effect",
+        "remain OPEN": "selecting \"remain OPEN\" requires the minimum evidence and re-review; no auto-effect"
+      },
+      "current_evidence": "none",
+      "current_status": "OPEN",
+      "decision_id": "OD-01",
+      "dependencies": [
+        "M7",
+        "M9"
+      ],
+      "dependent_gaps": [
+        "GAP-01"
+      ],
+      "if_accepted": "status ACCEPTED pending evidence; readiness recomputed",
+      "if_deferred": "status DEFERRED; remains NOT_READY",
+      "if_rejected": "status REJECTED; affected readiness NOT_READY",
+      "minimum_evidence_required": "a proven machine-readable channel evidence source (>= CONTROLLED_OBSERVATION)",
+      "missing_evidence": "a proven machine-readable channel evidence source (>= CONTROLLED_OBSERVATION)",
+      "options": [
+        "controlled-install attestation",
+        "independent observer",
+        "remain OPEN"
+      ],
+      "owner_authority": "PTPL / DK Pandey",
+      "prohibited_inference": "no inference; explicit owner decision + real evidence required",
+      "question": "What evidence establishes the exact Claude Code channel at certification time without inference?",
+      "readiness_dimensions_affected": [
+        "CHANNEL_READY",
+        "IDENTITY_READY"
+      ],
+      "safe_default": "OPEN / NOT_READY",
+      "why": "channel is required for the exact M13 cell"
+    },
+    {
+      "acceptable_evidence_sources": [
+        "exact byte hash (L4)"
+      ],
+      "consequences": {
+        "exact byte hash (L4)": "selecting \"exact byte hash (L4)\" requires the minimum evidence and re-review; no auto-effect",
+        "remain OPEN": "selecting \"remain OPEN\" requires the minimum evidence and re-review; no auto-effect"
+      },
+      "current_evidence": "none",
+      "current_status": "OPEN",
+      "decision_id": "OD-02",
+      "dependencies": [
+        "M7",
+        "M9"
+      ],
+      "dependent_gaps": [
+        "GAP-02"
+      ],
+      "if_accepted": "status ACCEPTED pending evidence; readiness recomputed",
+      "if_deferred": "status DEFERRED; remains NOT_READY",
+      "if_rejected": "status REJECTED; affected readiness NOT_READY",
+      "minimum_evidence_required": "exact executable byte hash captured in an L4 cert env",
+      "missing_evidence": "exact executable byte hash captured in an L4 cert env",
+      "options": [
+        "exact byte hash (L4)",
+        "remain OPEN"
+      ],
+      "owner_authority": "PTPL / DK Pandey",
+      "prohibited_inference": "no inference; explicit owner decision + real evidence required",
+      "question": "What evidence proves binary_sha256 = the exact executable certified?",
+      "readiness_dimensions_affected": [
+        "BINARY_READY",
+        "IDENTITY_READY"
+      ],
+      "safe_default": "OPEN / NOT_READY",
+      "why": "binary identity anchors certification"
+    },
+    {
+      "acceptable_evidence_sources": [
+        "(none approved)"
+      ],
+      "consequences": {
+        "remain OPEN": "selecting \"remain OPEN\" requires the minimum evidence and re-review; no auto-effect"
+      },
+      "current_evidence": "none",
+      "current_status": "OPEN",
+      "decision_id": "OD-03",
+      "dependencies": [
+        "GAP-04R-ALGO"
+      ],
+      "dependent_gaps": [
+        "GAP-04R-ALGO"
+      ],
+      "if_accepted": "status ACCEPTED pending evidence; readiness recomputed",
+      "if_deferred": "status DEFERRED; remains NOT_READY",
+      "if_rejected": "status REJECTED; affected readiness NOT_READY",
+      "minimum_evidence_required": "owner-approved algorithm meeting the decision criteria",
+      "missing_evidence": "owner-approved algorithm meeting the decision criteria",
+      "options": [
+        "remain OPEN"
+      ],
+      "owner_authority": "PTPL / DK Pandey",
+      "prohibited_inference": "no inference; explicit owner decision + real evidence required",
+      "question": "Which signature algorithm?",
+      "readiness_dimensions_affected": [
+        "SIGNING_READY"
+      ],
+      "safe_default": "OPEN / NOT_READY",
+      "why": "signatures authenticate publication"
+    },
+    {
+      "acceptable_evidence_sources": [
+        "(none)"
+      ],
+      "consequences": {
+        "remain OPEN": "selecting \"remain OPEN\" requires the minimum evidence and re-review; no auto-effect"
+      },
+      "current_evidence": "none",
+      "current_status": "OPEN",
+      "decision_id": "OD-04",
+      "dependencies": [
+        "GAP-04R-ROOT"
+      ],
+      "dependent_gaps": [
+        "GAP-04R-ROOT"
+      ],
+      "if_accepted": "status ACCEPTED pending evidence; readiness recomputed",
+      "if_deferred": "status DEFERRED; remains NOT_READY",
+      "if_rejected": "status REJECTED; affected readiness NOT_READY",
+      "minimum_evidence_required": "governed root establishment record",
+      "missing_evidence": "governed root establishment record",
+      "options": [
+        "remain OPEN"
+      ],
+      "owner_authority": "PTPL / DK Pandey",
+      "prohibited_inference": "no inference; explicit owner decision + real evidence required",
+      "question": "How is the initial signing trust root established?",
+      "readiness_dimensions_affected": [
+        "SIGNING_READY"
+      ],
+      "safe_default": "OPEN / NOT_READY",
+      "why": "trust root authenticates signer keys"
+    },
+    {
+      "acceptable_evidence_sources": [
+        "OS key store",
+        "HSM",
+        "KMS",
+        "dedicated service",
+        "offline env"
+      ],
+      "consequences": {
+        "remain OPEN": "selecting \"remain OPEN\" requires the minimum evidence and re-review; no auto-effect"
+      },
+      "current_evidence": "none",
+      "current_status": "OPEN",
+      "decision_id": "OD-05",
+      "dependencies": [
+        "GAP-04R-STORE"
+      ],
+      "dependent_gaps": [
+        "GAP-04R-STORE"
+      ],
+      "if_accepted": "status ACCEPTED pending evidence; readiness recomputed",
+      "if_deferred": "status DEFERRED; remains NOT_READY",
+      "if_rejected": "status REJECTED; affected readiness NOT_READY",
+      "minimum_evidence_required": "selected provider + isolation properties",
+      "missing_evidence": "selected provider + isolation properties",
+      "options": [
+        "remain OPEN"
+      ],
+      "owner_authority": "PTPL / DK Pandey",
+      "prohibited_inference": "no inference; explicit owner decision + real evidence required",
+      "question": "Which key-storage model?",
+      "readiness_dimensions_affected": [
+        "SIGNING_READY"
+      ],
+      "safe_default": "OPEN / NOT_READY",
+      "why": "protect private signing keys"
+    },
+    {
+      "acceptable_evidence_sources": [
+        "(none)"
+      ],
+      "consequences": {
+        "remain OPEN": "selecting \"remain OPEN\" requires the minimum evidence and re-review; no auto-effect"
+      },
+      "current_evidence": "none",
+      "current_status": "OPEN",
+      "decision_id": "OD-06",
+      "dependencies": [
+        "GAP-04R-RECOVERY"
+      ],
+      "dependent_gaps": [
+        "GAP-04R-RECOVERY"
+      ],
+      "if_accepted": "status ACCEPTED pending evidence; readiness recomputed",
+      "if_deferred": "status DEFERRED; remains NOT_READY",
+      "if_rejected": "status REJECTED; affected readiness NOT_READY",
+      "minimum_evidence_required": "owner-approved recovery governance",
+      "missing_evidence": "owner-approved recovery governance",
+      "options": [
+        "remain OPEN"
+      ],
+      "owner_authority": "PTPL / DK Pandey",
+      "prohibited_inference": "no inference; explicit owner decision + real evidence required",
+      "question": "What is the compromised-key recovery policy?",
+      "readiness_dimensions_affected": [
+        "SIGNING_READY"
+      ],
+      "safe_default": "OPEN / NOT_READY",
+      "why": "incident response for key compromise"
+    },
+    {
+      "acceptable_evidence_sources": [
+        "(per M6 governance)"
+      ],
+      "consequences": {
+        "remain OPEN": "selecting \"remain OPEN\" requires the minimum evidence and re-review; no auto-effect"
+      },
+      "current_evidence": "none",
+      "current_status": "OPEN",
+      "decision_id": "OD-07",
+      "dependencies": [
+        "OD-09"
+      ],
+      "dependent_gaps": [],
+      "if_accepted": "status ACCEPTED pending evidence; readiness recomputed",
+      "if_deferred": "status DEFERRED; remains NOT_READY",
+      "if_rejected": "status REJECTED; affected readiness NOT_READY",
+      "minimum_evidence_required": "M6 signer-authority contract",
+      "missing_evidence": "M6 signer-authority contract",
+      "options": [
+        "remain OPEN"
+      ],
+      "owner_authority": "PTPL / DK Pandey",
+      "prohibited_inference": "no inference; explicit owner decision + real evidence required",
+      "question": "Who may authorize/sign production publication?",
+      "readiness_dimensions_affected": [
+        "M6_AUTH_READY"
+      ],
+      "safe_default": "OPEN / NOT_READY",
+      "why": "separation of duties"
+    },
+    {
+      "acceptable_evidence_sources": [
+        "(per M6 governance)"
+      ],
+      "consequences": {
+        "remain OPEN": "selecting \"remain OPEN\" requires the minimum evidence and re-review; no auto-effect"
+      },
+      "current_evidence": "none",
+      "current_status": "OPEN",
+      "decision_id": "OD-08",
+      "dependencies": [
+        "OD-07"
+      ],
+      "dependent_gaps": [],
+      "if_accepted": "status ACCEPTED pending evidence; readiness recomputed",
+      "if_deferred": "status DEFERRED; remains NOT_READY",
+      "if_rejected": "status REJECTED; affected readiness NOT_READY",
+      "minimum_evidence_required": "M6 publication-authority contract",
+      "missing_evidence": "M6 publication-authority contract",
+      "options": [
+        "remain OPEN"
+      ],
+      "owner_authority": "PTPL / DK Pandey",
+      "prohibited_inference": "no inference; explicit owner decision + real evidence required",
+      "question": "Who may cause a signed publication to enter the registry?",
+      "readiness_dimensions_affected": [
+        "M6_AUTH_READY"
+      ],
+      "safe_default": "OPEN / NOT_READY",
+      "why": "publication authority + separation of duties"
+    },
+    {
+      "acceptable_evidence_sources": [
+        "(undefined)"
+      ],
+      "consequences": {
+        "remain OPEN": "selecting \"remain OPEN\" requires the minimum evidence and re-review; no auto-effect"
+      },
+      "current_evidence": "none",
+      "current_status": "OPEN",
+      "decision_id": "OD-09",
+      "dependencies": [
+        "OD-04"
+      ],
+      "dependent_gaps": [
+        "GAP-04R-ROOT"
+      ],
+      "if_accepted": "status ACCEPTED pending evidence; readiness recomputed",
+      "if_deferred": "status DEFERRED; remains NOT_READY",
+      "if_rejected": "status REJECTED; affected readiness NOT_READY",
+      "minimum_evidence_required": "root governance policy",
+      "missing_evidence": "root governance policy",
+      "options": [
+        "remain OPEN"
+      ],
+      "owner_authority": "PTPL / DK Pandey",
+      "prohibited_inference": "no inference; explicit owner decision + real evidence required",
+      "question": "How is trust-root governance handled (create/rotate/revoke/recover)?",
+      "readiness_dimensions_affected": [
+        "M6_AUTH_READY",
+        "SIGNING_READY"
+      ],
+      "safe_default": "OPEN / NOT_READY",
+      "why": "root lifecycle integrity"
+    },
+    {
+      "acceptable_evidence_sources": [
+        "(all prerequisites)"
+      ],
+      "consequences": {
+        "remain OPEN": "selecting \"remain OPEN\" requires the minimum evidence and re-review; no auto-effect"
+      },
+      "current_evidence": "none",
+      "current_status": "OPEN",
+      "decision_id": "OD-10",
+      "dependencies": [
+        "OD-01",
+        "OD-02",
+        "OD-03",
+        "OD-04",
+        "OD-05",
+        "OD-06",
+        "OD-07",
+        "OD-08",
+        "OD-09"
+      ],
+      "dependent_gaps": [
+        "GAP-01",
+        "GAP-02",
+        "GAP-03R",
+        "GAP-04R-ALGO",
+        "GAP-04R-ROOT",
+        "GAP-04R-STORE",
+        "GAP-04R-RECOVERY"
+      ],
+      "if_accepted": "status ACCEPTED pending evidence; readiness recomputed",
+      "if_deferred": "status DEFERRED; remains NOT_READY",
+      "if_rejected": "status REJECTED; affected readiness NOT_READY",
+      "minimum_evidence_required": "every activation prerequisite met",
+      "missing_evidence": "every activation prerequisite met",
+      "options": [
+        "remain OPEN"
+      ],
+      "owner_authority": "PTPL / DK Pandey",
+      "prohibited_inference": "no inference; explicit owner decision + real evidence required",
+      "question": "What must be true before the first real production certification is authorized?",
+      "readiness_dimensions_affected": [
+        "OVERALL_READINESS"
+      ],
+      "safe_default": "OPEN / NOT_READY",
+      "why": "activation gate"
+    }
+  ],
+  "open_gaps": [
+    {
+      "id": "GAP-01",
+      "status": "OPEN"
+    },
+    {
+      "id": "GAP-02",
+      "status": "OPEN"
+    },
+    {
+      "id": "GAP-03R",
+      "status": "OPEN"
+    },
+    {
+      "id": "GAP-04R-ALGO",
+      "status": "OPEN"
+    },
+    {
+      "id": "GAP-04R-ROOT",
+      "status": "OPEN"
+    },
+    {
+      "id": "GAP-04R-STORE",
+      "status": "OPEN"
+    },
+    {
+      "id": "GAP-04R-RECOVERY",
+      "status": "OPEN"
+    }
+  ],
+  "platform_impact": [
+    {
+      "architecture": "per exact architecture",
+      "channel": "per exact channel",
+      "decision_id": "OD-01",
+      "linux": "per exact Linux cell only",
+      "macos": "per exact macOS cell only",
+      "no_cross_platform_inference": true,
+      "runtime_facet": "per exact runtime facet",
+      "version": "per exact version",
+      "windows": "per exact Windows cell only"
+    },
+    {
+      "architecture": "per exact architecture",
+      "channel": "per exact channel",
+      "decision_id": "OD-02",
+      "linux": "per exact Linux cell only",
+      "macos": "per exact macOS cell only",
+      "no_cross_platform_inference": true,
+      "runtime_facet": "per exact runtime facet",
+      "version": "per exact version",
+      "windows": "per exact Windows cell only"
+    },
+    {
+      "architecture": "per exact architecture",
+      "channel": "per exact channel",
+      "decision_id": "OD-03",
+      "linux": "per exact Linux cell only",
+      "macos": "per exact macOS cell only",
+      "no_cross_platform_inference": true,
+      "runtime_facet": "per exact runtime facet",
+      "version": "per exact version",
+      "windows": "per exact Windows cell only"
+    },
+    {
+      "architecture": "per exact architecture",
+      "channel": "per exact channel",
+      "decision_id": "OD-04",
+      "linux": "per exact Linux cell only",
+      "macos": "per exact macOS cell only",
+      "no_cross_platform_inference": true,
+      "runtime_facet": "per exact runtime facet",
+      "version": "per exact version",
+      "windows": "per exact Windows cell only"
+    },
+    {
+      "architecture": "per exact architecture",
+      "channel": "per exact channel",
+      "decision_id": "OD-05",
+      "linux": "per exact Linux cell only",
+      "macos": "per exact macOS cell only",
+      "no_cross_platform_inference": true,
+      "runtime_facet": "per exact runtime facet",
+      "version": "per exact version",
+      "windows": "per exact Windows cell only"
+    },
+    {
+      "architecture": "per exact architecture",
+      "channel": "per exact channel",
+      "decision_id": "OD-06",
+      "linux": "per exact Linux cell only",
+      "macos": "per exact macOS cell only",
+      "no_cross_platform_inference": true,
+      "runtime_facet": "per exact runtime facet",
+      "version": "per exact version",
+      "windows": "per exact Windows cell only"
+    },
+    {
+      "architecture": "per exact architecture",
+      "channel": "per exact channel",
+      "decision_id": "OD-07",
+      "linux": "per exact Linux cell only",
+      "macos": "per exact macOS cell only",
+      "no_cross_platform_inference": true,
+      "runtime_facet": "per exact runtime facet",
+      "version": "per exact version",
+      "windows": "per exact Windows cell only"
+    },
+    {
+      "architecture": "per exact architecture",
+      "channel": "per exact channel",
+      "decision_id": "OD-08",
+      "linux": "per exact Linux cell only",
+      "macos": "per exact macOS cell only",
+      "no_cross_platform_inference": true,
+      "runtime_facet": "per exact runtime facet",
+      "version": "per exact version",
+      "windows": "per exact Windows cell only"
+    },
+    {
+      "architecture": "per exact architecture",
+      "channel": "per exact channel",
+      "decision_id": "OD-09",
+      "linux": "per exact Linux cell only",
+      "macos": "per exact macOS cell only",
+      "no_cross_platform_inference": true,
+      "runtime_facet": "per exact runtime facet",
+      "version": "per exact version",
+      "windows": "per exact Windows cell only"
+    },
+    {
+      "architecture": "per exact architecture",
+      "channel": "per exact channel",
+      "decision_id": "OD-10",
+      "linux": "per exact Linux cell only",
+      "macos": "per exact macOS cell only",
+      "no_cross_platform_inference": true,
+      "runtime_facet": "per exact runtime facet",
+      "version": "per exact version",
+      "windows": "per exact Windows cell only"
+    }
+  ],
+  "review_packet": [
+    {
+      "current_state": "OPEN / NOT_READY",
+      "decision_id": "OD-01",
+      "dependencies": [
+        "M7",
+        "M9"
+      ],
+      "known": "none",
+      "minimum_evidence": "a proven machine-readable channel evidence source (>= CONTROLLED_OBSERVATION)",
+      "options": [
+        "controlled-install attestation",
+        "independent observer",
+        "remain OPEN"
+      ],
+      "owner_action_required": "review and, only when ready, explicitly decide with the required evidence",
+      "question": "What evidence establishes the exact Claude Code channel at certification time without inference?",
+      "readiness_impact": "CHANNEL_READY, IDENTITY_READY",
+      "risks_tradeoffs": "each option requires real evidence + re-review; no inference; safe default is OPEN",
+      "safe_default": "OPEN / NOT_READY / NO_CERTIFICATION",
+      "unknown": "a proven machine-readable channel evidence source (>= CONTROLLED_OBSERVATION)",
+      "why_it_matters": "channel is required for the exact M13 cell"
+    },
+    {
+      "current_state": "OPEN / NOT_READY",
+      "decision_id": "OD-02",
+      "dependencies": [
+        "M7",
+        "M9"
+      ],
+      "known": "none",
+      "minimum_evidence": "exact executable byte hash captured in an L4 cert env",
+      "options": [
+        "exact byte hash (L4)",
+        "remain OPEN"
+      ],
+      "owner_action_required": "review and, only when ready, explicitly decide with the required evidence",
+      "question": "What evidence proves binary_sha256 = the exact executable certified?",
+      "readiness_impact": "BINARY_READY, IDENTITY_READY",
+      "risks_tradeoffs": "each option requires real evidence + re-review; no inference; safe default is OPEN",
+      "safe_default": "OPEN / NOT_READY / NO_CERTIFICATION",
+      "unknown": "exact executable byte hash captured in an L4 cert env",
+      "why_it_matters": "binary identity anchors certification"
+    },
+    {
+      "current_state": "OPEN / NOT_READY",
+      "decision_id": "OD-03",
+      "dependencies": [
+        "GAP-04R-ALGO"
+      ],
+      "known": "none",
+      "minimum_evidence": "owner-approved algorithm meeting the decision criteria",
+      "options": [
+        "remain OPEN"
+      ],
+      "owner_action_required": "review and, only when ready, explicitly decide with the required evidence",
+      "question": "Which signature algorithm?",
+      "readiness_impact": "SIGNING_READY",
+      "risks_tradeoffs": "each option requires real evidence + re-review; no inference; safe default is OPEN",
+      "safe_default": "OPEN / NOT_READY / NO_CERTIFICATION",
+      "unknown": "owner-approved algorithm meeting the decision criteria",
+      "why_it_matters": "signatures authenticate publication"
+    },
+    {
+      "current_state": "OPEN / NOT_READY",
+      "decision_id": "OD-04",
+      "dependencies": [
+        "GAP-04R-ROOT"
+      ],
+      "known": "none",
+      "minimum_evidence": "governed root establishment record",
+      "options": [
+        "remain OPEN"
+      ],
+      "owner_action_required": "review and, only when ready, explicitly decide with the required evidence",
+      "question": "How is the initial signing trust root established?",
+      "readiness_impact": "SIGNING_READY",
+      "risks_tradeoffs": "each option requires real evidence + re-review; no inference; safe default is OPEN",
+      "safe_default": "OPEN / NOT_READY / NO_CERTIFICATION",
+      "unknown": "governed root establishment record",
+      "why_it_matters": "trust root authenticates signer keys"
+    },
+    {
+      "current_state": "OPEN / NOT_READY",
+      "decision_id": "OD-05",
+      "dependencies": [
+        "GAP-04R-STORE"
+      ],
+      "known": "none",
+      "minimum_evidence": "selected provider + isolation properties",
+      "options": [
+        "remain OPEN"
+      ],
+      "owner_action_required": "review and, only when ready, explicitly decide with the required evidence",
+      "question": "Which key-storage model?",
+      "readiness_impact": "SIGNING_READY",
+      "risks_tradeoffs": "each option requires real evidence + re-review; no inference; safe default is OPEN",
+      "safe_default": "OPEN / NOT_READY / NO_CERTIFICATION",
+      "unknown": "selected provider + isolation properties",
+      "why_it_matters": "protect private signing keys"
+    },
+    {
+      "current_state": "OPEN / NOT_READY",
+      "decision_id": "OD-06",
+      "dependencies": [
+        "GAP-04R-RECOVERY"
+      ],
+      "known": "none",
+      "minimum_evidence": "owner-approved recovery governance",
+      "options": [
+        "remain OPEN"
+      ],
+      "owner_action_required": "review and, only when ready, explicitly decide with the required evidence",
+      "question": "What is the compromised-key recovery policy?",
+      "readiness_impact": "SIGNING_READY",
+      "risks_tradeoffs": "each option requires real evidence + re-review; no inference; safe default is OPEN",
+      "safe_default": "OPEN / NOT_READY / NO_CERTIFICATION",
+      "unknown": "owner-approved recovery governance",
+      "why_it_matters": "incident response for key compromise"
+    },
+    {
+      "current_state": "OPEN / NOT_READY",
+      "decision_id": "OD-07",
+      "dependencies": [
+        "OD-09"
+      ],
+      "known": "none",
+      "minimum_evidence": "M6 signer-authority contract",
+      "options": [
+        "remain OPEN"
+      ],
+      "owner_action_required": "review and, only when ready, explicitly decide with the required evidence",
+      "question": "Who may authorize/sign production publication?",
+      "readiness_impact": "M6_AUTH_READY",
+      "risks_tradeoffs": "each option requires real evidence + re-review; no inference; safe default is OPEN",
+      "safe_default": "OPEN / NOT_READY / NO_CERTIFICATION",
+      "unknown": "M6 signer-authority contract",
+      "why_it_matters": "separation of duties"
+    },
+    {
+      "current_state": "OPEN / NOT_READY",
+      "decision_id": "OD-08",
+      "dependencies": [
+        "OD-07"
+      ],
+      "known": "none",
+      "minimum_evidence": "M6 publication-authority contract",
+      "options": [
+        "remain OPEN"
+      ],
+      "owner_action_required": "review and, only when ready, explicitly decide with the required evidence",
+      "question": "Who may cause a signed publication to enter the registry?",
+      "readiness_impact": "M6_AUTH_READY",
+      "risks_tradeoffs": "each option requires real evidence + re-review; no inference; safe default is OPEN",
+      "safe_default": "OPEN / NOT_READY / NO_CERTIFICATION",
+      "unknown": "M6 publication-authority contract",
+      "why_it_matters": "publication authority + separation of duties"
+    },
+    {
+      "current_state": "OPEN / NOT_READY",
+      "decision_id": "OD-09",
+      "dependencies": [
+        "OD-04"
+      ],
+      "known": "none",
+      "minimum_evidence": "root governance policy",
+      "options": [
+        "remain OPEN"
+      ],
+      "owner_action_required": "review and, only when ready, explicitly decide with the required evidence",
+      "question": "How is trust-root governance handled (create/rotate/revoke/recover)?",
+      "readiness_impact": "M6_AUTH_READY, SIGNING_READY",
+      "risks_tradeoffs": "each option requires real evidence + re-review; no inference; safe default is OPEN",
+      "safe_default": "OPEN / NOT_READY / NO_CERTIFICATION",
+      "unknown": "root governance policy",
+      "why_it_matters": "root lifecycle integrity"
+    },
+    {
+      "current_state": "OPEN / NOT_READY",
+      "decision_id": "OD-10",
+      "dependencies": [
+        "OD-01",
+        "OD-02",
+        "OD-03",
+        "OD-04",
+        "OD-05",
+        "OD-06",
+        "OD-07",
+        "OD-08",
+        "OD-09"
+      ],
+      "known": "none",
+      "minimum_evidence": "every activation prerequisite met",
+      "options": [
+        "remain OPEN"
+      ],
+      "owner_action_required": "review and, only when ready, explicitly decide with the required evidence",
+      "question": "What must be true before the first real production certification is authorized?",
+      "readiness_impact": "OVERALL_READINESS",
+      "risks_tradeoffs": "each option requires real evidence + re-review; no inference; safe default is OPEN",
+      "safe_default": "OPEN / NOT_READY / NO_CERTIFICATION",
+      "unknown": "every activation prerequisite met",
+      "why_it_matters": "activation gate"
+    }
+  ],
+  "safe_default": "OPEN / NOT_READY / NO_CERTIFICATION / NO_PUBLICATION",
+  "scenario_table": [
+    {
+      "affected_gaps": [
+        "GAP-01"
+      ],
+      "affected_readiness": [
+        "CHANNEL_READY",
+        "IDENTITY_READY"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-01",
+      "immediate_status": "ACCEPTED",
+      "new_evidence_required": true,
+      "outcome": "ACCEPTED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [
+        "GAP-01"
+      ],
+      "affected_readiness": [
+        "CHANNEL_READY",
+        "IDENTITY_READY"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-01",
+      "immediate_status": "REJECTED",
+      "new_evidence_required": false,
+      "outcome": "REJECTED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [
+        "GAP-01"
+      ],
+      "affected_readiness": [
+        "CHANNEL_READY",
+        "IDENTITY_READY"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-01",
+      "immediate_status": "DEFERRED",
+      "new_evidence_required": false,
+      "outcome": "DEFERRED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [
+        "GAP-02"
+      ],
+      "affected_readiness": [
+        "BINARY_READY",
+        "IDENTITY_READY"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-02",
+      "immediate_status": "ACCEPTED",
+      "new_evidence_required": true,
+      "outcome": "ACCEPTED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [
+        "GAP-02"
+      ],
+      "affected_readiness": [
+        "BINARY_READY",
+        "IDENTITY_READY"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-02",
+      "immediate_status": "REJECTED",
+      "new_evidence_required": false,
+      "outcome": "REJECTED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [
+        "GAP-02"
+      ],
+      "affected_readiness": [
+        "BINARY_READY",
+        "IDENTITY_READY"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-02",
+      "immediate_status": "DEFERRED",
+      "new_evidence_required": false,
+      "outcome": "DEFERRED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [
+        "GAP-03R",
+        "GAP-04R-ALGO"
+      ],
+      "affected_readiness": [
+        "SIGNING_READY"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-03",
+      "immediate_status": "ACCEPTED",
+      "new_evidence_required": true,
+      "outcome": "ACCEPTED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [
+        "GAP-03R",
+        "GAP-04R-ALGO"
+      ],
+      "affected_readiness": [
+        "SIGNING_READY"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-03",
+      "immediate_status": "REJECTED",
+      "new_evidence_required": false,
+      "outcome": "REJECTED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [
+        "GAP-03R",
+        "GAP-04R-ALGO"
+      ],
+      "affected_readiness": [
+        "SIGNING_READY"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-03",
+      "immediate_status": "DEFERRED",
+      "new_evidence_required": false,
+      "outcome": "DEFERRED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [
+        "GAP-04R-ROOT"
+      ],
+      "affected_readiness": [
+        "SIGNING_READY"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-04",
+      "immediate_status": "ACCEPTED",
+      "new_evidence_required": true,
+      "outcome": "ACCEPTED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [
+        "GAP-04R-ROOT"
+      ],
+      "affected_readiness": [
+        "SIGNING_READY"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-04",
+      "immediate_status": "REJECTED",
+      "new_evidence_required": false,
+      "outcome": "REJECTED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [
+        "GAP-04R-ROOT"
+      ],
+      "affected_readiness": [
+        "SIGNING_READY"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-04",
+      "immediate_status": "DEFERRED",
+      "new_evidence_required": false,
+      "outcome": "DEFERRED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [
+        "GAP-04R-STORE"
+      ],
+      "affected_readiness": [
+        "SIGNING_READY"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-05",
+      "immediate_status": "ACCEPTED",
+      "new_evidence_required": true,
+      "outcome": "ACCEPTED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [
+        "GAP-04R-STORE"
+      ],
+      "affected_readiness": [
+        "SIGNING_READY"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-05",
+      "immediate_status": "REJECTED",
+      "new_evidence_required": false,
+      "outcome": "REJECTED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [
+        "GAP-04R-STORE"
+      ],
+      "affected_readiness": [
+        "SIGNING_READY"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-05",
+      "immediate_status": "DEFERRED",
+      "new_evidence_required": false,
+      "outcome": "DEFERRED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [
+        "GAP-04R-RECOVERY"
+      ],
+      "affected_readiness": [
+        "SIGNING_READY"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-06",
+      "immediate_status": "ACCEPTED",
+      "new_evidence_required": true,
+      "outcome": "ACCEPTED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [
+        "GAP-04R-RECOVERY"
+      ],
+      "affected_readiness": [
+        "SIGNING_READY"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-06",
+      "immediate_status": "REJECTED",
+      "new_evidence_required": false,
+      "outcome": "REJECTED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [
+        "GAP-04R-RECOVERY"
+      ],
+      "affected_readiness": [
+        "SIGNING_READY"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-06",
+      "immediate_status": "DEFERRED",
+      "new_evidence_required": false,
+      "outcome": "DEFERRED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [],
+      "affected_readiness": [
+        "M6_AUTH_READY"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-07",
+      "immediate_status": "ACCEPTED",
+      "new_evidence_required": true,
+      "outcome": "ACCEPTED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [],
+      "affected_readiness": [
+        "M6_AUTH_READY"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-07",
+      "immediate_status": "REJECTED",
+      "new_evidence_required": false,
+      "outcome": "REJECTED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [],
+      "affected_readiness": [
+        "M6_AUTH_READY"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-07",
+      "immediate_status": "DEFERRED",
+      "new_evidence_required": false,
+      "outcome": "DEFERRED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [],
+      "affected_readiness": [
+        "M6_AUTH_READY"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-08",
+      "immediate_status": "ACCEPTED",
+      "new_evidence_required": true,
+      "outcome": "ACCEPTED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [],
+      "affected_readiness": [
+        "M6_AUTH_READY"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-08",
+      "immediate_status": "REJECTED",
+      "new_evidence_required": false,
+      "outcome": "REJECTED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [],
+      "affected_readiness": [
+        "M6_AUTH_READY"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-08",
+      "immediate_status": "DEFERRED",
+      "new_evidence_required": false,
+      "outcome": "DEFERRED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [],
+      "affected_readiness": [
+        "M6_AUTH_READY",
+        "SIGNING_READY"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-09",
+      "immediate_status": "ACCEPTED",
+      "new_evidence_required": true,
+      "outcome": "ACCEPTED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [],
+      "affected_readiness": [
+        "M6_AUTH_READY",
+        "SIGNING_READY"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-09",
+      "immediate_status": "REJECTED",
+      "new_evidence_required": false,
+      "outcome": "REJECTED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [],
+      "affected_readiness": [
+        "M6_AUTH_READY",
+        "SIGNING_READY"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-09",
+      "immediate_status": "DEFERRED",
+      "new_evidence_required": false,
+      "outcome": "DEFERRED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [],
+      "affected_readiness": [
+        "OVERALL_READINESS"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-10",
+      "immediate_status": "ACCEPTED",
+      "new_evidence_required": true,
+      "outcome": "ACCEPTED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [],
+      "affected_readiness": [
+        "OVERALL_READINESS"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-10",
+      "immediate_status": "REJECTED",
+      "new_evidence_required": false,
+      "outcome": "REJECTED",
+      "re_review_required": true
+    },
+    {
+      "affected_gaps": [],
+      "affected_readiness": [
+        "OVERALL_READINESS"
+      ],
+      "affected_stages": [
+        "M4",
+        "M5",
+        "M6"
+      ],
+      "decision_id": "OD-10",
+      "immediate_status": "DEFERRED",
+      "new_evidence_required": false,
+      "outcome": "DEFERRED",
+      "re_review_required": true
+    }
+  ],
+  "schema": "dkskill.owner_decision_dossier/1",
+  "security_review": [
+    {
+      "control": "owner authority + audit",
+      "threat": "decision spoofing",
+      "unresolved_remains": "certification_blocked=true"
+    },
+    {
+      "control": "owner authority binding",
+      "threat": "unauthorized approval",
+      "unresolved_remains": "certification_blocked=true"
+    },
+    {
+      "control": "required provenance + M9 L4 + hash binding",
+      "threat": "evidence laundering",
+      "unresolved_remains": "certification_blocked=true"
+    },
+    {
+      "control": "no inference; explicit evidence",
+      "threat": "inferred evidence",
+      "unresolved_remains": "certification_blocked=true"
+    },
+    {
+      "control": "freshness + env binding",
+      "threat": "stale evidence",
+      "unresolved_remains": "certification_blocked=true"
+    },
+    {
+      "control": "exact option + re-review",
+      "threat": "option substitution",
+      "unresolved_remains": "certification_blocked=true"
+    },
+    {
+      "control": "decision bound to exact evidence + timestamp",
+      "threat": "owner-decision replay",
+      "unresolved_remains": "certification_blocked=true"
+    },
+    {
+      "control": "governed root; bootstrap OPEN",
+      "threat": "trust-root substitution",
+      "unresolved_remains": "certification_blocked=true"
+    },
+    {
+      "control": "selected provider only",
+      "threat": "key-provider substitution",
+      "unresolved_remains": "certification_blocked=true"
+    },
+    {
+      "control": "explicit policy required",
+      "threat": "recovery-policy ambiguity",
+      "unresolved_remains": "certification_blocked=true"
+    },
+    {
+      "control": "SYNTHETIC_TEST_ONLY isolation; fixtures never certify",
+      "threat": "synthetic-to-production escalation",
+      "unresolved_remains": "certification_blocked=true"
+    },
+    {
+      "control": "activation_all_met=false; owner authorization required",
+      "threat": "accidental activation",
+      "unresolved_remains": "certification_blocked=true"
+    }
+  ],
+  "version": 1
+}

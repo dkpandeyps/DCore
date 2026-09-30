@@ -1,0 +1,128 @@
+{
+  "audit_hash": "sha256:e9175893c0fa8726ef3b8fe4fadde2fe9799ce7e2fd892c81fdec7cd77d972d1",
+  "authorization_id": "exec-auth-283",
+  "binary_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+  "decision": "EXECUTION_BLOCKED",
+  "environment_id": "PTPL-DK-BENCH-WIN-01",
+  "evidence_hashes": [],
+  "execution_id": "exec-283-attempt-1",
+  "execution_state": "BLOCKED",
+  "plan_id": "plan-req-real-283",
+  "postflight_results": [],
+  "preflight_results": [
+    {
+      "gate_id": "EP-01",
+      "result": "PASS"
+    },
+    {
+      "gate_id": "EP-02",
+      "result": "PASS"
+    },
+    {
+      "gate_id": "EP-03",
+      "result": "PASS"
+    },
+    {
+      "gate_id": "EP-04",
+      "result": "PASS"
+    },
+    {
+      "gate_id": "EP-05",
+      "result": "PASS"
+    },
+    {
+      "gate_id": "EP-06",
+      "result": "PASS"
+    },
+    {
+      "gate_id": "EP-07",
+      "result": "PASS"
+    },
+    {
+      "gate_id": "EP-08",
+      "result": "PASS"
+    },
+    {
+      "gate_id": "EP-09",
+      "result": "PASS"
+    },
+    {
+      "gate_id": "EP-10",
+      "result": "PASS"
+    },
+    {
+      "gate_id": "EP-11",
+      "result": "PASS"
+    },
+    {
+      "gate_id": "EP-12",
+      "result": "PASS"
+    },
+    {
+      "gate_id": "EP-13",
+      "result": "BLOCKED"
+    },
+    {
+      "gate_id": "EP-14",
+      "result": "PASS"
+    },
+    {
+      "gate_id": "EP-15",
+      "result": "PASS"
+    },
+    {
+      "gate_id": "EP-16",
+      "result": "PASS"
+    },
+    {
+      "gate_id": "EP-17",
+      "result": "PASS"
+    },
+    {
+      "gate_id": "EP-18",
+      "result": "PASS"
+    },
+    {
+      "gate_id": "EP-19",
+      "result": "PASS"
+    },
+    {
+      "gate_id": "EP-20",
+      "result": "PASS"
+    },
+    {
+      "gate_id": "EP-21",
+      "result": "PASS"
+    },
+    {
+      "gate_id": "EP-22",
+      "result": "PASS"
+    },
+    {
+      "gate_id": "EP-23",
+      "result": "PASS"
+    },
+    {
+      "gate_id": "EP-24",
+      "result": "PASS"
+    },
+    {
+      "gate_id": "EP-25",
+      "result": "PASS"
+    }
+  ],
+  "previous_audit_hash": null,
+  "schema": "dkskill.evidence_execution_record/1",
+  "stop_reason": "STOP-NETWORK-UNVERIFIED",
+  "target": {
+    "architecture": "x64",
+    "binary_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+    "channel": "native",
+    "environment_id": "PTPL-DK-BENCH-WIN-01",
+    "platform": "win32",
+    "profile_id": "cc-2.1.283-win32-x64-native@1",
+    "version": "2.1.283"
+  },
+  "timestamp": "2026-09-29T00:00:00Z",
+  "version": 1
+}

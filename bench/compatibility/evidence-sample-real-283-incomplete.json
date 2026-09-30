@@ -1,0 +1,767 @@
+{
+  "assertions": [
+    {
+      "assertion_id": "as_EV-HOST-IDENTITY",
+      "claim": "EV-HOST-IDENTITY observed",
+      "evidence_class": "EV-HOST-IDENTITY",
+      "provenance_ref": "evi_ev-host-identity_EV-ENV-DK-REAL-01",
+      "reason": "validated evidence supports claim",
+      "state": "SUPPORTED",
+      "supporting_evidence": [
+        "evi_ev-host-identity_EV-ENV-DK-REAL-01"
+      ]
+    },
+    {
+      "assertion_id": "as_EV-BINARY-IDENTITY",
+      "claim": "EV-BINARY-IDENTITY observed",
+      "evidence_class": "EV-BINARY-IDENTITY",
+      "provenance_ref": "evi_ev-binary-identity_EV-ENV-DK-REAL-01",
+      "reason": "validated evidence supports claim",
+      "state": "SUPPORTED",
+      "supporting_evidence": [
+        "evi_ev-binary-identity_EV-ENV-DK-REAL-01"
+      ]
+    },
+    {
+      "assertion_id": "as_EV-VERSION",
+      "claim": "EV-VERSION observed",
+      "evidence_class": "EV-VERSION",
+      "provenance_ref": "evi_ev-version_EV-ENV-DK-REAL-01",
+      "reason": "validated evidence supports claim",
+      "state": "SUPPORTED",
+      "supporting_evidence": [
+        "evi_ev-version_EV-ENV-DK-REAL-01"
+      ]
+    },
+    {
+      "assertion_id": "as_EV-PLATFORM",
+      "claim": "EV-PLATFORM observed",
+      "evidence_class": "EV-PLATFORM",
+      "provenance_ref": "evi_ev-platform_EV-ENV-DK-REAL-01",
+      "reason": "validated evidence supports claim",
+      "state": "SUPPORTED",
+      "supporting_evidence": [
+        "evi_ev-platform_EV-ENV-DK-REAL-01"
+      ]
+    },
+    {
+      "assertion_id": "as_EV-ARCHITECTURE",
+      "claim": "EV-ARCHITECTURE observed",
+      "evidence_class": "EV-ARCHITECTURE",
+      "provenance_ref": "evi_ev-architecture_EV-ENV-DK-REAL-01",
+      "reason": "validated evidence supports claim",
+      "state": "SUPPORTED",
+      "supporting_evidence": [
+        "evi_ev-architecture_EV-ENV-DK-REAL-01"
+      ]
+    },
+    {
+      "assertion_id": "as_EV-CHANNEL",
+      "claim": "EV-CHANNEL observed",
+      "evidence_class": "EV-CHANNEL",
+      "provenance_ref": "evi_ev-channel_EV-ENV-DK-REAL-01",
+      "reason": "validated evidence supports claim",
+      "state": "SUPPORTED",
+      "supporting_evidence": [
+        "evi_ev-channel_EV-ENV-DK-REAL-01"
+      ]
+    },
+    {
+      "assertion_id": "as_EV-ENVIRONMENT",
+      "claim": "EV-ENVIRONMENT observed",
+      "evidence_class": "EV-ENVIRONMENT",
+      "provenance_ref": "evi_ev-environment_EV-ENV-DK-REAL-01",
+      "reason": "validated evidence supports claim",
+      "state": "SUPPORTED",
+      "supporting_evidence": [
+        "evi_ev-environment_EV-ENV-DK-REAL-01"
+      ]
+    },
+    {
+      "assertion_id": "as_EV-NETWORK",
+      "claim": "EV-NETWORK observed",
+      "evidence_class": "EV-NETWORK",
+      "provenance_ref": "evi_ev-network_EV-ENV-DK-REAL-01",
+      "reason": "validated evidence supports claim",
+      "state": "SUPPORTED",
+      "supporting_evidence": [
+        "evi_ev-network_EV-ENV-DK-REAL-01"
+      ]
+    },
+    {
+      "assertion_id": "as_EV-TOOLCHAIN",
+      "claim": "EV-TOOLCHAIN observed",
+      "evidence_class": "EV-TOOLCHAIN",
+      "provenance_ref": "evi_ev-toolchain_EV-ENV-DK-REAL-01",
+      "reason": "validated evidence supports claim",
+      "state": "SUPPORTED",
+      "supporting_evidence": [
+        "evi_ev-toolchain_EV-ENV-DK-REAL-01"
+      ]
+    },
+    {
+      "assertion_id": "as_EV-STREAM-SCHEMA",
+      "claim": "no live stream captured on the real host (no execution performed)",
+      "evidence_class": "EV-STREAM-SCHEMA",
+      "provenance_ref": null,
+      "reason": "no evidence acquired",
+      "state": "UNKNOWN",
+      "supporting_evidence": []
+    },
+    {
+      "assertion_id": "as_EV-ATTRIBUTION",
+      "claim": "no live attribution captured on the real host",
+      "evidence_class": "EV-ATTRIBUTION",
+      "provenance_ref": null,
+      "reason": "no evidence acquired",
+      "state": "UNKNOWN",
+      "supporting_evidence": []
+    },
+    {
+      "assertion_id": "as_EV-TS07",
+      "claim": "TS-07 UNRESOLVED: no live stream+attribution observations from the real host",
+      "evidence_class": "EV-TS07",
+      "provenance_ref": null,
+      "reason": "no evidence acquired",
+      "state": "UNKNOWN",
+      "supporting_evidence": []
+    },
+    {
+      "assertion_id": "as_EV-CAPABILITY",
+      "claim": "no live capability probes on the real host",
+      "evidence_class": "EV-CAPABILITY",
+      "provenance_ref": null,
+      "reason": "no evidence acquired",
+      "state": "UNKNOWN",
+      "supporting_evidence": []
+    },
+    {
+      "assertion_id": "as_EV-TS11",
+      "claim": "TS-11 UNRESOLVED: no valid NM calibration evidence from the real host",
+      "evidence_class": "EV-TS11",
+      "provenance_ref": null,
+      "reason": "no evidence acquired",
+      "state": "UNKNOWN",
+      "supporting_evidence": []
+    }
+  ],
+  "authorization_ref": "evauth-cc-2.1.283-win32-x64-native@1",
+  "completeness": "INCOMPLETE",
+  "created_at": "2026-09-29T00:00:00Z",
+  "environment_id": "EV-ENV-DK-REAL-01",
+  "evidence_items": [
+    {
+      "artifact": {
+        "binary_identity": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+        "byte_length": 64,
+        "capture_timestamp": "2026-09-29T00:00:00Z",
+        "content_hash": "sha256:6d0a6a3f71f36bce05e773c56a6bb8a75e3740e583e5246910a83dc1ed2452fa",
+        "environment_id": "EV-ENV-DK-REAL-01",
+        "evidence_class": "EV-HOST-IDENTITY",
+        "evidence_id": "evi_ev-host-identity_EV-ENV-DK-REAL-01",
+        "evidence_type": "identity-tuple",
+        "host_identity": {
+          "architecture": "x64",
+          "binary_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+          "channel": "native",
+          "executable_source": "native",
+          "platform": "win32",
+          "product": "claude-code",
+          "version": "2.1.283"
+        },
+        "provenance": {
+          "from_binary": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+          "from_environment": "EV-ENV-DK-REAL-01",
+          "from_raw_artifact": "evi_ev-host-identity_EV-ENV-DK-REAL-01",
+          "normalization_method": null,
+          "normalized_hash": null,
+          "raw_hash": "sha256:6d0a6a3f71f36bce05e773c56a6bb8a75e3740e583e5246910a83dc1ed2452fa",
+          "under_authorization": "evauth-cc-2.1.283-win32-x64-native@1",
+          "what": "M7-evidence-capture",
+          "when": "2026-09-29T00:00:00Z",
+          "where": "EV-ENV-DK-REAL-01",
+          "who": "authorized:evauth-cc-2.1.283-win32-x64-native@1"
+        },
+        "redaction_status": "NONE",
+        "redactions": [],
+        "schema": "dkskill.certification_evidence/1",
+        "source": "probe:EV-HOST-IDENTITY",
+        "stored_content": {
+          "platform": "win32",
+          "product": "claude-code",
+          "version": "2.1.283"
+        },
+        "validity": "VALID"
+      },
+      "assertion": {
+        "assertion_id": "as_EV-HOST-IDENTITY",
+        "claim": "EV-HOST-IDENTITY observed",
+        "evidence_class": "EV-HOST-IDENTITY",
+        "provenance_ref": "evi_ev-host-identity_EV-ENV-DK-REAL-01",
+        "reason": "validated evidence supports claim",
+        "state": "SUPPORTED",
+        "supporting_evidence": [
+          "evi_ev-host-identity_EV-ENV-DK-REAL-01"
+        ]
+      },
+      "evidence_class": "EV-HOST-IDENTITY",
+      "normalized": null,
+      "status": "VALID"
+    },
+    {
+      "artifact": {
+        "binary_identity": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+        "byte_length": 84,
+        "capture_timestamp": "2026-09-29T00:00:00Z",
+        "content_hash": "sha256:1353d315f69cdfca551ab460284fb8989a4519d1cc15342437a1f52d1565b0cd",
+        "environment_id": "EV-ENV-DK-REAL-01",
+        "evidence_class": "EV-BINARY-IDENTITY",
+        "evidence_id": "evi_ev-binary-identity_EV-ENV-DK-REAL-01",
+        "evidence_type": "binary-sha256",
+        "host_identity": {
+          "architecture": "x64",
+          "binary_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+          "channel": "native",
+          "executable_source": "native",
+          "platform": "win32",
+          "product": "claude-code",
+          "version": "2.1.283"
+        },
+        "provenance": {
+          "from_binary": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+          "from_environment": "EV-ENV-DK-REAL-01",
+          "from_raw_artifact": "evi_ev-binary-identity_EV-ENV-DK-REAL-01",
+          "normalization_method": null,
+          "normalized_hash": null,
+          "raw_hash": "sha256:1353d315f69cdfca551ab460284fb8989a4519d1cc15342437a1f52d1565b0cd",
+          "under_authorization": "evauth-cc-2.1.283-win32-x64-native@1",
+          "what": "M7-evidence-capture",
+          "when": "2026-09-29T00:00:00Z",
+          "where": "EV-ENV-DK-REAL-01",
+          "who": "authorized:evauth-cc-2.1.283-win32-x64-native@1"
+        },
+        "redaction_status": "NONE",
+        "redactions": [],
+        "schema": "dkskill.certification_evidence/1",
+        "source": "probe:EV-BINARY-IDENTITY",
+        "stored_content": {
+          "binary_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A"
+        },
+        "validity": "VALID"
+      },
+      "assertion": {
+        "assertion_id": "as_EV-BINARY-IDENTITY",
+        "claim": "EV-BINARY-IDENTITY observed",
+        "evidence_class": "EV-BINARY-IDENTITY",
+        "provenance_ref": "evi_ev-binary-identity_EV-ENV-DK-REAL-01",
+        "reason": "validated evidence supports claim",
+        "state": "SUPPORTED",
+        "supporting_evidence": [
+          "evi_ev-binary-identity_EV-ENV-DK-REAL-01"
+        ]
+      },
+      "evidence_class": "EV-BINARY-IDENTITY",
+      "normalized": null,
+      "status": "VALID"
+    },
+    {
+      "artifact": {
+        "binary_identity": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+        "byte_length": 21,
+        "capture_timestamp": "2026-09-29T00:00:00Z",
+        "content_hash": "sha256:5d146b3b30f6106ace8bb0d88111d70229ead3a9d5872d33aa007c18f7209d5b",
+        "environment_id": "EV-ENV-DK-REAL-01",
+        "evidence_class": "EV-VERSION",
+        "evidence_id": "evi_ev-version_EV-ENV-DK-REAL-01",
+        "evidence_type": "version-string",
+        "host_identity": {
+          "architecture": "x64",
+          "binary_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+          "channel": "native",
+          "executable_source": "native",
+          "platform": "win32",
+          "product": "claude-code",
+          "version": "2.1.283"
+        },
+        "provenance": {
+          "from_binary": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+          "from_environment": "EV-ENV-DK-REAL-01",
+          "from_raw_artifact": "evi_ev-version_EV-ENV-DK-REAL-01",
+          "normalization_method": null,
+          "normalized_hash": null,
+          "raw_hash": "sha256:5d146b3b30f6106ace8bb0d88111d70229ead3a9d5872d33aa007c18f7209d5b",
+          "under_authorization": "evauth-cc-2.1.283-win32-x64-native@1",
+          "what": "M7-evidence-capture",
+          "when": "2026-09-29T00:00:00Z",
+          "where": "EV-ENV-DK-REAL-01",
+          "who": "authorized:evauth-cc-2.1.283-win32-x64-native@1"
+        },
+        "redaction_status": "NONE",
+        "redactions": [],
+        "schema": "dkskill.certification_evidence/1",
+        "source": "probe:EV-VERSION",
+        "stored_content": {
+          "version": "2.1.283"
+        },
+        "validity": "VALID"
+      },
+      "assertion": {
+        "assertion_id": "as_EV-VERSION",
+        "claim": "EV-VERSION observed",
+        "evidence_class": "EV-VERSION",
+        "provenance_ref": "evi_ev-version_EV-ENV-DK-REAL-01",
+        "reason": "validated evidence supports claim",
+        "state": "SUPPORTED",
+        "supporting_evidence": [
+          "evi_ev-version_EV-ENV-DK-REAL-01"
+        ]
+      },
+      "evidence_class": "EV-VERSION",
+      "normalized": null,
+      "status": "VALID"
+    },
+    {
+      "artifact": {
+        "binary_identity": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+        "byte_length": 20,
+        "capture_timestamp": "2026-09-29T00:00:00Z",
+        "content_hash": "sha256:a1d64f9b89afdb87a829042a98ddffa0b604f4c32fd57a7b3a04f53a52f7c29c",
+        "environment_id": "EV-ENV-DK-REAL-01",
+        "evidence_class": "EV-PLATFORM",
+        "evidence_id": "evi_ev-platform_EV-ENV-DK-REAL-01",
+        "evidence_type": "platform",
+        "host_identity": {
+          "architecture": "x64",
+          "binary_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+          "channel": "native",
+          "executable_source": "native",
+          "platform": "win32",
+          "product": "claude-code",
+          "version": "2.1.283"
+        },
+        "provenance": {
+          "from_binary": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+          "from_environment": "EV-ENV-DK-REAL-01",
+          "from_raw_artifact": "evi_ev-platform_EV-ENV-DK-REAL-01",
+          "normalization_method": null,
+          "normalized_hash": null,
+          "raw_hash": "sha256:a1d64f9b89afdb87a829042a98ddffa0b604f4c32fd57a7b3a04f53a52f7c29c",
+          "under_authorization": "evauth-cc-2.1.283-win32-x64-native@1",
+          "what": "M7-evidence-capture",
+          "when": "2026-09-29T00:00:00Z",
+          "where": "EV-ENV-DK-REAL-01",
+          "who": "authorized:evauth-cc-2.1.283-win32-x64-native@1"
+        },
+        "redaction_status": "NONE",
+        "redactions": [],
+        "schema": "dkskill.certification_evidence/1",
+        "source": "probe:EV-PLATFORM",
+        "stored_content": {
+          "platform": "win32"
+        },
+        "validity": "VALID"
+      },
+      "assertion": {
+        "assertion_id": "as_EV-PLATFORM",
+        "claim": "EV-PLATFORM observed",
+        "evidence_class": "EV-PLATFORM",
+        "provenance_ref": "evi_ev-platform_EV-ENV-DK-REAL-01",
+        "reason": "validated evidence supports claim",
+        "state": "SUPPORTED",
+        "supporting_evidence": [
+          "evi_ev-platform_EV-ENV-DK-REAL-01"
+        ]
+      },
+      "evidence_class": "EV-PLATFORM",
+      "normalized": null,
+      "status": "VALID"
+    },
+    {
+      "artifact": {
+        "binary_identity": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+        "byte_length": 22,
+        "capture_timestamp": "2026-09-29T00:00:00Z",
+        "content_hash": "sha256:3f1245934692050a96282fad68a1055e81c05205049fe3d4c1a47fac993d3a48",
+        "environment_id": "EV-ENV-DK-REAL-01",
+        "evidence_class": "EV-ARCHITECTURE",
+        "evidence_id": "evi_ev-architecture_EV-ENV-DK-REAL-01",
+        "evidence_type": "architecture",
+        "host_identity": {
+          "architecture": "x64",
+          "binary_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+          "channel": "native",
+          "executable_source": "native",
+          "platform": "win32",
+          "product": "claude-code",
+          "version": "2.1.283"
+        },
+        "provenance": {
+          "from_binary": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+          "from_environment": "EV-ENV-DK-REAL-01",
+          "from_raw_artifact": "evi_ev-architecture_EV-ENV-DK-REAL-01",
+          "normalization_method": null,
+          "normalized_hash": null,
+          "raw_hash": "sha256:3f1245934692050a96282fad68a1055e81c05205049fe3d4c1a47fac993d3a48",
+          "under_authorization": "evauth-cc-2.1.283-win32-x64-native@1",
+          "what": "M7-evidence-capture",
+          "when": "2026-09-29T00:00:00Z",
+          "where": "EV-ENV-DK-REAL-01",
+          "who": "authorized:evauth-cc-2.1.283-win32-x64-native@1"
+        },
+        "redaction_status": "NONE",
+        "redactions": [],
+        "schema": "dkskill.certification_evidence/1",
+        "source": "probe:EV-ARCHITECTURE",
+        "stored_content": {
+          "architecture": "x64"
+        },
+        "validity": "VALID"
+      },
+      "assertion": {
+        "assertion_id": "as_EV-ARCHITECTURE",
+        "claim": "EV-ARCHITECTURE observed",
+        "evidence_class": "EV-ARCHITECTURE",
+        "provenance_ref": "evi_ev-architecture_EV-ENV-DK-REAL-01",
+        "reason": "validated evidence supports claim",
+        "state": "SUPPORTED",
+        "supporting_evidence": [
+          "evi_ev-architecture_EV-ENV-DK-REAL-01"
+        ]
+      },
+      "evidence_class": "EV-ARCHITECTURE",
+      "normalized": null,
+      "status": "VALID"
+    },
+    {
+      "artifact": {
+        "binary_identity": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+        "byte_length": 20,
+        "capture_timestamp": "2026-09-29T00:00:00Z",
+        "content_hash": "sha256:de661833d0fa0edd2b1870018935b5377761dd4da6ec914dfef4878ff9540bc3",
+        "environment_id": "EV-ENV-DK-REAL-01",
+        "evidence_class": "EV-CHANNEL",
+        "evidence_id": "evi_ev-channel_EV-ENV-DK-REAL-01",
+        "evidence_type": "channel",
+        "host_identity": {
+          "architecture": "x64",
+          "binary_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+          "channel": "native",
+          "executable_source": "native",
+          "platform": "win32",
+          "product": "claude-code",
+          "version": "2.1.283"
+        },
+        "provenance": {
+          "from_binary": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+          "from_environment": "EV-ENV-DK-REAL-01",
+          "from_raw_artifact": "evi_ev-channel_EV-ENV-DK-REAL-01",
+          "normalization_method": null,
+          "normalized_hash": null,
+          "raw_hash": "sha256:de661833d0fa0edd2b1870018935b5377761dd4da6ec914dfef4878ff9540bc3",
+          "under_authorization": "evauth-cc-2.1.283-win32-x64-native@1",
+          "what": "M7-evidence-capture",
+          "when": "2026-09-29T00:00:00Z",
+          "where": "EV-ENV-DK-REAL-01",
+          "who": "authorized:evauth-cc-2.1.283-win32-x64-native@1"
+        },
+        "redaction_status": "NONE",
+        "redactions": [],
+        "schema": "dkskill.certification_evidence/1",
+        "source": "probe:EV-CHANNEL",
+        "stored_content": {
+          "channel": "native"
+        },
+        "validity": "VALID"
+      },
+      "assertion": {
+        "assertion_id": "as_EV-CHANNEL",
+        "claim": "EV-CHANNEL observed",
+        "evidence_class": "EV-CHANNEL",
+        "provenance_ref": "evi_ev-channel_EV-ENV-DK-REAL-01",
+        "reason": "validated evidence supports claim",
+        "state": "SUPPORTED",
+        "supporting_evidence": [
+          "evi_ev-channel_EV-ENV-DK-REAL-01"
+        ]
+      },
+      "evidence_class": "EV-CHANNEL",
+      "normalized": null,
+      "status": "VALID"
+    },
+    {
+      "artifact": {
+        "binary_identity": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+        "byte_length": 99,
+        "capture_timestamp": "2026-09-29T00:00:00Z",
+        "content_hash": "sha256:44ffb2f1e65080bd8fc04250fe4ed9fd157414d9f4def6c1e7ec47f4b5868a20",
+        "environment_id": "EV-ENV-DK-REAL-01",
+        "evidence_class": "EV-ENVIRONMENT",
+        "evidence_id": "evi_ev-environment_EV-ENV-DK-REAL-01",
+        "evidence_type": "environment-identity",
+        "host_identity": {
+          "architecture": "x64",
+          "binary_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+          "channel": "native",
+          "executable_source": "native",
+          "platform": "win32",
+          "product": "claude-code",
+          "version": "2.1.283"
+        },
+        "provenance": {
+          "from_binary": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+          "from_environment": "EV-ENV-DK-REAL-01",
+          "from_raw_artifact": "evi_ev-environment_EV-ENV-DK-REAL-01",
+          "normalization_method": null,
+          "normalized_hash": null,
+          "raw_hash": "sha256:44ffb2f1e65080bd8fc04250fe4ed9fd157414d9f4def6c1e7ec47f4b5868a20",
+          "under_authorization": "evauth-cc-2.1.283-win32-x64-native@1",
+          "what": "M7-evidence-capture",
+          "when": "2026-09-29T00:00:00Z",
+          "where": "EV-ENV-DK-REAL-01",
+          "who": "authorized:evauth-cc-2.1.283-win32-x64-native@1"
+        },
+        "redaction_status": "NONE",
+        "redactions": [],
+        "schema": "dkskill.certification_evidence/1",
+        "source": "probe:EV-ENVIRONMENT",
+        "stored_content": {
+          "environment_id": "EV-ENV-DK-REAL-01",
+          "isolation": "operator-attested isolated profile (reference)"
+        },
+        "validity": "VALID"
+      },
+      "assertion": {
+        "assertion_id": "as_EV-ENVIRONMENT",
+        "claim": "EV-ENVIRONMENT observed",
+        "evidence_class": "EV-ENVIRONMENT",
+        "provenance_ref": "evi_ev-environment_EV-ENV-DK-REAL-01",
+        "reason": "validated evidence supports claim",
+        "state": "SUPPORTED",
+        "supporting_evidence": [
+          "evi_ev-environment_EV-ENV-DK-REAL-01"
+        ]
+      },
+      "evidence_class": "EV-ENVIRONMENT",
+      "normalized": null,
+      "status": "VALID"
+    },
+    {
+      "artifact": {
+        "binary_identity": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+        "byte_length": 21,
+        "capture_timestamp": "2026-09-29T00:00:00Z",
+        "content_hash": "sha256:f67dccc65d786d084eaf182405e10cf9a6ee496002776aa727fb0c9cd5524d69",
+        "environment_id": "EV-ENV-DK-REAL-01",
+        "evidence_class": "EV-NETWORK",
+        "evidence_id": "evi_ev-network_EV-ENV-DK-REAL-01",
+        "evidence_type": "network-isolation",
+        "host_identity": {
+          "architecture": "x64",
+          "binary_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+          "channel": "native",
+          "executable_source": "native",
+          "platform": "win32",
+          "product": "claude-code",
+          "version": "2.1.283"
+        },
+        "provenance": {
+          "from_binary": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+          "from_environment": "EV-ENV-DK-REAL-01",
+          "from_raw_artifact": "evi_ev-network_EV-ENV-DK-REAL-01",
+          "normalization_method": null,
+          "normalized_hash": null,
+          "raw_hash": "sha256:f67dccc65d786d084eaf182405e10cf9a6ee496002776aa727fb0c9cd5524d69",
+          "under_authorization": "evauth-cc-2.1.283-win32-x64-native@1",
+          "what": "M7-evidence-capture",
+          "when": "2026-09-29T00:00:00Z",
+          "where": "EV-ENV-DK-REAL-01",
+          "who": "authorized:evauth-cc-2.1.283-win32-x64-native@1"
+        },
+        "redaction_status": "NONE",
+        "redactions": [],
+        "schema": "dkskill.certification_evidence/1",
+        "source": "probe:EV-NETWORK",
+        "stored_content": {
+          "status": "VERIFIED"
+        },
+        "validity": "VALID"
+      },
+      "assertion": {
+        "assertion_id": "as_EV-NETWORK",
+        "claim": "EV-NETWORK observed",
+        "evidence_class": "EV-NETWORK",
+        "provenance_ref": "evi_ev-network_EV-ENV-DK-REAL-01",
+        "reason": "validated evidence supports claim",
+        "state": "SUPPORTED",
+        "supporting_evidence": [
+          "evi_ev-network_EV-ENV-DK-REAL-01"
+        ]
+      },
+      "evidence_class": "EV-NETWORK",
+      "normalized": null,
+      "status": "VALID"
+    },
+    {
+      "artifact": {
+        "binary_identity": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+        "byte_length": 35,
+        "capture_timestamp": "2026-09-29T00:00:00Z",
+        "content_hash": "sha256:b929b20982bbebbf49db1adaca9e109a66e2ede18882f70de28b646a0d6461ff",
+        "environment_id": "EV-ENV-DK-REAL-01",
+        "evidence_class": "EV-TOOLCHAIN",
+        "evidence_id": "evi_ev-toolchain_EV-ENV-DK-REAL-01",
+        "evidence_type": "toolchain",
+        "host_identity": {
+          "architecture": "x64",
+          "binary_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+          "channel": "native",
+          "executable_source": "native",
+          "platform": "win32",
+          "product": "claude-code",
+          "version": "2.1.283"
+        },
+        "provenance": {
+          "from_binary": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+          "from_environment": "EV-ENV-DK-REAL-01",
+          "from_raw_artifact": "evi_ev-toolchain_EV-ENV-DK-REAL-01",
+          "normalization_method": null,
+          "normalized_hash": null,
+          "raw_hash": "sha256:b929b20982bbebbf49db1adaca9e109a66e2ede18882f70de28b646a0d6461ff",
+          "under_authorization": "evauth-cc-2.1.283-win32-x64-native@1",
+          "what": "M7-evidence-capture",
+          "when": "2026-09-29T00:00:00Z",
+          "where": "EV-ENV-DK-REAL-01",
+          "who": "authorized:evauth-cc-2.1.283-win32-x64-native@1"
+        },
+        "redaction_status": "NONE",
+        "redactions": [],
+        "schema": "dkskill.certification_evidence/1",
+        "source": "probe:EV-TOOLCHAIN",
+        "stored_content": {
+          "toolchain": "node>=24; win32-x64"
+        },
+        "validity": "VALID"
+      },
+      "assertion": {
+        "assertion_id": "as_EV-TOOLCHAIN",
+        "claim": "EV-TOOLCHAIN observed",
+        "evidence_class": "EV-TOOLCHAIN",
+        "provenance_ref": "evi_ev-toolchain_EV-ENV-DK-REAL-01",
+        "reason": "validated evidence supports claim",
+        "state": "SUPPORTED",
+        "supporting_evidence": [
+          "evi_ev-toolchain_EV-ENV-DK-REAL-01"
+        ]
+      },
+      "evidence_class": "EV-TOOLCHAIN",
+      "normalized": null,
+      "status": "VALID"
+    },
+    {
+      "artifact": null,
+      "assertion": {
+        "assertion_id": "as_EV-STREAM-SCHEMA",
+        "claim": "no live stream captured on the real host (no execution performed)",
+        "evidence_class": "EV-STREAM-SCHEMA",
+        "provenance_ref": null,
+        "reason": "no evidence acquired",
+        "state": "UNKNOWN",
+        "supporting_evidence": []
+      },
+      "evidence_class": "EV-STREAM-SCHEMA",
+      "normalized": null,
+      "status": "INCOMPLETE"
+    },
+    {
+      "artifact": null,
+      "assertion": {
+        "assertion_id": "as_EV-ATTRIBUTION",
+        "claim": "no live attribution captured on the real host",
+        "evidence_class": "EV-ATTRIBUTION",
+        "provenance_ref": null,
+        "reason": "no evidence acquired",
+        "state": "UNKNOWN",
+        "supporting_evidence": []
+      },
+      "evidence_class": "EV-ATTRIBUTION",
+      "normalized": null,
+      "status": "INCOMPLETE"
+    },
+    {
+      "artifact": null,
+      "assertion": {
+        "assertion_id": "as_EV-TS07",
+        "claim": "TS-07 UNRESOLVED: no live stream+attribution observations from the real host",
+        "evidence_class": "EV-TS07",
+        "provenance_ref": null,
+        "reason": "no evidence acquired",
+        "state": "UNKNOWN",
+        "supporting_evidence": []
+      },
+      "evidence_class": "EV-TS07",
+      "normalized": null,
+      "status": "INCOMPLETE"
+    },
+    {
+      "artifact": null,
+      "assertion": {
+        "assertion_id": "as_EV-CAPABILITY",
+        "claim": "no live capability probes on the real host",
+        "evidence_class": "EV-CAPABILITY",
+        "provenance_ref": null,
+        "reason": "no evidence acquired",
+        "state": "UNKNOWN",
+        "supporting_evidence": []
+      },
+      "evidence_class": "EV-CAPABILITY",
+      "normalized": null,
+      "status": "INCOMPLETE"
+    },
+    {
+      "artifact": null,
+      "assertion": {
+        "assertion_id": "as_EV-TS11",
+        "claim": "TS-11 UNRESOLVED: no valid NM calibration evidence from the real host",
+        "evidence_class": "EV-TS11",
+        "provenance_ref": null,
+        "reason": "no evidence acquired",
+        "state": "UNKNOWN",
+        "supporting_evidence": []
+      },
+      "evidence_class": "EV-TS11",
+      "normalized": null,
+      "status": "INCOMPLETE"
+    }
+  ],
+  "missing_classes": [
+    "EV-STREAM-SCHEMA",
+    "EV-ATTRIBUTION",
+    "EV-TS07",
+    "EV-CAPABILITY",
+    "EV-TS11"
+  ],
+  "package_hash": "sha256:cfc2d57fc537bcc814a683afb1afceb3adfaed11197f2639970dc524b97405fa",
+  "package_id": "pkg-real-283-incomplete",
+  "previous_package_hash": null,
+  "schema": "dkskill.evidence_package/1",
+  "synthetic_test_only": false,
+  "target_architecture": "x64",
+  "target_binary_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+  "target_channel": "native",
+  "target_host_identity": {
+    "architecture": "x64",
+    "binary_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+    "channel": "native",
+    "executable_source": "native",
+    "platform": "win32",
+    "product": "claude-code",
+    "version": "2.1.283"
+  },
+  "target_platform": "win32",
+  "target_profile_id": "cc-2.1.283-win32-x64-native@1",
+  "target_version": "2.1.283",
+  "ts07_status": "UNRESOLVED",
+  "ts11_status": "INCOMPLETE",
+  "validity": "VALID",
+  "version": 1
+}

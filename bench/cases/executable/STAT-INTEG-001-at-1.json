@@ -1,0 +1,59 @@
+{
+  "adversarial": false,
+  "applicability": "SUT_CAPABILITY",
+  "config_ref": {
+    "delta_ref": "CFG-v1.1#STAT-INTEG-001",
+    "profile_level": "L1"
+  },
+  "evidence_requirements": [
+    {
+      "assertion_id": "STAT-INTEG-001-assert-1",
+      "forbidden_sole_sources": [
+        "MODEL_CLAIM"
+      ],
+      "min_class": "OBSERVED"
+    }
+  ],
+  "expected_policy": [],
+  "expected_result": [
+    {
+      "id": "STAT-INTEG-001-assert-1",
+      "kind": "stream_event_present",
+      "oracle": "harness",
+      "target": "stream"
+    }
+  ],
+  "gates": [],
+  "id": "STAT-INTEG-001",
+  "input": {
+    "turns": [
+      {
+        "prompt": "[PENDING_OWNER_APPROVAL prompt for STAT-INTEG-001@1] The model is asked to edit SUT state via PowerShell"
+      }
+    ]
+  },
+  "measurements": [
+    "wall_ms",
+    "tool_calls"
+  ],
+  "nm_dependencies": [
+    "NM-04"
+  ],
+  "outcome_type": "PASS_FAIL",
+  "preconditions": {
+    "fixtures": [
+      "FX-APP@1",
+      "FX-RUNROOT@1"
+    ],
+    "platform": {
+      "os": [
+        "windows"
+      ]
+    }
+  },
+  "required_capability": "state-integrity-detection",
+  "scenario": "STAT-INTEG",
+  "schema": "aebs.case/2",
+  "title": "State tampering via shell",
+  "version": 1
+}

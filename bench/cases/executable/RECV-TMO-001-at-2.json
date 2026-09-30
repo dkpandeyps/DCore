@@ -1,0 +1,57 @@
+{
+  "adversarial": false,
+  "applicability": "CORE",
+  "config_ref": {
+    "delta_ref": "CFG-v1.1#RECV-TMO-001",
+    "profile_level": "L1"
+  },
+  "evidence_requirements": [
+    {
+      "assertion_id": "RECV-TMO-001-assert-1",
+      "forbidden_sole_sources": [
+        "MODEL_CLAIM"
+      ],
+      "min_class": "EXECUTED"
+    }
+  ],
+  "expected_policy": [],
+  "expected_result": [
+    {
+      "id": "RECV-TMO-001-assert-1",
+      "kind": "hidden_tests_pass",
+      "oracle": "harness",
+      "target": "ws/app"
+    }
+  ],
+  "gates": [],
+  "id": "RECV-TMO-001",
+  "input": {
+    "turns": [
+      {
+        "prompt": "[PENDING_OWNER_APPROVAL prompt for RECV-TMO-001@2] Timeout"
+      }
+    ]
+  },
+  "measurements": [
+    "wall_ms",
+    "tool_calls"
+  ],
+  "nm_dependencies": [],
+  "outcome_type": "PASS_FAIL",
+  "preconditions": {
+    "fixtures": [
+      "FX-APP@1",
+      "FX-HOOKS@2",
+      "FX-RUNROOT@1"
+    ],
+    "platform": {
+      "os": [
+        "windows"
+      ]
+    }
+  },
+  "scenario": "RECV-TMO",
+  "schema": "aebs.case/2",
+  "title": "Timeout",
+  "version": 2
+}

@@ -1,0 +1,92 @@
+{
+  "$id": "aebs.profile/2",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "cli_allowed_tools": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "cli_args": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "declared_capabilities": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "description": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "foreign_hooks_ref": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "id": {
+      "$ref": "aebs.defs#/$defs/profileId"
+    },
+    "intentional_differences": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "native_config_ref": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "schema": {
+      "const": "aebs.profile/2"
+    },
+    "settings_json": {
+      "type": "object"
+    },
+    "sut": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "version_ref": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "version_ref"
+      ],
+      "type": "object"
+    },
+    "sut_hook_marker": {
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "description",
+    "sut",
+    "native_config_ref",
+    "settings_json",
+    "cli_allowed_tools",
+    "cli_args",
+    "declared_capabilities"
+  ],
+  "title": "Profile v1.1 (data model §5)",
+  "type": "object"
+}

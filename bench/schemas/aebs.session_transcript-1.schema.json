@@ -1,0 +1,108 @@
+{
+  "$id": "aebs.session_transcript/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "ended_at": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "events": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "model": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "rx_ms": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "seq": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "session_id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "subtype": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "seq",
+          "rx_ms",
+          "type"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "executable_path": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "exit_code": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "line_count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "provenance": {
+      "enum": [
+        "claude_code",
+        "test_double"
+      ],
+      "type": "string"
+    },
+    "results_seen": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "schema": {
+      "const": "aebs.session_transcript/1"
+    },
+    "started_at": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "timed_out": {
+      "type": "boolean"
+    },
+    "turns_sent": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "wall_ms": {
+      "minimum": 0,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "schema",
+    "provenance",
+    "executable_path",
+    "started_at",
+    "ended_at",
+    "wall_ms",
+    "exit_code",
+    "timed_out",
+    "turns_sent",
+    "results_seen",
+    "line_count",
+    "events"
+  ],
+  "title": "Redacted session transcript (TS-02 evidence: event metadata only, no raw content or secrets)",
+  "type": "object"
+}

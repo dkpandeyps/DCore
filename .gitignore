@@ -1,0 +1,54 @@
+# ── dkskill .gitignore ─────────────────────────────────────────────────────
+# Keep the repository to SOURCE + REPRODUCIBLE TESTS + DOCS.
+# Never commit credentials, personal Claude configuration, or generated runtime
+# state. This file MUST NOT exclude skills/dkskill/, its modules/scripts/
+# references/templates/manifest, the test suite, docs, LICENSE, or README.
+
+# Dependencies
+node_modules/
+
+# Personal Claude configuration & credential material (NEVER commit)
+.claude/
+**/.claude/
+**/.credentials.json
+**/.claude.json
+.paysec/
+
+# Local validation scratch: copied personal Claude config, live cost ledgers,
+# machine-specific evidence and logs (generated runtime state — not source).
+platform-validation/scratch/
+
+# Secrets / tokens / keys / env
+*.pem
+*.key
+id_rsa*
+*.token
+*.p12
+*.pfx
+.env
+.env.*
+secrets/
+*secret*.local
+
+# Logs & local runtime state
+*.log
+logs/
+
+# Temp / scratch / disposable smoke-test dirs
+tmp/
+temp/
+scratch/
+scratchpad/
+dkskill-runtime-smoke-*/
+dkskill-inst-*/
+dkskill-dry-*/
+dkskill-xp-*/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+.idea/
+.vscode/

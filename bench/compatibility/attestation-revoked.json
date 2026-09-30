@@ -1,0 +1,192 @@
+{
+  "ambiguous_installations": false,
+  "architecture": "x64",
+  "attestation_hash": "sha256:b0ef3257bba89949c9c08cf61004d198e7a9049a64bfbecb0262d94ce9cdc05b",
+  "attestation_id": "att-revoked",
+  "attestation_status": "REVOKED",
+  "binary_sha256": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "channel": "native",
+  "claude_version": "2.1.283",
+  "contradictions": [],
+  "created_at": "2026-09-30T00:00:00Z",
+  "environment_id": "CERT-ENV-DEMO",
+  "evidence_hashes": [
+    "sha256:74e7bcdd3cbc6044d1ecdb4b0cca284f3213ff8e47e4b93f6d55ee6095c4f555",
+    "sha256:6f1420f06cb55503f620878a1bf8e72e51fb8c9346c2db2b2b8903f92a7c6823",
+    "sha256:f76ca0ab80587fb0eaf3e6b1362e7ee1ab3131e6d359af51ca3caad71f77209c",
+    "sha256:8d1825827bb66f73c5ec81421121fec6883333a90f38cbe9a440a18101bba59f",
+    "sha256:905746ddd1d8f3f637ecd49ce1e071d80843456429488542b80096d01b3d3dec",
+    "sha256:8907e786c9e17bb8c1576d490b50b5208791a856faaf3eb933a5ff897b1d73b5",
+    "sha256:91f2d99d762e026ebc6a91c2b7e64adb856f73d65b00ebeef2b29ee08462aa10",
+    "sha256:39c938d41d36baf03cab02288e6ecf6fcf3f4fc181d573dbe9efeb8c03b4f5a9"
+  ],
+  "evidence_references": [],
+  "expires_at": null,
+  "installation_ref": "install://cert-env-demo",
+  "matrix_combo": {
+    "architecture": "x64",
+    "channel": "native",
+    "platform": "windows",
+    "version": "2.1.283"
+  },
+  "observation_sources": [
+    {
+      "environment": "CERT-ENV-DEMO",
+      "evidence_hash": "sha256:74e7bcdd3cbc6044d1ecdb4b0cca284f3213ff8e47e4b93f6d55ee6095c4f555",
+      "field": "product",
+      "observation_time": "2026-09-30T00:00:00Z",
+      "observer": "synthetic-observer",
+      "provenance_strength": "CERTIFICATION_ATTESTATION",
+      "source": "INDEPENDENT_OBSERVER",
+      "value": "claude-code"
+    },
+    {
+      "environment": "CERT-ENV-DEMO",
+      "evidence_hash": "sha256:6f1420f06cb55503f620878a1bf8e72e51fb8c9346c2db2b2b8903f92a7c6823",
+      "field": "version",
+      "observation_time": "2026-09-30T00:00:00Z",
+      "observer": "synthetic-observer",
+      "provenance_strength": "CONTROLLED_OBSERVATION",
+      "source": "INDEPENDENT_OBSERVER",
+      "value": "2.1.283"
+    },
+    {
+      "environment": "CERT-ENV-DEMO",
+      "evidence_hash": "sha256:f76ca0ab80587fb0eaf3e6b1362e7ee1ab3131e6d359af51ca3caad71f77209c",
+      "field": "operating_system",
+      "observation_time": "2026-09-30T00:00:00Z",
+      "observer": "synthetic-observer",
+      "provenance_strength": "CONTROLLED_OBSERVATION",
+      "source": "INDEPENDENT_OBSERVER",
+      "value": "win32"
+    },
+    {
+      "environment": "CERT-ENV-DEMO",
+      "evidence_hash": "sha256:8d1825827bb66f73c5ec81421121fec6883333a90f38cbe9a440a18101bba59f",
+      "field": "os_version",
+      "observation_time": "2026-09-30T00:00:00Z",
+      "observer": "synthetic-observer",
+      "provenance_strength": "CONTROLLED_OBSERVATION",
+      "source": "INDEPENDENT_OBSERVER",
+      "value": "10.0.26200"
+    },
+    {
+      "environment": "CERT-ENV-DEMO",
+      "evidence_hash": "sha256:905746ddd1d8f3f637ecd49ce1e071d80843456429488542b80096d01b3d3dec",
+      "field": "architecture",
+      "observation_time": "2026-09-30T00:00:00Z",
+      "observer": "synthetic-observer",
+      "provenance_strength": "CONTROLLED_OBSERVATION",
+      "source": "INDEPENDENT_OBSERVER",
+      "value": "x64"
+    },
+    {
+      "environment": "CERT-ENV-DEMO",
+      "evidence_hash": "sha256:8907e786c9e17bb8c1576d490b50b5208791a856faaf3eb933a5ff897b1d73b5",
+      "field": "channel",
+      "observation_time": "2026-09-30T00:00:00Z",
+      "observer": "synthetic-observer",
+      "provenance_strength": "INDEPENDENT_OBSERVATION",
+      "source": "INDEPENDENT_OBSERVER",
+      "value": "native"
+    },
+    {
+      "environment": "CERT-ENV-DEMO",
+      "evidence_hash": "sha256:91f2d99d762e026ebc6a91c2b7e64adb856f73d65b00ebeef2b29ee08462aa10",
+      "field": "runtime_facet",
+      "observation_time": "2026-09-30T00:00:00Z",
+      "observer": "synthetic-observer",
+      "provenance_strength": "CONTROLLED_OBSERVATION",
+      "source": "INDEPENDENT_OBSERVER",
+      "value": "native"
+    },
+    {
+      "environment": "CERT-ENV-DEMO",
+      "evidence_hash": "sha256:39c938d41d36baf03cab02288e6ecf6fcf3f4fc181d573dbe9efeb8c03b4f5a9",
+      "field": "binary_sha256",
+      "observation_time": "2026-09-30T00:00:00Z",
+      "observer": "synthetic-observer",
+      "provenance_strength": "INDEPENDENT_OBSERVATION",
+      "source": "INDEPENDENT_OBSERVER",
+      "value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    }
+  ],
+  "observation_timestamps": [
+    "2026-09-30T00:00:00Z"
+  ],
+  "operating_system": "win32",
+  "os_version": "10.0.26200",
+  "previous_attestation_hash": null,
+  "product": "claude-code",
+  "profile_id": "demo@1",
+  "provenance": [
+    {
+      "field": "product",
+      "source": "INDEPENDENT_OBSERVER",
+      "state": "OBSERVED",
+      "strength": "CERTIFICATION_ATTESTATION",
+      "value": "claude-code"
+    },
+    {
+      "field": "version",
+      "source": "INDEPENDENT_OBSERVER",
+      "state": "OBSERVED",
+      "strength": "CONTROLLED_OBSERVATION",
+      "value": "2.1.283"
+    },
+    {
+      "field": "operating_system",
+      "source": "INDEPENDENT_OBSERVER",
+      "state": "OBSERVED",
+      "strength": "CONTROLLED_OBSERVATION",
+      "value": "win32"
+    },
+    {
+      "field": "os_version",
+      "source": "INDEPENDENT_OBSERVER",
+      "state": "OBSERVED",
+      "strength": "CONTROLLED_OBSERVATION",
+      "value": "10.0.26200"
+    },
+    {
+      "field": "architecture",
+      "source": "INDEPENDENT_OBSERVER",
+      "state": "OBSERVED",
+      "strength": "CONTROLLED_OBSERVATION",
+      "value": "x64"
+    },
+    {
+      "field": "channel",
+      "source": "INDEPENDENT_OBSERVER",
+      "state": "OBSERVED",
+      "strength": "INDEPENDENT_OBSERVATION",
+      "value": "native"
+    },
+    {
+      "field": "runtime_facet",
+      "source": "INDEPENDENT_OBSERVER",
+      "state": "OBSERVED",
+      "strength": "CONTROLLED_OBSERVATION",
+      "value": "native"
+    },
+    {
+      "field": "binary_sha256",
+      "source": "INDEPENDENT_OBSERVER",
+      "state": "OBSERVED",
+      "strength": "INDEPENDENT_OBSERVATION",
+      "value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    }
+  ],
+  "reasons": [
+    "attestation revoked"
+  ],
+  "revocation_reference": "rev://demo",
+  "runtime_facet": "native",
+  "schema": "dkskill.certification_identity_attestation/1",
+  "signature_status": "SIGNATURE_REQUIRED",
+  "signer_identity": null,
+  "signing_required": true,
+  "supersession_reference": null,
+  "synthetic_test_only": true,
+  "version": 1
+}

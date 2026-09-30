@@ -1,0 +1,961 @@
+{
+  "capability_results": [
+    {
+      "capability_id": "CAP-HOOK-PRETOOLUSE-INTERCEPT",
+      "criticality": "CRITICAL",
+      "min_state": "VERIFIED",
+      "required": true,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOOK-POSTTOOLUSE-INTERCEPT",
+      "criticality": "HIGH",
+      "min_state": null,
+      "required": false,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOOK-SUBAGENT-INTERCEPT",
+      "criticality": "CRITICAL",
+      "min_state": "VERIFIED",
+      "required": true,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-MCP-MATCHER",
+      "criticality": "CRITICAL",
+      "min_state": "VERIFIED",
+      "required": true,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOOK-DENY-REASON-VISIBLE",
+      "criticality": "CRITICAL",
+      "min_state": "VERIFIED",
+      "required": true,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-PERMISSION-PRECEDENCE",
+      "criticality": "CRITICAL",
+      "min_state": "VERIFIED",
+      "required": true,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-UPDATEDINPUT-NARROWING",
+      "criticality": "MEDIUM",
+      "min_state": null,
+      "required": false,
+      "required_for": "optional_functionality",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-SUBAGENT-TOOL-RESTRICTIONS",
+      "criticality": "HIGH",
+      "min_state": null,
+      "required": false,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-SKILL-TOOL-FLAGS",
+      "criticality": "HIGH",
+      "min_state": null,
+      "required": false,
+      "required_for": "optional_functionality",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOOK-ENV-IDENTIFIERS",
+      "criticality": "HIGH",
+      "min_state": null,
+      "required": false,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-SETTINGS-PRECEDENCE",
+      "criticality": "HIGH",
+      "min_state": null,
+      "required": false,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-MANAGED-SETTINGS",
+      "criticality": "HIGH",
+      "min_state": null,
+      "required": false,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-PERMISSION-MODE-CEILING",
+      "criticality": "HIGH",
+      "min_state": null,
+      "required": false,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-PROTECTED-PATHS",
+      "criticality": "MEDIUM",
+      "min_state": null,
+      "required": false,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOOK-CONCURRENCY",
+      "criticality": "HIGH",
+      "min_state": null,
+      "required": false,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-DENY-PRECEDENCE",
+      "criticality": "CRITICAL",
+      "min_state": "VERIFIED",
+      "required": true,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-STOP-HOOK",
+      "criticality": "MEDIUM",
+      "min_state": null,
+      "required": false,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-SESSIONSTART-CONTEXT",
+      "criticality": "HIGH",
+      "min_state": null,
+      "required": false,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-COMPACTION-CONTEXT",
+      "criticality": "HIGH",
+      "min_state": null,
+      "required": false,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-CONFIG-RELOAD",
+      "criticality": "LOW",
+      "min_state": null,
+      "required": false,
+      "required_for": "optional_functionality",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOOK-HEARTBEAT",
+      "criticality": "CRITICAL",
+      "min_state": "VERIFIED",
+      "required": true,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOOK-TIMEOUT-FAILOPEN",
+      "criticality": "CRITICAL",
+      "min_state": "VERIFIED",
+      "required": true,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-STREAM-SCHEMA",
+      "criticality": "HIGH",
+      "min_state": null,
+      "required": false,
+      "required_for": "benchmark_attribution_only",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-ATTRIBUTION-TEXT",
+      "criticality": "HIGH",
+      "min_state": null,
+      "required": false,
+      "required_for": "benchmark_attribution_only",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOST-IDENTITY-DETECT",
+      "criticality": "HIGH",
+      "min_state": null,
+      "required": false,
+      "required_for": "core_safety_enforcement",
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    }
+  ],
+  "environment_id": "CERT-ENV-SYN",
+  "evidence_refs": [
+    "evi_ident_syn"
+  ],
+  "facet_results": [
+    {
+      "facet_id": "hook_protocol@1",
+      "family": "hook_protocol",
+      "state": "RESOLVED",
+      "validation_status": "PROBED"
+    },
+    {
+      "facet_id": "stream_schema@1",
+      "family": "stream_schema",
+      "state": "RESOLVED",
+      "validation_status": "PROBED"
+    },
+    {
+      "facet_id": "attribution@1",
+      "family": "attribution",
+      "state": "RESOLVED",
+      "validation_status": "PROBED"
+    },
+    {
+      "facet_id": "settings_layout@1",
+      "family": "settings_layout",
+      "state": "RESOLVED",
+      "validation_status": "PROBED"
+    },
+    {
+      "facet_id": "permission_modes@1",
+      "family": "permission_modes",
+      "state": "RESOLVED",
+      "validation_status": "PROBED"
+    }
+  ],
+  "final_decision": "CERTIFIED",
+  "gate_results": [
+    {
+      "gate_id": "CG-01",
+      "mandatory": true,
+      "name": "exact host identity",
+      "reasons": [
+        "identity_status=IDENTIFIED"
+      ],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "CG-02",
+      "mandatory": true,
+      "name": "exact registry profile",
+      "reasons": [
+        "resolution=EXACT_MATCH"
+      ],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "CG-03",
+      "mandatory": true,
+      "name": "environment identity",
+      "reasons": [
+        "env=CERT-ENV-SYN",
+        "isolation=synthetic-isolation"
+      ],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "CG-04",
+      "mandatory": true,
+      "name": "required capability coverage",
+      "reasons": [
+        "all required capabilities probed"
+      ],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "CG-05",
+      "mandatory": true,
+      "name": "critical capability verification",
+      "reasons": [
+        "all safety-critical capabilities VERIFIED and probed PASS"
+      ],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "CG-06",
+      "mandatory": true,
+      "name": "facet verification",
+      "reasons": [
+        "all required facets RESOLVED and probed PASS"
+      ],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "CG-07",
+      "mandatory": true,
+      "name": "attribution verification",
+      "reasons": [
+        "in_scope=true",
+        "probe=PASS",
+        "ts07_resolved=true",
+        "real_host=NOT_VALIDATED"
+      ],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "CG-08",
+      "mandatory": true,
+      "name": "stream-schema verification",
+      "reasons": [
+        "probe=PASS",
+        "ts07_resolved=true"
+      ],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "CG-09",
+      "mandatory": true,
+      "name": "limitation acceptance",
+      "reasons": [
+        "limitations=0",
+        "reviewed=0"
+      ],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "CG-10",
+      "mandatory": true,
+      "name": "regression comparison",
+      "reasons": [
+        "regression=NO_BEHAVIORAL_CHANGE"
+      ],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "CG-11",
+      "mandatory": true,
+      "name": "evidence integrity",
+      "reasons": [
+        "records=1",
+        "chain_valid=true"
+      ],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "CG-12",
+      "mandatory": true,
+      "name": "no-secret evidence",
+      "reasons": [
+        "secrets_found=false"
+      ],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "CG-13",
+      "mandatory": true,
+      "name": "owner review",
+      "reasons": [
+        "decision=APPROVE"
+      ],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "CG-14",
+      "mandatory": true,
+      "name": "TS-07 attribution/stream live evidence",
+      "reasons": [
+        "ts07_resolved=true"
+      ],
+      "result": "PASS"
+    },
+    {
+      "gate_id": "CG-15",
+      "mandatory": true,
+      "name": "TS-11 NM calibration",
+      "reasons": [
+        "applicable=false",
+        "resolved=true"
+      ],
+      "result": "PASS"
+    }
+  ],
+  "hcl_enforcement": "ENFORCEMENT_ALLOWED",
+  "host_identity": {
+    "architecture": "synthetic",
+    "binary_sha256": "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
+    "channel": "synthetic",
+    "executable_source": null,
+    "platform": "synthetic-os",
+    "product": "claude-code-synthetic",
+    "version": "2.1.283"
+  },
+  "lifecycle_state": "CERTIFIED",
+  "limitations": [],
+  "owner_review": {
+    "decision": "APPROVE",
+    "profile_id": "synthetic-test-only@1",
+    "review_status": "APPROVED",
+    "reviewed_evidence": [
+      "evi_ident_syn"
+    ],
+    "reviewed_limitations": [],
+    "reviewer": "SYNTHETIC_TEST_ONLY",
+    "timestamp": "2026-09-29T00:00:00Z"
+  },
+  "probe_results": [
+    {
+      "actual_observation": "VERIFIED",
+      "evidence_ref": "evi_CAP-HOOK-PRETOOLUSE-INTERCEPT",
+      "expected_observation": "VERIFIED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "capability",
+      "preconditions": [],
+      "probe_id": "cap:CAP-HOOK-PRETOOLUSE-INTERCEPT",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "CAP-HOOK-PRETOOLUSE-INTERCEPT",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "VERIFIED",
+      "evidence_ref": "evi_CAP-HOOK-POSTTOOLUSE-INTERCEPT",
+      "expected_observation": "VERIFIED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "capability",
+      "preconditions": [],
+      "probe_id": "cap:CAP-HOOK-POSTTOOLUSE-INTERCEPT",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "CAP-HOOK-POSTTOOLUSE-INTERCEPT",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "VERIFIED",
+      "evidence_ref": "evi_CAP-HOOK-SUBAGENT-INTERCEPT",
+      "expected_observation": "VERIFIED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "capability",
+      "preconditions": [],
+      "probe_id": "cap:CAP-HOOK-SUBAGENT-INTERCEPT",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "CAP-HOOK-SUBAGENT-INTERCEPT",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "VERIFIED",
+      "evidence_ref": "evi_CAP-MCP-MATCHER",
+      "expected_observation": "VERIFIED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "capability",
+      "preconditions": [],
+      "probe_id": "cap:CAP-MCP-MATCHER",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "CAP-MCP-MATCHER",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "VERIFIED",
+      "evidence_ref": "evi_CAP-HOOK-DENY-REASON-VISIBLE",
+      "expected_observation": "VERIFIED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "capability",
+      "preconditions": [],
+      "probe_id": "cap:CAP-HOOK-DENY-REASON-VISIBLE",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "CAP-HOOK-DENY-REASON-VISIBLE",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "VERIFIED",
+      "evidence_ref": "evi_CAP-PERMISSION-PRECEDENCE",
+      "expected_observation": "VERIFIED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "capability",
+      "preconditions": [],
+      "probe_id": "cap:CAP-PERMISSION-PRECEDENCE",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "CAP-PERMISSION-PRECEDENCE",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "VERIFIED",
+      "evidence_ref": "evi_CAP-UPDATEDINPUT-NARROWING",
+      "expected_observation": "VERIFIED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "capability",
+      "preconditions": [],
+      "probe_id": "cap:CAP-UPDATEDINPUT-NARROWING",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "CAP-UPDATEDINPUT-NARROWING",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "VERIFIED",
+      "evidence_ref": "evi_CAP-SUBAGENT-TOOL-RESTRICTIONS",
+      "expected_observation": "VERIFIED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "capability",
+      "preconditions": [],
+      "probe_id": "cap:CAP-SUBAGENT-TOOL-RESTRICTIONS",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "CAP-SUBAGENT-TOOL-RESTRICTIONS",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "VERIFIED",
+      "evidence_ref": "evi_CAP-SKILL-TOOL-FLAGS",
+      "expected_observation": "VERIFIED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "capability",
+      "preconditions": [],
+      "probe_id": "cap:CAP-SKILL-TOOL-FLAGS",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "CAP-SKILL-TOOL-FLAGS",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "VERIFIED",
+      "evidence_ref": "evi_CAP-HOOK-ENV-IDENTIFIERS",
+      "expected_observation": "VERIFIED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "capability",
+      "preconditions": [],
+      "probe_id": "cap:CAP-HOOK-ENV-IDENTIFIERS",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "CAP-HOOK-ENV-IDENTIFIERS",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "VERIFIED",
+      "evidence_ref": "evi_CAP-SETTINGS-PRECEDENCE",
+      "expected_observation": "VERIFIED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "capability",
+      "preconditions": [],
+      "probe_id": "cap:CAP-SETTINGS-PRECEDENCE",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "CAP-SETTINGS-PRECEDENCE",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "VERIFIED",
+      "evidence_ref": "evi_CAP-MANAGED-SETTINGS",
+      "expected_observation": "VERIFIED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "capability",
+      "preconditions": [],
+      "probe_id": "cap:CAP-MANAGED-SETTINGS",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "CAP-MANAGED-SETTINGS",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "VERIFIED",
+      "evidence_ref": "evi_CAP-PERMISSION-MODE-CEILING",
+      "expected_observation": "VERIFIED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "capability",
+      "preconditions": [],
+      "probe_id": "cap:CAP-PERMISSION-MODE-CEILING",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "CAP-PERMISSION-MODE-CEILING",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "VERIFIED",
+      "evidence_ref": "evi_CAP-PROTECTED-PATHS",
+      "expected_observation": "VERIFIED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "capability",
+      "preconditions": [],
+      "probe_id": "cap:CAP-PROTECTED-PATHS",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "CAP-PROTECTED-PATHS",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "VERIFIED",
+      "evidence_ref": "evi_CAP-HOOK-CONCURRENCY",
+      "expected_observation": "VERIFIED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "capability",
+      "preconditions": [],
+      "probe_id": "cap:CAP-HOOK-CONCURRENCY",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "CAP-HOOK-CONCURRENCY",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "VERIFIED",
+      "evidence_ref": "evi_CAP-DENY-PRECEDENCE",
+      "expected_observation": "VERIFIED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "capability",
+      "preconditions": [],
+      "probe_id": "cap:CAP-DENY-PRECEDENCE",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "CAP-DENY-PRECEDENCE",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "VERIFIED",
+      "evidence_ref": "evi_CAP-STOP-HOOK",
+      "expected_observation": "VERIFIED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "capability",
+      "preconditions": [],
+      "probe_id": "cap:CAP-STOP-HOOK",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "CAP-STOP-HOOK",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "VERIFIED",
+      "evidence_ref": "evi_CAP-SESSIONSTART-CONTEXT",
+      "expected_observation": "VERIFIED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "capability",
+      "preconditions": [],
+      "probe_id": "cap:CAP-SESSIONSTART-CONTEXT",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "CAP-SESSIONSTART-CONTEXT",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "VERIFIED",
+      "evidence_ref": "evi_CAP-COMPACTION-CONTEXT",
+      "expected_observation": "VERIFIED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "capability",
+      "preconditions": [],
+      "probe_id": "cap:CAP-COMPACTION-CONTEXT",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "CAP-COMPACTION-CONTEXT",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "VERIFIED",
+      "evidence_ref": "evi_CAP-CONFIG-RELOAD",
+      "expected_observation": "VERIFIED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "capability",
+      "preconditions": [],
+      "probe_id": "cap:CAP-CONFIG-RELOAD",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "CAP-CONFIG-RELOAD",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "VERIFIED",
+      "evidence_ref": "evi_CAP-HOOK-HEARTBEAT",
+      "expected_observation": "VERIFIED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "capability",
+      "preconditions": [],
+      "probe_id": "cap:CAP-HOOK-HEARTBEAT",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "CAP-HOOK-HEARTBEAT",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "VERIFIED",
+      "evidence_ref": "evi_CAP-HOOK-TIMEOUT-FAILOPEN",
+      "expected_observation": "VERIFIED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "capability",
+      "preconditions": [],
+      "probe_id": "cap:CAP-HOOK-TIMEOUT-FAILOPEN",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "CAP-HOOK-TIMEOUT-FAILOPEN",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "VERIFIED",
+      "evidence_ref": "evi_CAP-STREAM-SCHEMA",
+      "expected_observation": "VERIFIED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "capability",
+      "preconditions": [],
+      "probe_id": "cap:CAP-STREAM-SCHEMA",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "CAP-STREAM-SCHEMA",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "VERIFIED",
+      "evidence_ref": "evi_CAP-ATTRIBUTION-TEXT",
+      "expected_observation": "VERIFIED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "capability",
+      "preconditions": [],
+      "probe_id": "cap:CAP-ATTRIBUTION-TEXT",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "CAP-ATTRIBUTION-TEXT",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "VERIFIED",
+      "evidence_ref": "evi_CAP-HOST-IDENTITY-DETECT",
+      "expected_observation": "VERIFIED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "capability",
+      "preconditions": [],
+      "probe_id": "cap:CAP-HOST-IDENTITY-DETECT",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "CAP-HOST-IDENTITY-DETECT",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "RESOLVED",
+      "evidence_ref": "evi_hook_protocol",
+      "expected_observation": "RESOLVED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "facet",
+      "preconditions": [],
+      "probe_id": "facet:hook_protocol",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "hook_protocol",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "RESOLVED",
+      "evidence_ref": "evi_stream_schema",
+      "expected_observation": "RESOLVED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "facet",
+      "preconditions": [],
+      "probe_id": "facet:stream_schema",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "stream_schema",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "RESOLVED",
+      "evidence_ref": "evi_attribution",
+      "expected_observation": "RESOLVED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "facet",
+      "preconditions": [],
+      "probe_id": "facet:attribution",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "attribution",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "RESOLVED",
+      "evidence_ref": "evi_settings_layout",
+      "expected_observation": "RESOLVED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "facet",
+      "preconditions": [],
+      "probe_id": "facet:settings_layout",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "settings_layout",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "RESOLVED",
+      "evidence_ref": "evi_permission_modes",
+      "expected_observation": "RESOLVED",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "facet",
+      "preconditions": [],
+      "probe_id": "facet:permission_modes",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "permission_modes",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "A1-A8 match",
+      "evidence_ref": "evi_attr",
+      "expected_observation": "A1-A8 match",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "attribution",
+      "preconditions": [],
+      "probe_id": "attr",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "attribution@1",
+      "timestamp": "2026-09-29T00:00:00Z"
+    },
+    {
+      "actual_observation": "schema match",
+      "evidence_ref": "evi_stream",
+      "expected_observation": "schema match",
+      "failure_reason": null,
+      "input": "synthetic",
+      "kind": "stream",
+      "preconditions": [],
+      "probe_id": "stream",
+      "probe_version": "1",
+      "profile_id": "synthetic-test-only@1",
+      "result": "PASS",
+      "target": "stream_schema@1",
+      "timestamp": "2026-09-29T00:00:00Z"
+    }
+  ],
+  "profile_id": "synthetic-test-only@1",
+  "proposed_update": {
+    "capability_changes": [],
+    "changed_facets": [],
+    "evidence": [
+      "evi_ident_syn"
+    ],
+    "profile_id": "synthetic-test-only@1",
+    "proposed_state": "CERTIFIED",
+    "reason": "All mandatory certification gates PASS with owner approval. Registry publication is a separate controlled operation (not performed here)."
+  },
+  "reason_codes": [],
+  "regression": {
+    "diffs": [],
+    "result": "NO_BEHAVIORAL_CHANGE"
+  },
+  "run_id": "run_cert_synthetic_sample",
+  "schema": "dkskill.certification_result/1",
+  "synthetic": true,
+  "version": 1
+}

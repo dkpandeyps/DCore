@@ -1,0 +1,1481 @@
+{
+  "activation_all_met": false,
+  "certification_activation_prerequisites": [
+    {
+      "met": false,
+      "requirement": "GAP-01 closed"
+    },
+    {
+      "met": false,
+      "requirement": "GAP-02 closed"
+    },
+    {
+      "met": false,
+      "requirement": "GAP-03R closed"
+    },
+    {
+      "met": false,
+      "requirement": "GAP-04R-ALGO closed"
+    },
+    {
+      "met": false,
+      "requirement": "GAP-04R-ROOT closed"
+    },
+    {
+      "met": false,
+      "requirement": "GAP-04R-STORE closed"
+    },
+    {
+      "met": false,
+      "requirement": "GAP-04R-RECOVERY closed"
+    },
+    {
+      "met": false,
+      "requirement": "M8 execution gate independently READY"
+    },
+    {
+      "met": false,
+      "requirement": "M9 L4 independently VERIFIED"
+    },
+    {
+      "met": false,
+      "requirement": "TS-07 resolved"
+    },
+    {
+      "met": false,
+      "requirement": "TS-11 resolved"
+    },
+    {
+      "met": false,
+      "requirement": "exact benchmark pin validated"
+    },
+    {
+      "met": false,
+      "requirement": "required M4 gates PASS"
+    },
+    {
+      "met": false,
+      "requirement": "owner authorization"
+    },
+    {
+      "met": false,
+      "requirement": "signing governance READY"
+    }
+  ],
+  "complete_unsigned_gate": {
+    "authorizes": [
+      "M4 evaluation only"
+    ],
+    "complete_unsigned_is_not_certified": true,
+    "conditions": [
+      "all required fields OBSERVED at threshold",
+      "no contradiction/ambiguity/expiry/revocation/supersession/tamper",
+      "valid environment binding",
+      "valid evidence hash chain"
+    ]
+  },
+  "design_only": true,
+  "failure_recovery_matrix": [
+    {
+      "block_point": "attestation",
+      "condition": "incomplete identity",
+      "fresh_evidence_required": true,
+      "history_intact": true,
+      "remediation": "obtain missing field",
+      "state": "ATTESTATION_INCOMPLETE"
+    },
+    {
+      "block_point": "attestation",
+      "condition": "weak provenance",
+      "fresh_evidence_required": true,
+      "history_intact": true,
+      "remediation": "stronger observation",
+      "state": "ATTESTATION_INCOMPLETE"
+    },
+    {
+      "block_point": "attestation",
+      "condition": "contradiction",
+      "fresh_evidence_required": true,
+      "history_intact": true,
+      "remediation": "re-observe",
+      "state": "CONTRADICTED"
+    },
+    {
+      "block_point": "attestation",
+      "condition": "ambiguity",
+      "fresh_evidence_required": true,
+      "history_intact": true,
+      "remediation": "select exact install",
+      "state": "AMBIGUOUS"
+    },
+    {
+      "block_point": "attestation/M4",
+      "condition": "stale evidence",
+      "fresh_evidence_required": true,
+      "history_intact": true,
+      "remediation": "re-acquire",
+      "state": "EXPIRED"
+    },
+    {
+      "block_point": "attestation",
+      "condition": "environment mismatch",
+      "fresh_evidence_required": true,
+      "history_intact": true,
+      "remediation": "re-observe in cert env",
+      "state": "ATTESTATION_INCOMPLETE"
+    },
+    {
+      "block_point": "M4",
+      "condition": "M9 L4 missing",
+      "fresh_evidence_required": true,
+      "history_intact": true,
+      "remediation": "independent L4 verification",
+      "state": "BLOCKED"
+    },
+    {
+      "block_point": "M4",
+      "condition": "M9 L4 stale",
+      "fresh_evidence_required": true,
+      "history_intact": true,
+      "remediation": "re-verify L4",
+      "state": "BLOCKED"
+    },
+    {
+      "block_point": "M4",
+      "condition": "M9 L4 revoked",
+      "fresh_evidence_required": true,
+      "history_intact": true,
+      "remediation": "re-verify L4",
+      "state": "BLOCKED"
+    },
+    {
+      "block_point": "M4",
+      "condition": "TS-07 unresolved",
+      "fresh_evidence_required": true,
+      "history_intact": true,
+      "remediation": "resolve TS-07 (live evidence)",
+      "state": "NOT_CERTIFIED"
+    },
+    {
+      "block_point": "M4",
+      "condition": "TS-11 unresolved",
+      "fresh_evidence_required": true,
+      "history_intact": true,
+      "remediation": "resolve TS-11",
+      "state": "NOT_CERTIFIED"
+    },
+    {
+      "block_point": "M4",
+      "condition": "capability unresolved",
+      "fresh_evidence_required": true,
+      "history_intact": true,
+      "remediation": "capability evidence",
+      "state": "NOT_CERTIFIED"
+    },
+    {
+      "block_point": "M4",
+      "condition": "M4 failure",
+      "fresh_evidence_required": true,
+      "history_intact": true,
+      "remediation": "remediate gates",
+      "state": "NOT_CERTIFIED"
+    },
+    {
+      "block_point": "M5",
+      "condition": "M5 proposal mismatch",
+      "fresh_evidence_required": false,
+      "history_intact": true,
+      "remediation": "rebuild proposal",
+      "state": "REJECTED"
+    },
+    {
+      "block_point": "M6",
+      "condition": "M6 authorization mismatch",
+      "fresh_evidence_required": false,
+      "history_intact": true,
+      "remediation": "re-authorize",
+      "state": "REJECTED"
+    },
+    {
+      "block_point": "signature",
+      "condition": "key invalid",
+      "fresh_evidence_required": false,
+      "history_intact": true,
+      "remediation": "valid key",
+      "state": "REJECTED"
+    },
+    {
+      "block_point": "signature",
+      "condition": "key revoked",
+      "fresh_evidence_required": false,
+      "history_intact": true,
+      "remediation": "replacement key",
+      "state": "REJECTED"
+    },
+    {
+      "block_point": "signature",
+      "condition": "signature invalid",
+      "fresh_evidence_required": false,
+      "history_intact": true,
+      "remediation": "re-sign (governed)",
+      "state": "REJECTED"
+    },
+    {
+      "block_point": "registry",
+      "condition": "registry precondition mismatch",
+      "fresh_evidence_required": false,
+      "history_intact": true,
+      "remediation": "refresh precondition",
+      "state": "BLOCKED"
+    },
+    {
+      "block_point": "registry",
+      "condition": "concurrent proposal",
+      "fresh_evidence_required": false,
+      "history_intact": true,
+      "remediation": "compare-and-swap retry",
+      "state": "BLOCKED"
+    },
+    {
+      "block_point": "publication",
+      "condition": "publication failure",
+      "fresh_evidence_required": false,
+      "history_intact": true,
+      "remediation": "retry atomically",
+      "state": "FAILED"
+    },
+    {
+      "block_point": "governance",
+      "condition": "rollback",
+      "fresh_evidence_required": false,
+      "history_intact": true,
+      "remediation": "explicit reversal record",
+      "state": "ROLLED_BACK"
+    },
+    {
+      "block_point": "governance",
+      "condition": "supersession",
+      "fresh_evidence_required": false,
+      "history_intact": true,
+      "remediation": "new record",
+      "state": "SUPERSEDED"
+    },
+    {
+      "block_point": "governance",
+      "condition": "revocation",
+      "fresh_evidence_required": false,
+      "history_intact": true,
+      "remediation": "new record",
+      "state": "REVOKED"
+    }
+  ],
+  "first_certification_safety_boundary": [
+    "no bootstrap from synthetic certification",
+    "no version inheritance",
+    "no platform inheritance",
+    "no channel inheritance",
+    "no architecture inheritance",
+    "no M9 bypass",
+    "no M8 bypass",
+    "no M4 bypass",
+    "no M5 bypass",
+    "no M6 bypass",
+    "no stale evidence reuse",
+    "no other-installation evidence reuse",
+    "no weak identity inference",
+    "the first production-certified cell must be independently evidenced"
+  ],
+  "future_test_specs": [
+    "state-machine completeness",
+    "allowed transitions",
+    "forbidden transitions",
+    "every precondition",
+    "exact object hashes",
+    "exact cell binding",
+    "M9 dependency",
+    "M8 dependency",
+    "M4 dependency",
+    "M5 dependency",
+    "M6 dependency",
+    "key lifecycle",
+    "replay protection",
+    "immutable history",
+    "owner-decision gates",
+    "synthetic/production separation",
+    "no-secret boundary",
+    "static no-execution/no-network/no-signing guarantees"
+  ],
+  "gap_assessments": [
+    {
+      "authoritative_finding": "M18: no proven safe autonomous local channel source currently exists",
+      "candidates": [
+        {
+          "candidate": "controlled-install attestation",
+          "classification": "UNPROVEN"
+        },
+        {
+          "candidate": "independent observer of installed channel",
+          "classification": "UNPROVEN"
+        },
+        {
+          "candidate": "infer from version/filename/OS/registry",
+          "classification": "REJECTED"
+        }
+      ],
+      "concrete_prerequisites": [
+        "exact required observation: the installed channel of the certified installation",
+        "min provenance CONTROLLED_OBSERVATION",
+        "observer class: controlled or independent (M9 L4)",
+        "environment binding to the cert env",
+        "evidence_hash",
+        "freshness",
+        "contradiction => CONTRADICTED",
+        "independent verification for authoritative",
+        "owner approval of the source"
+      ],
+      "id": "GAP-01",
+      "question": "concrete direct channel evidence source (>= CONTROLLED) for Claude Code",
+      "status": "OPEN_DESIGN_GAP"
+    },
+    {
+      "authoritative_finding": "exact-byte-hash is authoritative but its authority depends on L4 cert-env control; GAP remains OPEN until proven end-to-end",
+      "candidates": [
+        {
+          "candidate": "exact executable byte hash",
+          "classification": "AUTHORITATIVE"
+        },
+        {
+          "candidate": "embedded executable metadata",
+          "classification": "UNPROVEN"
+        },
+        {
+          "candidate": "package/archive hash",
+          "classification": "SUPPORTING"
+        },
+        {
+          "candidate": "explicit install manifest",
+          "classification": "SUPPORTING"
+        },
+        {
+          "candidate": "benchmark binary",
+          "classification": "INSUFFICIENT"
+        },
+        {
+          "candidate": "filename/path",
+          "classification": "INSUFFICIENT"
+        },
+        {
+          "candidate": "registry metadata",
+          "classification": "INSUFFICIENT"
+        }
+      ],
+      "concrete_prerequisites": [
+        "binary_sha256 = exact executable being certified",
+        "bytes-only read in an L4 cert env",
+        "freshness + env binding",
+        "contradiction => CONTRADICTED"
+      ],
+      "id": "GAP-02",
+      "question": "exact certified-executable binary-binding mechanism",
+      "status": "OPEN_DESIGN_GAP"
+    },
+    {
+      "authoritative_finding": "payload contract specified; any M6-undefined field is an owner decision; algorithm kept separate (GAP-04R-ALGO)",
+      "candidates": [
+        {
+          "candidate": "M21 payload contract",
+          "classification": "PROVEN"
+        }
+      ],
+      "concrete_prerequisites": [
+        "mandatory fields: attestation/certification/proposal/authorization hashes, exact cell, registry identity+version+precondition, publication record id, signer identity, key identity/version, canonical+schema version, timestamp",
+        "optional fields: none by default",
+        "canonical ordering: project canonical JSON",
+        "full hash coverage"
+      ],
+      "id": "GAP-03R",
+      "question": "signature-payload field-contract completeness",
+      "status": "OPEN_OWNER_DECISION"
+    },
+    {
+      "authoritative_finding": "OPEN OWNER DECISION — no approved algorithm exists; none inferred",
+      "candidates": [],
+      "concrete_prerequisites": [
+        "security properties",
+        "verification support",
+        "deterministic encoding",
+        "long-term verification",
+        "key rotation",
+        "library/runtime availability",
+        "cross-platform reproducibility",
+        "governance compatibility"
+      ],
+      "id": "GAP-04R-ALGO",
+      "question": "signing algorithm selection",
+      "status": "OPEN_OWNER_DECISION"
+    },
+    {
+      "authoritative_finding": "OPEN OWNER DECISION — no root created or selected",
+      "candidates": [],
+      "concrete_prerequisites": [
+        "root identity",
+        "root authorization",
+        "initial signer registration",
+        "root rotation/compromise/revocation/recovery",
+        "audit history"
+      ],
+      "id": "GAP-04R-ROOT",
+      "question": "trust-root bootstrap",
+      "status": "OPEN_OWNER_DECISION"
+    },
+    {
+      "authoritative_finding": "OPEN OWNER DECISION — no provider chosen or accessed",
+      "candidates": [
+        {
+          "candidate": "OS key store",
+          "classification": "UNPROVEN"
+        },
+        {
+          "candidate": "HSM",
+          "classification": "UNPROVEN"
+        },
+        {
+          "candidate": "KMS",
+          "classification": "UNPROVEN"
+        },
+        {
+          "candidate": "dedicated signing service",
+          "classification": "UNPROVEN"
+        },
+        {
+          "candidate": "offline signing environment",
+          "classification": "UNPROVEN"
+        }
+      ],
+      "concrete_prerequisites": [
+        "private-key non-exportability where required",
+        "access control",
+        "auditability",
+        "backup/recovery",
+        "rotation",
+        "revocation",
+        "environment isolation"
+      ],
+      "id": "GAP-04R-STORE",
+      "question": "key-storage model",
+      "status": "OPEN_OWNER_DECISION"
+    },
+    {
+      "authoritative_finding": "OPEN OWNER DECISION — no operational recovery procedure established",
+      "candidates": [],
+      "concrete_prerequisites": [
+        "detection",
+        "signing halt",
+        "key revocation",
+        "affected-publication identification",
+        "trustworthy cutoff",
+        "replacement signer/key",
+        "historical verification",
+        "profile/registry response",
+        "incident audit"
+      ],
+      "id": "GAP-04R-RECOVERY",
+      "question": "compromised-key recovery governance",
+      "status": "OPEN_OWNER_DECISION"
+    }
+  ],
+  "m13_cell_rule": {
+    "every_object_same_cell": true,
+    "exact": "platform × architecture × channel × version (+ runtime facet where required)",
+    "no": [
+      "inheritance",
+      "sibling reuse",
+      "latest substitution",
+      "platform substitution",
+      "architecture substitution",
+      "channel substitution",
+      "version substitution"
+    ]
+  },
+  "m4_gate": {
+    "no_real_certification": true,
+    "requires": [
+      "exact identity",
+      "provenance thresholds",
+      "M9 L4 verified",
+      "capability/facet requirements",
+      "critical-capability gate",
+      "behavioral evidence",
+      "TS-07 resolved",
+      "TS-11 resolved",
+      "owner authorization",
+      "all mandatory M4 gates"
+    ]
+  },
+  "m5_gate": {
+    "binds": [
+      "certification_result_hash",
+      "attestation_hash",
+      "profile_hash",
+      "exact M13 cell",
+      "proposal_hash",
+      "expected registry state"
+    ],
+    "fail_on": [
+      "stale certification",
+      "changed attestation",
+      "changed profile",
+      "changed cell",
+      "changed registry precondition",
+      "revoked/superseded certification"
+    ]
+  },
+  "m6_gate": {
+    "binds": [
+      "authorization authority",
+      "authorization scope",
+      "authorization expiry",
+      "signer authorization",
+      "key status",
+      "signature payload",
+      "signature verification",
+      "registry precondition"
+    ],
+    "no_signing": true
+  },
+  "objective": "Assemble M19/M20/M21 into ONE normative end-to-end certification-governance state machine and define the concrete prerequisites, owner decisions, and evidence required before any real certification can occur — design only; no execution/signing/certification; no OPEN gap converted to an assumption.",
+  "open_design_gaps": [
+    {
+      "id": "GAP-01",
+      "status": "OPEN_DESIGN_GAP"
+    },
+    {
+      "id": "GAP-02",
+      "status": "OPEN_DESIGN_GAP"
+    },
+    {
+      "id": "GAP-03R",
+      "status": "OPEN_OWNER_DECISION"
+    },
+    {
+      "id": "GAP-04R-ALGO",
+      "status": "OPEN_OWNER_DECISION"
+    },
+    {
+      "id": "GAP-04R-ROOT",
+      "status": "OPEN_OWNER_DECISION"
+    },
+    {
+      "id": "GAP-04R-STORE",
+      "status": "OPEN_OWNER_DECISION"
+    },
+    {
+      "id": "GAP-04R-RECOVERY",
+      "status": "OPEN_OWNER_DECISION"
+    }
+  ],
+  "overall_readiness": "NOT_READY",
+  "owner_decision_register": [
+    {
+      "current_status": "OPEN_OWNER_DECISION",
+      "decision_required": "channel evidence source",
+      "evidence_needed": "proven machine-readable channel evidence",
+      "id": "OD-01",
+      "options": [
+        "controlled-install attestation",
+        "independent observer"
+      ],
+      "owner_authority": "PTPL / DK Pandey",
+      "prohibited_inference": "no inference; explicit owner decision required",
+      "why": "authoritative channel identity"
+    },
+    {
+      "current_status": "OPEN_OWNER_DECISION",
+      "decision_required": "binary-binding mechanism",
+      "evidence_needed": "end-to-end proof binding hash to the certified executable",
+      "id": "OD-02",
+      "options": [
+        "exact byte hash in L4 env",
+        "embedded metadata (unproven)"
+      ],
+      "owner_authority": "PTPL / DK Pandey",
+      "prohibited_inference": "no inference; explicit owner decision required",
+      "why": "exact executable identity"
+    },
+    {
+      "current_status": "OPEN_OWNER_DECISION",
+      "decision_required": "signature algorithm",
+      "evidence_needed": "owner-approved algorithm",
+      "id": "OD-03",
+      "options": [
+        "(none approved)"
+      ],
+      "owner_authority": "PTPL / DK Pandey",
+      "prohibited_inference": "no inference; explicit owner decision required",
+      "why": "signature validity + long-term verification"
+    },
+    {
+      "current_status": "OPEN_OWNER_DECISION",
+      "decision_required": "trust-root bootstrap",
+      "evidence_needed": "governed root establishment",
+      "id": "OD-04",
+      "options": [
+        "(none selected)"
+      ],
+      "owner_authority": "PTPL / DK Pandey",
+      "prohibited_inference": "no inference; explicit owner decision required",
+      "why": "establish initial trust"
+    },
+    {
+      "current_status": "OPEN_OWNER_DECISION",
+      "decision_required": "key-storage model",
+      "evidence_needed": "selected provider + isolation",
+      "id": "OD-05",
+      "options": [
+        "OS key store",
+        "HSM",
+        "KMS",
+        "dedicated service",
+        "offline env"
+      ],
+      "owner_authority": "PTPL / DK Pandey",
+      "prohibited_inference": "no inference; explicit owner decision required",
+      "why": "protect signing keys"
+    },
+    {
+      "current_status": "OPEN_OWNER_DECISION",
+      "decision_required": "compromised-key recovery",
+      "evidence_needed": "owner-approved recovery policy",
+      "id": "OD-06",
+      "options": [
+        "(policy undefined)"
+      ],
+      "owner_authority": "PTPL / DK Pandey",
+      "prohibited_inference": "no inference; explicit owner decision required",
+      "why": "incident response"
+    },
+    {
+      "current_status": "OPEN_OWNER_DECISION",
+      "decision_required": "signing authority",
+      "evidence_needed": "M6 signer authority contract",
+      "id": "OD-07",
+      "options": [
+        "(per M6 governance)"
+      ],
+      "owner_authority": "PTPL / DK Pandey",
+      "prohibited_inference": "no inference; explicit owner decision required",
+      "why": "who signs"
+    },
+    {
+      "current_status": "OPEN_OWNER_DECISION",
+      "decision_required": "publication authority",
+      "evidence_needed": "M6 publication authority contract",
+      "id": "OD-08",
+      "options": [
+        "(per M6 governance)"
+      ],
+      "owner_authority": "PTPL / DK Pandey",
+      "prohibited_inference": "no inference; explicit owner decision required",
+      "why": "who approves publication"
+    },
+    {
+      "current_status": "OPEN_OWNER_DECISION",
+      "decision_required": "trust-root governance",
+      "evidence_needed": "root governance policy",
+      "id": "OD-09",
+      "options": [
+        "(undefined)"
+      ],
+      "owner_authority": "PTPL / DK Pandey",
+      "prohibited_inference": "no inference; explicit owner decision required",
+      "why": "root change control"
+    },
+    {
+      "current_status": "OPEN_OWNER_DECISION",
+      "decision_required": "production certification activation criteria",
+      "evidence_needed": "activation prerequisite checklist met",
+      "id": "OD-10",
+      "options": [
+        "(all prerequisites closed)"
+      ],
+      "owner_authority": "PTPL / DK Pandey",
+      "prohibited_inference": "no inference; explicit owner decision required",
+      "why": "when first real cert may occur"
+    }
+  ],
+  "precondition_table": [
+    {
+      "blocked": "evidence unavailable",
+      "fail": "no evidence",
+      "fresh_evidence_required": true,
+      "id": "P-01",
+      "pass": "M7 evidence present",
+      "precondition": "identity evidence",
+      "remediation": "acquire evidence",
+      "resulting_state": "ATTESTATION_INCOMPLETE"
+    },
+    {
+      "blocked": "-",
+      "fail": "missing field",
+      "fresh_evidence_required": true,
+      "id": "P-02",
+      "pass": "all required fields OBSERVED",
+      "precondition": "identity completeness",
+      "remediation": "obtain missing field",
+      "resulting_state": "ATTESTATION_INCOMPLETE"
+    },
+    {
+      "blocked": "-",
+      "fail": "weak provenance",
+      "fresh_evidence_required": true,
+      "id": "P-03",
+      "pass": "channel/binary >= CONTROLLED",
+      "precondition": "provenance threshold",
+      "remediation": "stronger observation",
+      "resulting_state": "ATTESTATION_INCOMPLETE"
+    },
+    {
+      "blocked": "-",
+      "fail": "divergent values",
+      "fresh_evidence_required": true,
+      "id": "P-04",
+      "pass": "no divergent values",
+      "precondition": "contradiction status",
+      "remediation": "re-observe",
+      "resulting_state": "CONTRADICTED"
+    },
+    {
+      "blocked": "multiple installs",
+      "fail": "-",
+      "fresh_evidence_required": true,
+      "id": "P-05",
+      "pass": "exact installation",
+      "precondition": "ambiguity status",
+      "remediation": "select exact install",
+      "resulting_state": "AMBIGUOUS"
+    },
+    {
+      "blocked": "-",
+      "fail": "expired",
+      "fresh_evidence_required": true,
+      "id": "P-06",
+      "pass": "within window",
+      "precondition": "freshness",
+      "remediation": "re-acquire",
+      "resulting_state": "EXPIRED"
+    },
+    {
+      "blocked": "-",
+      "fail": "wrong env",
+      "fresh_evidence_required": true,
+      "id": "P-07",
+      "pass": "same environment_id",
+      "precondition": "environment binding",
+      "remediation": "re-observe in cert env",
+      "resulting_state": "ATTESTATION_INCOMPLETE"
+    },
+    {
+      "blocked": "-",
+      "fail": "mismatch",
+      "fresh_evidence_required": true,
+      "id": "P-08",
+      "pass": "hashes match",
+      "precondition": "evidence hash integrity",
+      "remediation": "re-acquire",
+      "resulting_state": "TAMPERED"
+    },
+    {
+      "blocked": "L4 absent/stale/revoked",
+      "fail": "L4 FAILED",
+      "fresh_evidence_required": true,
+      "id": "P-09",
+      "pass": "L4 VERIFIED",
+      "precondition": "M9 L4 status",
+      "remediation": "independent L4 verification",
+      "resulting_state": "BLOCKED"
+    },
+    {
+      "blocked": "unproven mechanism",
+      "fail": "weak/insufficient",
+      "fresh_evidence_required": true,
+      "id": "P-10",
+      "pass": "exact executable hash (L4)",
+      "precondition": "binary binding",
+      "remediation": "GAP-02 closure",
+      "resulting_state": "ATTESTATION_INCOMPLETE"
+    },
+    {
+      "blocked": "no source",
+      "fail": "inferred/self-reported",
+      "fresh_evidence_required": true,
+      "id": "P-11",
+      "pass": "directly evidenced (>= CONTROLLED)",
+      "precondition": "channel binding",
+      "remediation": "GAP-01 closure",
+      "resulting_state": "ATTESTATION_INCOMPLETE"
+    },
+    {
+      "blocked": "-",
+      "fail": "cell differs",
+      "fresh_evidence_required": false,
+      "id": "P-12",
+      "pass": "same exact cell across objects",
+      "precondition": "M13 exact cell",
+      "remediation": "align exact cell",
+      "resulting_state": "REJECTED"
+    },
+    {
+      "blocked": "-",
+      "fail": "unverified",
+      "fresh_evidence_required": true,
+      "id": "P-13",
+      "pass": "required capabilities VERIFIED",
+      "precondition": "capability state",
+      "remediation": "capability evidence",
+      "resulting_state": "NOT_CERTIFIED"
+    },
+    {
+      "blocked": "a gate BLOCKED",
+      "fail": "a gate FAIL",
+      "fresh_evidence_required": true,
+      "id": "P-14",
+      "pass": "all PASS",
+      "precondition": "critical safety gates",
+      "remediation": "resolve gate",
+      "resulting_state": "NOT_CERTIFIED"
+    },
+    {
+      "blocked": "absent",
+      "fail": "owner REJECT",
+      "fresh_evidence_required": false,
+      "id": "P-15",
+      "pass": "owner APPROVE",
+      "precondition": "M4 owner authorization",
+      "remediation": "owner review",
+      "resulting_state": "NOT_CERTIFIED"
+    },
+    {
+      "blocked": "any BLOCKED",
+      "fail": "any FAIL",
+      "fresh_evidence_required": true,
+      "id": "P-16",
+      "pass": "all M4 gates PASS",
+      "precondition": "certification decision",
+      "remediation": "remediate gates",
+      "resulting_state": "NOT_CERTIFIED"
+    },
+    {
+      "blocked": "stale",
+      "fail": "mismatch",
+      "fresh_evidence_required": false,
+      "id": "P-17",
+      "pass": "exact binds match",
+      "precondition": "M5 proposal integrity",
+      "remediation": "rebuild proposal",
+      "resulting_state": "REJECTED"
+    },
+    {
+      "blocked": "expired",
+      "fail": "proposal mismatch",
+      "fresh_evidence_required": false,
+      "id": "P-18",
+      "pass": "bound to exact proposal",
+      "precondition": "M6 authorization",
+      "remediation": "re-authorize",
+      "resulting_state": "REJECTED"
+    },
+    {
+      "blocked": "key RETIRED",
+      "fail": "key REVOKED/COMPROMISED",
+      "fresh_evidence_required": false,
+      "id": "P-19",
+      "pass": "key ACTIVE",
+      "precondition": "signing-key validity",
+      "remediation": "valid key",
+      "resulting_state": "REJECTED"
+    },
+    {
+      "blocked": "-",
+      "fail": "invalid",
+      "fresh_evidence_required": false,
+      "id": "P-20",
+      "pass": "signature over exact payload",
+      "precondition": "signature validity",
+      "remediation": "re-sign (governed)",
+      "resulting_state": "REJECTED"
+    },
+    {
+      "blocked": "-",
+      "fail": "stale registry",
+      "fresh_evidence_required": false,
+      "id": "P-21",
+      "pass": "expected hash matches",
+      "precondition": "registry precondition",
+      "remediation": "refresh precondition",
+      "resulting_state": "BLOCKED"
+    },
+    {
+      "blocked": "-",
+      "fail": "partial",
+      "fresh_evidence_required": false,
+      "id": "P-22",
+      "pass": "all validations PASS",
+      "precondition": "publication atomicity",
+      "remediation": "retry atomically",
+      "resulting_state": "FAILED"
+    },
+    {
+      "blocked": "-",
+      "fail": "rewrite attempt",
+      "fresh_evidence_required": false,
+      "id": "P-23",
+      "pass": "no in-place mutation",
+      "precondition": "immutable history",
+      "remediation": "append new record",
+      "resulting_state": "REJECTED"
+    }
+  ],
+  "readiness_vector": [
+    {
+      "component": "IDENTITY_READY",
+      "reason": "channel/binary cannot be authoritatively established (GAP-01/GAP-02)",
+      "status": "NOT_READY"
+    },
+    {
+      "component": "EVIDENCE_READY",
+      "reason": "no L4 evidence session performed; TS-07/TS-11 unresolved",
+      "status": "NOT_READY"
+    },
+    {
+      "component": "M9_L4_READY",
+      "reason": "current environment UNVERIFIED (L0)",
+      "status": "BLOCKED"
+    },
+    {
+      "component": "M4_READY",
+      "reason": "TS-07/TS-11 unresolved; capability/attribution evidence absent",
+      "status": "NOT_READY"
+    },
+    {
+      "component": "M5_READY",
+      "reason": "no valid certification result to propose",
+      "status": "NOT_READY"
+    },
+    {
+      "component": "M6_AUTH_READY",
+      "reason": "no signing authority/keys; GAP-04R-*",
+      "status": "NOT_READY"
+    },
+    {
+      "component": "SIGNING_READY",
+      "reason": "algorithm/root/store/recovery all OPEN OWNER DECISION",
+      "status": "NOT_READY"
+    },
+    {
+      "component": "REGISTRY_READY",
+      "reason": "no valid signed proposal; production registry immutable, certified 0",
+      "status": "NOT_READY"
+    }
+  ],
+  "registry_mutation_boundary": {
+    "only_after": [
+      "exact attestation binding",
+      "valid certification",
+      "valid publication proposal",
+      "valid authorization",
+      "valid signer/key",
+      "valid signature",
+      "valid registry precondition"
+    ],
+    "otherwise": "NO_REGISTRY_MUTATION"
+  },
+  "schema": "dkskill.certification_governance_state_machine_spec/1",
+  "security_review": [
+    {
+      "certification_blocked": true,
+      "control": "exact object/authority binding per state",
+      "failure_state": "REJECTED",
+      "threat": "confused deputy"
+    },
+    {
+      "certification_blocked": true,
+      "control": "per-state required_authority + verification layers",
+      "failure_state": "BLOCKED",
+      "threat": "trust-boundary bypass"
+    },
+    {
+      "certification_blocked": true,
+      "control": "freshness + environment binding",
+      "failure_state": "EXPIRED",
+      "threat": "stale evidence"
+    },
+    {
+      "certification_blocked": true,
+      "control": "bound identities/hashes (M21)",
+      "failure_state": "REJECTED",
+      "threat": "replay"
+    },
+    {
+      "certification_blocked": true,
+      "control": "exact hash references",
+      "failure_state": "REJECTED",
+      "threat": "object substitution"
+    },
+    {
+      "certification_blocked": true,
+      "control": "same exact cell across objects",
+      "failure_state": "REJECTED",
+      "threat": "cell substitution"
+    },
+    {
+      "certification_blocked": true,
+      "control": "signer authorization layer + trust root",
+      "failure_state": "REJECTED",
+      "threat": "signer substitution"
+    },
+    {
+      "certification_blocked": true,
+      "control": "key validity + distinct key_id",
+      "failure_state": "REJECTED",
+      "threat": "key substitution"
+    },
+    {
+      "certification_blocked": true,
+      "control": "governed root; bootstrap OPEN",
+      "failure_state": "REJECTED",
+      "threat": "trust-root substitution"
+    },
+    {
+      "certification_blocked": true,
+      "control": "authorization_payload_hash",
+      "failure_state": "REJECTED",
+      "threat": "authorization substitution"
+    },
+    {
+      "certification_blocked": true,
+      "control": "atomic compare-and-swap",
+      "failure_state": "NO_REGISTRY_MUTATION",
+      "threat": "registry precondition bypass"
+    },
+    {
+      "certification_blocked": true,
+      "control": "immutability + hash chain",
+      "failure_state": "REJECTED",
+      "threat": "history mutation"
+    },
+    {
+      "certification_blocked": true,
+      "control": "exact cell; no inheritance",
+      "failure_state": "REJECTED",
+      "threat": "cross-platform inheritance"
+    },
+    {
+      "certification_blocked": true,
+      "control": "exact cell; no inheritance",
+      "failure_state": "REJECTED",
+      "threat": "cross-version inheritance"
+    },
+    {
+      "certification_blocked": true,
+      "control": "exact cell; no inheritance",
+      "failure_state": "REJECTED",
+      "threat": "cross-channel inheritance"
+    },
+    {
+      "certification_blocked": true,
+      "control": "environment_id binding",
+      "failure_state": "REJECTED",
+      "threat": "cross-environment replay"
+    },
+    {
+      "certification_blocked": true,
+      "control": "synthetic_test_only isolation; M5 PG-13 / M6 GG-18 reject synthetic",
+      "failure_state": "REJECTED",
+      "threat": "synthetic-to-production escalation"
+    }
+  ],
+  "signature_boundary": {
+    "algorithm_status": "OPEN_OWNER_DECISION",
+    "binds": [
+      "attestation",
+      "certification",
+      "proposal",
+      "authorization",
+      "exact matrix cell",
+      "registry identity",
+      "registry version/precondition",
+      "publication record",
+      "signer identity",
+      "key identity",
+      "schema/canonicalization version"
+    ]
+  },
+  "spec_hash": "sha256:2032b50900e45a68298843a8b645b693ca5dbb845567ad721b7228aaa516c746",
+  "state_machine": [
+    {
+      "allowed_transitions": [
+        "ATTESTATION_INCOMPLETE",
+        "ATTESTATION_COMPLETE_UNSIGNED",
+        "CONTRADICTED",
+        "AMBIGUOUS"
+      ],
+      "certification_exists": false,
+      "entry_conditions": [
+        "M7 evidence acquired in an L4 cert env"
+      ],
+      "forbidden_transitions": [
+        "M13_CELL_CERTIFIED"
+      ],
+      "publication_exists": false,
+      "registry_mutation_possible": false,
+      "required_authority": "certification system",
+      "required_evidence": [
+        "per-field observations"
+      ],
+      "required_hashes": [
+        "evidence_hash"
+      ],
+      "state": "IDENTITY_EVIDENCE",
+      "terminal": false
+    },
+    {
+      "allowed_transitions": [
+        "IDENTITY_EVIDENCE (with fresh evidence)"
+      ],
+      "certification_exists": false,
+      "entry_conditions": [
+        "a required field not authoritatively OBSERVED"
+      ],
+      "forbidden_transitions": [],
+      "publication_exists": false,
+      "registry_mutation_possible": false,
+      "required_authority": "certification system",
+      "required_evidence": [],
+      "required_hashes": [],
+      "state": "ATTESTATION_INCOMPLETE",
+      "terminal": true
+    },
+    {
+      "allowed_transitions": [
+        "M4_EVALUATION"
+      ],
+      "certification_exists": false,
+      "entry_conditions": [
+        "all required fields OBSERVED at threshold",
+        "no contradiction/ambiguity/expiry/revocation/supersession/tamper"
+      ],
+      "forbidden_transitions": [
+        "PUBLICATION",
+        "M13_CELL_CERTIFIED",
+        "SIGNATURE_VALIDATION"
+      ],
+      "publication_exists": false,
+      "registry_mutation_possible": false,
+      "required_authority": "certification system",
+      "required_evidence": [],
+      "required_hashes": [
+        "attestation_hash"
+      ],
+      "state": "ATTESTATION_COMPLETE_UNSIGNED",
+      "terminal": false
+    },
+    {
+      "allowed_transitions": [
+        "CERTIFICATION_DECISION",
+        "NOT_CERTIFIED",
+        "BLOCKED",
+        "FAILED"
+      ],
+      "certification_exists": false,
+      "entry_conditions": [
+        "CG-ATT preconditions",
+        "M9 L4 verified",
+        "all mandatory M4 gates evaluable"
+      ],
+      "forbidden_transitions": [],
+      "publication_exists": false,
+      "registry_mutation_possible": false,
+      "required_authority": "M4 + owner review",
+      "required_evidence": [],
+      "required_hashes": [
+        "attestation_hash"
+      ],
+      "state": "M4_EVALUATION",
+      "terminal": false
+    },
+    {
+      "allowed_transitions": [
+        "M5_PUBLICATION_PROPOSAL",
+        "NOT_CERTIFIED"
+      ],
+      "certification_exists": true,
+      "entry_conditions": [
+        "all mandatory M4 gates PASS",
+        "owner authorization"
+      ],
+      "forbidden_transitions": [
+        "PUBLICATION (without M5/M6)"
+      ],
+      "publication_exists": false,
+      "registry_mutation_possible": false,
+      "required_authority": "M4 owner",
+      "required_evidence": [],
+      "required_hashes": [
+        "certification_result_hash"
+      ],
+      "state": "CERTIFICATION_DECISION",
+      "terminal": false
+    },
+    {
+      "allowed_transitions": [
+        "M6_AUTHORIZATION",
+        "REJECTED",
+        "SUPERSEDED",
+        "REVOKED"
+      ],
+      "certification_exists": true,
+      "entry_conditions": [
+        "exact certification + attestation + profile + cell bound"
+      ],
+      "forbidden_transitions": [],
+      "publication_exists": false,
+      "registry_mutation_possible": false,
+      "required_authority": "M5",
+      "required_evidence": [],
+      "required_hashes": [
+        "proposal_hash",
+        "profile_hash"
+      ],
+      "state": "M5_PUBLICATION_PROPOSAL",
+      "terminal": false
+    },
+    {
+      "allowed_transitions": [
+        "SIGNATURE_VALIDATION",
+        "REJECTED"
+      ],
+      "certification_exists": true,
+      "entry_conditions": [
+        "authorization_payload_hash binds exact proposal",
+        "authorized signer role",
+        "not expired/revoked"
+      ],
+      "forbidden_transitions": [],
+      "publication_exists": false,
+      "registry_mutation_possible": false,
+      "required_authority": "M6 owner authority",
+      "required_evidence": [],
+      "required_hashes": [
+        "authorization_payload_hash"
+      ],
+      "state": "M6_AUTHORIZATION",
+      "terminal": false
+    },
+    {
+      "allowed_transitions": [
+        "REGISTRY_PRECONDITION_VALIDATION",
+        "REJECTED"
+      ],
+      "certification_exists": true,
+      "entry_conditions": [
+        "valid signer + ACTIVE key + signature over exact payload"
+      ],
+      "forbidden_transitions": [],
+      "publication_exists": false,
+      "registry_mutation_possible": false,
+      "required_authority": "M6 signing authority",
+      "required_evidence": [],
+      "required_hashes": [
+        "payload_hash",
+        "signature"
+      ],
+      "state": "SIGNATURE_VALIDATION",
+      "terminal": false
+    },
+    {
+      "allowed_transitions": [
+        "PUBLICATION",
+        "BLOCKED"
+      ],
+      "certification_exists": true,
+      "entry_conditions": [
+        "expected registry hash matches (compare-and-swap)"
+      ],
+      "forbidden_transitions": [],
+      "publication_exists": false,
+      "registry_mutation_possible": false,
+      "required_authority": "M6",
+      "required_evidence": [],
+      "required_hashes": [
+        "registry precondition hash"
+      ],
+      "state": "REGISTRY_PRECONDITION_VALIDATION",
+      "terminal": false
+    },
+    {
+      "allowed_transitions": [
+        "M13_CELL_CERTIFIED",
+        "FAILED",
+        "ROLLED_BACK"
+      ],
+      "certification_exists": true,
+      "entry_conditions": [
+        "all prior validations PASS (atomic)"
+      ],
+      "forbidden_transitions": [],
+      "publication_exists": true,
+      "registry_mutation_possible": true,
+      "required_authority": "M6",
+      "required_evidence": [],
+      "required_hashes": [
+        "record_hash",
+        "resulting registry hash"
+      ],
+      "state": "PUBLICATION",
+      "terminal": false
+    },
+    {
+      "allowed_transitions": [
+        "SUPERSEDED (new record)",
+        "REVOKED (new record)"
+      ],
+      "certification_exists": true,
+      "entry_conditions": [
+        "immutable signed publication applied to the exact cell"
+      ],
+      "forbidden_transitions": [
+        "in-place mutation"
+      ],
+      "publication_exists": true,
+      "registry_mutation_possible": false,
+      "required_authority": "M13 (derived)",
+      "required_evidence": [],
+      "required_hashes": [
+        "registry version hash"
+      ],
+      "state": "M13_CELL_CERTIFIED",
+      "terminal": true
+    }
+  ],
+  "synthetic_e2e_fixture": {
+    "negatives": [
+      {
+        "expected": "fail-closed; no certification/publication/mutation",
+        "id": "E2E-N01",
+        "kind": "NEGATIVE",
+        "label": "SYNTHETIC_TEST_ONLY",
+        "name": "incomplete identity"
+      },
+      {
+        "expected": "fail-closed; no certification/publication/mutation",
+        "id": "E2E-N02",
+        "kind": "NEGATIVE",
+        "label": "SYNTHETIC_TEST_ONLY",
+        "name": "weak provenance"
+      },
+      {
+        "expected": "fail-closed; no certification/publication/mutation",
+        "id": "E2E-N03",
+        "kind": "NEGATIVE",
+        "label": "SYNTHETIC_TEST_ONLY",
+        "name": "contradiction"
+      },
+      {
+        "expected": "fail-closed; no certification/publication/mutation",
+        "id": "E2E-N04",
+        "kind": "NEGATIVE",
+        "label": "SYNTHETIC_TEST_ONLY",
+        "name": "ambiguity"
+      },
+      {
+        "expected": "fail-closed; no certification/publication/mutation",
+        "id": "E2E-N05",
+        "kind": "NEGATIVE",
+        "label": "SYNTHETIC_TEST_ONLY",
+        "name": "M9 L4 absent"
+      },
+      {
+        "expected": "fail-closed; no certification/publication/mutation",
+        "id": "E2E-N06",
+        "kind": "NEGATIVE",
+        "label": "SYNTHETIC_TEST_ONLY",
+        "name": "TS-07 unresolved"
+      },
+      {
+        "expected": "fail-closed; no certification/publication/mutation",
+        "id": "E2E-N07",
+        "kind": "NEGATIVE",
+        "label": "SYNTHETIC_TEST_ONLY",
+        "name": "M4 fail"
+      },
+      {
+        "expected": "fail-closed; no certification/publication/mutation",
+        "id": "E2E-N08",
+        "kind": "NEGATIVE",
+        "label": "SYNTHETIC_TEST_ONLY",
+        "name": "M5 mismatch"
+      },
+      {
+        "expected": "fail-closed; no certification/publication/mutation",
+        "id": "E2E-N09",
+        "kind": "NEGATIVE",
+        "label": "SYNTHETIC_TEST_ONLY",
+        "name": "M6 auth mismatch"
+      },
+      {
+        "expected": "fail-closed; no certification/publication/mutation",
+        "id": "E2E-N10",
+        "kind": "NEGATIVE",
+        "label": "SYNTHETIC_TEST_ONLY",
+        "name": "key revoked"
+      },
+      {
+        "expected": "fail-closed; no certification/publication/mutation",
+        "id": "E2E-N11",
+        "kind": "NEGATIVE",
+        "label": "SYNTHETIC_TEST_ONLY",
+        "name": "signature invalid"
+      },
+      {
+        "expected": "fail-closed; no certification/publication/mutation",
+        "id": "E2E-N12",
+        "kind": "NEGATIVE",
+        "label": "SYNTHETIC_TEST_ONLY",
+        "name": "registry precondition mismatch"
+      },
+      {
+        "expected": "fail-closed; no certification/publication/mutation",
+        "id": "E2E-N13",
+        "kind": "NEGATIVE",
+        "label": "SYNTHETIC_TEST_ONLY",
+        "name": "synthetic-to-production escalation"
+      }
+    ],
+    "positive": {
+      "expected": "design-only walkthrough; UNSIGNED placeholders; never certified/published; production registry untouched",
+      "id": "E2E-01",
+      "kind": "POSITIVE",
+      "label": "SYNTHETIC_TEST_ONLY",
+      "name": "identity→attestation→M4 decision→M5 proposal→M6 authorization→signature placeholder→publication placeholder→M13 cell"
+    }
+  },
+  "terminal_states": [
+    "CONTRADICTED",
+    "AMBIGUOUS",
+    "EXPIRED",
+    "REVOKED",
+    "SUPERSEDED",
+    "TAMPERED",
+    "NOT_CERTIFIED",
+    "REJECTED",
+    "FAILED",
+    "ROLLED_BACK",
+    "BLOCKED"
+  ],
+  "universal_platform_readiness": {
+    "certified_count": 0,
+    "no_inference": true,
+    "per_cell": "evaluated per exact platform × OS version × architecture × channel × Claude version × runtime facet; independently certified"
+  },
+  "version": 1
+}

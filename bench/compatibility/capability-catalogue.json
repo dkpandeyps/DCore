@@ -1,0 +1,1093 @@
+{
+  "capabilities": [
+    {
+      "blocks_certification": true,
+      "certification_requirement": "Per host profile: demonstrate a PreToolUse hook observes and denies a tool call that reaches execution.",
+      "criticality": "CRITICAL",
+      "description": "A PreToolUse hook (matcher \"*\"/\"\"/none) observes and can block tool calls that reach execution.",
+      "evidence_refs": [
+        {
+          "phase": "Phase 2",
+          "ref": "V-01",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "VERIFIED (hands-on)"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "V-12",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "VERIFIED"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "U-20",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "limitation"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "E-01",
+          "source": "platform-validation/HANDS-ON-VALIDATION-REPORT.md",
+          "status": "PARTIALLY VERIFIED"
+        },
+        {
+          "phase": "proposal",
+          "ref": "§5",
+          "source": "DKSKILL-COMPATIBILITY-ARCHITECTURE-OWNER-REVIEW.md",
+          "status": "PROPOSED"
+        }
+      ],
+      "failure_behavior": "No pre-execution enforcement; dkskill must refuse certified enforcement on this host (H-Q1).",
+      "host_facet_dependency": "hook-protocol",
+      "id": "CAP-HOOK-PRETOOLUSE-INTERCEPT",
+      "limitations": [
+        "Only calls that reach execution are seen; calls rejected earlier by native validation/deny never reach PreToolUse (U-20)."
+      ],
+      "name": "PreToolUse interception",
+      "platform_version_sensitivity": "Hook protocol may change across versions; re-verify per profile.",
+      "required_for": "core_safety_enforcement",
+      "safe_degradation": false,
+      "state": "VERIFIED"
+    },
+    {
+      "blocks_certification": false,
+      "certification_requirement": "Per host profile: demonstrate a PostToolUse hook fires with the executed tool call.",
+      "criticality": "HIGH",
+      "description": "A PostToolUse hook observes tool calls after execution (post-hoc observation, not prevention).",
+      "evidence_refs": [
+        {
+          "phase": "Phase 2",
+          "ref": "V-01",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "VERIFIED (hands-on)"
+        },
+        {
+          "phase": "proposal",
+          "ref": "§5",
+          "source": "DKSKILL-COMPATIBILITY-ARCHITECTURE-OWNER-REVIEW.md",
+          "status": "PROPOSED"
+        }
+      ],
+      "failure_behavior": "No post-execution observation; reconciliation/audit degrades; enforcement relies on PreToolUse.",
+      "host_facet_dependency": "hook-protocol",
+      "id": "CAP-HOOK-POSTTOOLUSE-INTERCEPT",
+      "limitations": [
+        "Post-hoc only: cannot prevent the side effect; shares V-01 evidence with PreToolUse rather than an independent experiment."
+      ],
+      "name": "PostToolUse interception",
+      "platform_version_sensitivity": "Hook protocol may change across versions.",
+      "required_for": "core_safety_enforcement",
+      "safe_degradation": true,
+      "state": "VERIFIED"
+    },
+    {
+      "blocks_certification": true,
+      "certification_requirement": "Per host profile: demonstrate hook events for subagent tool calls include agent_id/agent_type.",
+      "criticality": "CRITICAL",
+      "description": "Hooks observe tool calls inside subagents; events carry agent_id and agent_type.",
+      "evidence_refs": [
+        {
+          "phase": "Phase 2",
+          "ref": "V-01",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "VERIFIED (hands-on)"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "V-12",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "VERIFIED"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "U-20",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "limitation"
+        },
+        {
+          "phase": "proposal",
+          "ref": "§5",
+          "source": "DKSKILL-COMPATIBILITY-ARCHITECTURE-OWNER-REVIEW.md",
+          "status": "PROPOSED"
+        }
+      ],
+      "failure_behavior": "Subagent actions unpoliced; refuse certified enforcement for subagent scenarios (H-Q1).",
+      "host_facet_dependency": "hook-protocol",
+      "id": "CAP-HOOK-SUBAGENT-INTERCEPT",
+      "limitations": [
+        "Subagent calls rejected earlier by native validation never reach the hook (U-20)."
+      ],
+      "name": "Subagent tool-call interception",
+      "platform_version_sensitivity": "Subagent event shape may change across versions.",
+      "required_for": "core_safety_enforcement",
+      "safe_degradation": false,
+      "state": "VERIFIED"
+    },
+    {
+      "blocks_certification": true,
+      "certification_requirement": "Per host profile and per MCP server type: demonstrate matcher interception.",
+      "criticality": "CRITICAL",
+      "description": "Hook matchers (mcp__.* and \"*\") intercept MCP tool calls.",
+      "evidence_refs": [
+        {
+          "phase": "Phase 2",
+          "ref": "V-02",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "VERIFIED"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "V-01",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "VERIFIED (hands-on, local stdio)"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "U-01",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "untested: non-stdio MCP"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "E-15",
+          "source": "platform-validation/HANDS-ON-VALIDATION-REPORT.md",
+          "status": "PARTIALLY VERIFIED"
+        },
+        {
+          "phase": "proposal",
+          "ref": "§5",
+          "source": "DKSKILL-COMPATIBILITY-ARCHITECTURE-OWNER-REVIEW.md",
+          "status": "PROPOSED"
+        }
+      ],
+      "failure_behavior": "Unmatched MCP calls are unpoliced; refuse certified enforcement for those MCP types.",
+      "host_facet_dependency": "hook-protocol",
+      "id": "CAP-MCP-MATCHER",
+      "limitations": [
+        "Verified for local stdio MCP servers only; other MCP server types (plugin/remote) untested (U-01). Only tools whose names match the pattern are covered."
+      ],
+      "name": "MCP tool matchers",
+      "platform_version_sensitivity": "MCP wiring and server types vary; re-verify per type/version.",
+      "required_for": "core_safety_enforcement",
+      "safe_degradation": false,
+      "state": "PARTIALLY_VERIFIED"
+    },
+    {
+      "blocks_certification": true,
+      "certification_requirement": "Per host profile: demonstrate a deny with a model-visible reason.",
+      "criticality": "CRITICAL",
+      "description": "A hook can block a call (exit 2 or permissionDecision:\"deny\") with a reason the model sees.",
+      "evidence_refs": [
+        {
+          "phase": "Phase 2",
+          "ref": "V-03",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "VERIFIED"
+        },
+        {
+          "phase": "proposal",
+          "ref": "§5",
+          "source": "DKSKILL-COMPATIBILITY-ARCHITECTURE-OWNER-REVIEW.md",
+          "status": "PROPOSED"
+        }
+      ],
+      "failure_behavior": "Denials without a visible reason; model cannot self-correct; refuse certified enforcement.",
+      "host_facet_dependency": "hook-protocol",
+      "id": "CAP-HOOK-DENY-REASON-VISIBLE",
+      "limitations": [],
+      "name": "Hook deny reason visibility",
+      "platform_version_sensitivity": "Decision protocol may change across versions.",
+      "required_for": "core_safety_enforcement",
+      "safe_degradation": false,
+      "state": "VERIFIED"
+    },
+    {
+      "blocks_certification": true,
+      "certification_requirement": "Per host profile: demonstrate deny/ask beats allow.",
+      "criticality": "CRITICAL",
+      "description": "allow cannot override stronger deny/ask rules or managed permissions.",
+      "evidence_refs": [
+        {
+          "phase": "Phase 2",
+          "ref": "V-04",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "VERIFIED"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "V-11",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "VERIFIED"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "V-16",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "VERIFIED (hands-on)"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "E-05",
+          "source": "platform-validation/HANDS-ON-VALIDATION-REPORT.md",
+          "status": "VERIFIED / PARTIALLY VERIFIED"
+        },
+        {
+          "phase": "proposal",
+          "ref": "§5",
+          "source": "DKSKILL-COMPATIBILITY-ARCHITECTURE-OWNER-REVIEW.md",
+          "status": "PROPOSED"
+        }
+      ],
+      "failure_behavior": "Precedence unreliable; enforcement cannot be trusted; refuse certified enforcement.",
+      "host_facet_dependency": "permission-model",
+      "id": "CAP-PERMISSION-PRECEDENCE",
+      "limitations": [
+        "dkskill never emits allow (MASTER-SPEC S-9); a foreign hook allow can loosen native checks and is reported (V-16/U-16)."
+      ],
+      "name": "allow/deny/ask precedence",
+      "platform_version_sensitivity": "Permission model may change across versions.",
+      "required_for": "core_safety_enforcement",
+      "safe_degradation": false,
+      "state": "VERIFIED"
+    },
+    {
+      "blocks_certification": false,
+      "certification_requirement": "Per host profile: demonstrate narrowing and (future) multi-hook composition.",
+      "criticality": "MEDIUM",
+      "description": "A hook can narrow (normalize/restrict) tool input via updatedInput.",
+      "evidence_refs": [
+        {
+          "phase": "Phase 2",
+          "ref": "V-05",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "PARTIALLY VERIFIED"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "U-07",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "composition untested"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "E-05",
+          "source": "platform-validation/HANDS-ON-VALIDATION-REPORT.md",
+          "status": "PARTIALLY VERIFIED"
+        },
+        {
+          "phase": "proposal",
+          "ref": "§5",
+          "source": "DKSKILL-COMPATIBILITY-ARCHITECTURE-OWNER-REVIEW.md",
+          "status": "PROPOSED"
+        }
+      ],
+      "failure_behavior": "Optional narrowing unavailable; dkskill omits the feature; core enforcement unaffected.",
+      "host_facet_dependency": "hook-protocol",
+      "id": "CAP-UPDATEDINPUT-NARROWING",
+      "limitations": [
+        "Only narrowing normalizations demonstrated; composition of updatedInput across multiple hooks is untested (U-07)."
+      ],
+      "name": "updatedInput narrowing",
+      "platform_version_sensitivity": "Hook input-rewrite semantics may change.",
+      "required_for": "optional_functionality",
+      "safe_degradation": true,
+      "state": "PARTIALLY_VERIFIED"
+    },
+    {
+      "blocks_certification": true,
+      "certification_requirement": "Per host profile: demonstrate tool-list enforcement for local and plugin agents.",
+      "criticality": "HIGH",
+      "description": "Subagent tools allowlist and disallowedTools denylist (incl mcp__*) are enforced; nesting has a depth limit.",
+      "evidence_refs": [
+        {
+          "phase": "Phase 2",
+          "ref": "V-06",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "VERIFIED"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "V-22",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "VERIFIED (hands-on)"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "U-05",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "plugin frontmatter not relied on"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "E-16",
+          "source": "platform-validation/HANDS-ON-VALIDATION-REPORT.md",
+          "status": "VERIFIED"
+        },
+        {
+          "phase": "proposal",
+          "ref": "§5",
+          "source": "DKSKILL-COMPATIBILITY-ARCHITECTURE-OWNER-REVIEW.md",
+          "status": "PROPOSED"
+        }
+      ],
+      "failure_behavior": "Subagent tool restrictions unenforced; refuse certified enforcement for subagent tool policy.",
+      "host_facet_dependency": "agents",
+      "id": "CAP-SUBAGENT-TOOL-RESTRICTIONS",
+      "limitations": [
+        "Plugin agents honor tools/disallowedTools but ignore their frontmatter hooks/permissionMode/mcpServers (V-22/U-05); role policy must come from global/plugin-level hooks keyed on agent_type."
+      ],
+      "name": "Subagent tools/disallowedTools enforcement",
+      "platform_version_sensitivity": "Agent frontmatter handling may change across versions.",
+      "required_for": "core_safety_enforcement",
+      "safe_degradation": false,
+      "state": "VERIFIED"
+    },
+    {
+      "blocks_certification": false,
+      "certification_requirement": "Per host profile: demonstrate Skill invocation and the invocation-restriction flags.",
+      "criticality": "HIGH",
+      "description": "The Skill tool invokes skills; disable-model-invocation and user-invocable flags restrict invocation.",
+      "evidence_refs": [
+        {
+          "phase": "Phase 2",
+          "ref": "V-07",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "VERIFIED"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "V-08",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "PARTIALLY VERIFIED"
+        },
+        {
+          "phase": "proposal",
+          "ref": "§5",
+          "source": "DKSKILL-COMPATIBILITY-ARCHITECTURE-OWNER-REVIEW.md",
+          "status": "PROPOSED"
+        }
+      ],
+      "failure_behavior": "Skill invocation controls unavailable; dkskill limits skill-based features.",
+      "host_facet_dependency": "skills",
+      "id": "CAP-SKILL-TOOL-FLAGS",
+      "limitations": [
+        "No mechanism hides a skill from both model and user while allowing runtime invocation (V-08)."
+      ],
+      "name": "Skill tool and invocation flags",
+      "platform_version_sensitivity": "Skill flag semantics may change across versions.",
+      "required_for": "optional_functionality",
+      "safe_degradation": true,
+      "state": "PARTIALLY_VERIFIED"
+    },
+    {
+      "blocks_certification": true,
+      "certification_requirement": "Per host profile: demonstrate the identifier set is present in hook input/env.",
+      "criticality": "HIGH",
+      "description": "Hooks run as separate processes with session_id, prompt_id, agent_id, transcript_path; CLAUDE_PLUGIN_DATA is persistent plugin storage.",
+      "evidence_refs": [
+        {
+          "phase": "Phase 2",
+          "ref": "V-09",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "VERIFIED"
+        },
+        {
+          "phase": "proposal",
+          "ref": "§5",
+          "source": "DKSKILL-COMPATIBILITY-ARCHITECTURE-OWNER-REVIEW.md",
+          "status": "PROPOSED"
+        }
+      ],
+      "failure_behavior": "dkskill cannot correlate events/state; enforcement correlation degrades; refuse where correlation is required.",
+      "host_facet_dependency": "hook-protocol",
+      "id": "CAP-HOOK-ENV-IDENTIFIERS",
+      "limitations": [
+        "No general runtime-state API; dkskill owns its state."
+      ],
+      "name": "Hook environment identifiers",
+      "platform_version_sensitivity": "Identifier set may change across versions.",
+      "required_for": "core_safety_enforcement",
+      "safe_degradation": false,
+      "state": "VERIFIED"
+    },
+    {
+      "blocks_certification": true,
+      "certification_requirement": "Per host profile: demonstrate settings precedence (deny beats allow).",
+      "criticality": "HIGH",
+      "description": "Settings allow/deny/ask rules apply and deny beats allow across the settings hierarchy.",
+      "evidence_refs": [
+        {
+          "phase": "Phase 2",
+          "ref": "V-11",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "VERIFIED"
+        },
+        {
+          "phase": "proposal",
+          "ref": "§5",
+          "source": "DKSKILL-COMPATIBILITY-ARCHITECTURE-OWNER-REVIEW.md",
+          "status": "PROPOSED"
+        }
+      ],
+      "failure_behavior": "Settings-based policy unreliable; refuse certified enforcement.",
+      "host_facet_dependency": "permission-model",
+      "id": "CAP-SETTINGS-PRECEDENCE",
+      "limitations": [],
+      "name": "Settings precedence",
+      "platform_version_sensitivity": "Settings hierarchy may change across versions.",
+      "required_for": "core_safety_enforcement",
+      "safe_degradation": false,
+      "state": "VERIFIED"
+    },
+    {
+      "blocks_certification": false,
+      "certification_requirement": "Per host profile with org deployment: demonstrate managed settings restrict permissions/bypass modes.",
+      "criticality": "HIGH",
+      "description": "Managed (organization) settings can restrict permissions and bypass modes.",
+      "evidence_refs": [
+        {
+          "phase": "Phase 2",
+          "ref": "V-11",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "VERIFIED (rule); managed deployment untested"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "U-13",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "org deployment untested"
+        },
+        {
+          "phase": "proposal",
+          "ref": "§5",
+          "source": "DKSKILL-COMPATIBILITY-ARCHITECTURE-OWNER-REVIEW.md",
+          "status": "PROPOSED"
+        }
+      ],
+      "failure_behavior": "Managed-settings hardening unavailable; dkskill relies on user/project settings; refuse claims that depend on managed settings.",
+      "host_facet_dependency": "permission-model",
+      "id": "CAP-MANAGED-SETTINGS",
+      "limitations": [
+        "Mechanism documented but requires organizational deployment; not validated hands-on in the isolated environment (U-13)."
+      ],
+      "name": "Managed settings",
+      "platform_version_sensitivity": "Managed-settings support varies by deployment/version.",
+      "required_for": "core_safety_enforcement",
+      "safe_degradation": true,
+      "state": "PARTIALLY_VERIFIED"
+    },
+    {
+      "blocks_certification": true,
+      "certification_requirement": "Per host profile: demonstrate a ceiling restriction holds and identify the default mode/classifier behavior.",
+      "criticality": "HIGH",
+      "description": "dkskill can impose autonomy restrictions on top of the host permission mode (restrict-only ceiling).",
+      "evidence_refs": [
+        {
+          "phase": "Phase 2",
+          "ref": "V-13",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "VERIFIED (as a ceiling only)"
+        },
+        {
+          "phase": "proposal",
+          "ref": "§5",
+          "source": "DKSKILL-COMPATIBILITY-ARCHITECTURE-OWNER-REVIEW.md",
+          "status": "PROPOSED"
+        }
+      ],
+      "failure_behavior": "Autonomy ceiling unenforceable; refuse certified enforcement of autonomy limits.",
+      "host_facet_dependency": "permission-modes",
+      "id": "CAP-PERMISSION-MODE-CEILING",
+      "limitations": [
+        "Ceiling only: restrict, never grant. On 2.1.283 the default mode is auto and its classifier may approve routine actions; bypassPermissions loosens checks."
+      ],
+      "name": "Permission-mode ceiling and default behavior",
+      "platform_version_sensitivity": "Default mode and classifier behavior are version-sensitive (auto on 2.1.283).",
+      "required_for": "core_safety_enforcement",
+      "safe_degradation": false,
+      "state": "VERIFIED"
+    },
+    {
+      "blocks_certification": false,
+      "certification_requirement": "Per host profile: enumerate protected paths and demonstrate protection under the default mode.",
+      "criticality": "MEDIUM",
+      "description": "The host protects some configuration paths (.claude/, ~/.claude/, .git, .mcp.json, shell rc files).",
+      "evidence_refs": [
+        {
+          "phase": "Phase 2",
+          "ref": "V-14",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "PARTIALLY VERIFIED"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "E-11",
+          "source": "platform-validation/HANDS-ON-VALIDATION-REPORT.md",
+          "status": "PARTIALLY VERIFIED"
+        },
+        {
+          "phase": "proposal",
+          "ref": "§5",
+          "source": "DKSKILL-COMPATIBILITY-ARCHITECTURE-OWNER-REVIEW.md",
+          "status": "PROPOSED"
+        }
+      ],
+      "failure_behavior": "Config paths writable; dkskill must protect its own state independently.",
+      "host_facet_dependency": "filesystem",
+      "id": "CAP-PROTECTED-PATHS",
+      "limitations": [
+        "dkskill-owned state is not covered by native protection. In auto mode the classifier decides protected writes; bypassPermissions allows them."
+      ],
+      "name": "Protected configuration paths",
+      "platform_version_sensitivity": "Protected-path set and mode behavior vary by version.",
+      "required_for": "core_safety_enforcement",
+      "safe_degradation": true,
+      "state": "PARTIALLY_VERIFIED"
+    },
+    {
+      "blocks_certification": true,
+      "certification_requirement": "Per host profile: demonstrate concurrent hook execution and order-independence.",
+      "criticality": "HIGH",
+      "description": "Multiple hooks on one event all run concurrently; start order follows configuration order; completion order is non-deterministic.",
+      "evidence_refs": [
+        {
+          "phase": "Phase 2",
+          "ref": "V-16",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "VERIFIED (hands-on)"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "U-16",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "ordering"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "E-04",
+          "source": "platform-validation/HANDS-ON-VALIDATION-REPORT.md",
+          "status": "VERIFIED"
+        },
+        {
+          "phase": "proposal",
+          "ref": "§5",
+          "source": "DKSKILL-COMPATIBILITY-ARCHITECTURE-OWNER-REVIEW.md",
+          "status": "PROPOSED"
+        }
+      ],
+      "failure_behavior": "Coexistence with foreign hooks unreliable; refuse certified enforcement where order matters.",
+      "host_facet_dependency": "hook-protocol",
+      "id": "CAP-HOOK-CONCURRENCY",
+      "limitations": [
+        "dkskill must be order-independent; it cannot rely on running first or on completion order (U-16)."
+      ],
+      "name": "Multiple hook concurrency",
+      "platform_version_sensitivity": "Concurrency model may change across versions.",
+      "required_for": "core_safety_enforcement",
+      "safe_degradation": false,
+      "state": "VERIFIED"
+    },
+    {
+      "blocks_certification": true,
+      "certification_requirement": "Per host profile: demonstrate deny precedence (exit 2 blocks; settings deny beats hook allow).",
+      "criticality": "CRITICAL",
+      "description": "Deny beats allow; a settings deny beats a hook allow; exit 2 blocks; exit 1 is non-blocking.",
+      "evidence_refs": [
+        {
+          "phase": "Phase 2",
+          "ref": "V-16",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "VERIFIED (hands-on)"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "V-04",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "VERIFIED"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "E-05",
+          "source": "platform-validation/HANDS-ON-VALIDATION-REPORT.md",
+          "status": "VERIFIED / PARTIALLY VERIFIED"
+        },
+        {
+          "phase": "proposal",
+          "ref": "§5",
+          "source": "DKSKILL-COMPATIBILITY-ARCHITECTURE-OWNER-REVIEW.md",
+          "status": "PROPOSED"
+        }
+      ],
+      "failure_behavior": "A deny may not hold; enforcement cannot be trusted; refuse certified enforcement.",
+      "host_facet_dependency": "hook-protocol",
+      "id": "CAP-DENY-PRECEDENCE",
+      "limitations": [
+        "A hook allow can loosen native checks (it overrode a working-directory block), so dkskill never emits allow and reports foreign allow (U-16)."
+      ],
+      "name": "Deny precedence across hooks",
+      "platform_version_sensitivity": "Decision-combination rules may change across versions.",
+      "required_for": "core_safety_enforcement",
+      "safe_degradation": false,
+      "state": "VERIFIED"
+    },
+    {
+      "blocks_certification": false,
+      "certification_requirement": "Per host profile: demonstrate Stop-hook blocking and stop_hook_active handling.",
+      "criticality": "MEDIUM",
+      "description": "A Stop hook can block turn end and coexists with other Stop hooks; loop guard is stop_hook_active.",
+      "evidence_refs": [
+        {
+          "phase": "Phase 2",
+          "ref": "V-17",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "VERIFIED (hands-on)"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "U-12",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "loop guard"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "E-06",
+          "source": "platform-validation/HANDS-ON-VALIDATION-REPORT.md",
+          "status": "VERIFIED"
+        },
+        {
+          "phase": "proposal",
+          "ref": "§5",
+          "source": "DKSKILL-COMPATIBILITY-ARCHITECTURE-OWNER-REVIEW.md",
+          "status": "PROPOSED"
+        }
+      ],
+      "failure_behavior": "Turn-end gating unavailable; dkskill loses end-of-turn checks; degrade to pre-execution gating.",
+      "host_facet_dependency": "hook-protocol",
+      "id": "CAP-STOP-HOOK",
+      "limitations": [
+        "The gate must honor stop_hook_active to avoid loops (U-12)."
+      ],
+      "name": "Stop hook blocking",
+      "platform_version_sensitivity": "Stop-hook protocol may change across versions.",
+      "required_for": "core_safety_enforcement",
+      "safe_degradation": true,
+      "state": "VERIFIED"
+    },
+    {
+      "blocks_certification": true,
+      "certification_requirement": "Per host profile: demonstrate SessionStart context delivery and the size limit.",
+      "criticality": "HIGH",
+      "description": "SessionStart additionalContext reaches the model at startup; each new session gets its own.",
+      "evidence_refs": [
+        {
+          "phase": "Phase 2",
+          "ref": "V-18",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "VERIFIED (hands-on)"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "U-06",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "size limit"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "E-07",
+          "source": "platform-validation/HANDS-ON-VALIDATION-REPORT.md",
+          "status": "VERIFIED"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "E-08",
+          "source": "platform-validation/HANDS-ON-VALIDATION-REPORT.md",
+          "status": "VERIFIED"
+        },
+        {
+          "phase": "proposal",
+          "ref": "§5",
+          "source": "DKSKILL-COMPATIBILITY-ARCHITECTURE-OWNER-REVIEW.md",
+          "status": "PROPOSED"
+        }
+      ],
+      "failure_behavior": "Session rules not delivered; dkskill cannot brief the model; refuse certified enforcement that depends on the brief.",
+      "host_facet_dependency": "hook-protocol",
+      "id": "CAP-SESSIONSTART-CONTEXT",
+      "limitations": [
+        "Content must be ≤ ~9,000 characters; larger content is silently truncated (U-06)."
+      ],
+      "name": "SessionStart context injection",
+      "platform_version_sensitivity": "Context delivery and size limit vary by version.",
+      "required_for": "core_safety_enforcement",
+      "safe_degradation": false,
+      "state": "VERIFIED"
+    },
+    {
+      "blocks_certification": true,
+      "certification_requirement": "Per host profile: demonstrate context redelivery on compaction.",
+      "criticality": "HIGH",
+      "description": "SessionStart additionalContext is re-delivered after compaction (source: compact).",
+      "evidence_refs": [
+        {
+          "phase": "Phase 2",
+          "ref": "V-18",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "VERIFIED (hands-on, source: compact)"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "U-06",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "size limit"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "E-07",
+          "source": "platform-validation/HANDS-ON-VALIDATION-REPORT.md",
+          "status": "VERIFIED"
+        },
+        {
+          "phase": "proposal",
+          "ref": "§5",
+          "source": "DKSKILL-COMPATIBILITY-ARCHITECTURE-OWNER-REVIEW.md",
+          "status": "PROPOSED"
+        }
+      ],
+      "failure_behavior": "Rules lost after compaction; long sessions become unbriefed; refuse certified enforcement for long sessions.",
+      "host_facet_dependency": "hook-protocol",
+      "id": "CAP-COMPACTION-CONTEXT",
+      "limitations": [
+        "Shares the ≤ ~9,000-character limit (U-06); relies on the compaction event firing SessionStart."
+      ],
+      "name": "Context redelivery after compaction",
+      "platform_version_sensitivity": "Compaction event behavior is version-sensitive.",
+      "required_for": "core_safety_enforcement",
+      "safe_degradation": false,
+      "state": "VERIFIED"
+    },
+    {
+      "blocks_certification": false,
+      "certification_requirement": "Per host profile: demonstrate live reload and ConfigChange emission.",
+      "criticality": "LOW",
+      "description": "User-scope settings/hook changes apply to a running session within ~1s and emit ConfigChange.",
+      "evidence_refs": [
+        {
+          "phase": "Phase 2",
+          "ref": "V-19",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "VERIFIED (hands-on, user scope)"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "U-04",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "watch ConfigChange"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "E-09",
+          "source": "platform-validation/HANDS-ON-VALIDATION-REPORT.md",
+          "status": "VERIFIED"
+        },
+        {
+          "phase": "proposal",
+          "ref": "§5",
+          "source": "DKSKILL-COMPATIBILITY-ARCHITECTURE-OWNER-REVIEW.md",
+          "status": "PROPOSED"
+        }
+      ],
+      "failure_behavior": "Live reconfiguration unavailable; dkskill requires session restart for config changes.",
+      "host_facet_dependency": "settings",
+      "id": "CAP-CONFIG-RELOAD",
+      "limitations": [
+        "Verified at user scope; anything that can write the settings file changes live enforcement — watch ConfigChange (U-04)."
+      ],
+      "name": "Configuration reload",
+      "platform_version_sensitivity": "Reload timing/event may change across versions.",
+      "required_for": "optional_functionality",
+      "safe_degradation": true,
+      "state": "VERIFIED"
+    },
+    {
+      "blocks_certification": true,
+      "certification_requirement": "Per host profile: demonstrate the nonce heartbeat detects hook presence/absence.",
+      "criticality": "CRITICAL",
+      "description": "A runtime command can detect whether PreToolUse saw its own call (nonce heartbeat) — the T2 self-check base.",
+      "evidence_refs": [
+        {
+          "phase": "Phase 2",
+          "ref": "V-20",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "VERIFIED (hands-on)"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "U-09",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "detect only"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "E-12",
+          "source": "platform-validation/HANDS-ON-VALIDATION-REPORT.md",
+          "status": "VERIFIED"
+        },
+        {
+          "phase": "proposal",
+          "ref": "§5 T2",
+          "source": "DKSKILL-COMPATIBILITY-ARCHITECTURE-OWNER-REVIEW.md",
+          "status": "PROPOSED"
+        }
+      ],
+      "failure_behavior": "dkskill cannot confirm its hooks are active; per H-Q1 it must refuse certified enforcement (DEGRADED_AT_RUNTIME if a certified profile then fails T2).",
+      "host_facet_dependency": "hook-protocol",
+      "id": "CAP-HOOK-HEARTBEAT",
+      "limitations": [
+        "Detects missing hooks; it does not prevent them being disabled (U-09)."
+      ],
+      "name": "Hook-presence heartbeat",
+      "platform_version_sensitivity": "Heartbeat mechanism depends on hook protocol/version.",
+      "required_for": "core_safety_enforcement",
+      "safe_degradation": false,
+      "state": "VERIFIED"
+    },
+    {
+      "blocks_certification": false,
+      "certification_requirement": "Per host profile: record the timeout behavior; certification must document fail-open and the compensating internal deadline.",
+      "criticality": "CRITICAL",
+      "description": "On PreToolUse hook timeout the hook is cancelled and the tool call PROCEEDS (fail-open).",
+      "evidence_refs": [
+        {
+          "phase": "Phase 2",
+          "ref": "V-21",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "VERIFIED (hands-on on Windows): fail-open"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "U-10",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "internal deadline needed"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "E-02",
+          "source": "platform-validation/HANDS-ON-VALIDATION-REPORT.md",
+          "status": "VERIFIED (Windows)"
+        },
+        {
+          "phase": "proposal",
+          "ref": "§5",
+          "source": "DKSKILL-COMPATIBILITY-ARCHITECTURE-OWNER-REVIEW.md",
+          "status": "PROPOSED"
+        }
+      ],
+      "failure_behavior": "On timeout the action executes unchecked; dkskill must self-bound its hook runtime and record the fail-open posture.",
+      "host_facet_dependency": "hook-protocol",
+      "id": "CAP-HOOK-TIMEOUT-FAILOPEN",
+      "limitations": [
+        "KNOWN CRITICAL LIMITATION: fail-open. dkskill hooks need an internal deadline well below the configured timeout (V-21/U-10)."
+      ],
+      "name": "Hook timeout semantics (fails open)",
+      "platform_version_sensitivity": "Timeout behavior is platform/version-sensitive (verified on Windows/2.1.283 only).",
+      "required_for": "core_safety_enforcement",
+      "safe_degradation": false,
+      "state": "VERIFIED"
+    },
+    {
+      "blocks_certification": true,
+      "certification_requirement": "Per host profile: capture stream samples and confirm the schema (stream@N facet) on the pinned version.",
+      "criticality": "HIGH",
+      "description": "The host emits a stream-json event schema the harness/HCL can parse (the stream@N facet).",
+      "evidence_refs": [
+        {
+          "phase": "Phase 3",
+          "ref": "parseTranscript / stream@N",
+          "source": "bench/src/parser.ts",
+          "status": "implemented for 2.1.283 corpus"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "E-03",
+          "source": "platform-validation/HANDS-ON-VALIDATION-REPORT.md",
+          "status": "PARTIALLY VERIFIED"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "U-17",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "not verified beyond 2.1.283"
+        },
+        {
+          "phase": "proposal",
+          "ref": "§5 T3",
+          "source": "DKSKILL-COMPATIBILITY-ARCHITECTURE-OWNER-REVIEW.md",
+          "status": "PROPOSED"
+        }
+      ],
+      "failure_behavior": "Unparseable events are anomalies; attribution/scoring cannot proceed; refuse certified attribution.",
+      "host_facet_dependency": "stream",
+      "id": "CAP-STREAM-SCHEMA",
+      "limitations": [
+        "Parsed against the Phase 2/3 corpus for 2.1.283 only; unknown types/fields are anomalies, never guessed. Not validated for other versions (TS-07/U-17)."
+      ],
+      "name": "stream-json event schema",
+      "platform_version_sensitivity": "HIGH: revalidate per version (TS-07). Frozen benchmark pin is 2.1.283.",
+      "required_for": "benchmark_attribution_only",
+      "safe_degradation": false,
+      "state": "PARTIALLY_VERIFIED"
+    },
+    {
+      "blocks_certification": true,
+      "certification_requirement": "Per host profile: re-derive/confirm attr@N against captured permission events on the pinned version.",
+      "criticality": "HIGH",
+      "description": "Denial/permission message strings map to attribution classes (the attr@N facet).",
+      "evidence_refs": [
+        {
+          "phase": "Phase 3",
+          "ref": "attr@1, ATTR_VALID_FOR ['2.1.283']",
+          "source": "bench/src/attribution.ts",
+          "status": "valid for 2.1.283 only"
+        },
+        {
+          "phase": "Phase 2",
+          "ref": "U-17",
+          "source": "PLATFORM-ASSUMPTIONS.md",
+          "status": "version stability not verified"
+        },
+        {
+          "phase": "Phase 4",
+          "ref": "TS-07",
+          "source": "benchmark-design/PHASE-3-EXIT-CRITERIA.md",
+          "status": "UNRESOLVED"
+        },
+        {
+          "phase": "proposal",
+          "ref": "§5 T3",
+          "source": "DKSKILL-COMPATIBILITY-ARCHITECTURE-OWNER-REVIEW.md",
+          "status": "PROPOSED"
+        }
+      ],
+      "failure_behavior": "Errors attributed A9/unknown; attribution completeness drops; refuse certified attribution for that version.",
+      "host_facet_dependency": "attribution",
+      "id": "CAP-ATTRIBUTION-TEXT",
+      "limitations": [
+        "attr@1 is valid ONLY for Claude Code 2.1.283 (ATTR_VALID_FOR); on any other version every error is A9/unknown until the table is re-derived. TS-07 UNRESOLVED."
+      ],
+      "name": "Permission/attribution text (attr@N)",
+      "platform_version_sensitivity": "HIGH: attr table is version-pinned; a new version requires re-derivation (TS-07). Frozen: attr@1 = 2.1.283.",
+      "required_for": "benchmark_attribution_only",
+      "safe_degradation": false,
+      "state": "PARTIALLY_VERIFIED"
+    },
+    {
+      "blocks_certification": true,
+      "certification_requirement": "Future: implement and validate a reliable identity probe (product/version/platform/channel) with recorded evidence.",
+      "criticality": "HIGH",
+      "description": "The HCL identity probe determines the host product, version, platform and release channel to resolve a compatibility profile (T1).",
+      "evidence_refs": [
+        {
+          "phase": "proposal",
+          "ref": "§5 T1",
+          "source": "DKSKILL-COMPATIBILITY-ARCHITECTURE-OWNER-REVIEW.md",
+          "status": "PROPOSED"
+        },
+        {
+          "phase": "Phase 4",
+          "ref": "environment snapshot (not yet built)",
+          "source": "bench/README.md",
+          "status": "NOT_YET_VALIDATED"
+        }
+      ],
+      "failure_behavior": "No identity => no profile match => UNVERIFIED host => refuse certified enforcement (H-Q1).",
+      "host_facet_dependency": "identity-probe",
+      "id": "CAP-HOST-IDENTITY-DETECT",
+      "limitations": [
+        "Proposed in the owner review (§5 T1) but not implemented or validated. A benchmark environment snapshot is listed as a harness piece not yet built. Channel detection has no evidence."
+      ],
+      "name": "Host identity / version / platform / channel detection",
+      "platform_version_sensitivity": "By definition detects platform/version/channel; must be validated per platform.",
+      "required_for": "core_safety_enforcement",
+      "safe_degradation": false,
+      "state": "NOT_YET_VALIDATED"
+    }
+  ],
+  "metadata": {
+    "capability_count": 25,
+    "criticality_values": [
+      "CRITICAL",
+      "HIGH",
+      "MEDIUM",
+      "LOW"
+    ],
+    "dependency_model": "dkskill feature -> required capabilities -> host compatibility profile -> facet adapter -> evidence/certification. Data/specification relationship only; the HCL and runtime resolver are NOT implemented in M0.",
+    "distinctions": {
+      "certified_for_production": "A signed certification record exists for the host profile (H-Q4/H-Q6). M0 certifies nothing.",
+      "known_to_exist": "The capability exists on some host (evidence recorded).",
+      "required_by_feature": "A dkskill feature depends on the capability (dependency model).",
+      "validated_for_profile": "The capability is VERIFIED for a specific host compatibility profile."
+    },
+    "frozen_phase4_state": {
+      "attr_valid_for": [
+        "2.1.283"
+      ],
+      "benchmark_claude_code_version": "2.1.283",
+      "claude_code_2_1_284": "UNVALIDATED",
+      "note": "M0 changes none of the above; it certifies no version or platform.",
+      "pinned_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+      "run_a": "BLOCKED_AND_UNAUTHORIZED",
+      "runtime_dir": "ABSENT",
+      "ts07": "UNRESOLVED"
+    },
+    "not_implemented": {
+      "M1_compatibility_registry": false,
+      "M2_attribution_equivalence": false,
+      "M3_host_compatibility_layer": false,
+      "M4_certification_harness": false,
+      "M5_additional_profile_certification": false,
+      "M6_benchmark_product_separation": false
+    },
+    "owner_architecture": {
+      "H-Q1": "REFUSE enforcement on UNVERIFIED hosts.",
+      "H-Q2": "Support the latest 3 CERTIFIED versions initially; expandable by explicit owner decision.",
+      "H-Q3": "Windows, macOS, Linux in certification scope with certified Claude Code channels.",
+      "H-Q4": "Every certified host version/facet gets an immutable compatibility profile and attribution record.",
+      "H-Q5": "Approved benchmark binaries preserved as immutable artifacts (product/version/platform/channel/SHA-256).",
+      "H-Q6": "Compatibility registry requires signed updates; certification/signing authority is the PTPL/dkskill owner.",
+      "H-Q7": "Certification environments are separate from the Phase 4 benchmark environment."
+    },
+    "purpose": "Canonical, version-independent capability vocabulary for the future dkskill Host Compatibility Layer (HCL). Design/spec only; no runtime consumers.",
+    "required_for_values": [
+      "core_safety_enforcement",
+      "optional_functionality",
+      "benchmark_attribution_only"
+    ],
+    "safety_semantics": "UNVERIFIED != UNSUPPORTED. However, an UNVERIFIED safety-critical capability means dkskill MUST NOT claim certified enforcement on that host (H-Q1: refuse enforcement on unverified hosts).",
+    "source_documents": [
+      "PLATFORM-ASSUMPTIONS.md (V-01..V-22, U-01..U-20)",
+      "platform-validation/HANDS-ON-VALIDATION-REPORT.md (E-00..E-17)",
+      "DKSKILL-COMPATIBILITY-ARCHITECTURE-OWNER-REVIEW.md (§5 capability model)",
+      "bench/src/attribution.ts (attr@1); bench/src/parser.ts (stream)",
+      "benchmark-design/PHASE-3-EXIT-CRITERIA.md (TS-07)"
+    ],
+    "state_semantics": {
+      "DEGRADED_AT_RUNTIME": "A certified profile claims the capability but a live T2 self-check failed this session; the T2 failure overrides the certified claim for that session. (Runtime-only state; no capability is catalogued in this state.)",
+      "NOT_AVAILABLE": "Demonstrated to be absent on the relevant host/platform.",
+      "NOT_YET_VALIDATED": "No sufficient current evidence; a defined future validation is required (maps to the owner review NOT_VERIFIED).",
+      "PARTIALLY_VERIFIED": "Demonstrated only in part or under stated limits.",
+      "VERIFIED": "Capability demonstrated by recorded evidence for a specific host identity (here, the Phase 2 hands-on identity / benchmark pin 2.1.283)."
+    },
+    "state_values": [
+      "VERIFIED",
+      "PARTIALLY_VERIFIED",
+      "NOT_YET_VALIDATED",
+      "NOT_AVAILABLE",
+      "DEGRADED_AT_RUNTIME"
+    ],
+    "status": "M0_DESIGN_COMPLETE_NOT_IMPLEMENTED",
+    "title": "dkskill Capability Catalogue (M0)",
+    "version_independence": "Capability IDs are stable semantic identities and are NEVER tied to a single Claude Code version (no CAP-CC-2.1.283-* IDs). A new version normally adds a compatibility profile/facet when behavior differs; it does not create a new capability."
+  },
+  "schema": "dkskill.capability_catalogue/1",
+  "version": 1
+}

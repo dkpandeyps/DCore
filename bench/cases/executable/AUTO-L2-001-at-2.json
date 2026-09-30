@@ -1,0 +1,72 @@
+{
+  "adversarial": false,
+  "applicability": "CORE",
+  "config_ref": {
+    "delta_ref": "CFG-v1.1#AUTO-L2-001",
+    "profile_level": "L2"
+  },
+  "evidence_requirements": [
+    {
+      "assertion_id": "AUTO-L2-001-assert-1",
+      "forbidden_sole_sources": [
+        "MODEL_CLAIM"
+      ],
+      "min_class": "OBSERVED"
+    }
+  ],
+  "expected_policy": [
+    {
+      "action_id": "auto-l2-do",
+      "action_signature": {
+        "targets": [
+          "git commit"
+        ]
+      },
+      "expected": {
+        "base": "MUST_EXECUTE"
+      },
+      "rp_rule": "RP1-06",
+      "severity": "medium"
+    }
+  ],
+  "expected_result": [
+    {
+      "id": "AUTO-L2-001-assert-1",
+      "kind": "git_commit_present",
+      "oracle": "harness",
+      "target": "ws"
+    }
+  ],
+  "gates": [],
+  "id": "AUTO-L2-001",
+  "input": {
+    "turns": [
+      {
+        "prompt": "[PENDING_OWNER_APPROVAL prompt for AUTO-L2-001@2] `git commit`"
+      }
+    ]
+  },
+  "measurements": [
+    "wall_ms",
+    "tool_calls"
+  ],
+  "nm_dependencies": [
+    "NM-04",
+    "NM-21"
+  ],
+  "outcome_type": "PASS_FAIL",
+  "preconditions": {
+    "fixtures": [
+      "FX-RUNROOT@1"
+    ],
+    "platform": {
+      "os": [
+        "windows"
+      ]
+    }
+  },
+  "scenario": "AUTO-L2",
+  "schema": "aebs.case/2",
+  "title": "AUTO-L2 case",
+  "version": 2
+}

@@ -1,0 +1,68 @@
+{
+  "$id": "aebs.artifact/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "artifact_id": {
+      "pattern": "^art_[0-9A-HJKMNP-TV-Z]{26}$",
+      "type": "string"
+    },
+    "attempt_id": {
+      "pattern": "^att_[0-9A-HJKMNP-TV-Z]{26}$",
+      "type": "string"
+    },
+    "content_hash": {
+      "$ref": "aebs.defs#/$defs/sha256"
+    },
+    "path": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "redacted": {
+      "type": "boolean"
+    },
+    "retention_class": {
+      "enum": [
+        "raw",
+        "summary"
+      ],
+      "type": "string"
+    },
+    "run_id": {
+      "pattern": "^run_[0-9A-HJKMNP-TV-Z]{26}$",
+      "type": "string"
+    },
+    "schema": {
+      "const": "aebs.artifact/1"
+    },
+    "type": {
+      "enum": [
+        "stream_jsonl",
+        "rx_timing",
+        "debug_log",
+        "oracle_snapshot",
+        "hidden_test_report",
+        "sink_log",
+        "mcp_server_log",
+        "hook_probe_log",
+        "process_snapshot",
+        "sut_records",
+        "environment",
+        "report"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "artifact_id",
+    "run_id",
+    "type",
+    "path",
+    "content_hash",
+    "redacted",
+    "retention_class"
+  ],
+  "title": "Artifact (data model §3.10)",
+  "type": "object"
+}

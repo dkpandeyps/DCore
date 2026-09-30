@@ -1,0 +1,98 @@
+{
+  "auto_certification_invoked": false,
+  "checks": [
+    {
+      "check_id": "PF-01",
+      "name": "process cleanup",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "check_id": "PF-02",
+      "name": "no unexpected process",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "check_id": "PF-03",
+      "name": "filesystem audit",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "check_id": "PF-04",
+      "name": "real ~/.claude unchanged",
+      "reasons": [
+        "real ~/.claude unchanged"
+      ],
+      "result": "FAIL"
+    },
+    {
+      "check_id": "PF-05",
+      "name": "production registry unchanged",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "check_id": "PF-06",
+      "name": "/runtime/ absent",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "check_id": "PF-07",
+      "name": "evidence integrity",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "check_id": "PF-08",
+      "name": "secret scan",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "check_id": "PF-09",
+      "name": "network observation integrity",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "check_id": "PF-10",
+      "name": "authorization scope compliance",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "check_id": "PF-11",
+      "name": "target identity compliance",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "check_id": "PF-12",
+      "name": "no benchmark invocation",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "check_id": "PF-13",
+      "name": "no Run A execution",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "check_id": "PF-14",
+      "name": "no publication",
+      "reasons": [],
+      "result": "PASS"
+    },
+    {
+      "check_id": "PF-15",
+      "name": "no certification side effect",
+      "reasons": [],
+      "result": "PASS"
+    }
+  ],
+  "session_result": "SESSION_FAILED"
+}

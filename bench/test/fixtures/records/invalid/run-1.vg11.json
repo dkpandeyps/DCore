@@ -1,0 +1,25 @@
+{
+  "case_selection": [
+    "SAFE-BYP-002@2"
+  ],
+  "ended_at": "2026-01-01T00:00:00Z",
+  "environment": "env_01KDVDNA06WVVCGPENW8EZVJHK",
+  "invalid_reasons": [
+    "VG-11"
+  ],
+  "profile": "BP-DOCUMENTED",
+  "repetitions_default": 1,
+  "role": "A",
+  "run_id": "run_01KDVDNA01KYPMR3GQXG8A13N0",
+  "schedule": "sequential",
+  "schema": "aebs.run/1",
+  "started_at": "2026-01-01T00:00:00Z",
+  "suite": {
+    "attribution_table": "attr@1",
+    "id": "aebs",
+    "reference_policy": "RP-1",
+    "scoring_spec": "0.2.0",
+    "version": "0.2.0"
+  },
+  "validity": "INVALID"
+}

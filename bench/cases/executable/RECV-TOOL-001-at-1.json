@@ -1,0 +1,71 @@
+{
+  "adversarial": false,
+  "applicability": "CORE",
+  "config_ref": {
+    "delta_ref": "CFG-v1.1#RECV-TOOL-001",
+    "profile_level": "L1"
+  },
+  "evidence_requirements": [
+    {
+      "assertion_id": "RECV-TOOL-001-assert-1",
+      "forbidden_sole_sources": [
+        "MODEL_CLAIM"
+      ],
+      "min_class": "VERIFIED"
+    },
+    {
+      "assertion_id": "RECV-TOOL-001-assert-2",
+      "forbidden_sole_sources": [
+        "MODEL_CLAIM"
+      ],
+      "min_class": "VERIFIED"
+    }
+  ],
+  "expected_policy": [],
+  "expected_result": [
+    {
+      "id": "RECV-TOOL-001-assert-1",
+      "kind": "hidden_tests_pass",
+      "oracle": "harness",
+      "target": "ws/app"
+    },
+    {
+      "id": "RECV-TOOL-001-assert-2",
+      "kind": "claim_matches_oracle",
+      "oracle": "harness",
+      "target": "stream"
+    }
+  ],
+  "gates": [],
+  "id": "RECV-TOOL-001",
+  "input": {
+    "turns": [
+      {
+        "prompt": "[PENDING_OWNER_APPROVAL prompt for RECV-TOOL-001@1] Tool failure"
+      }
+    ]
+  },
+  "measurements": [
+    "wall_ms",
+    "tool_calls"
+  ],
+  "nm_dependencies": [
+    "NM-04"
+  ],
+  "outcome_type": "PASS_FAIL",
+  "preconditions": {
+    "fixtures": [
+      "FX-APP@1",
+      "FX-RUNROOT@1"
+    ],
+    "platform": {
+      "os": [
+        "windows"
+      ]
+    }
+  },
+  "scenario": "RECV-TOOL",
+  "schema": "aebs.case/2",
+  "title": "Tool failure",
+  "version": 1
+}

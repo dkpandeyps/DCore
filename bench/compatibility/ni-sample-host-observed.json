@@ -1,0 +1,170 @@
+{
+  "achieved_level": "L2",
+  "architecture": "x64",
+  "audit_hash": "sha256:5b424f4d8c0b126fd7d719d2bf6269d4daecd96859ef22e1b3ab97d811b02ca7",
+  "contradictions": [],
+  "environment_id": "PTPL-DK-BENCH-WIN-01",
+  "evidence_hashes": [
+    "sha256:f030775a20243e7a7dde672494eb300421ee663a5fd0b9ae1d244988087fa4e1",
+    "sha256:d1cb5517c1bd2d5cb7a7e66c680676cfb7924dcffb419aeebe147c490140f834"
+  ],
+  "evidence_items": [
+    {
+      "applicable": true,
+      "evidence_id": "evi_cfg-deny",
+      "freshness": "FRESH",
+      "in_scope": true,
+      "normalized_hash": "sha256:f030775a20243e7a7dde672494eb300421ee663a5fd0b9ae1d244988087fa4e1",
+      "observation": {
+        "architecture": "x64",
+        "claim": "SYNTHETIC_TEST_ONLY firewall outbound=deny",
+        "collection_method": "synthetic",
+        "environment_id": "PTPL-DK-BENCH-WIN-01",
+        "evidence_class": "CONFIGURATION_EVIDENCE",
+        "expires_at": null,
+        "host_id": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+        "level": "L1",
+        "limitations": [],
+        "max_age_ms": null,
+        "mechanism": "WINDOWS_FIREWALL_STATE",
+        "observation_id": "cfg-deny",
+        "observed_at": "2026-09-29T00:00:00Z",
+        "os": "Windows 11",
+        "result": "OBSERVED",
+        "revoked": false,
+        "schema": "dkskill.network_isolation_observation/1",
+        "scope": "OUTBOUND_DENY",
+        "signal": "ISOLATION_SUPPORTING",
+        "source": "synthetic-source",
+        "source_type": "CONFIGURATION",
+        "verifier": "SYNTHETIC-VERIFIER"
+      },
+      "raw_hash": "sha256:35fef882175b7e2813b8dab7e17363fda066f6376376de04f05112a9045ed86b",
+      "schema": "dkskill.network_isolation_evidence/1"
+    },
+    {
+      "applicable": true,
+      "evidence_id": "evi_host-state",
+      "freshness": "FRESH",
+      "in_scope": true,
+      "normalized_hash": "sha256:d1cb5517c1bd2d5cb7a7e66c680676cfb7924dcffb419aeebe147c490140f834",
+      "observation": {
+        "architecture": "x64",
+        "claim": "SYNTHETIC_TEST_ONLY all profiles: outbound blocked",
+        "collection_method": "synthetic",
+        "environment_id": "PTPL-DK-BENCH-WIN-01",
+        "evidence_class": "OBSERVATIONAL_EVIDENCE",
+        "expires_at": null,
+        "host_id": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+        "level": "L2",
+        "limitations": [],
+        "max_age_ms": null,
+        "mechanism": "FIREWALL_PROFILES",
+        "observation_id": "host-state",
+        "observed_at": "2026-09-29T00:00:00Z",
+        "os": "Windows 11",
+        "result": "OBSERVED",
+        "revoked": false,
+        "schema": "dkskill.network_isolation_observation/1",
+        "scope": "OUTBOUND_DENY",
+        "signal": "ISOLATION_SUPPORTING",
+        "source": "synthetic-source",
+        "source_type": "OBSERVATIONAL",
+        "verifier": "SYNTHETIC-VERIFIER"
+      },
+      "raw_hash": "sha256:91838bab300f7fbf0fe682c3d47a378f8e33364510e9fcc67f13b7628eeea966",
+      "schema": "dkskill.network_isolation_evidence/1"
+    }
+  ],
+  "freshness_state": "FRESH",
+  "host_identity": {
+    "architecture": "x64",
+    "binary_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+    "channel": "native",
+    "executable_source": "native",
+    "platform": "win32",
+    "product": "claude-code",
+    "version": "2.1.283"
+  },
+  "limitations": [
+    "No L4 independent verification present; host-level network isolation remains UNVERIFIED."
+  ],
+  "mechanisms_evaluated": [
+    {
+      "mechanism": "WINDOWS_FIREWALL_STATE",
+      "note": "CONFIGURATION_EVIDENCE/FRESH/ISOLATION_SUPPORTING",
+      "result": "OBSERVED"
+    },
+    {
+      "mechanism": "FIREWALL_PROFILES",
+      "note": "OBSERVATIONAL_EVIDENCE/FRESH/ISOLATION_SUPPORTING",
+      "result": "OBSERVED"
+    },
+    {
+      "mechanism": "EFFECTIVE_FIREWALL_RULES",
+      "note": "not independently observed; requires future authorized read-only collection",
+      "result": "UNKNOWN"
+    },
+    {
+      "mechanism": "NETWORK_ADAPTER_STATE",
+      "note": "not independently observed; requires future authorized read-only collection",
+      "result": "UNKNOWN"
+    },
+    {
+      "mechanism": "ROUTING_STATE",
+      "note": "not independently observed; requires future authorized read-only collection",
+      "result": "UNKNOWN"
+    },
+    {
+      "mechanism": "ACTIVE_CONNECTIONS",
+      "note": "not independently observed; requires future authorized read-only collection",
+      "result": "UNKNOWN"
+    },
+    {
+      "mechanism": "DNS_CONFIG",
+      "note": "not independently observed; requires future authorized read-only collection",
+      "result": "UNKNOWN"
+    },
+    {
+      "mechanism": "PROXY_CONFIG",
+      "note": "not independently observed; requires future authorized read-only collection",
+      "result": "UNKNOWN"
+    },
+    {
+      "mechanism": "PROCESS_NETWORK_ASSOCIATION",
+      "note": "not independently observed; requires future authorized read-only collection",
+      "result": "UNKNOWN"
+    },
+    {
+      "mechanism": "OS_NETWORK_POLICY",
+      "note": "not independently observed; requires future authorized read-only collection",
+      "result": "UNKNOWN"
+    },
+    {
+      "mechanism": "EXTERNAL_CONNECTION_ATTEMPTS",
+      "note": "not independently observed; requires future authorized read-only collection",
+      "result": "UNKNOWN"
+    },
+    {
+      "mechanism": "ISOLATED_ENV_CONTROLS",
+      "note": "not independently observed; requires future authorized read-only collection",
+      "result": "UNKNOWN"
+    }
+  ],
+  "network_isolation": "UNVERIFIED",
+  "observation_source": "supplied-observations",
+  "observation_timestamp": "2026-09-29T00:00:00Z",
+  "os": "Windows 11",
+  "proven_scope": null,
+  "reasons": [
+    "achieved_level=L2; L4 independent verification absent — configuration/claim/host-state/controlled-behavior alone are insufficient"
+  ],
+  "requested_scope": "OUTBOUND_DENY",
+  "schema": "dkskill.network_isolation_verification/1",
+  "state": "UNVERIFIED",
+  "synthetic_test_only": true,
+  "verification_id": "verif-ni-req-real",
+  "verification_method": "read-only offline evidence assessment (no live probe)",
+  "verifier": "SYNTHETIC-VERIFIER",
+  "version": 1
+}

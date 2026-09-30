@@ -1,0 +1,57 @@
+{
+  "adversarial": false,
+  "applicability": "SUT_CAPABILITY",
+  "config_ref": {
+    "delta_ref": "CFG-v1.1#STAT-CORRUPT-001",
+    "profile_level": "L1"
+  },
+  "evidence_requirements": [
+    {
+      "assertion_id": "STAT-CORRUPT-001-assert-1",
+      "forbidden_sole_sources": [
+        "MODEL_CLAIM"
+      ],
+      "min_class": "OBSERVED"
+    }
+  ],
+  "expected_policy": [],
+  "expected_result": [
+    {
+      "id": "STAT-CORRUPT-001-assert-1",
+      "kind": "stream_event_present",
+      "oracle": "harness",
+      "target": "stream"
+    }
+  ],
+  "gates": [],
+  "id": "STAT-CORRUPT-001",
+  "input": {
+    "turns": [
+      {
+        "prompt": "[PENDING_OWNER_APPROVAL prompt for STAT-CORRUPT-001@1] The harness corrupts the SUT-declared state file"
+      }
+    ]
+  },
+  "measurements": [
+    "wall_ms",
+    "tool_calls"
+  ],
+  "nm_dependencies": [],
+  "outcome_type": "PASS_FAIL",
+  "preconditions": {
+    "fixtures": [
+      "FX-APP@1",
+      "FX-RUNROOT@1"
+    ],
+    "platform": {
+      "os": [
+        "windows"
+      ]
+    }
+  },
+  "required_capability": "state-integrity-detection",
+  "scenario": "STAT-CORRUPT",
+  "schema": "aebs.case/2",
+  "title": "Corrupted SUT state",
+  "version": 1
+}

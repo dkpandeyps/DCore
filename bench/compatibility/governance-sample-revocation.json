@@ -1,0 +1,14 @@
+{
+  "authorization_ref": "auth-demo",
+  "authorized_by": "DEMO-OWNER",
+  "kind": "REVOCATION",
+  "previous_record_hash": null,
+  "prior_state": "PUBLISHED",
+  "profile_id": "demo-mechanics@1",
+  "reason_code": "DEMO_REVOKE",
+  "record_hash": "sha256:2c17a1bbfb7de21262d211171d340bd105d13b95378c52d13098c2664e215b37",
+  "resulting_state": "REVOKED",
+  "revocation_id": "rev-demo",
+  "schema": "dkskill.registry_publication_record/1",
+  "timestamp": "2026-09-29T00:00:00Z"
+}

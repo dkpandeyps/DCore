@@ -1,0 +1,262 @@
+{
+  "attribution": {
+    "facet": "attribution@1",
+    "in_scope": false,
+    "note": "version outside ATTR_VALID_FOR or no attribution facet => attribution is A9/unknown, table_valid=false; dependent claims unverified. No attr@2.",
+    "real_host": "NOT_VALIDATED",
+    "table_valid_scope": [
+      "2.1.283"
+    ]
+  },
+  "capabilities": [
+    {
+      "capability_id": "CAP-HOOK-PRETOOLUSE-INTERCEPT",
+      "required": true,
+      "safety_critical": true,
+      "satisfied": false,
+      "state": "PARTIALLY_VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOOK-POSTTOOLUSE-INTERCEPT",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOOK-SUBAGENT-INTERCEPT",
+      "required": true,
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-MCP-MATCHER",
+      "required": true,
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOOK-DENY-REASON-VISIBLE",
+      "required": true,
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-PERMISSION-PRECEDENCE",
+      "required": true,
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-UPDATEDINPUT-NARROWING",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-SUBAGENT-TOOL-RESTRICTIONS",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-SKILL-TOOL-FLAGS",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOOK-ENV-IDENTIFIERS",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-SETTINGS-PRECEDENCE",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-MANAGED-SETTINGS",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-PERMISSION-MODE-CEILING",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-PROTECTED-PATHS",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOOK-CONCURRENCY",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-DENY-PRECEDENCE",
+      "required": true,
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-STOP-HOOK",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-SESSIONSTART-CONTEXT",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-COMPACTION-CONTEXT",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-CONFIG-RELOAD",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOOK-HEARTBEAT",
+      "required": true,
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOOK-TIMEOUT-FAILOPEN",
+      "required": true,
+      "safety_critical": true,
+      "satisfied": true,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-STREAM-SCHEMA",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-ATTRIBUTION-TEXT",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    },
+    {
+      "capability_id": "CAP-HOST-IDENTITY-DETECT",
+      "required": false,
+      "safety_critical": false,
+      "satisfied": null,
+      "state": "VERIFIED"
+    }
+  ],
+  "certification_status": "CERTIFIED",
+  "enforcement_decision": "ENFORCEMENT_REFUSED",
+  "enforcement_level": "L1",
+  "explanation": "Blocked: a safety-critical capability is not verified for this environment. Fail closed.",
+  "facets": [
+    {
+      "facet_id": "hook_protocol@1",
+      "family": "hook_protocol",
+      "state": "RESOLVED",
+      "validation_status": "PROBED"
+    },
+    {
+      "facet_id": "stream_schema@1",
+      "family": "stream_schema",
+      "state": "RESOLVED",
+      "validation_status": "PROBED"
+    },
+    {
+      "facet_id": "attribution@1",
+      "family": "attribution",
+      "state": "RESOLVED",
+      "validation_status": "PROBED"
+    },
+    {
+      "facet_id": "settings_layout@1",
+      "family": "settings_layout",
+      "state": "RESOLVED",
+      "validation_status": "PROBED"
+    },
+    {
+      "facet_id": "permission_modes@1",
+      "family": "permission_modes",
+      "state": "RESOLVED",
+      "validation_status": "PROBED"
+    }
+  ],
+  "fail_closed": true,
+  "known": [],
+  "normalized_identity": {
+    "architecture": "x64",
+    "binary_sha256": "7777777777777777777777777777777777777777777777777777777777777777",
+    "channel": "stable",
+    "executable_source": null,
+    "platform": "win32",
+    "product": "claude-code",
+    "version": "2.1.282"
+  },
+  "observed_host": {
+    "architecture": "x64",
+    "binary_sha256": "7777777777777777777777777777777777777777777777777777777777777777",
+    "channel": "stable",
+    "os": "Windows 11",
+    "os_version": null,
+    "product": "claude-code",
+    "runtime_facet": null,
+    "version": "2.1.282"
+  },
+  "outcome": "BLOCKED",
+  "platform": "windows",
+  "profile_id": "syn-win-safetygap@1",
+  "profile_resolution": "EXACT_MATCH",
+  "reason_codes": [
+    "CAP_UNMET:CAP-HOOK-PRETOOLUSE-INTERCEPT:PARTIALLY_VERIFIED",
+    "SAFETY_CRITICAL_UNVERIFIED"
+  ],
+  "schema": "dkskill.user_compatibility_result/1",
+  "supported_platform": true,
+  "synthetic_test_only": true,
+  "unknown": [
+    "safety-critical capability not VERIFIED — fail closed",
+    "attribution out of ATTR_VALID_FOR scope => A9/unknown"
+  ],
+  "validation_status": "CERTIFIED",
+  "version": 1
+}

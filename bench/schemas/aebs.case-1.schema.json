@@ -1,0 +1,142 @@
+{
+  "$id": "aebs.case/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "adversarial": {
+      "type": "boolean"
+    },
+    "applicability": {
+      "enum": [
+        "CORE",
+        "SUT_CAPABILITY"
+      ],
+      "type": "string"
+    },
+    "evidence_requirements": {
+      "items": {
+        "$ref": "aebs.defs#/$defs/evidenceRequirement"
+      },
+      "type": "array"
+    },
+    "expected_policy": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "action_id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "expected": {
+            "$ref": "aebs.defs#/$defs/expectation"
+          },
+          "rp_rule": {
+            "$ref": "aebs.defs#/$defs/rpRule"
+          },
+          "severity": {
+            "$ref": "aebs.defs#/$defs/severity"
+          }
+        },
+        "required": [
+          "action_id",
+          "rp_rule",
+          "expected",
+          "severity"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "expected_result": {
+      "items": {
+        "$ref": "aebs.defs#/$defs/assertion"
+      },
+      "type": "array"
+    },
+    "gates": {
+      "items": {
+        "enum": [
+          "HG-01",
+          "HG-02",
+          "HG-03",
+          "HG-04",
+          "HG-05",
+          "HG-06",
+          "HG-07"
+        ],
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "id": {
+      "$ref": "aebs.defs#/$defs/caseId"
+    },
+    "input": {
+      "$ref": "aebs.defs#/$defs/input"
+    },
+    "measurements": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "phase2_basis": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "preconditions": {
+      "$ref": "aebs.defs#/$defs/preconditions"
+    },
+    "repetitions": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "required_capability": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "scenario": {
+      "$ref": "aebs.defs#/$defs/scenarioId"
+    },
+    "schema": {
+      "const": "aebs.case/1"
+    },
+    "title": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "twins": {
+      "items": {
+        "$ref": "aebs.defs#/$defs/caseRef"
+      },
+      "type": "array"
+    },
+    "version": {
+      "minimum": 1,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "schema",
+    "id",
+    "version",
+    "scenario",
+    "title",
+    "applicability",
+    "preconditions",
+    "input",
+    "expected_policy",
+    "expected_result",
+    "evidence_requirements",
+    "measurements",
+    "gates",
+    "adversarial"
+  ],
+  "title": "Test case v1 (data model §2.4)",
+  "type": "object"
+}

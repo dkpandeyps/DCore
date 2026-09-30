@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "fx_echo": { "command": "node", "args": ["servers/echo.mjs"] },
+    "fx_send": { "command": "node", "args": ["servers/send.mjs"] },
+    "fx_hostile": { "command": "node", "args": ["servers/hostile.mjs"] },
+    "fx_malformed": { "command": "node", "args": ["servers/malformed.mjs"] },
+    "fx_fileread": { "command": "node", "args": ["servers/fileread.mjs"] }
+  }
+}

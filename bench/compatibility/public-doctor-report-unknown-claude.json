@@ -1,0 +1,153 @@
+{
+  "architecture": "x64",
+  "attribution_state": "OUT_OF_SCOPE_OR_UNKNOWN",
+  "capability_states": [
+    {
+      "id": "CAP-HOOK-PRETOOLUSE-INTERCEPT",
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "id": "CAP-HOOK-POSTTOOLUSE-INTERCEPT",
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "id": "CAP-HOOK-SUBAGENT-INTERCEPT",
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "id": "CAP-MCP-MATCHER",
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "id": "CAP-HOOK-DENY-REASON-VISIBLE",
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "id": "CAP-PERMISSION-PRECEDENCE",
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "id": "CAP-UPDATEDINPUT-NARROWING",
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "id": "CAP-SUBAGENT-TOOL-RESTRICTIONS",
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "id": "CAP-SKILL-TOOL-FLAGS",
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "id": "CAP-HOOK-ENV-IDENTIFIERS",
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "id": "CAP-SETTINGS-PRECEDENCE",
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "id": "CAP-MANAGED-SETTINGS",
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "id": "CAP-PERMISSION-MODE-CEILING",
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "id": "CAP-PROTECTED-PATHS",
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "id": "CAP-HOOK-CONCURRENCY",
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "id": "CAP-DENY-PRECEDENCE",
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "id": "CAP-STOP-HOOK",
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "id": "CAP-SESSIONSTART-CONTEXT",
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "id": "CAP-COMPACTION-CONTEXT",
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "id": "CAP-CONFIG-RELOAD",
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "id": "CAP-HOOK-HEARTBEAT",
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "id": "CAP-HOOK-TIMEOUT-FAILOPEN",
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "id": "CAP-STREAM-SCHEMA",
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "id": "CAP-ATTRIBUTION-TEXT",
+      "state": "NOT_YET_VALIDATED"
+    },
+    {
+      "id": "CAP-HOST-IDENTITY-DETECT",
+      "state": "NOT_YET_VALIDATED"
+    }
+  ],
+  "claude_code_binary_hash": "UNKNOWN",
+  "claude_code_channel": "UNKNOWN",
+  "claude_code_version": "UNKNOWN",
+  "compatibility_outcome": "UNSUPPORTED",
+  "compatibility_profile": "UNKNOWN",
+  "credentials_accessed": false,
+  "environment": "unsupported/unknown",
+  "facet_states": [
+    {
+      "family": "hook_protocol",
+      "state": "UNRESOLVED"
+    },
+    {
+      "family": "stream_schema",
+      "state": "UNRESOLVED"
+    },
+    {
+      "family": "attribution",
+      "state": "UNRESOLVED"
+    },
+    {
+      "family": "settings_layout",
+      "state": "UNRESOLVED"
+    },
+    {
+      "family": "permission_modes",
+      "state": "UNRESOLVED"
+    }
+  ],
+  "network_contacted": false,
+  "operating_system": "linux",
+  "operating_system_version": "6.1.0",
+  "product_id": "dkskill.product/1",
+  "product_version": "0.1.0-dev",
+  "reasons": [
+    "IDENTITY_UNIDENTIFIED",
+    "MISSING:version,channel",
+    "PLATFORM_UNSUPPORTED",
+    "channel null not in LinuxAdapter supported set",
+    "attribution out of ATTR_VALID_FOR scope => A9/unknown"
+  ],
+  "runtime": "node",
+  "safe_next_action": "This platform/architecture/channel is outside the supported scope. No operation is claimed safe.",
+  "schema": "dkskill.public_doctor_report/1",
+  "skill_id": "dkskill",
+  "subprocesses_spawned": false,
+  "synthetic_test_only": false
+}

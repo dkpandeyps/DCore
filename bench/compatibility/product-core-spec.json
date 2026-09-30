@@ -1,0 +1,933 @@
+{
+  "adapter_contract": {
+    "core_contains_platform_behavior": false,
+    "interface_id": "dkskill.platform_adapter_contract/1",
+    "may_provide": [
+      "host identity",
+      "OS normalization",
+      "architecture detection",
+      "runtime facts",
+      "platform-specific safe operations",
+      "platform-specific capability evidence"
+    ],
+    "must_not": [
+      "declare certification",
+      "assume behavior",
+      "access credentials",
+      "bypass M3/M4/M8/M9"
+    ]
+  },
+  "capabilities": [
+    {
+      "capability_id": "CAP-COMPAT-RESOLVE",
+      "depends_on_m0_capability": null,
+      "min_state": "VERIFIED",
+      "name": "compatibility resolution",
+      "operations": [
+        "OP-RESOLVE-COMPAT",
+        "OP-DIAGNOSE"
+      ],
+      "safety_critical": true
+    },
+    {
+      "capability_id": "CAP-ENV-DETECT",
+      "depends_on_m0_capability": null,
+      "min_state": "VERIFIED",
+      "name": "environment detection",
+      "operations": [
+        "OP-DETECT-ENV"
+      ],
+      "safety_critical": false
+    }
+  ],
+  "compatibility_api": [
+    {
+      "fail_closed": true,
+      "fn": "detectEnvironment()",
+      "inputs": [
+        "local OS/arch/version/channel"
+      ],
+      "maps_to": "platform-adapter.selectAdapter + host probe",
+      "output": "UniversalHost",
+      "purity": [
+        "ENVIRONMENT_DEPENDENT",
+        "ADAPTER_DEPENDENT"
+      ]
+    },
+    {
+      "fail_closed": true,
+      "fn": "resolveHostIdentity()",
+      "inputs": [
+        "UniversalHost"
+      ],
+      "maps_to": "universal-compatibility.normalizeHost",
+      "output": "HostIdentity",
+      "purity": [
+        "ADAPTER_DEPENDENT",
+        "DETERMINISTIC_OVER_INPUTS"
+      ]
+    },
+    {
+      "fail_closed": true,
+      "fn": "resolveCompatibility()",
+      "inputs": [
+        "HostIdentity",
+        "registry"
+      ],
+      "maps_to": "universal-compatibility.resolveUniversal (M3 HCL)",
+      "output": "UserCompatibilityResult",
+      "purity": [
+        "REGISTRY_DEPENDENT",
+        "DETERMINISTIC_OVER_INPUTS"
+      ]
+    },
+    {
+      "fail_closed": true,
+      "fn": "resolveCapabilities()",
+      "inputs": [
+        "profile"
+      ],
+      "maps_to": "M3 resolveCapabilities",
+      "output": "CapabilityRow[]",
+      "purity": [
+        "REGISTRY_DEPENDENT",
+        "DETERMINISTIC_OVER_INPUTS"
+      ]
+    },
+    {
+      "fail_closed": true,
+      "fn": "resolveFacets()",
+      "inputs": [
+        "profile",
+        "registry"
+      ],
+      "maps_to": "M3 resolveFacets",
+      "output": "FacetRow[]",
+      "purity": [
+        "REGISTRY_DEPENDENT",
+        "DETERMINISTIC_OVER_INPUTS"
+      ]
+    },
+    {
+      "fail_closed": true,
+      "fn": "resolvePermissions()",
+      "inputs": [
+        "operation"
+      ],
+      "maps_to": "product permission model (unknown=DENY)",
+      "output": "PermissionStatus",
+      "purity": [
+        "DETERMINISTIC_OVER_INPUTS"
+      ]
+    },
+    {
+      "fail_closed": true,
+      "fn": "enforceCompatibility()",
+      "inputs": [
+        "UserCompatibilityResult",
+        "level"
+      ],
+      "maps_to": "M3 decideEnforcement",
+      "output": "EnforcementDecision",
+      "purity": [
+        "DETERMINISTIC_OVER_INPUTS"
+      ]
+    },
+    {
+      "fail_closed": true,
+      "fn": "enforceSecurity()",
+      "inputs": [
+        "manifest",
+        "registry",
+        "evidence"
+      ],
+      "maps_to": "M6 signed registry + M13 security model",
+      "output": "allow/deny",
+      "purity": [
+        "DETERMINISTIC_OVER_INPUTS"
+      ]
+    }
+  ],
+  "current_state": {
+    "attr_valid_for": "2.1.283",
+    "current_real_host": "UNVERIFIED",
+    "default_enforcement": "L1",
+    "m8": "EXECUTION_BLOCKED",
+    "m9": "UNVERIFIED",
+    "production_certified_count": "0",
+    "supported_platforms": "windows,macos,linux"
+  },
+  "decision_boundary": [
+    {
+      "blocker": null,
+      "boundary": "BUILD_NOW",
+      "description": "universal product core spec + types",
+      "id": "D-01"
+    },
+    {
+      "blocker": null,
+      "boundary": "BUILD_NOW",
+      "description": "dkskill doctor diagnostic (read-only) over M13 universal resolver",
+      "id": "D-02"
+    },
+    {
+      "blocker": null,
+      "boundary": "BUILD_NOW",
+      "description": "platform adapters (identity normalization only)",
+      "id": "D-03"
+    },
+    {
+      "blocker": null,
+      "boundary": "BUILD_NOW",
+      "description": "public manifest + integrity + installation contract",
+      "id": "D-04"
+    },
+    {
+      "blocker": "no certified profile; current host UNVERIFIED",
+      "boundary": "REQUIRES_CERTIFICATION",
+      "description": "enforcement beyond L1 diagnostics on a real host",
+      "id": "D-05"
+    },
+    {
+      "blocker": "independent L4 + M4/M5/M6 + paid infra authorization",
+      "boundary": "REQUIRES_CERTIFICATION",
+      "description": "any real certified facet (Windows/macOS/Linux)",
+      "id": "D-06"
+    },
+    {
+      "blocker": "skill taxonomy count NOT_YET_DECIDED; needs certified facets + user research",
+      "boundary": "REQUIRES_OWNER_DECISION",
+      "description": "additional user-facing skills beyond the core",
+      "id": "D-07"
+    },
+    {
+      "blocker": "defined in spec; created only at install time, not this phase",
+      "boundary": "BUILD_LATER",
+      "description": "runtime state directory location + on-disk format",
+      "id": "D-08"
+    },
+    {
+      "blocker": null,
+      "boundary": "BUILD_LATER",
+      "description": "update/migration executor",
+      "id": "D-09"
+    },
+    {
+      "blocker": "offline-first default; remote refresh policy needs owner decision",
+      "boundary": "REQUIRES_OWNER_DECISION",
+      "description": "network-dependent registry refresh",
+      "id": "D-10"
+    }
+  ],
+  "frozen_foundation": [
+    "M0",
+    "M1",
+    "M2",
+    "M3",
+    "M4",
+    "M5",
+    "M6",
+    "M7",
+    "M8",
+    "M9",
+    "M10",
+    "M11",
+    "M12",
+    "M13",
+    "Phase4 register",
+    "H-Q1..H-Q7",
+    "benchmark pin",
+    "ATTR_VALID_FOR",
+    "production registry"
+  ],
+  "future_runtime_location": "<user Claude skills dir>/dkskill/ (package) + <user state dir>/dkskill/ (per-user state) — DEFINED ONLY; not created by this phase; /runtime/ remains absent",
+  "hierarchy": [
+    "PRODUCT",
+    "SKILL",
+    "CAPABILITY",
+    "OPERATION",
+    "PERMISSION",
+    "COMPATIBILITY_REQUIREMENT",
+    "PLATFORM_ADAPTER",
+    "HOST_FACET",
+    "SECURITY_POLICY"
+  ],
+  "identity": {
+    "license": "Apache-2.0",
+    "not_platform_specific": true,
+    "not_version_specific": true,
+    "product": "dkskill",
+    "product_id": "dkskill.product/1",
+    "purpose": "A universal, fail-closed compatibility core that lets a cloneable Claude Code skill set operate safely only where the exact host is explicitly certified.",
+    "scope": "Claude-Code-only until R8",
+    "user_value": "Deterministic, honest compatibility answers and safe operation on supported/certified environments; clear, actionable diagnostics elsewhere."
+  },
+  "installation_lifecycle": [
+    {
+      "behavior": "CLONE (platform-neutral, offline-capable)",
+      "on_failure": "FAIL_CLOSED",
+      "stage": "CLONE"
+    },
+    {
+      "behavior": "DISCOVER (platform-neutral, offline-capable)",
+      "on_failure": "FAIL_CLOSED",
+      "stage": "DISCOVER"
+    },
+    {
+      "behavior": "VALIDATE (platform-neutral, offline-capable)",
+      "on_failure": "FAIL_CLOSED",
+      "stage": "VALIDATE"
+    },
+    {
+      "behavior": "INSTALL (platform-neutral, offline-capable)",
+      "on_failure": "FAIL_CLOSED",
+      "stage": "INSTALL"
+    },
+    {
+      "behavior": "INITIALIZE (platform-neutral, offline-capable)",
+      "on_failure": "FAIL_CLOSED",
+      "stage": "INITIALIZE"
+    },
+    {
+      "behavior": "COMPATIBILITY_CHECK (platform-neutral, offline-capable)",
+      "on_failure": "FAIL_CLOSED",
+      "stage": "COMPATIBILITY_CHECK"
+    },
+    {
+      "behavior": "READY_OR_BLOCKED (platform-neutral, offline-capable)",
+      "on_failure": "FAIL_CLOSED",
+      "stage": "READY_OR_BLOCKED"
+    }
+  ],
+  "lifecycle_failure_cases": [
+    {
+      "behavior": "FAIL_CLOSED",
+      "condition": "partial compatibility",
+      "outcome": "PARTIALLY_COMPATIBLE: degraded/limited operation only"
+    },
+    {
+      "behavior": "FAIL_CLOSED",
+      "condition": "unverified compatibility",
+      "outcome": "UNVERIFIED: refuse enforcement (H-Q1); operate read-only diagnostics only"
+    },
+    {
+      "behavior": "FAIL_CLOSED",
+      "condition": "unsupported host",
+      "outcome": "UNSUPPORTED: no compatibility claim; safe no-op with explanation"
+    },
+    {
+      "behavior": "FAIL_CLOSED",
+      "condition": "profile mismatch",
+      "outcome": "PROFILE_MISMATCH: refuse"
+    },
+    {
+      "behavior": "FAIL_CLOSED",
+      "condition": "revoked profile",
+      "outcome": "REVOKED: refuse"
+    },
+    {
+      "behavior": "FAIL_CLOSED",
+      "condition": "stale registry",
+      "outcome": "refuse enforcement; report staleness"
+    },
+    {
+      "behavior": "FAIL_CLOSED",
+      "condition": "malformed manifest",
+      "outcome": "reject load"
+    },
+    {
+      "behavior": "FAIL_CLOSED",
+      "condition": "tampered package",
+      "outcome": "reject (integrity failure)"
+    },
+    {
+      "behavior": "FAIL_CLOSED",
+      "condition": "unknown capability",
+      "outcome": "treat as NOT_YET_VALIDATED; never VERIFIED"
+    },
+    {
+      "behavior": "FAIL_CLOSED",
+      "condition": "unknown permission",
+      "outcome": "DENY"
+    },
+    {
+      "behavior": "FAIL_CLOSED",
+      "condition": "missing facet",
+      "outcome": "PARTIALLY_COMPATIBLE / refuse enforcement"
+    },
+    {
+      "behavior": "FAIL_CLOSED",
+      "condition": "adapter failure",
+      "outcome": "UNSUPPORTED/UNVERIFIED; refuse"
+    },
+    {
+      "behavior": "FAIL_CLOSED",
+      "condition": "runtime failure",
+      "outcome": "abort safely; clean up; report"
+    }
+  ],
+  "manifest_template": {
+    "capabilities": [
+      "CAP-COMPAT-RESOLVE",
+      "CAP-ENV-DETECT"
+    ],
+    "compatibility_requirements": [
+      "exact host identity",
+      "exact certified profile for enforcement",
+      "attribution in ATTR_VALID_FOR for attribution-dependent claims"
+    ],
+    "dependencies": [],
+    "immutable_identifiers": [
+      "product",
+      "skill_id"
+    ],
+    "integrity": {
+      "algorithm": "sha256",
+      "manifest_hash": null
+    },
+    "no_single_version_identity": true,
+    "no_windows_assumption": true,
+    "permissions": [
+      "PERM-READ-ENV",
+      "PERM-READ-REGISTRY",
+      "PERM-READ-CONFIG",
+      "PERM-WRITE-STATE",
+      "PERM-DIAGNOSE"
+    ],
+    "product": "dkskill",
+    "product_version": "0.1.0-dev",
+    "required_facets": [
+      "hook_protocol@1",
+      "stream_schema@1",
+      "attribution@1",
+      "settings_layout@1",
+      "permission_modes@1"
+    ],
+    "schema": "dkskill.product_manifest/1",
+    "schema_version": "1",
+    "security_requirements": [
+      "signed registry (H-Q6)",
+      "immutable profiles (H-Q4)",
+      "no secrets in package",
+      "fail-closed defaults"
+    ],
+    "skill_id": "dkskill",
+    "update_policy": "no automatic compatibility inheritance; new releases start UNVERIFIED"
+  },
+  "offline_model": {
+    "evidence_unrefreshable": "no upgrade of states",
+    "incomplete_compatibility": "UNVERIFIED; fail closed",
+    "local_package_available": "operate from local package",
+    "missing_info_is_compatible": false,
+    "no_network": "offline-first; diagnostics still work",
+    "registry_stale": "refuse enforcement; report",
+    "registry_unreachable": "use last signed local registry; if stale => refuse enforcement"
+  },
+  "operations": [
+    {
+      "affects_credentials": false,
+      "affects_external_services": false,
+      "affects_filesystem": false,
+      "affects_network": false,
+      "affects_process_execution": false,
+      "name": "detect environment",
+      "on_unknown_permission": "DENY",
+      "operation_id": "OP-DETECT-ENV",
+      "read_only": true,
+      "required_capabilities": [],
+      "required_permission_id": "PERM-READ-ENV"
+    },
+    {
+      "affects_credentials": false,
+      "affects_external_services": false,
+      "affects_filesystem": true,
+      "affects_network": false,
+      "affects_process_execution": false,
+      "name": "resolve compatibility",
+      "on_unknown_permission": "DENY",
+      "operation_id": "OP-RESOLVE-COMPAT",
+      "read_only": true,
+      "required_capabilities": [
+        "CAP-COMPAT-RESOLVE"
+      ],
+      "required_permission_id": "PERM-READ-REGISTRY"
+    },
+    {
+      "affects_credentials": false,
+      "affects_external_services": false,
+      "affects_filesystem": false,
+      "affects_network": false,
+      "affects_process_execution": false,
+      "name": "compatibility diagnostic (dkskill doctor)",
+      "on_unknown_permission": "DENY",
+      "operation_id": "OP-DIAGNOSE",
+      "read_only": true,
+      "required_capabilities": [
+        "CAP-COMPAT-RESOLVE"
+      ],
+      "required_permission_id": "PERM-DIAGNOSE"
+    },
+    {
+      "affects_credentials": false,
+      "affects_external_services": false,
+      "affects_filesystem": false,
+      "affects_network": false,
+      "affects_process_execution": false,
+      "name": "report actionable result",
+      "on_unknown_permission": "DENY",
+      "operation_id": "OP-REPORT",
+      "read_only": true,
+      "required_capabilities": [],
+      "required_permission_id": "PERM-DIAGNOSE"
+    }
+  ],
+  "permissions": [
+    {
+      "affects_credentials": false,
+      "affects_external_services": false,
+      "affects_filesystem": false,
+      "affects_network": false,
+      "affects_process_execution": false,
+      "name": "read local environment",
+      "on_unknown": "DENY",
+      "permission_id": "PERM-READ-ENV",
+      "read_only": true,
+      "reason": "detect host identity (OS/arch/version/channel)"
+    },
+    {
+      "affects_credentials": false,
+      "affects_external_services": false,
+      "affects_filesystem": true,
+      "affects_network": false,
+      "affects_process_execution": false,
+      "name": "read compatibility registry",
+      "on_unknown": "DENY",
+      "permission_id": "PERM-READ-REGISTRY",
+      "read_only": true,
+      "reason": "resolve exact compatibility profile"
+    },
+    {
+      "affects_credentials": false,
+      "affects_external_services": false,
+      "affects_filesystem": true,
+      "affects_network": false,
+      "affects_process_execution": false,
+      "name": "read dkskill configuration",
+      "on_unknown": "DENY",
+      "permission_id": "PERM-READ-CONFIG",
+      "read_only": true,
+      "reason": "load user configuration"
+    },
+    {
+      "affects_credentials": false,
+      "affects_external_services": false,
+      "affects_filesystem": true,
+      "affects_network": false,
+      "affects_process_execution": false,
+      "name": "write dkskill state",
+      "on_unknown": "DENY",
+      "permission_id": "PERM-WRITE-STATE",
+      "read_only": false,
+      "reason": "persist per-user diagnostic/cache state (isolated dir)"
+    },
+    {
+      "affects_credentials": false,
+      "affects_external_services": false,
+      "affects_filesystem": false,
+      "affects_network": false,
+      "affects_process_execution": false,
+      "name": "run compatibility diagnostic",
+      "on_unknown": "DENY",
+      "permission_id": "PERM-DIAGNOSE",
+      "read_only": true,
+      "reason": "produce dkskill doctor output"
+    }
+  ],
+  "release_model": [
+    {
+      "gate": "spec + unit tests green",
+      "stage": "development"
+    },
+    {
+      "gate": "compatibility core validated",
+      "stage": "alpha"
+    },
+    {
+      "gate": "installation + failure modes validated",
+      "stage": "beta"
+    },
+    {
+      "gate": "≥1 certified facet + security review",
+      "stage": "release_candidate"
+    },
+    {
+      "gate": "owner-signed release; per-facet states published (CERTIFIED/UNVERIFIED/NOT_CERTIFIED/UNSUPPORTED)",
+      "stage": "production"
+    }
+  ],
+  "repository_layout": [
+    {
+      "path": "src/product/",
+      "purpose": "universal product core + runtime",
+      "visibility": "PUBLIC"
+    },
+    {
+      "path": "src/skills/",
+      "purpose": "user-facing skills (initially: dkskill)",
+      "visibility": "PUBLIC"
+    },
+    {
+      "path": "src/capabilities/",
+      "purpose": "capability modules",
+      "visibility": "PUBLIC"
+    },
+    {
+      "path": "src/adapters/",
+      "purpose": "platform adapters",
+      "visibility": "PUBLIC"
+    },
+    {
+      "path": "src/compatibility/",
+      "purpose": "M0–M13 compatibility layers (frozen)",
+      "visibility": "PUBLIC"
+    },
+    {
+      "path": "src/security/",
+      "purpose": "security/integrity",
+      "visibility": "PUBLIC"
+    },
+    {
+      "path": "test/",
+      "purpose": "public tests",
+      "visibility": "PUBLIC"
+    },
+    {
+      "path": "docs/",
+      "purpose": "public documentation",
+      "visibility": "PUBLIC"
+    },
+    {
+      "path": "registry/",
+      "purpose": "signed public compatibility registry",
+      "visibility": "PUBLIC"
+    },
+    {
+      "path": "certification/ (private repo/infra)",
+      "purpose": "certification hosts, credentials, observers, private evidence, signing material",
+      "visibility": "PRIVATE"
+    }
+  ],
+  "responsibilities": {
+    "adapters": [
+      "normalize host identity per platform",
+      "expose only establishable evidence",
+      "never declare certification"
+    ],
+    "capabilities": [
+      "depend on stable M0 capability IDs",
+      "never upgrade NOT_YET_VALIDATED to VERIFIED"
+    ],
+    "compatibility": [
+      "resolve exact profile via M3",
+      "refuse enforcement on UNVERIFIED (H-Q1)"
+    ],
+    "configuration": [
+      "read user config; safe defaults; unknown => safe"
+    ],
+    "core_runtime": [
+      "discover/load/validate the product",
+      "run the universal lifecycle",
+      "fail closed on any unsafe ambiguity"
+    ],
+    "failure": [
+      "every unsafe ambiguity fails closed with an actionable explanation"
+    ],
+    "installation": [
+      "platform-neutral clone/discover/validate/install/initialize/compatibility-check"
+    ],
+    "security": [
+      "verify integrity/signature",
+      "no secrets",
+      "fail closed"
+    ],
+    "update": [
+      "no automatic inheritance; new releases UNVERIFIED"
+    ]
+  },
+  "runtime_lifecycle": [
+    {
+      "note": "unsafe ambiguity fails closed",
+      "on_unsafe": "FAIL_CLOSED",
+      "stage": "DISCOVER"
+    },
+    {
+      "note": "unsafe ambiguity fails closed",
+      "on_unsafe": "FAIL_CLOSED",
+      "stage": "LOAD"
+    },
+    {
+      "note": "unsafe ambiguity fails closed",
+      "on_unsafe": "FAIL_CLOSED",
+      "stage": "VALIDATE"
+    },
+    {
+      "note": "unsafe ambiguity fails closed",
+      "on_unsafe": "FAIL_CLOSED",
+      "stage": "DETECT_ENVIRONMENT"
+    },
+    {
+      "note": "unsafe ambiguity fails closed",
+      "on_unsafe": "FAIL_CLOSED",
+      "stage": "RESOLVE_COMPATIBILITY"
+    },
+    {
+      "note": "unsafe ambiguity fails closed",
+      "on_unsafe": "FAIL_CLOSED",
+      "stage": "RESOLVE_CAPABILITIES"
+    },
+    {
+      "note": "unsafe ambiguity fails closed",
+      "on_unsafe": "FAIL_CLOSED",
+      "stage": "RESOLVE_FACETS"
+    },
+    {
+      "note": "unsafe ambiguity fails closed",
+      "on_unsafe": "FAIL_CLOSED",
+      "stage": "RESOLVE_PERMISSIONS"
+    },
+    {
+      "note": "unsafe ambiguity fails closed",
+      "on_unsafe": "FAIL_CLOSED",
+      "stage": "ENFORCE_SECURITY"
+    },
+    {
+      "note": "unsafe ambiguity fails closed",
+      "on_unsafe": "FAIL_CLOSED",
+      "stage": "INITIALIZE"
+    },
+    {
+      "note": "unsafe ambiguity fails closed",
+      "on_unsafe": "FAIL_CLOSED",
+      "stage": "EXECUTE"
+    },
+    {
+      "note": "unsafe ambiguity fails closed",
+      "on_unsafe": "FAIL_CLOSED",
+      "stage": "OBSERVE_RESULT"
+    },
+    {
+      "note": "unsafe ambiguity fails closed",
+      "on_unsafe": "FAIL_CLOSED",
+      "stage": "CLEAN_UP"
+    }
+  ],
+  "schema": "dkskill.product_core_spec/1",
+  "security_requirements": [
+    {
+      "failure_behavior": "FAIL_CLOSED",
+      "product_control": "sha256 integrity on package/manifest",
+      "threat": "package tampering"
+    },
+    {
+      "failure_behavior": "FAIL_CLOSED",
+      "product_control": "manifest_hash verification",
+      "threat": "manifest tampering"
+    },
+    {
+      "failure_behavior": "FAIL_CLOSED",
+      "product_control": "signed + immutable registry (M6)",
+      "threat": "registry tampering"
+    },
+    {
+      "failure_behavior": "FAIL_CLOSED",
+      "product_control": "evidence-based M4 + signed M5/M6",
+      "threat": "forged certification"
+    },
+    {
+      "failure_behavior": "FAIL_CLOSED",
+      "product_control": "exact M3 identity resolution; no inheritance",
+      "threat": "wrong host/version/architecture/channel"
+    },
+    {
+      "failure_behavior": "FAIL_CLOSED",
+      "product_control": "freshness (M7/M9)",
+      "threat": "stale evidence"
+    },
+    {
+      "failure_behavior": "FAIL_CLOSED",
+      "product_control": "explicit states; never COMPATIBLE",
+      "threat": "revoked/superseded profile"
+    },
+    {
+      "failure_behavior": "FAIL_CLOSED",
+      "product_control": "M0 states; no upgrade",
+      "threat": "capability spoofing"
+    },
+    {
+      "failure_behavior": "FAIL_CLOSED",
+      "product_control": "ATTR_VALID_FOR scope; UNKNOWN otherwise",
+      "threat": "attribution spoofing"
+    },
+    {
+      "failure_behavior": "FAIL_CLOSED",
+      "product_control": "fail-closed default; UNVERIFIED != UNSUPPORTED",
+      "threat": "unsafe fallback"
+    },
+    {
+      "failure_behavior": "FAIL_CLOSED",
+      "product_control": "no credential access; no secrets in package",
+      "threat": "credential leakage"
+    },
+    {
+      "failure_behavior": "FAIL_CLOSED",
+      "product_control": "offline-first; no external calls by default",
+      "threat": "unauthorized network activity"
+    },
+    {
+      "failure_behavior": "FAIL_CLOSED",
+      "product_control": "read-only core; explicit minimal permissions",
+      "threat": "privilege escalation"
+    },
+    {
+      "failure_behavior": "FAIL_CLOSED",
+      "product_control": "writes only to isolated per-user state dir",
+      "threat": "unexpected filesystem mutation"
+    }
+  ],
+  "spec_hash": "sha256:08a9319136ca2515f3c48c30fb8e11c6d08d667a875e7d4f451e6851850a4c13",
+  "synthetic_test_only": false,
+  "taxonomy": {
+    "choice": "ONE_PRIMARY_WITH_MODULES",
+    "evaluation": {
+      "backward_compatibility": "immutable identifiers preserved",
+      "compatibility_management": "single resolution point",
+      "future_extensibility": "internal modules can later split into a family",
+      "global_distribution": "one clone target",
+      "installation_complexity": "lowest for ONE_PRIMARY",
+      "maintainability": "highest for ONE_PRIMARY initially",
+      "permission_boundaries": "single boundary now; split later if isolation needed",
+      "security_isolation": "centralized fail-closed core",
+      "skill_discovery": "one discoverable skill",
+      "testing": "one test surface",
+      "user_simplicity": "single install favors ONE_PRIMARY",
+      "versioning": "one product version line"
+    },
+    "future_skill_decision_inputs": [
+      "≥1 certified host facet (evidence)",
+      "validated user workflows/demand",
+      "permission-isolation requirements per workflow",
+      "owner decision on scope beyond the core (H-Q2/H-Q3)"
+    ],
+    "future_skills_state": "NOT_YET_DECIDED",
+    "initial_release_skill_count": 1,
+    "initial_release_skill_count_state": "FROZEN",
+    "rationale": "Initial release: one primary installable skill (dkskill) with internal capability modules. This gives users a single install + single compatibility/permission boundary, matches Claude Code skill discovery, minimizes installation/versioning/testing complexity, and centralizes fail-closed enforcement. A skill FAMILY would multiply install/compat/permission surfaces without evidence of user need. Additional user-facing skills are deferred (NOT_YET_DECIDED) rather than invented to hit a count.",
+    "skills": [
+      {
+        "decision_state": "FROZEN",
+        "dependencies": [],
+        "independently_installable": true,
+        "name": "dkskill",
+        "purpose": "universal, fail-closed Claude Code compatibility core + diagnostic",
+        "required_capabilities": [
+          "CAP-COMPAT-RESOLVE",
+          "CAP-ENV-DETECT"
+        ],
+        "required_facets": [
+          "hook_protocol@1",
+          "stream_schema@1",
+          "attribution@1",
+          "settings_layout@1",
+          "permission_modes@1"
+        ],
+        "required_permissions": [
+          "PERM-READ-ENV",
+          "PERM-READ-REGISTRY",
+          "PERM-READ-CONFIG",
+          "PERM-DIAGNOSE"
+        ],
+        "skill_id": "dkskill"
+      }
+    ]
+  },
+  "test_layers": [
+    {
+      "layer": "product unit",
+      "requires_certification_env": false,
+      "runs_on_user_machine": true
+    },
+    {
+      "layer": "product integration",
+      "requires_certification_env": false,
+      "runs_on_user_machine": true
+    },
+    {
+      "layer": "compatibility",
+      "requires_certification_env": false,
+      "runs_on_user_machine": true
+    },
+    {
+      "layer": "adapter",
+      "requires_certification_env": false,
+      "runs_on_user_machine": true
+    },
+    {
+      "layer": "security",
+      "requires_certification_env": false,
+      "runs_on_user_machine": true
+    },
+    {
+      "layer": "installation",
+      "requires_certification_env": false,
+      "runs_on_user_machine": true
+    },
+    {
+      "layer": "failure-mode",
+      "requires_certification_env": false,
+      "runs_on_user_machine": true
+    },
+    {
+      "layer": "certification",
+      "requires_certification_env": true,
+      "runs_on_user_machine": false
+    },
+    {
+      "layer": "public smoke",
+      "requires_certification_env": false,
+      "runs_on_user_machine": true
+    }
+  ],
+  "trust_boundary": {
+    "private_items": [
+      "certification credentials",
+      "infrastructure secrets",
+      "private evidence",
+      "private audit",
+      "benchmark credentials",
+      "signing authority material",
+      "observer infrastructure"
+    ],
+    "public_items": [
+      "universal source",
+      "capability catalogue",
+      "public compatibility profiles",
+      "signed registry",
+      "installation docs",
+      "supported-platform docs"
+    ],
+    "public_requires_private": false
+  },
+  "update_model": {
+    "adapter_versions": "per-adapter semver",
+    "automatic_inheritance": false,
+    "capability_changes": "additive; states preserved",
+    "claude_version_changes": "new Claude version => UNVERIFIED facet",
+    "dkskill_release_versions": "semver product line",
+    "migration_rules": "explicit, no inheritance",
+    "new_environment_starts": "UNVERIFIED",
+    "registry_versions": "versioned + signed",
+    "rollback_rules": "previous signed registry retained",
+    "skill_changes": "immutable identifiers"
+  },
+  "version": 1
+}

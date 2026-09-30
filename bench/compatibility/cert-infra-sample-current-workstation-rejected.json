@@ -1,0 +1,46 @@
+{
+  "architecture": "x64",
+  "binary_sha256": null,
+  "channel": "native",
+  "claude_code_version": null,
+  "credentials_isolated": true,
+  "enforcement_boundary": {
+    "boundary_id": "bnd",
+    "demonstrates_denied_connectivity": true,
+    "enforcement_actually_enforced": true,
+    "enforcement_identity": "network-egress-enforcer",
+    "establishable": true,
+    "kind": "INFRA_EGRESS",
+    "minimal": true,
+    "requires_overbroad_change": false,
+    "schema": "dkskill.certification_enforcement_boundary/1"
+  },
+  "environment_id": "PTPL-DK-BENCH-WIN-01",
+  "is_current_workstation": true,
+  "lifecycle_state": "PROVISIONED",
+  "observer": {
+    "enforcement_identity": "network-egress-enforcer",
+    "environment_bound": true,
+    "evidence_path": "observations -> hashed evidence -> EVIDENCE_STORE",
+    "external_to_certified_host": true,
+    "failure_behavior": "unavailable/contradictory observation => BLOCKED (fail closed); never inferred",
+    "freshness_established": true,
+    "identity": "external-control-plane",
+    "is_host_self_report": false,
+    "observation_path": "control-plane observes egress attempts from the certified environment",
+    "observer_id": "obs-external-control-plane",
+    "provenance": "control-plane attestation with environment binding + timestamps",
+    "schema": "dkskill.certification_observer/1",
+    "tamper_evident": true,
+    "trust_plane": "CERTIFICATION_CONTROL_PLANE"
+  },
+  "platform": "windows",
+  "readiness": "BLOCKED",
+  "reasons": [
+    "the current workstation must NEVER be the certification control plane"
+  ],
+  "reproducible_identity": true,
+  "requires_paid_infrastructure": false,
+  "schema": "dkskill.certification_environment/1",
+  "trust_plane": "CERTIFICATION_CONTROL_PLANE"
+}

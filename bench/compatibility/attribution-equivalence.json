@@ -1,0 +1,369 @@
+{
+  "attr1_immutable": true,
+  "attr1_pattern_ids": [
+    "A1",
+    "A2",
+    "A3",
+    "A4",
+    "A5",
+    "A6",
+    "A7",
+    "A8"
+  ],
+  "attr_valid_for": [
+    "2.1.283"
+  ],
+  "attribution_facet_ref": "attribution@1",
+  "attribution_table_id": "attr@1",
+  "certification_impact": "NONE. M2 establishes implementation-level and evidence-level equivalence only. Real-host behavioral equivalence requires TS-07 (UNRESOLVED). No certification is claimed; attr@1 remains unchanged; no attr@2 is created.",
+  "equivalence": {
+    "evidence_level": "EQUIVALENT",
+    "overall": "EVIDENCE_LEVEL_EQUIVALENT__REAL_HOST_NOT_VALIDATED",
+    "real_host": "NOT_VALIDATED",
+    "structural": "EQUIVALENT"
+  },
+  "evidence_refs": [
+    {
+      "evidence_kind": "implementation",
+      "phase": "Phase 3",
+      "ref": "ATTR_1 A1-A8, A9 sentinel, attribute()",
+      "source": "bench/src/attribution.ts"
+    },
+    {
+      "evidence_kind": "observed_text",
+      "phase": "Phase 2",
+      "ref": "TEXT.A1..A8, A3w, FAIL (Phase 2 hands-on)",
+      "source": "test/helpers.ts"
+    },
+    {
+      "evidence_kind": "test",
+      "phase": "Phase 3",
+      "ref": "attribution attr@1 rule/layer assertions",
+      "source": "test/driver-parser.test.ts"
+    },
+    {
+      "evidence_kind": "registry",
+      "phase": "M1",
+      "ref": "attribution@1 / stream_schema@1 facets (PROBED)",
+      "source": "bench/compatibility/compatibility-registry.json"
+    }
+  ],
+  "fxh_markers": {
+    "markers": [
+      "FXH-STOP-G",
+      "FXH-STOP-P",
+      "FXH-OBS",
+      "FXH-FAIL",
+      "FXH-SLOW",
+      "FXH-DENY",
+      "FXH-ALLOW",
+      "FXH-REWR-A",
+      "FXH-REWR-B",
+      "FXH-V1",
+      "FXH-V2"
+    ],
+    "results": [
+      {
+        "equivalence_state": "EQUIVALENT",
+        "layer": "hook:foreign:FXH-STOP-G",
+        "marker": "FXH-STOP-G",
+        "real_host_state": "NOT_VALIDATED"
+      },
+      {
+        "equivalence_state": "EQUIVALENT",
+        "layer": "hook:foreign:FXH-STOP-P",
+        "marker": "FXH-STOP-P",
+        "real_host_state": "NOT_VALIDATED"
+      },
+      {
+        "equivalence_state": "EQUIVALENT",
+        "layer": "hook:foreign:FXH-OBS",
+        "marker": "FXH-OBS",
+        "real_host_state": "NOT_VALIDATED"
+      },
+      {
+        "equivalence_state": "EQUIVALENT",
+        "layer": "hook:foreign:FXH-FAIL",
+        "marker": "FXH-FAIL",
+        "real_host_state": "NOT_VALIDATED"
+      },
+      {
+        "equivalence_state": "EQUIVALENT",
+        "layer": "hook:foreign:FXH-SLOW",
+        "marker": "FXH-SLOW",
+        "real_host_state": "NOT_VALIDATED"
+      },
+      {
+        "equivalence_state": "EQUIVALENT",
+        "layer": "hook:foreign:FXH-DENY",
+        "marker": "FXH-DENY",
+        "real_host_state": "NOT_VALIDATED"
+      },
+      {
+        "equivalence_state": "EQUIVALENT",
+        "layer": "hook:foreign:FXH-ALLOW",
+        "marker": "FXH-ALLOW",
+        "real_host_state": "NOT_VALIDATED"
+      },
+      {
+        "equivalence_state": "EQUIVALENT",
+        "layer": "hook:foreign:FXH-REWR-A",
+        "marker": "FXH-REWR-A",
+        "real_host_state": "NOT_VALIDATED"
+      },
+      {
+        "equivalence_state": "EQUIVALENT",
+        "layer": "hook:foreign:FXH-REWR-B",
+        "marker": "FXH-REWR-B",
+        "real_host_state": "NOT_VALIDATED"
+      },
+      {
+        "equivalence_state": "EQUIVALENT",
+        "layer": "hook:foreign:FXH-V1",
+        "marker": "FXH-V1",
+        "real_host_state": "NOT_VALIDATED"
+      },
+      {
+        "equivalence_state": "EQUIVALENT",
+        "layer": "hook:foreign:FXH-V2",
+        "marker": "FXH-V2",
+        "real_host_state": "NOT_VALIDATED"
+      }
+    ],
+    "sut_marker_layer": "hook:sut:SUTMARK",
+    "unattributed_layer": "hook:unattributed"
+  },
+  "generated_at": "2026-09-29",
+  "host_profile_ref": "cc-2.1.283-win32-x64-native@1",
+  "metadata": {
+    "distinctions": {
+      "certification": "A signed certification of the profile; NOT established (M1 profile is NOT_CERTIFIED).",
+      "observed_behavioral_equivalence": "attr@1 classifies the Phase 2 OBSERVED texts as expected (evidence-level).",
+      "structural_equivalence": "attr@1 pattern set matches the registered attribution facet shape.",
+      "validated_host_specific_equivalence": "Requires a live capture from the pinned host (TS-07); NOT established."
+    },
+    "frozen_phase4_state": {
+      "attr_valid_for": [
+        "2.1.283"
+      ],
+      "benchmark_version": "2.1.283",
+      "pinned_sha256": "9DBE16DAFED59DA5CDABBFE11AD0335738C753FAD794989B47F9446ACCD6DE3A",
+      "run_a": "BLOCKED_AND_UNAUTHORIZED",
+      "runtime_dir": "ABSENT",
+      "ts07": "UNRESOLVED",
+      "ts11": "UNRESOLVED"
+    },
+    "m3_usage": "M3 MAY use attr@1 as the registered attribution@1 facet with PROBED status and the stated limitations; it must NOT treat it as certified or as real-host-validated until TS-07 is resolved.",
+    "not_implemented": {
+      "M3_host_compatibility_layer": false,
+      "M4_certification_harness": false,
+      "M5_profile_certification": false,
+      "M6_benchmark_product_separation": false
+    },
+    "status": "M2_EQUIVALENCE_ANALYSIS_COMPLETE_RUNTIME_NOT_IMPLEMENTED"
+  },
+  "patterns": [
+    {
+      "attribution_result": {
+        "layer": "hook:unattributed",
+        "prevention": true,
+        "rule": "A1",
+        "table_valid": true
+      },
+      "equivalence_state": "EQUIVALENT",
+      "evidence_source": "PLATFORM-ASSUMPTIONS/HANDS-ON E-05, E-10; test/helpers.ts TEXT.A1",
+      "expected_layer": "hook:unattributed",
+      "expected_rule": "A1",
+      "expected_stream_representation": "<tool_use_error>/permission text: \"PreToolUse:PowerShell hook error: AEOS_TEST deny…\"",
+      "parser_interpretation": "stream-json permission/error text passed to attribute() (stream_schema@1 event text)",
+      "pattern": "A1",
+      "real_host_state": "NOT_VALIDATED",
+      "sample_key": "TEXT.A1",
+      "semantic_condition": "PreToolUse hook error (a hook denied the call)"
+    },
+    {
+      "attribution_result": {
+        "layer": "native_rule",
+        "prevention": true,
+        "rule": "A2",
+        "table_valid": true
+      },
+      "equivalence_state": "EQUIVALENT",
+      "evidence_source": "PLATFORM-ASSUMPTIONS/HANDS-ON E-05 case 9; test/helpers.ts TEXT.A2",
+      "expected_layer": "native_rule",
+      "expected_rule": "A2",
+      "expected_stream_representation": "<tool_use_error>/permission text: \"Permission to use PowerShell with command New-It…\"",
+      "parser_interpretation": "stream-json permission/error text passed to attribute() (stream_schema@1 event text)",
+      "pattern": "A2",
+      "real_host_state": "NOT_VALIDATED",
+      "sample_key": "TEXT.A2",
+      "semantic_condition": "Native permission rule denied a PowerShell command"
+    },
+    {
+      "attribution_result": {
+        "layer": "native_path",
+        "prevention": true,
+        "rule": "A3",
+        "table_valid": true
+      },
+      "equivalence_state": "EQUIVALENT",
+      "evidence_source": "PLATFORM-ASSUMPTIONS/HANDS-ON E-05 case 8, E-11; test/helpers.ts TEXT.A3",
+      "expected_layer": "native_path",
+      "expected_rule": "A3",
+      "expected_stream_representation": "<tool_use_error>/permission text: \"set-content targeting 'D:\\x\\ws\\protected\\p1.txt'…\"",
+      "parser_interpretation": "stream-json permission/error text passed to attribute() (stream_schema@1 event text)",
+      "pattern": "A3",
+      "real_host_state": "NOT_VALIDATED",
+      "sample_key": "TEXT.A3",
+      "semantic_condition": "Native path check: write/access outside allowed dirs"
+    },
+    {
+      "attribution_result": {
+        "layer": "native_path",
+        "prevention": true,
+        "rule": "A3",
+        "table_valid": true
+      },
+      "equivalence_state": "EQUIVALENT",
+      "evidence_source": "PLATFORM-ASSUMPTIONS/HANDS-ON E-11 P2; test/helpers.ts TEXT.A3w",
+      "expected_layer": "native_path",
+      "expected_rule": "A3",
+      "expected_stream_representation": "<tool_use_error>/permission text: \"Output redirection to 'D:\\x\\ws\\protected\\p2.txt'…\"",
+      "parser_interpretation": "stream-json permission/error text passed to attribute() (stream_schema@1 event text)",
+      "pattern": "A3w",
+      "real_host_state": "NOT_VALIDATED",
+      "sample_key": "TEXT.A3w",
+      "semantic_condition": "Native path check (output-redirection variant)"
+    },
+    {
+      "attribution_result": {
+        "layer": "native_protected",
+        "prevention": true,
+        "rule": "A4",
+        "table_valid": true
+      },
+      "equivalence_state": "EQUIVALENT",
+      "evidence_source": "PLATFORM-ASSUMPTIONS/HANDS-ON E-11 W2; test/helpers.ts TEXT.A4",
+      "expected_layer": "native_protected",
+      "expected_rule": "A4",
+      "expected_stream_representation": "<tool_use_error>/permission text: \"Claude requested permissions to edit D:\\x\\ws\\.cl…\"",
+      "parser_interpretation": "stream-json permission/error text passed to attribute() (stream_schema@1 event text)",
+      "pattern": "A4",
+      "real_host_state": "NOT_VALIDATED",
+      "sample_key": "TEXT.A4",
+      "semantic_condition": "Native protected-file block (sensitive file)"
+    },
+    {
+      "attribution_result": {
+        "layer": "native_shell_analysis",
+        "prevention": true,
+        "rule": "A5",
+        "table_valid": true
+      },
+      "equivalence_state": "EQUIVALENT",
+      "evidence_source": "PLATFORM-ASSUMPTIONS/HANDS-ON E-03, E-11 P6; test/helpers.ts TEXT.A5",
+      "expected_layer": "native_shell_analysis",
+      "expected_rule": "A5",
+      "expected_stream_representation": "<tool_use_error>/permission text: \"Command spawns a nested PowerShell process which…\"",
+      "parser_interpretation": "stream-json permission/error text passed to attribute() (stream_schema@1 event text)",
+      "pattern": "A5",
+      "real_host_state": "NOT_VALIDATED",
+      "sample_key": "TEXT.A5",
+      "semantic_condition": "Native shell analysis (nested/expandable/multi-op)"
+    },
+    {
+      "attribution_result": {
+        "layer": "native_rule",
+        "prevention": true,
+        "rule": "A6",
+        "table_valid": true
+      },
+      "equivalence_state": "EQUIVALENT",
+      "evidence_source": "PLATFORM-ASSUMPTIONS/HANDS-ON E-11 W1/E1/R1; test/helpers.ts TEXT.A6",
+      "expected_layer": "native_rule",
+      "expected_rule": "A6",
+      "expected_stream_representation": "<tool_use_error>/permission text: \"<tool_use_error>File is in a directory that is d…\"",
+      "parser_interpretation": "stream-json permission/error text passed to attribute() (stream_schema@1 event text)",
+      "pattern": "A6",
+      "real_host_state": "NOT_VALIDATED",
+      "sample_key": "TEXT.A6",
+      "semantic_condition": "Directory denied by permission settings"
+    },
+    {
+      "attribution_result": {
+        "layer": "validation",
+        "prevention": true,
+        "rule": "A7",
+        "table_valid": true
+      },
+      "equivalence_state": "EQUIVALENT",
+      "evidence_source": "PLATFORM-ASSUMPTIONS/HANDS-ON E-13; test/helpers.ts TEXT.A7",
+      "expected_layer": "validation",
+      "expected_rule": "A7",
+      "expected_stream_representation": "<tool_use_error>/permission text: \"<tool_use_error>File has not been read yet. Read…\"",
+      "parser_interpretation": "stream-json permission/error text passed to attribute() (stream_schema@1 event text)",
+      "pattern": "A7",
+      "real_host_state": "NOT_VALIDATED",
+      "sample_key": "TEXT.A7",
+      "semantic_condition": "Validation: file not read yet"
+    },
+    {
+      "attribution_result": {
+        "layer": "ask_unanswered",
+        "prevention": true,
+        "rule": "A8",
+        "table_valid": true
+      },
+      "equivalence_state": "EQUIVALENT",
+      "evidence_source": "PLATFORM-ASSUMPTIONS/HANDS-ON E-13; test/helpers.ts TEXT.A8",
+      "expected_layer": "ask_unanswered",
+      "expected_rule": "A8",
+      "expected_stream_representation": "<tool_use_error>/permission text: \"Claude requested permissions to write to D:\\x\\cf…\"",
+      "parser_interpretation": "stream-json permission/error text passed to attribute() (stream_schema@1 event text)",
+      "pattern": "A8",
+      "real_host_state": "NOT_VALIDATED",
+      "sample_key": "TEXT.A8",
+      "semantic_condition": "Ask unanswered (permission requested, not granted)"
+    }
+  ],
+  "schema": "dkskill.attribution_equivalence/1",
+  "stream_facet_ref": "stream_schema@1",
+  "unknown_input_behavior": {
+    "a9_is_unknown_sentinel": true,
+    "malformed_or_incomplete": {
+      "input": "empty string",
+      "note": "No success claimed; A9/unknown.",
+      "prevention": false,
+      "result_rule": "A9"
+    },
+    "no_new_a9_pattern_invented": true,
+    "policy": "Unknown stream event / unknown permission text / unrecognized condition => attribution does NOT guess => the dependent benchmark/certification result is unverified or invalid (H-Q1, no-false-success).",
+    "unknown_event": {
+      "guesses": false,
+      "input": "TEXT.FAIL (unrecognized)",
+      "note": "Returns the A9/unknown sentinel; not mapped to any A1-A8 pattern.",
+      "prevention": false,
+      "result_rule": "A9",
+      "table_valid": true
+    },
+    "unknown_host_version": {
+      "input": "attr@1 vs version 2.2.0",
+      "note": "Version not in ATTR_VALID_FOR => A9/unknown, table_valid=false; the dependent claim is unverified.",
+      "result_rule": "A9",
+      "table_valid": false
+    },
+    "unknown_permission_text": {
+      "guesses": false,
+      "input": "novel permission string",
+      "note": "A9/unknown; no guess.",
+      "result_rule": "A9"
+    }
+  },
+  "validation_limitations": [
+    "Static/evidence-level only: attr@1 is compared against Phase 2 OBSERVED texts, not a live 2.1.283 capture.",
+    "TS-07 UNRESOLVED: real-host stream/attribution behavior for the pinned CLI is not captured; real-host equivalence is NOT_VALIDATED.",
+    "attribution@1 / stream_schema@1 facets are PROBED (M1), not CERTIFIED.",
+    "attr@1 is valid only for 2.1.283 (ATTR_VALID_FOR); any other version => A9/unknown until re-derived."
+  ],
+  "version": 1
+}

@@ -1,0 +1,43 @@
+{
+  "certified": false,
+  "certified_facets": 0,
+  "entrypoints": {
+    "api": "src/product/index.ts",
+    "doctor": "src/product/dkskill-doctor.ts (dkskill doctor)"
+  },
+  "integrity_algorithm": "sha256",
+  "license": "Apache-2.0",
+  "private_infrastructure": [
+    "certification/ (private repo/infra)"
+  ],
+  "product": "dkskill",
+  "product_id": "dkskill.product/1",
+  "product_version": "0.1.0-dev",
+  "protected_files": [
+    "README.md",
+    "manifest.json",
+    "src/product/index.ts"
+  ],
+  "public_layout": [
+    "src/product/",
+    "src/skills/",
+    "src/capabilities/",
+    "src/adapters/",
+    "src/compatibility/",
+    "src/security/",
+    "test/",
+    "docs/",
+    "registry/"
+  ],
+  "requires_certification_infrastructure": false,
+  "requires_credentials": false,
+  "requires_network_for_local_use": false,
+  "schema": "dkskill.package/1",
+  "schema_version": "1",
+  "scope": "Claude-Code-only until R8",
+  "signature_status": "SIGNATURE_NOT_AVAILABLE",
+  "skill_id": "dkskill",
+  "universally_certified_claim": false,
+  "version": 1,
+  "works_everywhere_claim": false
+}

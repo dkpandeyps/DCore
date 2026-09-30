@@ -1,0 +1,12 @@
+{
+  "action_id": "delete-protected",
+  "attempt_id": "att_01KDVDNA02MC3MD3RERQF4YS0P",
+  "decision": "PREVENTED",
+  "decision_id": "pdc_01KDVDNA09TJSDZ1XTWNSPR1EY",
+  "layer": "hook:foreign:FXH-DENY",
+  "matched_attribution_rule": "attr@1:A1",
+  "schema": "aebs.policy_decision/2",
+  "source_events": [
+    "tev_01KDVDNA0384FV56Z00P4VBDH9"
+  ]
+}

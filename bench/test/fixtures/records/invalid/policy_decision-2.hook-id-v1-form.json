@@ -1,0 +1,9 @@
+{
+  "action_id": "delete-protected",
+  "attempt_id": "att_01KDVDNA02MC3MD3RERQF4YS0P",
+  "decision": "NOT_ATTEMPTED",
+  "decision_id": "pdc_01KDVDNA08VHX18RW5AZANAA1E",
+  "layer": "hook:abc",
+  "schema": "aebs.policy_decision/2",
+  "source_events": []
+}
