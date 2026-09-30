@@ -8,6 +8,7 @@ import {
 } from '../../skills/dkskill/scripts/modules.mjs';
 import { install, planInstall, isSafeDestRoot } from '../../skills/dkskill/scripts/install.mjs';
 import { buildCoverageMatrix } from '../../skills/dkskill/scripts/coverage.mjs';
+import { parseArgs, resolveInput } from '../../skills/dkskill/scripts/dkskill.mjs';
 import { TEST_DIR } from './helpers.ts';
 
 const SKILL = join(TEST_DIR, '..', '..', 'skills', 'dkskill');
@@ -169,4 +170,24 @@ test('O. structural discovery passes; real Claude Code discovery is PENDING (not
   assert.ok(m.modules.filter((x) => x.runnable).every((x) => IMPLEMENTED.includes(x.module_id)));
   // REAL_CLAUDE_CODE_DISCOVERY_TEST is not performed here (no Claude execution / no ~/.claude / no auth)
   assert.equal(REAL_CLAUDE_CODE_DISCOVERY, 'REAL_SMOKE_TEST_PENDING');
+});
+
+test('P. CLI input resolution: --input > positional > stdin (M29: positional no longer dropped)', () => {
+  // positional text after the module name is now used as input
+  assert.equal(resolveInput(parseArgs(['dk-spec', 'hello world']), () => 'STDIN'), 'hello world');
+  // multiple positional tokens are joined
+  assert.equal(resolveInput(parseArgs(['dk-frame', 'a', 'b', 'c']), () => 'STDIN'), 'a b c');
+  // explicit --input still wins over positional
+  assert.equal(resolveInput(parseArgs(['dk-spec', 'pos', '--input', 'flag']), () => 'STDIN'), 'flag');
+  // no positional and no flag => fall back to stdin
+  assert.equal(resolveInput(parseArgs(['dk-qa']), () => 'STDIN'), 'STDIN');
+  // --json flag does not leak into the input text
+  assert.equal(resolveInput(parseArgs(['dk-plan', 'x', '--json']), () => ''), 'x');
+});
+
+test('Q. dk-review detects private key material and cloud access key ids (M29: high severity)', () => {
+  const r = dkReview('-----BEGIN RSA PRIVATE KEY-----\nconst id = "AKIAABCDEFGHIJKLMNOP"\n');
+  assert.ok(r.findings.some((f: any) => f.message === 'private key material' && f.severity === 'high'));
+  assert.ok(r.findings.some((f: any) => f.message === 'cloud access key id' && f.severity === 'high'));
+  assert.ok(r.severity_summary.high >= 2);
 });

@@ -33,10 +33,13 @@ following that reference. A deterministic scaffold generator is available to see
 
 ```
 node scripts/dkskill.mjs list
-node scripts/dkskill.mjs dk-spec --input "<the problem or request>"
-node scripts/dkskill.mjs dk-review            # reads code/diff from stdin
+node scripts/dkskill.mjs dk-spec "<the problem or request>"   # positional input
+node scripts/dkskill.mjs dk-spec --input "<the problem>"      # or an explicit flag
+node scripts/dkskill.mjs dk-review                            # reads code/diff from stdin
 node scripts/dkskill.mjs dk-plan --input "<feature>" --json
 ```
+Input precedence is `--input` → positional text → stdin, so the natural
+`dkskill.mjs dk-spec "..."` form works as well as the explicit flag.
 
 The generator is portable Node (no dependencies), read-only, and offline. It emits the structure; you (Claude) fill in
 the specifics by following the module's reference and the surrounding context.

@@ -13,9 +13,24 @@
 - **runnable:** true
 
 ## How Claude uses this module
-Run  (or pipe via stdin) to seed the structure, then complete each section by following this reference and the surrounding context. Read-only: propose changes; never modify files without explicit user approval.
+Pipe code/diff via stdin, or pass it positionally / with `--input`, to seed the structure, then complete each
+section by following this reference and the surrounding context. Read-only: propose changes; never modify files
+without explicit user approval.
+
+## Automated detections (deterministic, high-signal)
+- **high:** dynamic code execution (`eval`/`new Function`), subprocess execution, hardcoded secrets
+  (`password=`/`api_key=`/…), private key material (`-----BEGIN … PRIVATE KEY-----`), cloud access key ids (`AKIA…`)
+- **medium:** network endpoint references (`http(s)://…`)
+- **low:** loose equality (`==`/`!=`), unresolved markers (`TODO`/`FIXME`/`XXX`)
+- **info:** debug output (`console.log`/`print(`)
+
+Findings carry `line`, `severity`, `category`, `message`, `excerpt`; a `severity_summary` and de-duplicated
+`recommendations` are produced. Treat these as a first pass — always add manual correctness and test-coverage review.
 
 ## Example
+```
+printf 'const p = eval(x)\nif (a == b) {}\n' | node scripts/dkskill.mjs dk-review
+```
 
 
 ## Tests

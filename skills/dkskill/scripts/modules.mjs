@@ -69,6 +69,8 @@ export function dkReview(code) {
   flag(/\beval\s*\(|new Function\s*\(/, 'high', 'security', 'dynamic code execution');
   flag(/child_process|execSync|exec\s*\(|spawn\s*\(/, 'high', 'security', 'subprocess execution');
   flag(/password\s*[:=]|api[_-]?key\s*[:=]|secret\s*[:=]|token\s*[:=]/i, 'high', 'security', 'possible hardcoded secret');
+  flag(/-----BEGIN (?:RSA |EC |DSA |OPENSSH |PGP )?PRIVATE KEY-----/, 'high', 'security', 'private key material');
+  flag(/\bAKIA[0-9A-Z]{16}\b/, 'high', 'security', 'cloud access key id');
   flag(/https?:\/\//i, 'medium', 'security', 'network endpoint reference');
   flag(/==(?!=)|!=(?!=)/, 'low', 'correctness', 'loose equality (prefer ===/!==)');
   flag(/\bTODO\b|\bFIXME\b|\bXXX\b/, 'low', 'maintainability', 'unresolved marker');
