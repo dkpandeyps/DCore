@@ -24,6 +24,19 @@ Evidence is **literal references only** — it is **not** a dependency graph, an
 no impact. Secret files (`.env`, `.credentials`, keys, `.ssh/`, …) and `.git`/`node_modules` are never read or
 reported; no file is modified; no network, credentials, or subprocesses are used; output is deterministic (sorted).
 
+## Repository scope (`--repo <path>`)
+`--repo <path>` is the **explicit analysis boundary**: dcore-impact scans exactly `<path>` and its allowed
+descendants — nothing above or beside it. This is deliberate and predictable.
+
+- To include the **whole project** (code *and* its tests/docs/benchmarks, which usually live in sibling directories),
+  point `--repo` at the **project root**: `dcore-impact "…" --repo .`. Scanning a single subpackage
+  (e.g. `--repo skills/dcore`) will not see tests in `bench/` or other siblings — that is correct scoping, not a miss.
+- dcore-impact does **not** auto-expand to an enclosing project root; you choose the scope. It is not a dependency
+  graph and does not reason beyond literal references within the scope you give it.
+- Always excluded, at any scope: VCS metadata (`.git`/`.hg`/`.svn`), dependency/build output
+  (`node_modules`/`dist`/`build`/`vendor`/…), local agent-state dirs (`.claude`/`.paysec`), and secret files
+  (`.env`, `.credentials`, private keys, `.ssh/`). These are never read or reported.
+
 ## Presentation: `--summary`
 `--summary` prints a compact, deterministic view — counts and a deduplicated file list per evidence category,
 plus the UNKNOWN identifiers. It is **the same evidence, re-presented** (no new analysis, nothing hidden); the

@@ -28,7 +28,7 @@ Use DCore when you want a consistent, safe structure for common software work:
 - **dcore-release** — fail-closed release-readiness checklist with explicit go/no-go gates.
 - **dcore-doc** — turn a feature/spec/change into a documentation scaffold (known vs explicit `UNKNOWN`; invents nothing).
 - **dcore-chain** — run the common `frame → spec → plan → qa` path in one call (a thin composition convenience).
-- **dcore-impact** — given a change + `--repo <path>`, find literal references and classify DIRECT_EVIDENCE / LIKELY_AFFECTED (tests) / POSSIBLY_AFFECTED (docs) / UNKNOWN (read-only; excludes secret files; not a dependency graph). Add `--summary` for a compact file-list view; it also accepts a `dcore-spec --json` handoff.
+- **dcore-impact** — given a change + `--repo <path>`, find literal references and classify DIRECT_EVIDENCE / LIKELY_AFFECTED (tests) / POSSIBLY_AFFECTED (docs) / UNKNOWN (read-only; excludes secret files; not a dependency graph). Add `--summary` for a compact file-list view; it also accepts a `dcore-spec --json` handoff. `--repo` is the explicit scan boundary — use `--repo .` (project root) to include tests/docs that live in sibling dirs like `bench/`; agent/VCS/secret dirs are always excluded.
 
 **Composability (handoff):** pipe one module's `--json` into the next — e.g. `dcore-spec "…" --json | dcore-plan`
 or `| dcore-qa`. DCore detects a prior module's JSON on input and carries its objective (and requirements/components/

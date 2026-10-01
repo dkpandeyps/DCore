@@ -246,7 +246,9 @@ export function extractIdentifiers(text) {
 // like session.ts, so we match real secret artifacts, not substrings like "session"/"token"/"cookie".
 const IMPACT_SENSITIVE = /(^|[\\/])(\.env(\.|$)|\.credentials|credentials\.json|\.git-credentials|\.npmrc|id_rsa|\.pem|\.ssh[\\/])/i;
 const IMPACT_SENSITIVE_EXT = /\.(pem|key|p12|pfx|crt|keystore|pk8|asc)$/i;
-const IMPACT_SKIP_DIR = new Set(['.git', 'node_modules', '.ssh', 'dist', 'build', '.cache', 'coverage', '.venv', 'vendor']);
+// Never descend into VCS metadata, dependency/build output, or local agent-state dirs (the last group — .claude/
+// .paysec — can hold session/config/state that must never be scanned or reported, especially under a broad `--repo .`).
+const IMPACT_SKIP_DIR = new Set(['.git', '.hg', '.svn', 'node_modules', '.ssh', 'dist', 'build', '.cache', 'coverage', '.venv', 'vendor', '.claude', '.paysec']);
 function impactClassify(p) {
   const s = p.replace(/\\/g, '/');
   if (/(^|\/)(tests?|spec|__tests__)(\/|$)|\.(test|spec)\.[A-Za-z0-9]+$/i.test(s)) return 'test';

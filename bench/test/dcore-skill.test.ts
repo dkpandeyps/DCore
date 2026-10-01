@@ -395,3 +395,30 @@ test('Z. dcore-impact --summary: compact deterministic view of the SAME evidence
     assert.ok(viaHandoff.direct_evidence.some((e: any) => e.file === 'src/cache.js'));
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
+
+test('AA. dcore-impact scope contract: --repo is the explicit boundary; agent/VCS dirs always excluded (M33)', () => {
+  const root = mkdtempSync(join(tmpdir(), 'dcore-scope-'));
+  try {
+    mkdirSync(join(root, 'app', 'src'), { recursive: true });
+    mkdirSync(join(root, 'tests')); mkdirSync(join(root, '.claude')); mkdirSync(join(root, '.paysec')); mkdirSync(join(root, '.git'));
+    writeFileSync(join(root, 'app', 'src', 'cache.js'), 'export const cache_ttl_seconds = 1\n');
+    writeFileSync(join(root, 'tests', 'cache.test.js'), 'assert(cache_ttl_seconds)\n');   // sibling of app/, OUTSIDE app/
+    writeFileSync(join(root, '.claude', 'state.json'), '{"cache_ttl_seconds":1}\n');       // agent dir -> never scanned
+    writeFileSync(join(root, '.paysec', 'audit.jsonl'), 'cache_ttl_seconds\n');            // agent dir -> never scanned
+    writeFileSync(join(root, '.git', 'config.txt'), 'cache_ttl_seconds\n');                // VCS dir  -> never scanned
+
+    // NARROW: app/ only -> finds src, NOT the sibling tests/ (explicit boundary is correct behavior, not a bug)
+    const narrow = dcoreImpact('change cache_ttl_seconds', { repo: join(root, 'app') });
+    assert.ok(narrow.direct_evidence.some((e: any) => e.file === 'src/cache.js'));
+    assert.equal(narrow.likely_affected_tests.length, 0);
+    // BROAD: repo root -> finds BOTH src and the sibling test; still excludes agent/VCS dirs
+    const broad = dcoreImpact('change cache_ttl_seconds', { repo: root });
+    assert.ok(broad.direct_evidence.some((e: any) => e.file === 'app/src/cache.js'));
+    assert.ok(broad.likely_affected_tests.some((e: any) => e.file === 'tests/cache.test.js'));
+    const allBroad = [...broad.direct_evidence, ...broad.likely_affected_tests, ...broad.possibly_affected_docs].map((e: any) => e.file);
+    assert.ok(!allBroad.some((f: string) => /^\.(claude|paysec|git|hg|svn)\//.test(f)), 'agent/VCS dirs excluded');
+    assert.ok(!JSON.stringify(broad).includes('.claude/') && !JSON.stringify(broad).includes('.paysec/'), 'no agent-dir content in output');
+    // deterministic
+    assert.equal(JSON.stringify(dcoreImpact('change cache_ttl_seconds', { repo: root })), JSON.stringify(broad));
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
