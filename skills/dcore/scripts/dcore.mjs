@@ -6,13 +6,14 @@
 //   node dcore.mjs <module>                    (reads text from stdin)
 // No network, no credentials, no ~/.claude access, no subprocess, no destructive action.
 import { readFileSync } from 'node:fs';
-import { MODULES, runModule, renderMarkdown } from './modules.mjs';
+import { MODULES, runModule, renderMarkdown, summarizeImpact } from './modules.mjs';
 
 export function parseArgs(argv) {
   const args = { _: [], json: false };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === '--json') args.json = true;
+    else if (a === '--summary') args.summary = true;
     else if (a === '--input') args.input = argv[++i] ?? '';
     else if (a === '--repo') args.repo = argv[++i] ?? '';
     else args._.push(a);
@@ -48,6 +49,13 @@ async function main() {
   }
   const input = resolveInput(args, readStdin);
   const result = runModule(cmd, input, { repo: args.repo });
+  // --summary: compact presentation of a dcore-impact result (same evidence; nothing hidden). Shown even on a
+  // soft repo error so the UNKNOWN/identifier context is still visible.
+  if (args.summary && result.module_id === 'dcore-impact') {
+    process.stdout.write(summarizeImpact(result) + '\n');
+    if (result.error) process.exitCode = 2;
+    return;
+  }
   if (result.error) { process.stderr.write(renderMarkdown(result) + '\n'); process.exitCode = 2; return; }
   process.stdout.write((args.json ? JSON.stringify(result, null, 2) : renderMarkdown(result)) + '\n');
 }

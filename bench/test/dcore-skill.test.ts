@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import {
   MODULES, IMPLEMENTED, runModule, renderMarkdown, buildManifest, dkSpec, dkReview, dkPlan, dkQa, dkFrame,
-  dcoreDebug, dcoreSec, dcoreRelease, parseHandoff, dcoreDoc, dcoreChain, dcoreImpact, extractIdentifiers,
+  dcoreDebug, dcoreSec, dcoreRelease, parseHandoff, dcoreDoc, dcoreChain, dcoreImpact, extractIdentifiers, summarizeImpact,
 } from '../../skills/dcore/scripts/modules.mjs';
 import { install, planInstall, isSafeDestRoot } from '../../skills/dcore/scripts/install.mjs';
 import { buildCoverageMatrix } from '../../skills/dcore/scripts/coverage.mjs';
@@ -356,5 +356,42 @@ test('Y. dcore-impact: read-only repo scan classifies evidence; excludes secrets
     // handoff path still works via runModule (provenance) and opts thread through
     const viaCli = runModule('dcore-impact', 'change cache_ttl_seconds', { repo: dir });
     assert.ok(viaCli.direct_evidence.length >= 1);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});
+
+test('Z. dcore-impact --summary: compact deterministic view of the SAME evidence; handoff still works (M32)', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'dcore-sum-'));
+  try {
+    mkdirSync(join(dir, 'src')); mkdirSync(join(dir, 'test')); mkdirSync(join(dir, 'docs'));
+    writeFileSync(join(dir, 'src', 'cache.js'), 'export const cache_ttl_seconds = 300\n');
+    writeFileSync(join(dir, 'test', 'cache.test.js'), 'assert(cache_ttl_seconds)\n');
+    writeFileSync(join(dir, 'docs', 'config.md'), '`cache_ttl_seconds` doc\n');
+
+    const r = dcoreImpact('change cache_ttl_seconds', { repo: dir });
+    const sum = summarizeImpact(r);
+    // compact text: every category with counts + deduped file list
+    assert.match(sum, /DIRECT \(1\): src\/cache\.js/);
+    assert.match(sum, /LIKELY tests \(1\): test\/cache\.test\.js/);
+    assert.match(sum, /POSSIBLE docs \(1\): docs\/config\.md/);
+    assert.match(sum, /UNKNOWN \(0\)/);
+    assert.match(sum, /NOT a dependency graph/);                       // limitation never hidden
+    // derived ONLY from evidence: nothing in the summary that is not in the structured result
+    const resultFiles = new Set([...r.direct_evidence, ...r.likely_affected_tests, ...r.possibly_affected_docs].map((e: any) => e.file));
+    for (const f of ['src/cache.js', 'test/cache.test.js', 'docs/config.md']) assert.ok(resultFiles.has(f));
+    // deterministic
+    assert.equal(summarizeImpact(dcoreImpact('change cache_ttl_seconds', { repo: dir })), sum);
+    // UNKNOWN preserved (absent identifier), never fabricated into evidence
+    assert.match(summarizeImpact(dcoreImpact('change ghost_symbol', { repo: dir })), /UNKNOWN \(1\): ghost_symbol/);
+    // empty input is safe in summary form
+    assert.match(summarizeImpact(dcoreImpact('', { repo: dir })), /identifiers: \(none detected\)/);
+    // non-impact result => falls back to the full render (backward compatible, full mode preserved)
+    assert.ok(summarizeImpact(dkSpec('x')).startsWith('# DCore \u00b7 dcore-spec'));
+
+    // HANDOFF regression (already works via generic handoff): spec JSON seeds dcore-impact + records provenance
+    const spec = dkSpec('Change cache_ttl_seconds default.');
+    const viaHandoff = runModule('dcore-impact', JSON.stringify(spec), { repo: dir });
+    assert.equal(viaHandoff.handoff_from, 'dcore-spec');
+    assert.ok(viaHandoff.identifiers.includes('cache_ttl_seconds'));
+    assert.ok(viaHandoff.direct_evidence.some((e: any) => e.file === 'src/cache.js'));
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });

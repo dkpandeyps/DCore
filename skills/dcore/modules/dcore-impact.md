@@ -24,10 +24,21 @@ Evidence is **literal references only** — it is **not** a dependency graph, an
 no impact. Secret files (`.env`, `.credentials`, keys, `.ssh/`, …) and `.git`/`node_modules` are never read or
 reported; no file is modified; no network, credentials, or subprocesses are used; output is deterministic (sorted).
 
+## Presentation: `--summary`
+`--summary` prints a compact, deterministic view — counts and a deduplicated file list per evidence category,
+plus the UNKNOWN identifiers. It is **the same evidence, re-presented** (no new analysis, nothing hidden); the
+default full/`--json` output is unchanged.
+
+## Optional handoff
+A prior module's JSON may be piped in — e.g. `dcore-spec "…" --json | dcore-impact --repo .`. Identifiers are
+extracted from the carried objective/requirements and `handoff_from` is recorded. This is **optional**: plain text
+and the direct CLI form work exactly as before, and dcore-impact never requires dcore-spec.
+
 ## Example
 ```
 node scripts/dcore.mjs dcore-impact "Rename cache_ttl to cache_ttl_seconds" --repo .
-node scripts/dcore.mjs dcore-spec "…" --json | node scripts/dcore.mjs dcore-impact --repo .
+node scripts/dcore.mjs dcore-impact "change runModule, buildManifest" --repo . --summary
+node scripts/dcore.mjs dcore-spec "…" --json | node scripts/dcore.mjs dcore-impact --repo . --summary
 ```
 
 ## Tests

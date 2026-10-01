@@ -22,7 +22,7 @@ A small set of deterministic, read-only modules that turn a raw request into str
 - **dcore-release** — fail-closed release-readiness checklist with explicit go/no-go gates.
 - **dcore-doc** — feature/spec/change → documentation scaffold (known vs explicit `UNKNOWN`; invents nothing).
 - **dcore-chain** — run `frame → spec → plan → qa` in one call (thin composition convenience; returns every stage).
-- **dcore-impact** — change + `--repo <path>` → literal-reference evidence classified DIRECT / LIKELY (tests) / POSSIBLE (docs) / UNKNOWN (read-only; secret files excluded; not a dependency graph).
+- **dcore-impact** — change + `--repo <path>` → literal-reference evidence classified DIRECT / LIKELY (tests) / POSSIBLE (docs) / UNKNOWN (read-only; secret files excluded; not a dependency graph). `--summary` gives a compact file-list view; also accepts a `dcore-spec --json` handoff.
 
 Modules **compose by handoff**: `dcore-spec "…" --json | dcore-plan` (or `| dcore-qa`) carries the prior module's
 objective and salient items forward automatically (`handoff_from` records provenance). Plain text is never treated as

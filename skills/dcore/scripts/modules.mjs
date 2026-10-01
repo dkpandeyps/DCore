@@ -311,6 +311,25 @@ export function dcoreImpact(input, opts = {}) {
   base.files_scanned = files.length;
   return base;
 }
+// Compact, deterministic presentation of a dcore-impact result. Derives ENTIRELY from the structured evidence —
+// it runs no new analysis, hides no UNKNOWN, and never turns inference into certainty.
+export function summarizeImpact(r) {
+  if (!r || r.module_id !== 'dcore-impact') return renderMarkdown(r);
+  const fileSet = (arr) => [...new Set(arr.map((e) => e.file))].sort();
+  const line = (label, arr) => { const f = fileSet(arr); return `${label} (${f.length}): ${f.length ? f.join(', ') : '(none)'}`; };
+  const out = [
+    `dcore-impact: ${r.objective}`,
+    `repo: ${r.repo ?? '(none — impact UNKNOWN until --repo is supplied)'}${r.files_scanned != null ? ` — ${r.files_scanned} files scanned` : ''}`,
+    `identifiers: ${r.identifiers.length ? r.identifiers.join(', ') : '(none detected)'}`,
+  ];
+  if (r.error) out.push(`error: ${r.error}`);
+  out.push(line('DIRECT', r.direct_evidence));
+  out.push(line('LIKELY tests', r.likely_affected_tests));
+  out.push(line('POSSIBLE docs', r.possibly_affected_docs));
+  out.push(`UNKNOWN (${r.unknown_identifiers.length}): ${r.unknown_identifiers.length ? r.unknown_identifiers.join(', ') : '(none)'}`);
+  out.push('note: literal references only — NOT a dependency graph; UNKNOWN is not proof of no impact.');
+  return out.join('\n');
+}
 
 // ---- deterministic module-to-module handoff ---------------------------------------------------------------
 // A downstream module may be fed the JSON output of an upstream dcore module (e.g. `dcore-spec --json | dcore-plan`).
