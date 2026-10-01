@@ -28,6 +28,7 @@ Use DCore when you want a consistent, safe structure for common software work:
 - **dcore-release** — fail-closed release-readiness checklist with explicit go/no-go gates.
 - **dcore-doc** — turn a feature/spec/change into a documentation scaffold (known vs explicit `UNKNOWN`; invents nothing).
 - **dcore-chain** — run the common `frame → spec → plan → qa` path in one call (a thin composition convenience).
+- **dcore-impact** — given a change + `--repo <path>`, find literal references and classify DIRECT_EVIDENCE / LIKELY_AFFECTED (tests) / POSSIBLY_AFFECTED (docs) / UNKNOWN (read-only; excludes secret files; not a dependency graph).
 
 **Composability (handoff):** pipe one module's `--json` into the next — e.g. `dcore-spec "…" --json | dcore-plan`
 or `| dcore-qa`. DCore detects a prior module's JSON on input and carries its objective (and requirements/components/
@@ -35,7 +36,7 @@ scenarios) forward, tagging `handoff_from`, so chains need no re-typing. Plain t
 
 For the common path, `dcore-chain "…"` runs frame→spec→plan→qa in one call and returns every stage.
 
-Deferred: **dcore-retro** (and **dcore-impact** — change-impact analysis — is deferred until a recurring need is shown). See
+Deferred: **dcore-retro**. See
 `modules/<module_id>.md` and `dcore.manifest.json` for each module's status and contract.
 
 ## How to invoke a module

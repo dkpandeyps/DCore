@@ -1,11 +1,11 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { existsSync, readFileSync, mkdtempSync, rmSync, statSync } from 'node:fs';
+import { existsSync, readFileSync, mkdtempSync, rmSync, statSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import {
   MODULES, IMPLEMENTED, runModule, renderMarkdown, buildManifest, dkSpec, dkReview, dkPlan, dkQa, dkFrame,
-  dcoreDebug, dcoreSec, dcoreRelease, parseHandoff, dcoreDoc, dcoreChain,
+  dcoreDebug, dcoreSec, dcoreRelease, parseHandoff, dcoreDoc, dcoreChain, dcoreImpact, extractIdentifiers,
 } from '../../skills/dcore/scripts/modules.mjs';
 import { install, planInstall, isSafeDestRoot } from '../../skills/dcore/scripts/install.mjs';
 import { buildCoverageMatrix } from '../../skills/dcore/scripts/coverage.mjs';
@@ -36,7 +36,7 @@ test('C. module discovery: manifest lists modules; every reference resolves', ()
   assert.equal(readFileSync(join(SKILL, 'dcore.manifest.json'), 'utf8'), JSON.stringify(m, null, 2) + '\n');
   assert.equal(m.modules.length, MODULES.length);
   for (const mod of m.modules) assert.ok(existsSync(join(SKILL, mod.reference)), mod.reference);
-  assert.equal(m.implemented_count, 10);
+  assert.equal(m.implemented_count, 11);
 });
 
 test('D. module contracts: every module doc carries required fields + status', () => {
@@ -309,5 +309,52 @@ test('X. installer includes the new modules; project-local, idempotent, no netwo
     assert.equal(r2.created, 0);
     assert.equal(r2.updated, 0);
     assert.equal(r2.unchanged, r2.files);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});
+
+test('Y. dcore-impact: read-only repo scan classifies evidence; excludes secrets; deterministic; fail-closed', () => {
+  // identifier extraction: code-like tokens only, plain English ignored
+  const ids = extractIdentifiers('Rename cache_ttl to cache_ttl_seconds; touch getCacheTtl and config.json.');
+  assert.ok(['cache_ttl', 'cache_ttl_seconds', 'getCacheTtl', 'config.json'].every((x) => ids.includes(x)));
+  assert.ok(!ids.includes('Rename') && !ids.includes('touch'));
+
+  // no --repo => everything UNKNOWN (fail-closed, no fabrication)
+  const noRepo = dcoreImpact('change cache_ttl_seconds');
+  assert.equal(noRepo.module_id, 'dcore-impact');
+  assert.deepEqual(noRepo.direct_evidence, []);
+  assert.ok(noRepo.unknown_identifiers.includes('cache_ttl_seconds'));
+  assert.ok(dcoreImpact('').unknown_identifiers.length >= 1);   // empty input safe
+
+  const dir = mkdtempSync(join(tmpdir(), 'dcore-impact-'));
+  try {
+    mkdirSync(join(dir, 'src')); mkdirSync(join(dir, 'test')); mkdirSync(join(dir, 'docs'));
+    writeFileSync(join(dir, 'src', 'cache.js'), 'export const cache_ttl_seconds = 300\n');
+    writeFileSync(join(dir, 'test', 'cache.test.js'), 'assert(cache_ttl_seconds === 300)\n');
+    writeFileSync(join(dir, 'docs', 'config.md'), '`cache_ttl_seconds` controls cache.\n');
+    // NB: use a non-token sentinel (never a real provider key pattern) so this fixture can't trip secret scanners.
+    writeFileSync(join(dir, '.env'), 'API_KEY=SEKRET_SENTINEL_DO_NOT_LEAK\ncache_ttl_seconds=secret\n');  // must be excluded
+    writeFileSync(join(dir, 'server.pem'), '-----BEGIN RSA PRIVATE KEY-----\ncache_ttl_seconds\n');        // must be excluded
+
+    const r = dcoreImpact('change cache_ttl_seconds', { repo: dir });
+    assert.ok(r.direct_evidence.some((e: any) => e.file === 'src/cache.js' && e.identifier === 'cache_ttl_seconds'));   // DIRECT
+    assert.ok(r.likely_affected_tests.some((e: any) => e.file === 'test/cache.test.js'));                               // LIKELY (test)
+    assert.ok(r.possibly_affected_docs.some((e: any) => e.file === 'docs/config.md'));                                  // POSSIBLE (doc)
+    // secret files are never read or reported
+    const files = [...r.direct_evidence, ...r.likely_affected_tests, ...r.possibly_affected_docs].map((e: any) => e.file);
+    assert.ok(!files.some((f: string) => /\.env|\.pem/.test(f)), 'secret files excluded from evidence');
+    assert.ok(!JSON.stringify(r).includes('SEKRET_SENTINEL_DO_NOT_LEAK'), 'no secret content in output');
+    assert.equal(r.files_scanned, 3);   // .env + .pem skipped
+    // deterministic
+    assert.equal(JSON.stringify(dcoreImpact('change cache_ttl_seconds', { repo: dir })), JSON.stringify(r));
+    // no fabricated edges: an absent identifier is UNKNOWN, never invented
+    const r2 = dcoreImpact('change nonexistent_symbol_xyz', { repo: dir });
+    assert.ok(r2.unknown_identifiers.includes('nonexistent_symbol_xyz') && r2.direct_evidence.length === 0);
+    // bad repo path => error + UNKNOWN, no throw
+    assert.doesNotThrow(() => dcoreImpact('change cache_ttl_seconds', { repo: join(dir, 'nope') }));
+    const bad = dcoreImpact('change cache_ttl_seconds', { repo: join(dir, 'nope') });
+    assert.ok(bad.error && bad.unknown_identifiers.includes('cache_ttl_seconds'));
+    // handoff path still works via runModule (provenance) and opts thread through
+    const viaCli = runModule('dcore-impact', 'change cache_ttl_seconds', { repo: dir });
+    assert.ok(viaCli.direct_evidence.length >= 1);
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });

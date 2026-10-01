@@ -14,6 +14,7 @@ export function parseArgs(argv) {
     const a = argv[i];
     if (a === '--json') args.json = true;
     else if (a === '--input') args.input = argv[++i] ?? '';
+    else if (a === '--repo') args.repo = argv[++i] ?? '';
     else args._.push(a);
   }
   return args;
@@ -46,7 +47,7 @@ async function main() {
     return;
   }
   const input = resolveInput(args, readStdin);
-  const result = runModule(cmd, input);
+  const result = runModule(cmd, input, { repo: args.repo });
   if (result.error) { process.stderr.write(renderMarkdown(result) + '\n'); process.exitCode = 2; return; }
   process.stdout.write((args.json ? JSON.stringify(result, null, 2) : renderMarkdown(result)) + '\n');
 }

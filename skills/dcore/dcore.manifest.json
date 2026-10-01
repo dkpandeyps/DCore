@@ -159,6 +159,21 @@
       "runnable": true
     },
     {
+      "module_id": "dcore-impact",
+      "module_name": "Change Impact",
+      "status": "IMPLEMENTED",
+      "purpose": "given a change + a repo, find literal references and classify DIRECT_EVIDENCE / LIKELY_AFFECTED / POSSIBLY_AFFECTED / UNKNOWN (never a dependency graph)",
+      "permissions": [
+        "read-only"
+      ],
+      "security_level": "SAFE_GENERIC",
+      "platform_requirements": [
+        "any"
+      ],
+      "reference": "modules/dcore-impact.md",
+      "runnable": true
+    },
+    {
       "module_id": "dcore-retro",
       "module_name": "Retrospective",
       "status": "DEFERRED",
@@ -174,7 +189,7 @@
       "runnable": false
     }
   ],
-  "implemented_count": 10,
+  "implemented_count": 11,
   "planned_count": 0,
   "deferred_count": 1,
   "requires_certification_for_basic_use": false,

@@ -2,6 +2,10 @@
 // No network, no credentials, no ~/.claude access, no arbitrary execution, no destructive actions.
 // The "intelligence" of each module is the guidance in the module reference that Claude Code follows; this engine
 // produces a deterministic structured scaffold from the user's input so the behavior is real and testable offline.
+// node:fs/node:path are used ONLY by dcore-impact, for a read-only scan of a user-supplied repository (never ~/.claude,
+// never credential files, never network, never subprocess).
+import { existsSync, statSync, readdirSync, readFileSync } from 'node:fs';
+import { join, resolve, relative } from 'node:path';
 
 export const MODULES = [
   { module_id: 'dcore-frame', module_name: 'Problem Framing', status: 'IMPLEMENTED', purpose: 'turn a raw request into a framed problem (objective, stakeholders, risks, open questions)', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
@@ -14,6 +18,7 @@ export const MODULES = [
   { module_id: 'dcore-doc', module_name: 'Documentation', status: 'IMPLEMENTED', purpose: 'turn a feature/spec/change into a deterministic documentation scaffold (known vs UNKNOWN, no invented APIs)', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
   { module_id: 'dcore-release', module_name: 'Release Prep', status: 'IMPLEMENTED', purpose: 'produce a fail-closed release-readiness checklist with explicit go/no-go gates', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
   { module_id: 'dcore-chain', module_name: 'Composition Chain', status: 'IMPLEMENTED', purpose: 'run the common frame -> spec -> plan -> qa path in one call, composing via deterministic handoff', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
+  { module_id: 'dcore-impact', module_name: 'Change Impact', status: 'IMPLEMENTED', purpose: 'given a change + a repo, find literal references and classify DIRECT_EVIDENCE / LIKELY_AFFECTED / POSSIBLY_AFFECTED / UNKNOWN (never a dependency graph)', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
   { module_id: 'dcore-retro', module_name: 'Retrospective', status: 'DEFERRED', purpose: 'project retrospective scaffold', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
 ];
 export const IMPLEMENTED = MODULES.filter((m) => m.status === 'IMPLEMENTED').map((m) => m.module_id);
@@ -226,6 +231,87 @@ export function dcoreChain(input) {
   };
 }
 
+// ---- dcore-impact: read-only change-impact evidence --------------------------------------------------------
+// Extract code-like identifiers (snake_case, camelCase, dotted/filenames) from a change description. Plain English
+// words are intentionally ignored — this tool is conservative and only reasons about named symbols/files/keys.
+export function extractIdentifiers(text) {
+  const t = String(text ?? '');
+  const out = new Set();
+  for (const m of t.matchAll(/\b[\w./-]+\.[A-Za-z0-9]{1,6}\b/g)) out.add(m[0]);                 // file.ext / dotted
+  for (const m of t.matchAll(/\b[A-Za-z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)+\b/g)) out.add(m[0]);     // snake_case
+  for (const m of t.matchAll(/\b[a-z][a-z0-9]*[A-Z][A-Za-z0-9]*\b/g)) out.add(m[0]);            // camelCase
+  return [...out].filter((x) => x.length >= 3 && /[A-Za-z]/.test(x) && !/^\d/.test(x)).sort();
+}
+// Secret files are NEVER read (let alone reported). This is narrow on purpose: it must not skip legitimate source
+// like session.ts, so we match real secret artifacts, not substrings like "session"/"token"/"cookie".
+const IMPACT_SENSITIVE = /(^|[\\/])(\.env(\.|$)|\.credentials|credentials\.json|\.git-credentials|\.npmrc|id_rsa|\.pem|\.ssh[\\/])/i;
+const IMPACT_SENSITIVE_EXT = /\.(pem|key|p12|pfx|crt|keystore|pk8|asc)$/i;
+const IMPACT_SKIP_DIR = new Set(['.git', 'node_modules', '.ssh', 'dist', 'build', '.cache', 'coverage', '.venv', 'vendor']);
+function impactClassify(p) {
+  const s = p.replace(/\\/g, '/');
+  if (/(^|\/)(tests?|spec|__tests__)(\/|$)|\.(test|spec)\.[A-Za-z0-9]+$/i.test(s)) return 'test';
+  if (/\.(md|mdx|rst|adoc|txt)$/i.test(s)) return 'doc';
+  return 'source';
+}
+function impactScan(root) {
+  const abs = resolve(root);
+  if (!existsSync(abs) || !statSync(abs).isDirectory()) throw new Error('repo path is not a directory');
+  const out = [];
+  let budget = 4000;
+  const walk = (dir) => {
+    let names; try { names = readdirSync(dir).sort(); } catch { return; }
+    for (const name of names) {
+      if (budget <= 0) return;
+      const p = join(dir, name);
+      let st; try { st = statSync(p); } catch { continue; }
+      if (st.isDirectory()) { if (!IMPACT_SKIP_DIR.has(name) && !/\.credentials/i.test(name)) walk(p); continue; }
+      budget--;
+      if (IMPACT_SENSITIVE.test(p) || IMPACT_SENSITIVE_EXT.test(name)) continue;   // never read secret files
+      if (st.size > 256 * 1024) continue;
+      let buf; try { buf = readFileSync(p); } catch { continue; }
+      if (buf.includes(0)) continue;                                               // skip binary
+      out.push({ path: relative(abs, p).replace(/\\/g, '/'), content: buf.toString('utf8'), kind: impactClassify(p) });
+    }
+  };
+  walk(abs);
+  return out;
+}
+export function dcoreImpact(input, opts = {}) {
+  const identifiers = extractIdentifiers(input);
+  const base = {
+    module_id: 'dcore-impact', objective: firstSentence(input) || '(no input)',
+    identifiers, repo: opts.repo ? String(opts.repo) : null,
+    direct_evidence: [], likely_affected_tests: [], possibly_affected_docs: [], unknown_identifiers: [],
+    notes: [
+      'literal-reference evidence only; indirect/dynamic/semantic references are UNKNOWN',
+      'NOT a dependency graph — absence of evidence is not proof of no impact',
+      'secret files (.env/.credentials/keys/etc.) are never read or reported',
+    ],
+  };
+  if (!identifiers.length) { base.unknown_identifiers = ['(no code-like identifiers detected — name the symbols/files/keys the change touches)']; return base; }
+  if (!opts.repo) { base.unknown_identifiers = identifiers; base.notes.unshift('no repo supplied (--repo <path>): impact UNKNOWN until grounded in a repository'); return base; }
+  let files;
+  try { files = impactScan(opts.repo); } catch (e) { return { ...base, error: `cannot scan repo: ${e.message}`, unknown_identifiers: identifiers }; }
+  const found = new Set();
+  for (const f of files) {
+    for (const id of identifiers) {
+      if (!f.content.includes(id)) continue;
+      const lines = [];
+      f.content.split(/\r?\n/).forEach((ln, i) => { if (ln.includes(id)) lines.push(i + 1); });
+      found.add(id);
+      const rec = { file: f.path, identifier: id, line_count: lines.length, lines: lines.slice(0, 10) };
+      if (f.kind === 'test') base.likely_affected_tests.push(rec);
+      else if (f.kind === 'doc') base.possibly_affected_docs.push(rec);
+      else base.direct_evidence.push(rec);
+    }
+  }
+  const byKey = (a, b) => (a.file + '::' + a.identifier).localeCompare(b.file + '::' + b.identifier);
+  base.direct_evidence.sort(byKey); base.likely_affected_tests.sort(byKey); base.possibly_affected_docs.sort(byKey);
+  base.unknown_identifiers = identifiers.filter((id) => !found.has(id));
+  base.files_scanned = files.length;
+  return base;
+}
+
 // ---- deterministic module-to-module handoff ---------------------------------------------------------------
 // A downstream module may be fed the JSON output of an upstream dcore module (e.g. `dcore-spec --json | dcore-plan`).
 // We detect that shape and carry its objective + salient list forward as seed text, so chains need no re-typing.
@@ -251,16 +337,16 @@ function handoffToText(ho) {
   return [objective, ...items].filter(Boolean).join('. ');
 }
 
-const RUNNERS = { 'dcore-frame': dkFrame, 'dcore-spec': dkSpec, 'dcore-plan': dkPlan, 'dcore-review': dkReview, 'dcore-qa': dkQa, 'dcore-debug': dcoreDebug, 'dcore-sec': dcoreSec, 'dcore-release': dcoreRelease, 'dcore-doc': dcoreDoc, 'dcore-chain': dcoreChain };
+const RUNNERS = { 'dcore-frame': dkFrame, 'dcore-spec': dkSpec, 'dcore-plan': dkPlan, 'dcore-review': dkReview, 'dcore-qa': dkQa, 'dcore-debug': dcoreDebug, 'dcore-sec': dcoreSec, 'dcore-release': dcoreRelease, 'dcore-doc': dcoreDoc, 'dcore-chain': dcoreChain, 'dcore-impact': dcoreImpact };
 
-export function runModule(moduleId, input) {
+export function runModule(moduleId, input, opts = {}) {
   const runner = RUNNERS[moduleId];
   if (!runner) {
     const known = MODULES.find((m) => m.module_id === moduleId);
     return { error: known ? `module ${moduleId} is ${known.status}, not yet runnable` : `unknown module: ${moduleId}`, known_modules: MODULES.map((m) => m.module_id) };
   }
   const ho = parseHandoff(input);
-  const result = runner(ho ? handoffToText(ho) : input);
+  const result = runner(ho ? handoffToText(ho) : input, opts);
   if (ho) result.handoff_from = ho.from;
   return result;
 }

@@ -25,8 +25,9 @@ original DCore names only; no gstack implementation or names copied; planned/def
 | documentation scaffold | `dcore-doc` marks known vs explicit `UNKNOWN`; never invents APIs/commands/config/examples | IMPLEMENTED | distinguishes inferred from unknown; composes from any dcore handoff | test V |
 | fail-closed release gating | `dcore-release` go/no-go is NO-GO until every gate is evidenced | IMPLEMENTED | evidence ≠ proof; gates are a prompt to verify | test T |
 | STRIDE threat scaffolding | `dcore-sec` unchecked checklist + residual_risk=UNKNOWN until verified | IMPLEMENTED | change/design-level, complements line-level dcore-review | test S |
+| change-impact evidence | `dcore-impact` read-only repo scan; DIRECT/LIKELY/POSSIBLE/UNKNOWN; secret files excluded; not a dependency graph | IMPLEMENTED | M31 evidence gate passed (recurring need in change-to-existing-behavior scenarios); literal references only | test Y |
 
-**Deferred (not implemented):** `dcore-impact` (change-impact analysis) — deferred until real DCore usage shows a recurring need; `dcore-retro` (retrospective).
+**Deferred (not implemented):** `dcore-retro` (retrospective).
 
 > gstack is used as a capability **benchmark**, not as source. No gstack code, prompts, or branding are copied.
 > "IMPLEMENTED" here means a deterministic engine + tests exist; Claude completes the specifics per the module reference.
