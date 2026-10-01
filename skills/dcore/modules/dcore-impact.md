@@ -42,6 +42,11 @@ descendants — nothing above or beside it. This is deliberate and predictable.
 plus the UNKNOWN identifiers. It is **the same evidence, re-presented** (no new analysis, nothing hidden); the
 default full/`--json` output is unchanged.
 
+A common/hot identifier (e.g. a core symbol referenced throughout a test suite) legitimately produces a broad
+`LIKELY_AFFECTED` set — that breadth is honest literal-reference evidence, not noise. `--summary` keeps it readable
+regardless of size (the list is deduplicated and sorted); reach for `--summary` on broad or multi-symbol changes,
+and name more specific identifiers to narrow the scope.
+
 ## Optional handoff
 A prior module's JSON may be piped in — e.g. `dcore-spec "…" --json | dcore-impact --repo .`. Identifiers are
 extracted from the carried objective/requirements and `handoff_from` is recorded. This is **optional**: plain text
