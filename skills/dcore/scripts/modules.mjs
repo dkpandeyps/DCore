@@ -240,6 +240,10 @@ export function extractIdentifiers(text) {
   for (const m of t.matchAll(/\b[\w./-]+\.[A-Za-z0-9]{1,6}\b/g)) out.add(m[0]);                 // file.ext / dotted
   for (const m of t.matchAll(/\b[A-Za-z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)+\b/g)) out.add(m[0]);     // snake_case
   for (const m of t.matchAll(/\b[a-z][a-z0-9]*[A-Z][A-Za-z0-9]*\b/g)) out.add(m[0]);            // camelCase
+  // multi-hump PascalCase (>=2 capital-led segments): matches distinctive compound type/class names like
+  // ZodError, RequestValidator, CustomErrorParams, but NEVER a single capitalized English word (Command, Change,
+  // Add, Request) — those are single-hump — so ordinary prose/sentence starts are not treated as identifiers.
+  for (const m of t.matchAll(/\b[A-Z][a-z0-9]+(?:[A-Z][a-z0-9]*)+\b/g)) out.add(m[0]);
   return [...out].filter((x) => x.length >= 3 && /[A-Za-z]/.test(x) && !/^\d/.test(x)).sort();
 }
 // Secret files are NEVER read (let alone reported). This is narrow on purpose: it must not skip legitimate source

@@ -422,3 +422,20 @@ test('AA. dcore-impact scope contract: --repo is the explicit boundary; agent/VC
     assert.equal(JSON.stringify(dcoreImpact('change cache_ttl_seconds', { repo: root })), JSON.stringify(broad));
   } finally { rmSync(root, { recursive: true, force: true }); }
 });
+
+test('BB. extractIdentifiers: multi-hump PascalCase captured; single English words never (M36)', () => {
+  // distinctive compound type/class names ARE captured
+  const ids = extractIdentifiers('Refactor ZodError and CustomErrorParams; change RequestValidator and TokenManager.');
+  for (const x of ['ZodError', 'CustomErrorParams', 'RequestValidator', 'TokenManager']) assert.ok(ids.includes(x), x);
+  // ordinary single capitalized English words / sentence starts are NEVER identifiers (false-positive safety)
+  const prose = extractIdentifiers('Change the Command. Add an Option. Refactor the Request. Modify Response. The Help User Error Config Case Parser Handler Manager.');
+  for (const w of ['Command', 'Option', 'Request', 'Response', 'Help', 'User', 'Error', 'Config', 'Case', 'Change', 'Add', 'Refactor', 'Modify', 'The', 'Parser', 'Handler', 'Manager']) {
+    assert.ok(!prose.includes(w), `must not extract single English word: ${w}`);
+  }
+  // mixed PascalCase + camelCase: both captured
+  const mixed = extractIdentifiers('Modify RequestValidator and validateRequest; update parseToken.');
+  assert.ok(mixed.includes('RequestValidator') && mixed.includes('validateRequest') && mixed.includes('parseToken'));
+  // deterministic + sorted output
+  assert.deepEqual(extractIdentifiers('b ZodError AuthMiddleware'), extractIdentifiers('b ZodError AuthMiddleware'));
+  assert.deepEqual([...ids].sort(), ids);
+});

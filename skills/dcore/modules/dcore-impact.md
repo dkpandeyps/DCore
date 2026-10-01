@@ -13,7 +13,9 @@
 - **runnable:** true
 
 ## How Claude uses this module
-Name the symbols/files/config keys the change touches (snake_case, camelCase, or `file.ext`). With `--repo`, DCore
+Name the symbols/files/config keys the change touches (snake_case, camelCase, multi-word PascalCase class/type names
+like `ZodError`/`RequestValidator`, or `file.ext`). Single capitalized English words (e.g. `Command`, `Request`) are
+intentionally not treated as identifiers, to avoid matching ordinary prose. With `--repo`, DCore
 does a **read-only** literal-reference scan and reports where each identifier appears, classified:
 - **DIRECT_EVIDENCE** — non-test source files that reference the identifier.
 - **LIKELY_AFFECTED** — test/spec files that reference it (candidates to update).
