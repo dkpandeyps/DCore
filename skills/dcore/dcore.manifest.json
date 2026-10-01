@@ -116,8 +116,8 @@
     {
       "module_id": "dcore-doc",
       "module_name": "Documentation",
-      "status": "PLANNED",
-      "purpose": "generate documentation scaffolds",
+      "status": "IMPLEMENTED",
+      "purpose": "turn a feature/spec/change into a deterministic documentation scaffold (known vs UNKNOWN, no invented APIs)",
       "permissions": [
         "read-only"
       ],
@@ -126,7 +126,7 @@
         "any"
       ],
       "reference": "modules/dcore-doc.md",
-      "runnable": false
+      "runnable": true
     },
     {
       "module_id": "dcore-release",
@@ -141,6 +141,21 @@
         "any"
       ],
       "reference": "modules/dcore-release.md",
+      "runnable": true
+    },
+    {
+      "module_id": "dcore-chain",
+      "module_name": "Composition Chain",
+      "status": "IMPLEMENTED",
+      "purpose": "run the common frame -> spec -> plan -> qa path in one call, composing via deterministic handoff",
+      "permissions": [
+        "read-only"
+      ],
+      "security_level": "SAFE_GENERIC",
+      "platform_requirements": [
+        "any"
+      ],
+      "reference": "modules/dcore-chain.md",
       "runnable": true
     },
     {
@@ -159,8 +174,8 @@
       "runnable": false
     }
   ],
-  "implemented_count": 8,
-  "planned_count": 1,
+  "implemented_count": 10,
+  "planned_count": 0,
   "deferred_count": 1,
   "requires_certification_for_basic_use": false,
   "requires_private_infrastructure": false,

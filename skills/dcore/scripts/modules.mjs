@@ -11,8 +11,9 @@ export const MODULES = [
   { module_id: 'dcore-qa', module_name: 'QA / Test Plan', status: 'IMPLEMENTED', purpose: 'produce a test plan from a feature/spec', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
   { module_id: 'dcore-debug', module_name: 'Debug / Investigation', status: 'IMPLEMENTED', purpose: 'turn a defect report into hypotheses, evidence to collect, likely root causes and next steps', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
   { module_id: 'dcore-sec', module_name: 'Security Review', status: 'IMPLEMENTED', purpose: 'threat-model a change (assets, surface, STRIDE-style checks, findings, residual risk)', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
-  { module_id: 'dcore-doc', module_name: 'Documentation', status: 'PLANNED', purpose: 'generate documentation scaffolds', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
+  { module_id: 'dcore-doc', module_name: 'Documentation', status: 'IMPLEMENTED', purpose: 'turn a feature/spec/change into a deterministic documentation scaffold (known vs UNKNOWN, no invented APIs)', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
   { module_id: 'dcore-release', module_name: 'Release Prep', status: 'IMPLEMENTED', purpose: 'produce a fail-closed release-readiness checklist with explicit go/no-go gates', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
+  { module_id: 'dcore-chain', module_name: 'Composition Chain', status: 'IMPLEMENTED', purpose: 'run the common frame -> spec -> plan -> qa path in one call, composing via deterministic handoff', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
   { module_id: 'dcore-retro', module_name: 'Retrospective', status: 'DEFERRED', purpose: 'project retrospective scaffold', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
 ];
 export const IMPLEMENTED = MODULES.filter((m) => m.status === 'IMPLEMENTED').map((m) => m.module_id);
@@ -182,6 +183,49 @@ export function dcoreRelease(input) {
   };
 }
 
+export function dcoreDoc(input) {
+  const ss = sentences(input);
+  const uniq = (arr) => [...new Set(arr)];
+  const title = firstSentence(input) || '(no input)';
+  // KNOWN = inferable from the supplied text; everything else is explicitly UNKNOWN (never invented).
+  return {
+    module_id: 'dcore-doc', title,
+    summary: ss.length ? ss[0] : 'UNKNOWN — provide a one-line summary',
+    purpose: ss.length ? uniq(ss) : ['UNKNOWN — state what this is for'],
+    prerequisites: ['UNKNOWN — list required runtime / tools / permissions (do not invent)'],
+    installation: ['UNKNOWN — document real setup/install steps (do not invent commands)'],
+    usage: ['UNKNOWN — show the primary way to use this (do not invent flags)'],
+    examples: ['UNKNOWN — add a real, verified example (do not fabricate output)'],
+    configuration: ['UNKNOWN — list real configuration keys + defaults, or state "none"'],
+    api_interface: ['UNKNOWN — document real public functions/endpoints/flags, or state "none"'],
+    behavior: uniq(ss.filter((s) => has(s, ['must', 'should', 'when', 'if', 'returns', 'produces', 'ensures', 'guarantees']))),
+    edge_cases: ['empty input', 'malformed input', 'unknown platform', 'missing capability'],
+    limitations: uniq(ss.filter((s) => has(s, ['not', 'cannot', 'never', 'only', 'limit', 'without']))),
+    troubleshooting: ['UNKNOWN — add real "symptom -> remedy" pairs (do not invent)'],
+    testing: ['UNKNOWN — how to verify it works (tests/commands)'],
+    migration_notes: uniq(ss.filter((s) => hasStem(s, ['migrat', 'upgrade', 'breaking', 'deprecat', 'rename', 'moved']))),
+    open_questions: uniq(ss.filter((s) => /\?|\b(tbd|maybe|unknown)\b/i.test(s))),
+  };
+}
+
+// ---- thin composition chain (reuses modules + handoff; NOT an orchestration engine) -----------------------
+// Runs the common path frame -> spec -> plan -> qa in one call. frame+spec read the original request; plan and qa
+// are fed the prior stage's JSON via the same deterministic handoff used on the CLI. Each sub-module is a total,
+// deterministic function (never throws, always returns a scaffold), so the chain is fail-closed by construction.
+export function dcoreChain(input) {
+  const frame = dkFrame(input);
+  const spec = dkSpec(input);
+  const plan = runModule('dcore-plan', JSON.stringify(spec));   // handoff from spec
+  const qa = runModule('dcore-qa', JSON.stringify(plan));       // handoff from plan
+  const stageOf = (r) => (r && r.error ? `ERROR: ${r.error}` : 'ok');
+  return {
+    module_id: 'dcore-chain', objective: frame.objective,
+    stages: ['dcore-frame', 'dcore-spec', 'dcore-plan', 'dcore-qa'],
+    stage_status: { frame: stageOf(frame), spec: stageOf(spec), plan: stageOf(plan), qa: stageOf(qa) },
+    frame, spec, plan, qa,
+  };
+}
+
 // ---- deterministic module-to-module handoff ---------------------------------------------------------------
 // A downstream module may be fed the JSON output of an upstream dcore module (e.g. `dcore-spec --json | dcore-plan`).
 // We detect that shape and carry its objective + salient list forward as seed text, so chains need no re-typing.
@@ -207,7 +251,7 @@ function handoffToText(ho) {
   return [objective, ...items].filter(Boolean).join('. ');
 }
 
-const RUNNERS = { 'dcore-frame': dkFrame, 'dcore-spec': dkSpec, 'dcore-plan': dkPlan, 'dcore-review': dkReview, 'dcore-qa': dkQa, 'dcore-debug': dcoreDebug, 'dcore-sec': dcoreSec, 'dcore-release': dcoreRelease };
+const RUNNERS = { 'dcore-frame': dkFrame, 'dcore-spec': dkSpec, 'dcore-plan': dkPlan, 'dcore-review': dkReview, 'dcore-qa': dkQa, 'dcore-debug': dcoreDebug, 'dcore-sec': dcoreSec, 'dcore-release': dcoreRelease, 'dcore-doc': dcoreDoc, 'dcore-chain': dcoreChain };
 
 export function runModule(moduleId, input) {
   const runner = RUNNERS[moduleId];

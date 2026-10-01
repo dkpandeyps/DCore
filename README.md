@@ -20,6 +20,8 @@ A small set of deterministic, read-only modules that turn a raw request into str
 - **dcore-debug** — defect → hypotheses, evidence to collect, likely root causes, next steps.
 - **dcore-sec** — threat-model a change (assets, surface, STRIDE checks, findings, residual risk).
 - **dcore-release** — fail-closed release-readiness checklist with explicit go/no-go gates.
+- **dcore-doc** — feature/spec/change → documentation scaffold (known vs explicit `UNKNOWN`; invents nothing).
+- **dcore-chain** — run `frame → spec → plan → qa` in one call (thin composition convenience; returns every stage).
 
 Modules **compose by handoff**: `dcore-spec "…" --json | dcore-plan` (or `| dcore-qa`) carries the prior module's
 objective and salient items forward automatically (`handoff_from` records provenance). Plain text is never treated as
@@ -52,9 +54,8 @@ node skills/dcore/scripts/dcore.mjs dcore-plan --input "<feature>" --json
 ```
 
 ## Modules
-- **Implemented:** `dcore-frame`, `dcore-spec`, `dcore-plan`, `dcore-review`, `dcore-qa`, `dcore-debug`, `dcore-sec`, `dcore-release`.
-- **Planned (not yet runnable):** `dcore-doc`.
-- **Deferred:** `dcore-retro`.
+- **Implemented:** `dcore-frame`, `dcore-spec`, `dcore-plan`, `dcore-review`, `dcore-qa`, `dcore-debug`, `dcore-sec`, `dcore-release`, `dcore-doc`, `dcore-chain`.
+- **Deferred:** `dcore-retro` (and `dcore-impact`, deferred until a recurring change-impact need is demonstrated).
 
 See `skills/dcore/modules/` and `skills/dcore/references/GSTACK-COVERAGE-MATRIX.md`.
 

@@ -11,18 +11,22 @@ original DCore names only; no gstack implementation or names copied; planned/def
 | QA/test planning | verify behavior | QA / Test Plan | dcore-qa | IMPLEMENTED | read-only | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
 | debugging/investigation | find root cause | Debug / Investigation | dcore-debug | IMPLEMENTED | read-only | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
 | security review | reduce risk | Security Review | dcore-sec | IMPLEMENTED | read-only | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
-| documentation | explain the system | Documentation | dcore-doc | PLANNED | read-only | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
+| documentation | explain the system | Documentation | dcore-doc | IMPLEMENTED | read-only | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
 | release preparation | ship safely | Release Prep | dcore-release | IMPLEMENTED | read-only | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
 | project retrospective | learn and improve | Retrospective | dcore-retro | DEFERRED | read-only | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
 
-**Totals:** total=10, implemented=8, planned=1, deferred=1, **missing useful capabilities = 0**
+**Totals (gstack-benchmark capabilities):** total=10, implemented=9, planned=0, deferred=1 (dcore-retro), **missing useful capabilities = 0**
 
 ## DCore-native capabilities (no direct gstack equivalent claimed)
 | capability | DCore mechanism | status | notes | tests |
 |---|---|---|---|---|
 | module-to-module handoff | prior module `--json` piped into the next; `parseHandoff`/`runModule` carry objective + salient items, tag `handoff_from` | IMPLEMENTED | deterministic, opt-in by JSON shape; plain text unaffected | test U |
+| composition chain | `dcore-chain` runs frame→spec→plan→qa in one call, reusing the modules + handoff (no orchestration engine) | IMPLEMENTED | thin convenience; preserves module boundaries; every stage inspectable | test W |
+| documentation scaffold | `dcore-doc` marks known vs explicit `UNKNOWN`; never invents APIs/commands/config/examples | IMPLEMENTED | distinguishes inferred from unknown; composes from any dcore handoff | test V |
 | fail-closed release gating | `dcore-release` go/no-go is NO-GO until every gate is evidenced | IMPLEMENTED | evidence ≠ proof; gates are a prompt to verify | test T |
 | STRIDE threat scaffolding | `dcore-sec` unchecked checklist + residual_risk=UNKNOWN until verified | IMPLEMENTED | change/design-level, complements line-level dcore-review | test S |
+
+**Deferred (not implemented):** `dcore-impact` (change-impact analysis) — deferred until real DCore usage shows a recurring need; `dcore-retro` (retrospective).
 
 > gstack is used as a capability **benchmark**, not as source. No gstack code, prompts, or branding are copied.
 > "IMPLEMENTED" here means a deterministic engine + tests exist; Claude completes the specifics per the module reference.

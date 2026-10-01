@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import {
   MODULES, IMPLEMENTED, runModule, renderMarkdown, buildManifest, dkSpec, dkReview, dkPlan, dkQa, dkFrame,
-  dcoreDebug, dcoreSec, dcoreRelease, parseHandoff,
+  dcoreDebug, dcoreSec, dcoreRelease, parseHandoff, dcoreDoc, dcoreChain,
 } from '../../skills/dcore/scripts/modules.mjs';
 import { install, planInstall, isSafeDestRoot } from '../../skills/dcore/scripts/install.mjs';
 import { buildCoverageMatrix } from '../../skills/dcore/scripts/coverage.mjs';
@@ -36,7 +36,7 @@ test('C. module discovery: manifest lists modules; every reference resolves', ()
   assert.equal(readFileSync(join(SKILL, 'dcore.manifest.json'), 'utf8'), JSON.stringify(m, null, 2) + '\n');
   assert.equal(m.modules.length, MODULES.length);
   for (const mod of m.modules) assert.ok(existsSync(join(SKILL, mod.reference)), mod.reference);
-  assert.equal(m.implemented_count, 8);
+  assert.equal(m.implemented_count, 10);
 });
 
 test('D. module contracts: every module doc carries required fields + status', () => {
@@ -78,8 +78,8 @@ test('G. malformed/empty input => safe scaffold (fail-closed)', () => {
 test('H. unknown module => diagnostic (not a crash/guess); planned module not runnable', () => {
   const unknown = runModule('dcore-nope', 'x');
   assert.ok(unknown.error && unknown.known_modules.length === MODULES.length);
-  const planned = runModule('dcore-doc', 'x');   // dcore-doc remains PLANNED
-  assert.ok(planned.error && /PLANNED/i.test(planned.error));
+  const notRunnable = runModule('dcore-retro', 'x');   // dcore-retro remains DEFERRED (not runnable)
+  assert.ok(notRunnable.error && /DEFERRED|PLANNED/i.test(notRunnable.error));
   assert.ok(renderMarkdown(unknown).startsWith('dcore:'));
 });
 
@@ -239,4 +239,75 @@ test('U. module handoff: a prior module JSON seeds the next; provenance recorded
   // plain text is NOT treated as handoff (backward compatible)
   assert.equal(parseHandoff('just some text'), null);
   assert.equal(runModule('dcore-spec', 'plain text').handoff_from, undefined);
+});
+
+test('V. dcore-doc: known vs UNKNOWN scaffold; no invented APIs; handoff; deterministic; safe on bad input', () => {
+  const d = dcoreDoc('Add a rate limiter. It must not add network calls. Breaking change: removes the old limiter.');
+  assert.equal(d.module_id, 'dcore-doc');
+  assert.equal(d.title, 'Add a rate limiter.');
+  assert.ok(d.purpose.length >= 1);
+  assert.ok(d.behavior.some((b: string) => /network/i.test(b)));          // inferred "must not add network calls"
+  assert.ok(d.limitations.some((l: string) => /network|old limiter/i.test(l)));
+  assert.ok(d.migration_notes.some((m: string) => /breaking/i.test(m)));  // stem match
+  // sections that need real detail are explicit UNKNOWN, never invented
+  for (const k of ['prerequisites', 'installation', 'usage', 'examples', 'configuration', 'api_interface', 'troubleshooting', 'testing']) {
+    assert.ok((d as any)[k].every((x: string) => /UNKNOWN/.test(x)), `${k} must be UNKNOWN, not fabricated`);
+  }
+  assert.equal(JSON.stringify(dcoreDoc('x')), JSON.stringify(dcoreDoc('x')));   // deterministic
+  // duplicate avoidance
+  const dup = dcoreDoc('Same line. Same line. Other line.');
+  assert.equal(dup.purpose.filter((p: string) => p === 'Same line.').length, 1);
+  // empty input => safe UNKNOWN scaffold (fail-closed)
+  const empty = dcoreDoc('');
+  assert.equal(empty.title, '(no input)');
+  assert.ok(/UNKNOWN/.test(empty.summary));
+  // handoff from dcore-spec via runModule; malformed JSON falls back to plain text (no throw)
+  const spec = dkSpec('Add token-bucket rate limiting per API key.');
+  const viaHandoff = runModule('dcore-doc', JSON.stringify(spec));
+  assert.equal(viaHandoff.handoff_from, 'dcore-spec');
+  assert.ok(/rate limiting/i.test(viaHandoff.title));
+  assert.doesNotThrow(() => runModule('dcore-doc', '{ not valid json'));
+  assert.equal(runModule('dcore-doc', '{ not valid json').handoff_from, undefined);
+});
+
+test('W. dcore-chain: ordered frame->spec->plan->qa; handoff between stages; reuses modules; fail-closed', () => {
+  const c = dcoreChain('Add per-key token-bucket rate limiting. Verify burst is capped.');
+  assert.equal(c.module_id, 'dcore-chain');
+  assert.deepEqual(c.stages, ['dcore-frame', 'dcore-spec', 'dcore-plan', 'dcore-qa']);   // ordering
+  assert.deepEqual(c.stage_status, { frame: 'ok', spec: 'ok', plan: 'ok', qa: 'ok' });
+  // handoff between stages
+  assert.equal(c.plan.handoff_from, 'dcore-spec');
+  assert.equal(c.qa.handoff_from, 'dcore-plan');
+  assert.ok(c.qa.scenarios.length >= 1);
+  // reuses existing module behavior exactly (no duplicated/divergent logic): frame/spec stages equal direct calls
+  assert.equal(JSON.stringify(c.frame), JSON.stringify(dkFrame('Add per-key token-bucket rate limiting. Verify burst is capped.')));
+  assert.equal(JSON.stringify(c.spec), JSON.stringify(dkSpec('Add per-key token-bucket rate limiting. Verify burst is capped.')));
+  // deterministic
+  assert.equal(JSON.stringify(dcoreChain('x')), JSON.stringify(dcoreChain('x')));
+  // empty + malformed input => every stage still present, fail-closed, no throw
+  assert.doesNotThrow(() => dcoreChain(''));
+  const empty = dcoreChain('');
+  assert.deepEqual(empty.stages, ['dcore-frame', 'dcore-spec', 'dcore-plan', 'dcore-qa']);
+  assert.ok(empty.frame && empty.spec && empty.plan && empty.qa);
+  assert.doesNotThrow(() => dcoreChain('{ garbage ]['));
+  // individual module CLIs/behaviour unchanged (backward compatible)
+  assert.equal(runModule('dcore-spec', 'plain').module_id, 'dcore-spec');
+});
+
+test('X. installer includes the new modules; project-local, idempotent, no network/credentials', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'dcore-m30-'));
+  try {
+    const target = join(dir, 'skills');
+    const r1 = install({ target });
+    assert.equal(r1.ok, true);
+    assert.equal(r1.network_contacted, false);
+    assert.equal(r1.credentials_accessed, false);
+    assert.equal(r1.subprocesses_spawned, false);
+    assert.ok(existsSync(join(target, 'dcore', 'modules', 'dcore-doc.md')));
+    assert.ok(existsSync(join(target, 'dcore', 'modules', 'dcore-chain.md')));
+    const r2 = install({ target });   // idempotent
+    assert.equal(r2.created, 0);
+    assert.equal(r2.updated, 0);
+    assert.equal(r2.unchanged, r2.files);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
 });

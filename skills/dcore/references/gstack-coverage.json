@@ -92,7 +92,7 @@
       "useful_problem": "explain the system",
       "dcore_capability": "Documentation",
       "original_module_name": "dcore-doc",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED",
       "permission": "read-only",
       "security_level": "SAFE_GENERIC",
       "platform_requirements": "any",
@@ -125,8 +125,8 @@
     }
   ],
   "total": 10,
-  "implemented": 8,
-  "planned": 1,
+  "implemented": 9,
+  "planned": 0,
   "deferred": 1,
   "missing_useful_capabilities": 0
 }
