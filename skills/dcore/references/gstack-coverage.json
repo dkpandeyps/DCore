@@ -68,7 +68,7 @@
       "useful_problem": "find root cause",
       "dcore_capability": "Debug / Investigation",
       "original_module_name": "dcore-debug",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED",
       "permission": "read-only",
       "security_level": "SAFE_GENERIC",
       "platform_requirements": "any",
@@ -80,7 +80,7 @@
       "useful_problem": "reduce risk",
       "dcore_capability": "Security Review",
       "original_module_name": "dcore-sec",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED",
       "permission": "read-only",
       "security_level": "SAFE_GENERIC",
       "platform_requirements": "any",
@@ -104,7 +104,7 @@
       "useful_problem": "ship safely",
       "dcore_capability": "Release Prep",
       "original_module_name": "dcore-release",
-      "status": "PLANNED",
+      "status": "IMPLEMENTED",
       "permission": "read-only",
       "security_level": "SAFE_GENERIC",
       "platform_requirements": "any",
@@ -125,8 +125,8 @@
     }
   ],
   "total": 10,
-  "implemented": 5,
-  "planned": 4,
+  "implemented": 8,
+  "planned": 1,
   "deferred": 1,
   "missing_useful_capabilities": 0
 }

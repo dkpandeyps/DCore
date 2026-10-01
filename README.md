@@ -17,6 +17,13 @@ A small set of deterministic, read-only modules that turn a raw request into str
 - **dcore-plan** — implementation plan (architecture, components, dependencies, risks, tests, rollout).
 - **dcore-review** — structured code/diff review (correctness, security, maintainability, findings with severity).
 - **dcore-qa** — test plan (levels, scenarios, edge cases, data, exit criteria).
+- **dcore-debug** — defect → hypotheses, evidence to collect, likely root causes, next steps.
+- **dcore-sec** — threat-model a change (assets, surface, STRIDE checks, findings, residual risk).
+- **dcore-release** — fail-closed release-readiness checklist with explicit go/no-go gates.
+
+Modules **compose by handoff**: `dcore-spec "…" --json | dcore-plan` (or `| dcore-qa`) carries the prior module's
+objective and salient items forward automatically (`handoff_from` records provenance). Plain text is never treated as
+a handoff, so single-module use is unchanged.
 
 ## Supported platforms
 Windows, macOS, and Linux. The skill core is platform-neutral (capability detection, never hard-coded
@@ -45,8 +52,8 @@ node skills/dcore/scripts/dcore.mjs dcore-plan --input "<feature>" --json
 ```
 
 ## Modules
-- **Implemented:** `dcore-frame`, `dcore-spec`, `dcore-plan`, `dcore-review`, `dcore-qa`.
-- **Planned (not yet runnable):** `dcore-debug`, `dcore-sec`, `dcore-doc`, `dcore-release`.
+- **Implemented:** `dcore-frame`, `dcore-spec`, `dcore-plan`, `dcore-review`, `dcore-qa`, `dcore-debug`, `dcore-sec`, `dcore-release`.
+- **Planned (not yet runnable):** `dcore-doc`.
 - **Deferred:** `dcore-retro`.
 
 See `skills/dcore/modules/` and `skills/dcore/references/GSTACK-COVERAGE-MATRIX.md`.

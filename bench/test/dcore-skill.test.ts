@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import {
   MODULES, IMPLEMENTED, runModule, renderMarkdown, buildManifest, dkSpec, dkReview, dkPlan, dkQa, dkFrame,
+  dcoreDebug, dcoreSec, dcoreRelease, parseHandoff,
 } from '../../skills/dcore/scripts/modules.mjs';
 import { install, planInstall, isSafeDestRoot } from '../../skills/dcore/scripts/install.mjs';
 import { buildCoverageMatrix } from '../../skills/dcore/scripts/coverage.mjs';
@@ -35,7 +36,7 @@ test('C. module discovery: manifest lists modules; every reference resolves', ()
   assert.equal(readFileSync(join(SKILL, 'dcore.manifest.json'), 'utf8'), JSON.stringify(m, null, 2) + '\n');
   assert.equal(m.modules.length, MODULES.length);
   for (const mod of m.modules) assert.ok(existsSync(join(SKILL, mod.reference)), mod.reference);
-  assert.equal(m.implemented_count, 5);
+  assert.equal(m.implemented_count, 8);
 });
 
 test('D. module contracts: every module doc carries required fields + status', () => {
@@ -77,7 +78,7 @@ test('G. malformed/empty input => safe scaffold (fail-closed)', () => {
 test('H. unknown module => diagnostic (not a crash/guess); planned module not runnable', () => {
   const unknown = runModule('dcore-nope', 'x');
   assert.ok(unknown.error && unknown.known_modules.length === MODULES.length);
-  const planned = runModule('dcore-debug', 'x');
+  const planned = runModule('dcore-doc', 'x');   // dcore-doc remains PLANNED
   assert.ok(planned.error && /PLANNED/i.test(planned.error));
   assert.ok(renderMarkdown(unknown).startsWith('dcore:'));
 });
@@ -190,4 +191,52 @@ test('Q. dcore-review detects private key material and cloud access key ids (M29
   assert.ok(r.findings.some((f: any) => f.message === 'private key material' && f.severity === 'high'));
   assert.ok(r.findings.some((f: any) => f.message === 'cloud access key id' && f.severity === 'high'));
   assert.ok(r.severity_summary.high >= 2);
+});
+
+test('R. dcore-debug: hypotheses + keyword-driven root causes + next steps; deterministic; fail-closed', () => {
+  const d = dcoreDebug('The API times out intermittently after the latest deploy. It sometimes returns null.');
+  assert.equal(d.module_id, 'dcore-debug');
+  assert.equal(d.symptoms.length, 2);
+  assert.ok(d.hypotheses[0].startsWith('H-01'));
+  // keyword heuristics: latency (times out), concurrency (intermittent/sometimes), recent change (after/deploy), null guard
+  assert.ok(d.likely_root_causes.some((c: string) => /latency|contention/i.test(c)));
+  assert.ok(d.likely_root_causes.some((c: string) => /recent change/i.test(c)));
+  assert.ok(d.next_steps.some((s: string) => /regression test/i.test(s)));
+  assert.equal(JSON.stringify(dcoreDebug('x')), JSON.stringify(dcoreDebug('x')));   // deterministic
+  const empty = dcoreDebug('');
+  assert.equal(empty.objective, '(no input)');
+  assert.ok(empty.likely_root_causes.length >= 1);   // fail-closed scaffold
+});
+
+test('S. dcore-sec: threat surface + STRIDE checks + findings; residual risk stays UNKNOWN (fail-closed)', () => {
+  const s = dcoreSec('Add an endpoint that accepts user input and a token, then runs a SQL query against the database.');
+  assert.equal(s.module_id, 'dcore-sec');
+  assert.ok(s.threat_surface.some((x: string) => /input/i.test(x)) && s.threat_surface.some((x: string) => /injection|data store/i.test(x)));
+  assert.equal(s.checks.length, 6);                       // STRIDE
+  assert.ok(s.checks.every((c: string) => c.startsWith('[ ]')));   // unchecked = fail-closed
+  assert.match(s.residual_risk, /UNKNOWN/);
+  assert.ok(dcoreSec('store the api_key=abc in config').findings.some((f: string) => /high/.test(f)));
+});
+
+test('T. dcore-release: fail-closed go/no-go; evidenced gates marked; unmet gates block', () => {
+  const r = dcoreRelease('Release v2 adds a schema migration. Tests pass and code review approved.');
+  assert.equal(r.module_id, 'dcore-release');
+  assert.match(r.go_no_go, /NO-GO/);                      // rollback/observability/etc not evidenced
+  assert.ok(r.unmet_gates.includes('rollback_plan') && r.unmet_gates.includes('observability'));
+  assert.ok(r.gates.some((g: string) => g.startsWith('[x] tests')) && r.gates.some((g: string) => g.startsWith('[x] code_review')));
+  // empty input => everything unmet => NO-GO (fail-closed)
+  assert.match(dcoreRelease('').go_no_go, /NO-GO/);
+});
+
+test('U. module handoff: a prior module JSON seeds the next; provenance recorded (M29 composability)', () => {
+  const spec = dkSpec('Add token-bucket rate limiting. Verify burst is capped.');
+  const ho = parseHandoff(JSON.stringify(spec));
+  assert.ok(ho && ho.from === 'dcore-spec' && /rate limiting/i.test(ho.objective));
+  // feed spec JSON into dcore-qa via runModule => scenarios derived without re-typing, provenance tagged
+  const qa = runModule('dcore-qa', JSON.stringify(spec));
+  assert.equal(qa.handoff_from, 'dcore-spec');
+  assert.ok(/rate limiting/i.test(qa.objective) && qa.scenarios.length >= 1);
+  // plain text is NOT treated as handoff (backward compatible)
+  assert.equal(parseHandoff('just some text'), null);
+  assert.equal(runModule('dcore-spec', 'plain text').handoff_from, undefined);
 });

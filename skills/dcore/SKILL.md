@@ -23,8 +23,15 @@ Use DCore when you want a consistent, safe structure for common software work:
 - **dcore-review** — produce a structured review of code/diff (correctness, security, maintainability, findings with
   severity, recommendations).
 - **dcore-qa** — produce a test plan (levels, scenarios, edge cases, data, exit criteria).
+- **dcore-debug** — turn a defect report into hypotheses, evidence to collect, likely root causes, next steps.
+- **dcore-sec** — threat-model a change (assets, surface, STRIDE checks, findings, residual risk).
+- **dcore-release** — fail-closed release-readiness checklist with explicit go/no-go gates.
 
-Planned (not yet runnable): **dcore-debug, dcore-sec, dcore-doc, dcore-release** · Deferred: **dcore-retro**. See
+**Composability (handoff):** pipe one module's `--json` into the next — e.g. `dcore-spec "…" --json | dcore-plan`
+or `| dcore-qa`. DCore detects a prior module's JSON on input and carries its objective (and requirements/components/
+scenarios) forward, tagging `handoff_from`, so chains need no re-typing. Plain text is never treated as a handoff.
+
+Planned (not yet runnable): **dcore-doc** · Deferred: **dcore-retro**. See
 `modules/<module_id>.md` and `dcore.manifest.json` for each module's status and contract.
 
 ## How to invoke a module

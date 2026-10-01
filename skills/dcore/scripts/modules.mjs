@@ -9,10 +9,10 @@ export const MODULES = [
   { module_id: 'dcore-plan', module_name: 'Engineering Plan', status: 'IMPLEMENTED', purpose: 'turn a feature/request into an implementation plan', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
   { module_id: 'dcore-review', module_name: 'Code Review', status: 'IMPLEMENTED', purpose: 'produce a structured review of code/diff text', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
   { module_id: 'dcore-qa', module_name: 'QA / Test Plan', status: 'IMPLEMENTED', purpose: 'produce a test plan from a feature/spec', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
-  { module_id: 'dcore-debug', module_name: 'Debug / Investigation', status: 'PLANNED', purpose: 'structured investigation of a defect', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
-  { module_id: 'dcore-sec', module_name: 'Security Review', status: 'PLANNED', purpose: 'structured security review', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
+  { module_id: 'dcore-debug', module_name: 'Debug / Investigation', status: 'IMPLEMENTED', purpose: 'turn a defect report into hypotheses, evidence to collect, likely root causes and next steps', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
+  { module_id: 'dcore-sec', module_name: 'Security Review', status: 'IMPLEMENTED', purpose: 'threat-model a change (assets, surface, STRIDE-style checks, findings, residual risk)', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
   { module_id: 'dcore-doc', module_name: 'Documentation', status: 'PLANNED', purpose: 'generate documentation scaffolds', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
-  { module_id: 'dcore-release', module_name: 'Release Prep', status: 'PLANNED', purpose: 'release readiness checklist', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
+  { module_id: 'dcore-release', module_name: 'Release Prep', status: 'IMPLEMENTED', purpose: 'produce a fail-closed release-readiness checklist with explicit go/no-go gates', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
   { module_id: 'dcore-retro', module_name: 'Retrospective', status: 'DEFERRED', purpose: 'project retrospective scaffold', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
 ];
 export const IMPLEMENTED = MODULES.filter((m) => m.status === 'IMPLEMENTED').map((m) => m.module_id);
@@ -21,6 +21,8 @@ export const IMPLEMENTED = MODULES.filter((m) => m.status === 'IMPLEMENTED').map
 function sentences(text) { return String(text ?? '').split(/(?<=[.!?])\s+|\n+/).map((s) => s.trim()).filter(Boolean); }
 function firstSentence(text) { return sentences(text)[0] ?? String(text ?? '').trim(); }
 const has = (s, words) => words.some((w) => new RegExp(`\\b${w}\\b`, 'i').test(s));
+// stem match (prefix, no trailing boundary) for keyword heuristics: 'test' -> Tests/tested, 'migrat' -> migration/migrate
+const hasStem = (s, stems) => stems.some((w) => new RegExp(`\\b${w}`, 'i').test(s));
 
 // ---- modules (each returns a plain structured object) ------------------------------------------------------
 export function dkFrame(input) {
@@ -100,7 +102,112 @@ export function dkQa(input) {
   };
 }
 
-const RUNNERS = { 'dcore-frame': dkFrame, 'dcore-spec': dkSpec, 'dcore-plan': dkPlan, 'dcore-review': dkReview, 'dcore-qa': dkQa };
+export function dcoreDebug(input) {
+  const ss = sentences(input);
+  // deterministic root-cause heuristics: map symptom keywords -> candidate causes
+  const CAUSES = [
+    [['timeout', 'timed', 'slow', 'latency', 'hang', 'deadlock', 'times'], 'contention/latency: slow dependency, lock contention, or unbounded wait'],
+    [['null', 'undefined', 'nan', 'empty', 'missing'], 'missing guard: unhandled null/empty/boundary value'],
+    [['race', 'concurrent', 'intermittent', 'flaky', 'sometimes'], 'concurrency: race condition or ordering assumption'],
+    [['permission', 'denied', 'forbidden', '403', '401', 'auth'], 'authorization/credentials: identity or scope misconfigured'],
+    [['after', 'regression', 'since', 'upgrade', 'deploy', 'release'], 'recent change: regression introduced by a recent change — bisect it'],
+    [['memory', 'leak', 'oom', 'crash', 'segfault'], 'resource exhaustion: leak or unbounded allocation'],
+    [['404', 'not found', 'path', 'route', 'url'], 'wrong target: path/route/config mismatch'],
+  ];
+  const likely = CAUSES.filter(([ws]) => ss.some((s) => hasStem(s, ws))).map(([, c], i) => `RC-${String(i + 1).padStart(2, '0')}: ${c}`);
+  return {
+    module_id: 'dcore-debug', objective: firstSentence(input) || '(no input)',
+    symptoms: ss.length ? ss : ['(describe the observed vs expected behavior)'],
+    hypotheses: ss.length ? ss.map((s, i) => `H-${String(i + 1).padStart(2, '0')}: cause behind — ${s}`) : ['H-01: (form at least one hypothesis)'],
+    evidence_to_collect: ['exact error text + stack', 'minimal reproduction', 'recent diffs touching the area', 'logs/metrics around the event', 'environment + version'],
+    likely_root_causes: likely.length ? likely : ['RC-01: no keyword match — reproduce, then isolate by bisection'],
+    next_steps: ['reproduce deterministically', 'isolate (bisect / remove variables)', 'confirm one hypothesis with evidence', 'fix narrowly', 'add a regression test (dcore-qa)'],
+  };
+}
+export function dcoreSec(input) {
+  const ss = sentences(input);
+  const text = String(input ?? '');
+  const surface = [];
+  const addSurf = (words, label) => { if (hasStem(text, words)) surface.push(label); };
+  addSurf(['input', 'request', 'form', 'upload', 'param', 'query'], 'untrusted input handling');
+  addSurf(['auth', 'login', 'token', 'session', 'password', 'permission', 'role'], 'authentication / authorization');
+  addSurf(['sql', 'query', 'database', 'db'], 'data store / injection surface');
+  addSurf(['http', 'api', 'network', 'request', 'url', 'webhook'], 'network / SSRF surface');
+  addSurf(['secret', 'key', 'credential', 'token', 'crypto', 'encrypt', 'hash'], 'secrets / cryptography');
+  addSurf(['file', 'path', 'upload', 'download', 'fs'], 'filesystem / path handling');
+  addSurf(['depend', 'package', 'library', 'third', 'vendor'], 'third-party dependencies');
+  // STRIDE-style checklist (fail-closed: unchecked until verified)
+  const checks = ['Spoofing: identities authenticated', 'Tampering: inputs validated + integrity protected', 'Repudiation: security-relevant actions logged', 'Information disclosure: secrets + PII protected, least data exposed', 'Denial of service: limits/timeouts/quotas', 'Elevation of privilege: least privilege + authz on every path'].map((c) => `[ ] ${c}`);
+  const findings = [];
+  if (/password\s*[:=]|api[_-]?key\s*[:=]|secret\s*[:=]|token\s*[:=]/i.test(text)) findings.push('high: hardcoded-secret language present — verify no secret is embedded');
+  if (/\beval\b|new Function|exec\s*\(|child_process/i.test(text)) findings.push('high: dynamic execution / subprocess — validate and avoid untrusted input');
+  if (/http:\/\//i.test(text)) findings.push('medium: plaintext http — require TLS');
+  if (/\buser input\b|untrusted|unsanit/i.test(text)) findings.push('medium: untrusted input — validate + encode at every boundary');
+  return {
+    module_id: 'dcore-sec', objective: firstSentence(input) || '(no input)',
+    assets: ss.filter((s) => hasStem(s, ['data', 'user', 'secret', 'key', 'money', 'payment', 'pii', 'credential', 'account'])),
+    threat_surface: surface.length ? [...new Set(surface)] : ['(no surface keywords detected — enumerate inputs, trust boundaries, and data flows manually)'],
+    checks,
+    findings: findings.length ? findings : ['no automated flags; perform manual review against the checklist above'],
+    recommendations: ['validate + encode all untrusted input', 'enforce authz on every path, not just the UI', 'keep secrets out of code + logs', 'add least-privilege + limits', 'add security regression tests (dcore-qa)'],
+    residual_risk: 'UNKNOWN until every checklist item is verified — treat as not-cleared',
+  };
+}
+export function dcoreRelease(input) {
+  const ss = sentences(input);
+  const text = String(input ?? '');
+  const GATES = [
+    ['tests', ['test', 'tested', 'ci', 'suite', 'coverage']],
+    ['code_review', ['review', 'reviewed', 'approved', 'pr']],
+    ['security_review', ['security', 'threat', 'sec', 'audit', 'vuln']],
+    ['docs_updated', ['doc', 'docs', 'readme', 'changelog', 'documentation']],
+    ['migration_plan', ['migration', 'migrate', 'schema', 'backfill', 'data']],
+    ['rollback_plan', ['rollback', 'revert', 'roll back', 'fallback', 'feature flag']],
+    ['observability', ['metric', 'log', 'alert', 'monitor', 'trace', 'dashboard']],
+    ['versioning', ['version', 'semver', 'tag', 'bump']],
+  ];
+  const gates = GATES.map(([name, words]) => {
+    const mentioned = hasStem(text, words);
+    return `[${mentioned ? 'x' : ' '}] ${name}${mentioned ? '' : ' — not evidenced in input'}`;
+  });
+  const unmet = GATES.filter(([, words]) => !hasStem(text, words)).map(([name]) => name);
+  return {
+    module_id: 'dcore-release', objective: firstSentence(input) || '(no input)',
+    scope: ss.length ? ss : ['(describe what is being released)'],
+    gates,
+    risks: ss.filter((s) => hasStem(s, ['risk', 'breaking', 'migration', 'downtime', 'irreversible', 'data loss'])),
+    unmet_gates: unmet,
+    go_no_go: unmet.length === 0 ? 'GO — all gates evidenced (still confirm each is truly satisfied)' : `NO-GO — ${unmet.length} gate(s) not evidenced: ${unmet.join(', ')}`,
+    rollout: ['stage / canary first', 'verify observability + health', 'progressive rollout', 'rollback on regression', 'post-release verification'],
+  };
+}
+
+// ---- deterministic module-to-module handoff ---------------------------------------------------------------
+// A downstream module may be fed the JSON output of an upstream dcore module (e.g. `dcore-spec --json | dcore-plan`).
+// We detect that shape and carry its objective + salient list forward as seed text, so chains need no re-typing.
+export function parseHandoff(input) {
+  const s = String(input ?? '').trim();
+  if (!s.startsWith('{')) return null;
+  try {
+    const o = JSON.parse(s);
+    if (o && typeof o === 'object' && typeof o.module_id === 'string' && o.module_id.startsWith('dcore-') && typeof o.objective === 'string') {
+      const carry = o.requirements || o.components || o.scenarios || o.symptoms || o.hypotheses || [];
+      return { from: o.module_id, objective: o.objective, carry: Array.isArray(carry) ? carry : [] };
+    }
+  } catch { /* not JSON — treat as plain text */ }
+  return null;
+}
+function handoffToText(ho) {
+  const norm = (x) => String(x).replace(/[.!?]+$/, '').trim().toLowerCase();
+  const objective = ho.objective.replace(/[.!?]+$/, '');
+  const seen = new Set([norm(objective)]);
+  const items = ho.carry
+    .map((x) => String(x).replace(/^[A-Z]+-\d+:\s*/, '').replace(/^(implement|verify|cause behind)\s*—\s*/i, '').replace(/[.!?]+$/, '').trim())
+    .filter((x) => x && !seen.has(norm(x)) && (seen.add(norm(x)) || true));   // drop blanks + anything equal to a prior line
+  return [objective, ...items].filter(Boolean).join('. ');
+}
+
+const RUNNERS = { 'dcore-frame': dkFrame, 'dcore-spec': dkSpec, 'dcore-plan': dkPlan, 'dcore-review': dkReview, 'dcore-qa': dkQa, 'dcore-debug': dcoreDebug, 'dcore-sec': dcoreSec, 'dcore-release': dcoreRelease };
 
 export function runModule(moduleId, input) {
   const runner = RUNNERS[moduleId];
@@ -108,7 +215,10 @@ export function runModule(moduleId, input) {
     const known = MODULES.find((m) => m.module_id === moduleId);
     return { error: known ? `module ${moduleId} is ${known.status}, not yet runnable` : `unknown module: ${moduleId}`, known_modules: MODULES.map((m) => m.module_id) };
   }
-  return runner(input);
+  const ho = parseHandoff(input);
+  const result = runner(ho ? handoffToText(ho) : input);
+  if (ho) result.handoff_from = ho.from;
+  return result;
 }
 
 export function renderMarkdown(result) {
@@ -128,7 +238,7 @@ export function renderMarkdown(result) {
 export function buildManifest() {
   return {
     schema: 'dcore.skill_manifest/1', version: 1, skill_id: 'dcore', name: 'dcore',
-    description: 'Universal, fail-closed Claude Code skill set for framing, specifying, planning, reviewing and QA — installable by clone, no certification/credentials/network required.',
+    description: 'Universal, fail-closed Claude Code skill set for framing, specifying, planning, reviewing, QA, debugging, security review and release readiness — composable via deterministic handoff, installable by clone, no certification/credentials/network required.',
     license: 'Apache-2.0', entrypoint: 'SKILL.md', runner: 'scripts/dcore.mjs',
     modules: MODULES.map((m) => ({ module_id: m.module_id, module_name: m.module_name, status: m.status, purpose: m.purpose, permissions: m.permissions, security_level: m.security_level, platform_requirements: m.platform_requirements, reference: `modules/${m.module_id}.md`, runnable: IMPLEMENTED.includes(m.module_id) })),
     implemented_count: IMPLEMENTED.length, planned_count: MODULES.filter((m) => m.status === 'PLANNED').length, deferred_count: MODULES.filter((m) => m.status === 'DEFERRED').length,

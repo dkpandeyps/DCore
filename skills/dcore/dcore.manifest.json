@@ -3,7 +3,7 @@
   "version": 1,
   "skill_id": "dcore",
   "name": "dcore",
-  "description": "Universal, fail-closed Claude Code skill set for framing, specifying, planning, reviewing and QA — installable by clone, no certification/credentials/network required.",
+  "description": "Universal, fail-closed Claude Code skill set for framing, specifying, planning, reviewing, QA, debugging, security review and release readiness — composable via deterministic handoff, installable by clone, no certification/credentials/network required.",
   "license": "Apache-2.0",
   "entrypoint": "SKILL.md",
   "runner": "scripts/dcore.mjs",
@@ -86,8 +86,8 @@
     {
       "module_id": "dcore-debug",
       "module_name": "Debug / Investigation",
-      "status": "PLANNED",
-      "purpose": "structured investigation of a defect",
+      "status": "IMPLEMENTED",
+      "purpose": "turn a defect report into hypotheses, evidence to collect, likely root causes and next steps",
       "permissions": [
         "read-only"
       ],
@@ -96,13 +96,13 @@
         "any"
       ],
       "reference": "modules/dcore-debug.md",
-      "runnable": false
+      "runnable": true
     },
     {
       "module_id": "dcore-sec",
       "module_name": "Security Review",
-      "status": "PLANNED",
-      "purpose": "structured security review",
+      "status": "IMPLEMENTED",
+      "purpose": "threat-model a change (assets, surface, STRIDE-style checks, findings, residual risk)",
       "permissions": [
         "read-only"
       ],
@@ -111,7 +111,7 @@
         "any"
       ],
       "reference": "modules/dcore-sec.md",
-      "runnable": false
+      "runnable": true
     },
     {
       "module_id": "dcore-doc",
@@ -131,8 +131,8 @@
     {
       "module_id": "dcore-release",
       "module_name": "Release Prep",
-      "status": "PLANNED",
-      "purpose": "release readiness checklist",
+      "status": "IMPLEMENTED",
+      "purpose": "produce a fail-closed release-readiness checklist with explicit go/no-go gates",
       "permissions": [
         "read-only"
       ],
@@ -141,7 +141,7 @@
         "any"
       ],
       "reference": "modules/dcore-release.md",
-      "runnable": false
+      "runnable": true
     },
     {
       "module_id": "dcore-retro",
@@ -159,8 +159,8 @@
       "runnable": false
     }
   ],
-  "implemented_count": 5,
-  "planned_count": 4,
+  "implemented_count": 8,
+  "planned_count": 1,
   "deferred_count": 1,
   "requires_certification_for_basic_use": false,
   "requires_private_infrastructure": false,
