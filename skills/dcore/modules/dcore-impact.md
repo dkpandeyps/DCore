@@ -13,9 +13,12 @@
 - **runnable:** true
 
 ## How Claude uses this module
-Name the symbols/files/config keys the change touches (snake_case, camelCase, multi-word PascalCase class/type names
-like `ZodError`/`RequestValidator`, or `file.ext`). Single capitalized English words (e.g. `Command`, `Request`) are
-intentionally not treated as identifiers, to avoid matching ordinary prose. With `--repo`, DCore
+Name the symbols/files/config keys the change touches: snake_case, `CONSTANT_CASE`, camelCase, multi-word PascalCase
+class/type names like `ZodError`/`RequestValidator`/`CollectionTypeAdapterFactory`, or `file.ext`. **Single-token
+names are intentionally not extracted** — whether an English word (`Command`, `Request`) or a short class name
+(`Gson`, `Node`) — because they are indistinguishable from ordinary prose without language parsing; anchor the search
+with a method, a multi-word type, or `Class.method` (e.g. `Gson.toJson`, whose `toJson` finds the usages). With
+`--repo`, DCore
 does a **read-only** literal-reference scan and reports where each identifier appears, classified:
 - **DIRECT_EVIDENCE** — non-test source files that reference the identifier.
 - **LIKELY_AFFECTED** — test/spec files that reference it (candidates to update).
