@@ -1,7 +1,7 @@
 {
   "schema": "dcore.capability_coverage/1",
   "version": 1,
-  "note": "original dcore names only; no gstack implementation or names copied; planned/deferred are on the roadmap, not missing",
+  "note": "original dcore names only; no comparison-baseline implementation or names copied; planned/deferred are on the roadmap, not missing",
   "rows": [
     {
       "source_capability": "product/problem analysis",

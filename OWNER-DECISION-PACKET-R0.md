@@ -210,7 +210,7 @@ Per instruction, the R0 Q8 values are recorded here but do **not** auto-resolve 
 ## 13. Q22 — isolated validation environment
 
 - **Current status:** the record states this is **"effectively answered"** — the owner **explicitly approved** the isolated scratch environment used for Phase 2 hands-on validation (`platform-validation/scratch`, a separate `CLAUDE_CONFIG_DIR`).
-- **What was already established (verbatim intent):** hands-on validation ran in an isolated `CLAUDE_CONFIG_DIR` on Windows 11 (38 sessions, $0.79); the real `~/.claude`, gstack and paysec were verified unchanged; further hands-on validation must stay isolated and must not touch `~/.claude/settings.json`, gstack or paysec.
+- **What was already established (verbatim intent):** hands-on validation ran in an isolated `CLAUDE_CONFIG_DIR` on Windows 11 (38 sessions, $0.79); the real `~/.claude`, the reference suite and paysec were verified unchanged; further hands-on validation must stay isolated and must not touch `~/.claude/settings.json`, the reference suite or paysec.
 - **Why it presented as a blocker:** Q22 is a prerequisite for resolving B-1…B-6 (the hands-on evidence depends on an approved environment), and it is the template for the Phase 4 isolated environment (BQ-19).
 - **Choices:** confirm or restate.
 - **Exact decision required:** **explicit confirmation** that the isolated-environment approval stands (and, if you wish, that the same isolation model governs Phase 4 execution) — I am **not** treating it as auto-approved.

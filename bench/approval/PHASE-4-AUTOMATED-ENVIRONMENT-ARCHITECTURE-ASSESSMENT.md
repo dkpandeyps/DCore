@@ -6,7 +6,7 @@
 > Phase 4 benchmark-environment preparation can be automated/verified by the harness* vs. which genuinely
 > require external infrastructure or owner approval — and preserves TS-02/05/07/11, VG-01..VG-10, and the Run A gate.
 
-**Factual inputs:** the Phase 4 packets/register in `bench/approval/` + `bench/PHASE-4-DECISION-REGISTER.*`; `bench/src/{guard,config,driver,fixtures,validity,attribution,runA}.ts`; methodology §3.3/§5.1/§6.4; `PLATFORM-ASSUMPTIONS.md` U-14; `PHASE-2-EXIT-CRITERIA.md` B-6/Q22; and the researched gstack architecture (`GSTACK-ARCHITECTURE-ANALYSIS.md`).
+**Factual inputs:** the Phase 4 packets/register in `bench/approval/` + `bench/PHASE-4-DECISION-REGISTER.*`; `bench/src/{guard,config,driver,fixtures,validity,attribution,runA}.ts`; methodology §3.3/§5.1/§6.4; `PLATFORM-ASSUMPTIONS.md` U-14; `PHASE-2-EXIT-CRITERIA.md` B-6/Q22; and the researched the reference suite architecture (`REFERENCE-ARCHITECTURE-ANALYSIS.md`).
 
 ---
 
@@ -41,7 +41,7 @@ No mechanism is invented; each row uses only what the repository already defines
 | **TS-05** loopback reachability + evidence-schema recording + §5.1 snapshot value | **AUTO-VERIFY** | methodology §5.1; TS-05-EVIDENCE schema (recording only) |
 | **TS-05** active-enforcement proof (`egress_blocked = true`) | **EXTERNAL-INFRASTRUCTURE** (then AUTO-VERIFY) | VG-06 "verified active"; proving a non-loopback block presupposes the external mechanism |
 | **TS-05** mechanism selection + policy | **OWNER-INPUT** | register TS-05-MECHANISM (external env spec required; A1 candidate only) |
-| **TS-07** CLI version + binary-hash identity | **AUTO-VERIFY** | environment snapshot; gstack `claude-bin`/`version-source` pattern |
+| **TS-07** CLI version + binary-hash identity | **AUTO-VERIFY** | environment snapshot; the reference suite `claude-bin`/`version-source` pattern |
 | **TS-07** pinned CLI install | **EXTERNAL-INFRASTRUCTURE** + **OWNER-INPUT** | BQ-05 exact ids; not yet built environment snapshot |
 | **TS-07** stream/permission sample capture | **OWNER-APPROVAL** (real session) | methodology §4.1; attribution.ts |
 | **TS-07** attr@1 A1–A8 comparison logic | **AUTO-VERIFY** (once samples exist) | attribution.ts |
@@ -68,9 +68,9 @@ No mechanism is invented; each row uses only what the repository already defines
 
 ---
 
-## 6. gstack comparison (factual input; no ranking)
+## 6. The reference suite comparison (factual input; no ranking)
 
-From `GSTACK-ARCHITECTURE-ANALYSIS.md`:
+From `REFERENCE-ARCHITECTURE-ANALYSIS.md`:
 - **Egress control is forensic, not preventive:** hash-chained `security/egress.jsonl` written **fail-closed before every off-machine send**; a CI test fails on an unwired sink. URL validation blocks cloud-metadata endpoints but **explicitly allows localhost/private IPv4**. **No network interception/mocking**; "isolation is process separation, not capability isolation"; the Chromium sandbox is always disabled.
 - **CLI/version handling:** `lib/claude-bin`, `version-source`, `eval-model` centralize binary/version/model resolution; discovery and CI output are made deterministic.
 - **External tooling:** Docker (cso launcher), ngrok, and other CLIs are detected ad hoc; there is no dependency manifest.
@@ -81,9 +81,9 @@ From `GSTACK-ARCHITECTURE-ANALYSIS.md`:
 - **Deterministic CI generation + a test that fails on an unwired sink** — mirrors dkskill's existing "committed == fresh generation" tests.
 
 **Where dkskill benchmark requirements are intentionally stricter (not a ranking, a scope difference):**
-- dkskill's VG-06 requires network isolation **verified active (preventive)**; gstack's egress receipts are **forensic** and explicitly allow localhost/private IPv4 — so gstack's egress pattern is a useful **supplementary audit**, **not** a substitute for VG-06.
-- dkskill mandates a **fresh per-attempt isolated config** and **real-`~/.claude` protection** as hard gates (VG-05); gstack's isolation is process separation.
-- dkskill forbids credential copy and keeps auth material out of artifacts (BQ-19); gstack scrubs env per spawn but runs unsandboxed.
+- dkskill's VG-06 requires network isolation **verified active (preventive)**; the reference suite's egress receipts are **forensic** and explicitly allow localhost/private IPv4 — so the reference suite's egress pattern is a useful **supplementary audit**, **not** a substitute for VG-06.
+- dkskill mandates a **fresh per-attempt isolated config** and **real-`~/.claude` protection** as hard gates (VG-05); the reference suite's isolation is process separation.
+- dkskill forbids credential copy and keeps auth material out of artifacts (BQ-19); the reference suite scrubs env per spawn but runs unsandboxed.
 
 ---
 

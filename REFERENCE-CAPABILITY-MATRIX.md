@@ -1,10 +1,12 @@
-# gstack Capability Matrix
+# Reference Suite Capability Matrix
 
-> **Subject:** `garrytan/gstack` @ **v1.91.1.0**, commit `2a113ae` (2026-09-25), cloned from `https://github.com/garrytan/gstack.git`.
-> **Method:** I read every `<skill>/SKILL.md.tmpl`, the `sections/`, `specialists/`, `references/` and `bin/` supporting files, and the generated `SKILL.md`. Everything here comes from the files, not from the README. Anything I could not confirm in code is marked **NOT VERIFIED**.
-> **Companion docs:** [GSTACK-ARCHITECTURE-ANALYSIS.md](GSTACK-ARCHITECTURE-ANALYSIS.md), [IMPROVEMENT-OPPORTUNITIES.md](IMPROVEMENT-OPPORTUNITIES.md), [PROPOSED-SYSTEM-ARCHITECTURE.md](PROPOSED-SYSTEM-ARCHITECTURE.md).
+> **Naming:** this document analyses a third-party skill suite that served as the comparison baseline for DCore. It is called "the reference suite" here, and `<ref>` stands for its name in paths, commands and identifiers.
 >
-> **Note on the local install:** the copy at `~/.claude/skills/gstack` is **v1.67.1.0** (2026-08-17), 24 minor versions behind upstream. The machine also has `~/.claude/skills/paysec` (`github.com/dkpandeyps/paysec`, v1.68.0.0), which is a renamed fork of gstack. This matrix analyzes **upstream v1.91.1.0**.
+> **Subject:** the reference skill suite @ **v1.91.1.0**, commit `2a113ae` (2026-09-25), upstream repository identified in this file's Git history.
+> **Method:** I read every `<skill>/SKILL.md.tmpl`, the `sections/`, `specialists/`, `references/` and `bin/` supporting files, and the generated `SKILL.md`. Everything here comes from the files, not from the README. Anything I could not confirm in code is marked **NOT VERIFIED**.
+> **Companion docs:** [REFERENCE-ARCHITECTURE-ANALYSIS.md](REFERENCE-ARCHITECTURE-ANALYSIS.md), [IMPROVEMENT-OPPORTUNITIES.md](IMPROVEMENT-OPPORTUNITIES.md), [PROPOSED-SYSTEM-ARCHITECTURE.md](PROPOSED-SYSTEM-ARCHITECTURE.md).
+>
+> **Note on the local install:** the copy at `~/.claude/skills/<ref>` is **v1.67.1.0** (2026-08-17), 24 minor versions behind upstream. The machine also has `~/.claude/skills/paysec` (`github.com/dkpandeyps/paysec`, v1.68.0.0), which is a renamed fork of the reference suite. This matrix analyzes **upstream v1.91.1.0**.
 
 ---
 
@@ -19,14 +21,14 @@
 | Term | Meaning |
 |---|---|
 | **Preamble** | A shared block of about 400 lines that the generator (`scripts/gen-skill-docs.ts`) inlines into almost every generated `SKILL.md` through `{{PREAMBLE}}`. `preamble-tier` 1-4 controls how much of it is included. |
-| **`$B`** | gstack's compiled headless-Chromium CLI (`browse/dist/browse`). |
+| **`$B`** | The reference suite's compiled headless-Chromium CLI (`browse/dist/browse`). |
 | **`$D`** | The design binary (`design/dist/design`), which calls OpenAI gpt-4o image and vision APIs. |
 | **`$P`** | The make-pdf binary. |
-| **Aside** | A third-party AI browser (macOS 15+) that gstack now prefers as its primary browser driver, with `$B` as the fallback. |
+| **Aside** | A third-party AI browser (macOS 15+) that the reference suite now prefers as its primary browser driver, with `$B` as the fallback. |
 | **AUQ** | AskUserQuestion. |
-| **State root** | `$GSTACK_STATE_ROOT`, resolved by `bin/gstack-paths` in this order: `GSTACK_HOME`, then `CLAUDE_PLUGIN_DATA`, then `~/.gstack`, then `./.gstack`. |
-| **SLUG** | The owner-repo name from `bin/gstack-slug`. |
-| **Review log** | `~/.gstack/projects/$SLUG/$BRANCH-reviews.jsonl`, written by `bin/gstack-review-log`. |
+| **State root** | `$<REF>_STATE_ROOT`, resolved by `bin/<ref>-paths` in this order: `<REF>_HOME`, then `CLAUDE_PLUGIN_DATA`, then `~/.<ref>`, then `./.<ref>`. |
+| **SLUG** | The owner-repo name from `bin/<ref>-slug`. |
+| **Review log** | `~/.<ref>/projects/$SLUG/$BRANCH-reviews.jsonl`, written by `bin/<ref>-review-log`. |
 
 **Verdict key (last field of each profile):**
 
@@ -46,7 +48,7 @@
 
 | # | Skill | Family | tmpl / gen lines | Proposed equivalent | Verdict |
 |---|---|---|---|---|---|
-| 1 | `gstack` (root router) | Platform | 101 / 233 | Router engine (`core.router`) | SYSTEM |
+| 1 | `<ref>` (root router) | Platform | 101 / 233 | Router engine (`core.router`) | SYSTEM |
 | 2 | `office-hours` | Think | 342 / 1257 (+854 sections) | `/discover` | MERGE → discover |
 | 3 | `spec` | Think | 497 / 908 (+424) | `/discover --to-issue` + tracker adapter | MERGE → discover |
 | 4 | `plan-ceo-review` | Plan | 583 / 1283 (+1186) | `/plan` lens `product` | MERGE → plan |
@@ -89,8 +91,8 @@
 | 41 | `setup-gbrain` | Memory | 697 / 1059 (+≈480) | Memory adapter `gbrain` + `/setup memory` | ADAPTER |
 | 42 | `sync-gbrain` | Memory | 499 / 848 | Memory adapter background job | ADAPTER |
 | 43 | `browse` | Browser | 129 / 451 | `/browser` + Browser tool layer | KEEP |
-| 44 | `open-gstack-browser` | Browser | 210 / 381 | `/browser open --headed` | MERGE → browser |
-| 45 | `connect-chrome` | Browser | symlink → open-gstack-browser | alias removed | DROP |
+| 44 | `open-<ref>-browser` | Browser | 210 / 381 | `/browser open --headed` | MERGE → browser |
+| 45 | `connect-chrome` | Browser | symlink → `open-<ref>-browser` | alias removed | DROP |
 | 46 | `pair-agent` | Browser | 366 / 753 | `/browser share` | MERGE → browser |
 | 47 | `setup-browser-cookies` | Browser | 64 / 235 | `/browser auth` | MERGE → browser |
 | 48 | `scrape` | Browser | 180 / 418 | `/browser extract` | MERGE → browser |
@@ -102,11 +104,11 @@
 | 54 | `ios-clean` | Mobile | 103 / 450 | iOS adapter `uninstall` | ADAPTER |
 | 55 | `ios-sync` | Mobile | 100 / 447 | iOS adapter `sync` | ADAPTER |
 | 56 | `deslop-shared-libs` | Code quality | 192 / 225 | `/health --lens reuse` | MERGE → health |
-| 57 | `gstack-upgrade` | Platform | 386 / 389 | Installation/update system | SYSTEM |
+| 57 | `<ref>-upgrade` | Platform | 386 / 389 | Installation/update system | SYSTEM |
 | 58 | `contrib/add-host` | Contributor | 67 / — | Adapter SDK scaffold (dev-only) | SYSTEM (dev tool) |
 | — | `browser-skills/*` (e.g. `hackernews-frontpage`) | Browser recipes | n/a | Browser recipe registry | SYSTEM |
 
-**Resulting user-facing surface: 19 commands** instead of about 57 skills: `/aeos` (help, doctor, config), `/discover`, `/plan`, `/design`, `/build`, `/debug`, `/review`, `/security`, `/qa`, `/perf`, `/ship`, `/deploy`, `/docs`, `/health`, `/retro`, `/browser`, `/guard`, `/resume`, `/memory`. `/build` is new; gstack has no dedicated implementation skill. See [PROPOSED-SYSTEM-ARCHITECTURE.md §3](PROPOSED-SYSTEM-ARCHITECTURE.md#3-skill-taxonomy).
+**Resulting user-facing surface: 19 commands** instead of about 57 skills: `/aeos` (help, doctor, config), `/discover`, `/plan`, `/design`, `/build`, `/debug`, `/review`, `/security`, `/qa`, `/perf`, `/ship`, `/deploy`, `/docs`, `/health`, `/retro`, `/browser`, `/guard`, `/resume`, `/memory`. `/build` is new; the reference suite has no dedicated implementation skill. See [PROPOSED-SYSTEM-ARCHITECTURE.md §3](PROPOSED-SYSTEM-ARCHITECTURE.md#3-skill-taxonomy).
 
 ---
 
@@ -136,11 +138,11 @@ The profiles use a fixed field order:
 These apply to every skill below and are not repeated in each profile.
 
 - **Shared preamble.** Almost every skill carries the ~400-line preamble; in `review/SKILL.md` it is lines 26-406. It:
-  - runs `bin/gstack-skill-start`, which prints STATUS lines: SESSION_KIND, CONDUCTOR_SESSION, PROACTIVE, SKILL_PREFIX, EXPLAIN_LEVEL, QUESTION_TUNING
+  - runs `bin/<ref>-skill-start`, which prints STATUS lines: SESSION_KIND, CONDUCTOR_SESSION, PROACTIVE, SKILL_PREFIX, EXPLAIN_LEVEL, QUESTION_TUNING
   - defines the AskUserQuestion "decision brief" format: D<N>, ELI10, Recommendation, Completeness score, and ✅/❌ bullets of at least 40 characters
   - covers plan-mode rules, the Model-Specific Behavioral Patch, voice rules (a banned-word list, no em dashes), Context Recovery, the "Boil the Ocean" completeness principle, the Confusion Protocol, "Claimed Limitations Need Evidence", Context Health, Question Tuning, Repo Ownership, Search Before Building, and Operational Self-Improvement
   - ends with the Completion Status Protocol (DONE, DONE_WITH_CONCERNS, BLOCKED), Telemetry (run last), and the Plan Status Footer
-- **Frontmatter cut.** The generator cuts `description:` down to its first sentence plus "(gstack)". The trigger prose moves to a `## When to invoke this skill` body section.
+- **Frontmatter cut.** The generator cuts `description:` down to its first sentence plus "(reference suite)". The trigger prose moves to a `## When to invoke this skill` body section.
 - **allowed-tools mismatch.** Several skills instruct Write or Edit that their `allowed-tools` does not grant:
   - plan-ceo-review: no Write or Edit
   - plan-eng-review: no Edit
@@ -154,53 +156,53 @@ These apply to every skill below and are not repeated in each profile.
 
 ### 2.2 Platform & routing
 
-#### 1. `gstack` (root router): `./SKILL.md.tmpl`, `./gstack/llms.txt`
+#### 1. `<ref>` (root router): `./SKILL.md.tmpl`, `./<ref>/llms.txt`
 | Field | Detail |
 |---|---|
-| Purpose | Routes any gstack request to the right skill. `gstack/llms.txt` (175 lines) is a capability index of every skill, browse command and design command. |
-| Triggers | "gstack", "which gstack skill", "route this with gstack"; used when gstack is invoked without a specific skill. |
-| Inputs | The user request; the `PROACTIVE` flag from `gstack-config`. |
-| Outputs | A Skill-tool invocation of the target skill, or a direct answer. Telemetry: `gstack-telemetry-log --event-type route --outcome browse\|routed\|direct`. |
-| Tools/deps | Bash, Read, AUQ; `gstack-config`; `gstack-telemetry-log`. |
+| Purpose | Routes any the reference suite request to the right skill. `<ref>/llms.txt` (175 lines) is a capability index of every skill, browse command and design command. |
+| Triggers | "the reference suite", "which the reference suite skill", "route this with the reference suite"; used when the reference suite is invoked without a specific skill. |
+| Inputs | The user request; the `PROACTIVE` flag from `<ref>-config`. |
+| Outputs | A Skill-tool invocation of the target skill, or a direct answer. Telemetry: `<ref>-telemetry-log --event-type route --outcome browse\|routed\|direct`. |
+| Tools/deps | Bash, Read, AUQ; `<ref>-config`; `<ref>-telemetry-log`. |
 | Workflow | 1. Browser, QA, screenshot and dogfood requests go to `/browse` (Aside first). 2. Otherwise match about 40 prose pattern→skill rules; `{{OUTSIDE_VOICE_ROUTING}}` is injected for codex and claude-code. 3. "When in doubt, invoke the skill." |
 | Safety gates | None. With `PROACTIVE=false` it only runs explicitly named skills. |
-| State | `proactive` in `~/.gstack/config.yaml`. |
+| State | `proactive` in `~/.<ref>/config.yaml`. |
 | Artifacts | Telemetry rows. |
 | External | None. |
 | Strengths | Explicit routes for safety and memory skills, each with a caveat for when it applies. The proactive toggle is a single, simple control. |
-| Weaknesses | Routing is prose pattern-matching by the LLM, and nothing measures its accuracy at the router level (a routing E2E test exists in `test/skill-routing-e2e.test.ts`; its scope is NOT VERIFIED). No routes for setup-gbrain, sync-gbrain or the ios-* skills. `llms.txt` links to `gstack/SKILL.md`, which does not exist in `gstack/`. The routing table is hand-maintained, so it drifts from each skill's `triggers:`. |
+| Weaknesses | Routing is prose pattern-matching by the LLM, and nothing measures its accuracy at the router level (a routing E2E test exists in `test/skill-routing-e2e.test.ts`; its scope is NOT VERIFIED). No routes for setup-gbrain, sync-gbrain or the ios-* skills. `llms.txt` links to `<ref>/SKILL.md`, which does not exist in `<ref>/`. The routing table is hand-maintained, so it drifts from each skill's `triggers:`. |
 | Missing | Confidence scoring, disambiguation (careful vs guard), multi-skill composition ("plan then review"), and a routing trace. |
 | Improvements | Generate the routing table from skill manifests; add a scored router with a trace; add a regression corpus of utterances. |
 | Proposed equivalent | `core.router` (deterministic manifest match, then LLM tie-break, then a recorded trace). |
 | Separate / merge | **SYSTEM**: not a user skill. |
 
-#### 57. `gstack-upgrade`: `gstack-upgrade/` + `migrations/` (14 scripts)
+#### 57. `<ref>-upgrade`: `<ref>-upgrade/` + `migrations/` (14 scripts)
 | Field | Detail |
 |---|---|
 | Purpose | Upgrades the install, runs version migrations, stops a stale browse daemon and summarizes what changed. Its Step 1 is also the inline flow a preamble runs when it sees `UPGRADE_AVAILABLE`. |
-| Triggers | "upgrade gstack", "update gstack", voice "gee stack upgrade", and the preamble's `UPGRADE_AVAILABLE` signal. |
-| Inputs | `GSTACK_AUTO_UPGRADE` or `auto_upgrade` config; an AUQ answer (Yes / Always / Not now / Never); `bin/gstack-update-check --force`. |
-| Outputs | An upgraded install; `~/.gstack/just-upgraded-from`; cleared snooze markers; a 5-7 bullet "What's new" from CHANGELOG.md. |
+| Triggers | "upgrade the reference suite", "update the reference suite", voice "gee stack upgrade", and the preamble's `UPGRADE_AVAILABLE` signal. |
+| Inputs | `<REF>_AUTO_UPGRADE` or `auto_upgrade` config; an AUQ answer (Yes / Always / Not now / Never); `bin/<ref>-update-check --force`. |
+| Outputs | An upgraded install; `~/.<ref>/just-upgraded-from`; cleared snooze markers; a 5-7 bullet "What's new" from CHANGELOG.md. |
 | Tools/deps | git, `./setup`, `sort -V`, curl (daemon health), `browse/dist/browse stop`. |
 | Workflow | 1. Auto-upgrade or ask; snooze backoff 24h, then 48h, then 1 week. 2. Detect install type: global-git, local-git, vendored, or vendored-global. 3. Save the old version. 4. git installs: restore generated files, `git pull --ff-only --autostash`, `./setup`; fallback `reset --hard origin/main`, gated by an AUQ listing dirty files and unpushed commits. Vendored installs: temp clone and swap, with a `.bak` restore. 5. Step 4.5: team-mode vendored cleanup. 6. Step 4.75: run `migrations/v*.sh` newer than the old version. 7. Step 4.8: stop the daemon only if it is healthy and idle. |
 | Safety gates | Destructive reset needs an explicit "A"; stale-`.bak` abort; never claim a restore that didn't happen; never kill a busy daemon. |
-| State | `~/.gstack/config.yaml`, `update-snoozed`, `just-upgraded-from`, `<repo>/.gstack/browse.json`. |
+| State | `~/.<ref>/config.yaml`, `update-snoozed`, `just-upgraded-from`, `<repo>/.<ref>/browse.json`. |
 | Artifacts | Markers; a `.gitignore` edit in team mode. |
-| External | GitHub (`garrytan/gstack` main). |
+| External | GitHub (the reference skill suite main). |
 | Strengths | Careful gating of destructive steps; handles poisoned-stash and render-dirt cases; ordered migrations. |
-| Weaknesses | It pulls `origin/main` HEAD and executes `./setup` and migrations from it, with no tag or signature pinning. Migration failures are swallowed as warnings, and no ledger records which migrations ran. `OLD_VERSION=unknown` skips every migration. It hardcodes `~/.gstack` instead of the state root. It needs `sort -V`. |
+| Weaknesses | It pulls `origin/main` HEAD and executes `./setup` and migrations from it, with no tag or signature pinning. Migration failures are swallowed as warnings, and no ledger records which migrations ran. `OLD_VERSION=unknown` skips every migration. It hardcodes `~/.<ref>` instead of the state root. It needs `sort -V`. |
 | Missing | Rollback, dry-run, a migration ledger, release channels. |
 | Improvements | Signed release tags, a channel (stable, beta), `migrations-applied.jsonl`, a fail-stop on migration error, and a `doctor` command. |
 | Proposed equivalent | Installation/update system (`sys.install`), plus a `doctor` subcommand. |
 | Separate / merge | **SYSTEM**. |
 
-#### 58. `contrib/add-host` (`gstack-contrib-add-host`)
+#### 58. `contrib/add-host` (`<ref>-contrib-add-host`)
 | Field | Detail |
 |---|---|
 | Purpose | Contributor guide for adding a new agent-host config (`hosts/<name>.ts`). Existing hosts: claude, codex, cursor, factory, gbrain, hermes, kiro, openclaw, opencode, slate. |
 | Triggers | "add new host", "create host config", "contribute new agent host". |
 | Inputs | Host name, CLI binary, skill directories, supported frontmatter, tool-name rewrites. |
-| Outputs | `hosts/<name>.ts` (modeled on `hosts/opencode.ts`), a registration in `hosts/index.ts`, a `.gitignore` entry, and generated `.<name>/skills/gstack-*/SKILL.md`. |
+| Outputs | `hosts/<name>.ts` (modeled on `hosts/opencode.ts`), a registration in `hosts/index.ts`, a `.gitignore` entry, and generated `.<name>/skills/<ref>-*/SKILL.md`. |
 | Tools/deps | `bun run gen:skill-docs --host <name>`, `bun test test/gen-skill-docs.test.ts`. |
 | Workflow | Six manual steps. |
 | Safety gates | None. The "no `.claude/skills` path leakage" check is manual. |
@@ -221,13 +223,13 @@ These apply to every skill below and are not repeated in each profile.
 |---|---|
 | Purpose | YC-style ideation partner that produces a design doc, never code. Startup mode asks six forcing questions; Builder mode is a brainstorm. |
 | Triggers | "brainstorm this", "I have an idea", "help me think through", "office hours", "is this worth building"; proactive when a new idea appears before any code exists. |
-| Inputs | CLAUDE.md, TODOS.md, `git log -30`, diff stat; prior `~/.gstack/projects/$SLUG/*-design-*.md`; brain-cache digests; gbrain `context_queries`; `gstack-builder-profile` tier; DESIGN.md. |
+| Inputs | CLAUDE.md, TODOS.md, `git log -30`, diff stat; prior `~/.<ref>/projects/$SLUG/*-design-*.md`; brain-cache digests; gbrain `context_queries`; `<ref>-builder-profile` tier; DESIGN.md. |
 | Outputs | Premises list; 2-3 approaches (minimal viable vs ideal architecture); an approved design doc; a tiered closing (YC pitch, then welcome_back, regular, inner_circle); founder resources from a hard-coded pool of 34 URLs; a next-skill handoff. |
-| Tools/deps | Bash, Read, Grep, Glob, Write, Edit, AUQ, WebSearch; `gstack-developer-profile`, `gstack-builder-profile`, `gstack-office-hours-review`, `gstack-redact`; Aside; Codex; `$D`. |
+| Tools/deps | Bash, Read, Grep, Glob, Write, Edit, AUQ, WebSearch; `<ref>-developer-profile`, `<ref>-builder-profile`, `<ref>-office-hours-review`, `<ref>-redact`; Aside; Codex; `$D`. |
 | Workflow | 1. Phase 1: context and goal, mapped to a mode. 2. Phase 2A: stage-routed questions (Startup). Phase 2B: generative questions (Builder). 3. 2.5 related designs; 2.75 landscape search behind a privacy gate; 3 premise challenge; 3.5 cold read by Codex or a subagent. 4. Phase 4: alternatives, then STOP; mockup via `$D` or an HTML sketch. 5. 4.5 founder-signal count. 6. Phase 5: design doc plus a spec review loop (at most 3 adversarial rounds). 7. Phase 6: handoff. |
-| Safety gates | HARD GATE: no implementation. One question at a time with a STOP. STOP before the doc until an approach is approved. Privacy gate on web search. `gstack-redact` before the repo copy (exit 3 blocks). Persistent opt-out of founder resources. |
-| State | `~/.gstack/developer-profile.json`, `builder-journey.md`, `analytics/{skill-usage,spec-review,eureka}.jsonl`. |
-| Artifacts | `~/.gstack/projects/{slug}/{user}-{branch}-design-{datetime}.md` (with `Supersedes:` lineage); a repo copy at `docs/designs/{topic}.md`; review rounds; `designs/mockup-*/`. |
+| Safety gates | HARD GATE: no implementation. One question at a time with a STOP. STOP before the doc until an approach is approved. Privacy gate on web search. `<ref>-redact` before the repo copy (exit 3 blocks). Persistent opt-out of founder resources. |
+| State | `~/.<ref>/developer-profile.json`, `builder-journey.md`, `analytics/{skill-usage,spec-review,eureka}.jsonl`. |
+| Artifacts | `~/.<ref>/projects/{slug}/{user}-{branch}-design-{datetime}.md` (with `Supersedes:` lineage); a repo copy at `docs/designs/{topic}.md`; review rounds; `designs/mockup-*/`. |
 | External | OpenAI (Codex, `$D`), WebSearch/Aside, gbrain, `open` of the YC apply URL. |
 | Strengths | Strong anti-sycophancy rules; stage-routed questioning; mandatory alternatives; redaction before the repo write; mechanical convergence rules for the review loop. |
 | Weaknesses | 1257 lines plus a 654-line handoff section. Promotional YC/Garry content (personal plea, `open` of the apply URL) is off-mission for enterprise. `open` is macOS-only. Profile file names drift (`builder-profile.jsonl` vs `developer-profile.json`). Two redundant visual paths. |
@@ -241,15 +243,15 @@ These apply to every skill below and are not repeated in each profile.
 |---|---|
 | Purpose | Interrogates vague intent through five strict phases into a backlog-ready GitHub issue, archives it locally, and optionally spawns a `claude -p` agent in a new worktree. |
 | Triggers | "spec this out", "file an issue", "write up a ticket", "make this a github issue". |
-| Inputs | Flags `--dedupe`, `--no-gate`, `--audit`, `--execute`, `--file-only`, `--plan-file`, `--sync-archive`; codebase evidence (a Read is mandatory before Phase 3); `gh issue list` titles passed through `gstack-issue-guard`; `GSTACK_PLAN_MODE`. |
+| Inputs | Flags `--dedupe`, `--no-gate`, `--audit`, `--execute`, `--file-only`, `--plan-file`, `--sync-archive`; codebase evidence (a Read is mandatory before Phase 3); `gh issue list` titles passed through `<ref>-issue-guard`; `<REF>_PLAN_MODE`. |
 | Outputs | A draft issue built from 14 quality standards and three templates (Standard, Epic, Audit); an outside quality score (≥7 passes); a filed issue URL. |
-| Tools/deps | Bash, Read, Grep, Glob, AUQ (**no Write**); `gh`, `jq`, Codex, `lib/redact-*.ts`, `gstack-decision-log`, `git worktree`, `claude -p`. |
+| Tools/deps | Bash, Read, Grep, Glob, AUQ (**no Write**); `gh`, `jq`, Codex, `lib/redact-*.ts`, `<ref>-decision-log`, `git worktree`, `claude -p`. |
 | Workflow | 1. Phase 1: why, plus dedupe. 2. Phase 2: scope. 3. Phase 3: code-grounded technical interrogation. 4. Phase 4: draft loop. 5. 4.5a semantic review (people, NDA, strategy); 4.5b fail-closed regex redaction; outside score (at most 3 dispatches). 6. Phase 5: plan-mode-aware dispatch, then file the issue, archive, and spawn (behind a dirty-tree gate, a TOCTOU re-check, a SHA pin and a final confirm). |
 | Safety gates | Never produce an issue on the first message. Redaction cannot be disabled; a HIGH hit blocks every sink (tested in `spec-quality-gate-secret-sink.test.ts`). On public repos semantic flags cannot be acknowledged away. Dirty-tree AUQ. Stash is never auto-restored. |
-| State | `$GSTACK_STATE_ROOT/projects/$SLUG/specs/`. |
+| State | `$<REF>_STATE_ROOT/projects/$SLUG/specs/`. |
 | Artifacts | `specs/{ts}-{pid}-{slug}.md` (frontmatter `spec_issue_number`, `ttfc_ms`, `tthw_ms`); a GitHub issue; worktree `../worktrees/{slug}-{pid}` on branch `spec/{slug}-{pid}`. |
 | External | GitHub, Codex, Claude CLI. |
-| Strengths | The best-defended output-sink pipeline in gstack (redaction re-run per sink, content-free audit log); concrete issue-quality standards; `/ship` auto-closes the linked issue only when the spec is fully delivered. |
+| Strengths | The best-defended output-sink pipeline in the reference suite (redaction re-run per sink, content-free audit log); concrete issue-quality standards; `/ship` auto-closes the linked issue only when the spec is fully delivered. |
 | Weaknesses | In execution mode the default is to spawn a background `claude -p`, a surprising side effect. A failed worktree create falls back to spawning in the current directory. The spawn uses `&` with no lifecycle tracking. GitHub only. The TTHW surfacing in `/retro` is not implemented. |
 | Missing | Jira or Linear adapters; child-issue filing for epics; editing a filed issue. |
 | Improvements | Make the spawn opt-in and tracked; a tracker adapter; clean up worktree and stash. |
@@ -264,8 +266,8 @@ These apply to every skill below and are not repeated in each profile.
 | Purpose | Founder-mode plan review in four modes (EXPANSION, SELECTIVE, HOLD, REDUCTION), followed by 11 review sections. |
 | Triggers | "think bigger", "expand scope", "strategy review", "rethink this", "is this ambitious enough"; proactive when a plan's ambition is questioned. |
 | Inputs | git log, diff and stash; TODO/FIXME grep; 30-day churn; CLAUDE.md, TODOS.md; the office-hours design doc; CEO handoff notes; learnings; gbrain; web research. |
-| Outputs | A six-column decision ledger; Error & Rescue and Failure Modes registries; six required diagram types; NOT-in-scope, What-exists and dream-state delta; Implementation Tasks; the MEGA PLAN REVIEW summary; `## GSTACK REVIEW REPORT`. |
-| Tools/deps | Read, Grep, Glob, Bash, AUQ, WebSearch (**no Write or Edit**, although the text requires them); Codex; `gstack-review-log`, `gstack-decision-log`. |
+| Outputs | A six-column decision ledger; Error & Rescue and Failure Modes registries; six required diagram types; NOT-in-scope, What-exists and dream-state delta; Implementation Tasks; the MEGA PLAN REVIEW summary; `## <REF> REVIEW REPORT`. |
+| Tools/deps | Read, Grep, Glob, Bash, AUQ, WebSearch (**no Write or Edit**, although the text requires them); Codex; `<ref>-review-log`, `<ref>-decision-log`. |
 | Workflow | 1. Pre-review audit. 2. Step 0A-0I: premise, leverage, dream state, decision procedure (save, Read back, ask, amend), mode, 10x check, platonic ideal, delight scan, CEO plan plus spec loop, temporal interrogation. 3. Sections 1-11: architecture, errors, security, edges, quality, tests, performance, observability, deploy, trajectory, design. 4. Closing: outside voice, TODOs, approval readiness, outputs, log, dashboard. |
 | Safety gates | "Review only; do not change code." Every scope change needs its own approval. STOP per question. A failed save blocks completion. Archiving needs approval. |
 | State | `ceo-plans/`, `reviews.jsonl`, `decisions.active.json`. |
@@ -285,14 +287,14 @@ These apply to every skill below and are not repeated in each profile.
 | Triggers | "review the architecture", "engineering review", "lock in the plan"; voice "tech review"; proactive before coding starts. |
 | Inputs | A target from the Scope gate (branch diff, plan doc or path); design doc; learnings; `git log --grep=revert`; TODOS.md; web research. |
 | Outputs | Scope Challenge; Sections 1-4 (at most 8 issues each); test diagram; Test Plan artifact; failure modes; worktree parallelization lanes; P1/P2/P3 tasks with human and CC effort; the REVIEW REPORT. |
-| Tools/deps | Read, Write, Grep, Glob, AUQ, Bash, WebSearch (**no Edit**); Codex (default on); `gstack-review-log` (required); `jq`. |
+| Tools/deps | Read, Write, Grep, Glob, AUQ, Bash, WebSearch (**no Edit**); Codex (default on); `<ref>-review-log` (required); `jq`. |
 | Workflow | 1. Scope gate runs **before** the preamble. 2. Preamble, design-doc check, prerequisite offer. 3. Report file selection. 4. Scope Challenge: STOP at 8+ files or 2+ new classes. 5. Architecture, code quality, tests (framework detection, E2E matrix, REGRESSION RULE), performance. 6. Outside voice, TODOs, finish. |
 | Safety gates | Hard-STOP scope gate; a six-step decision procedure (save, Read back, ask, STOP, apply, Read back); "do not build features"; blocked if the report can't persist; the review log is mandatory. |
 | State | `reviews.jsonl`, decisions, legacy test-plan paths consumed by `/qa`. |
 | Artifacts | `$BRANCH-eng-review-{ts}.md`; `{user}-{branch}-eng-review-test-plan-{ts}.md`; `tasks-eng-review-*.jsonl`; TODOS. |
 | External | Codex, WebSearch/Aside, gbrain. |
 | Strengths | Tightest template (192 lines); explicit parallel-lane output; a test-plan hand-off to QA; independent-choice splitting. |
-| Weaknesses | 725 lines plus a 1443-line section (the largest section in gstack). Read-back per question adds many tool calls. zsh `setopt` shim. Missing Edit. |
+| Weaknesses | 725 lines plus a 1443-line section (the largest section in the reference suite). Read-back per question adds many tool calls. zsh `setopt` shim. Missing Edit. |
 | Missing | Capacity and cost estimates, migration dry-run, deeper security (left to `/cso`). |
 | Improvements | A lite mode for small diffs; structured findings. |
 | Proposed equivalent | `/plan` lens **`engineering`**. It stays the default gate lens and emits a `TestPlan` artifact consumed by `/qa` and `/ship`. |
@@ -343,15 +345,15 @@ These apply to every skill below and are not repeated in each profile.
 |---|---|
 | Purpose | Runs the CEO, Design (if UI), DX (if developer-facing) and Eng reviews in sequence, reading them from disk, and auto-answers intermediate questions using six decision principles. Taste calls and "User Challenges" go to one final gate. |
 | Triggers | "autoplan", "auto review", "run all reviews", "make the decisions for me". |
-| Inputs | Source and active plan; design doc; UI scope (a grep that needs 2+ view terms); DX scope via `gstack-autoplan-snapshot scope`; the four review skills and their sections, read with recorded ranges. |
+| Inputs | Source and active plan; design doc; UI scope (a grep that needs 2+ view terms); DX scope via `<ref>-autoplan-snapshot scope`; the four review skills and their sections, read with recorded ranges. |
 | Outputs | An amended plan with `## Implementation plan` and `## Review record`; accepted-obligation blocks; Decision Audit Trail; per-phase consensus tables (native vs outside voice); a Final Approval Gate. |
-| Tools/deps | Bash, Read, Write, Edit, Glob, Grep, WebSearch, AUQ; **`hooks.PreToolUse` on Read and Agent**, which runs `autoplan/bin/phase-publication-hook(.ts)` (487 lines, a "native Read barrier"); `gstack-autoplan-snapshot.ts`; Codex; native subagents. |
+| Tools/deps | Bash, Read, Write, Edit, Glob, Grep, WebSearch, AUQ; **`hooks.PreToolUse` on Read and Agent**, which runs `autoplan/bin/phase-publication-hook(.ts)` (487 lines, a "native Read barrier"); `<ref>-autoplan-snapshot.ts`; Codex; native subagents. |
 | Workflow | 1. Phase 0: restore point. 2. Phase 0.5: outside preflight. 3. Phase 1: CEO (SELECTIVE forced). 4. Phase 2: Design. 5. Phase 2.5: DX (POLISH). 6. Phase 3: Eng. 7. After each phase, `phase-close` (packet, semantic verify). 8. Pre-gate repair (at most 2). 9. Phase 4 gate with options A/B/B2/C/D/E (rerun cap of 3). |
 | Safety gates | Never auto-decides User Challenges; strict phase order enforced by the hook; restore point before changes; a missing outside voice is recorded as N/A, never CONFIRMED; reviewers are barred from reading SKILL.md. |
 | State | `{BRANCH}-autoplan-restore-{ts}.md`; snapshot directories; `tasks-*.jsonl`. |
 | Artifacts | Restore file, `snapshot.json`, close packets, test plan, review-log rows (`via:"autoplan"`). |
 | External | Codex, WebSearch/Aside, OpenAI via `$D`. |
-| Strengths | The most robust orchestration in gstack: hash-bound snapshots, compaction recovery, hook-enforced phase boundaries, and a clear Mechanical / Taste / User-Challenge taxonomy. Heavily tested (many `autoplan-*.test.ts` files). |
+| Strengths | The most robust orchestration in the reference suite: hash-bound snapshots, compaction recovery, hook-enforced phase boundaries, and a clear Mechanical / Taste / User-Challenge taxonomy. Heavily tested (many `autoplan-*.test.ts` files). |
 | Weaknesses | Loads about 8-9k instruction lines plus a native subagent and Codex per phase (720 s outside timeout). The hook couples to Claude Code transcript internals (`lib/claude-public-transcript`). Internal drift: the eng test-plan path differs from plan-eng-review's; its DX phase says 9 stages while plan-devex has 6; the audit-trail header has 7 columns but its separator has 6; the design log omits score fields. |
 | Missing | Cost preview; phase selection (`--phases`); a budget cap. |
 | Improvements | Orchestrate lenses as data rather than by re-reading whole skills; enforce contracts with schemas instead of transcript hooks. |
@@ -363,9 +365,9 @@ These apply to every skill below and are not repeated in each profile.
 |---|---|
 | Purpose | Sets AUQ sensitivity per question (never-ask, always-ask, ask-only-for-one-way). Shows the declared vs inferred developer profile and "vibe", and runs a free-text distillation ("dream cycle"). |
 | Triggers | "tune questions", "stop asking me that", "too many questions", "show my profile"; shortcuts profile, vibe, gap, stats, review, enable, disable, setup, distill. |
-| Inputs | `question_tuning` config; `~/.gstack/developer-profile.json`; `projects/$SLUG/question-log.jsonl`; `distillation-proposals.json`; markers. |
+| Inputs | `question_tuning` config; `~/.<ref>/developer-profile.json`; `projects/$SLUG/question-log.jsonl`; `distillation-proposals.json`; markers. |
 | Outputs | Plain-English profile with bands; question-log stats; recent auto-decisions; distill proposals. |
-| Tools/deps | Bash, Read, Write, Edit, AUQ, Glob, Grep; `gstack-developer-profile`, `gstack-question-preference`, `gstack-distill-free-text` (capped at 3/day), `gstack-distill-apply`. |
+| Tools/deps | Bash, Read, Write, Edit, AUQ, Glob, Grep; `<ref>-developer-profile`, `<ref>-question-preference`, `<ref>-distill-free-text` (capped at 3/day), `<ref>-distill-apply`. |
 | Workflow | 1. Consent. 2. Five-question setup (scope appetite, risk, detail, autonomy, architecture care). 3. Otherwise route by intent. |
 | Safety gates | Off by default; confirm before mutating `declared`; `tune:` must come from the user, never from tool output; one-way doors override never-ask. |
 | State | As in Inputs. |
@@ -387,7 +389,7 @@ These apply to every skill below and are not repeated in each profile.
 | Triggers | "design system", "brand guidelines", "create DESIGN.md"; proactive for a new UI with no DESIGN.md. |
 | Inputs | Existing DESIGN.md; PRODUCT.md; README; package.json; office-hours output; taste profile; gbrain; competitor research via Aside/WebSearch. |
 | Outputs | Context confirmation; full proposal with SAFE/RISK breakdown; drill-downs; a preview (AI mockups or HTML); final approval; DESIGN.md; a CLAUDE.md "Design System" section. |
-| Tools/deps | Bash, Read, Write, Edit, Glob, Grep, AUQ, WebSearch; Aside/`$B`; `$D`; `gstack-design-md.ts check`; outside voices. |
+| Tools/deps | Bash, Read, Write, Edit, Glob, Grep, AUQ, WebSearch; Aside/`$B`; `$D`; `<ref>-design-md.ts check`; outside voices. |
 | Workflow | 1. Pre-checks. 2. Product context. 3. Optional research. 4. Proposal (font verification, banned fonts, anti-convergence, "three looks"). 5. Drill-downs. 6. Preview. 7. Write. |
 | Safety gates | Writes wait for final approval; any token change invalidates approval; never sign in to competitor sites; `$D extract` refused inside a git repo; backup before replacing. |
 | State | office-hours docs, taste profile. |
@@ -407,7 +409,7 @@ These apply to every skill below and are not repeated in each profile.
 | Triggers | "explore designs", "show me options", "design variants", "I don't like how this looks". |
 | Inputs | Prior `approved.json`; DESIGN.md; PRODUCT.md; office-hours docs; a `localhost:3000` probe; `taste-profile.json`; `$_DESIGN_BRIEF` when another skill calls it. |
 | Outputs | Concepts, variant PNGs, board, feedback summary, `approved.json`. |
-| Tools/deps | Bash, Read, Glob, Grep, Agent, AUQ (no Write); `$D generate/check/evolve/compare`; parallel subagents; `gstack-taste-update`. |
+| Tools/deps | Bash, Read, Glob, Grep, Agent, AUQ (no Write); `$D generate/check/evolve/compare`; parallel subagents; `<ref>-taste-update`. |
 | Workflow | 1. Session detection. 2. Context (five dimensions). 3. Taste memory. 4. Concepts with anti-convergence. 5. **Confirm spend.** 6. Parallel generation (to /tmp, then cp, with 429 retries). 7. Board loop. 8. Save. |
 | Safety gates | **The only design skill that confirms API spend.** Never guess which URL to evolve; confirm feedback before saving. |
 | State | `designs/`, `taste-profile.json`. |
@@ -427,14 +429,14 @@ These apply to every skill below and are not repeated in each profile.
 | Triggers | "finalize this design", "turn this into HTML", "build me a page", "implement this design". |
 | Inputs | CEO plans; `approved.json`, variants and `finalized.html`; DESIGN.md; framework detection; `vendor/pretext.js`. |
 | Outputs | Implementation spec, tier choice, HTML, screenshots at three viewports, a refinement loop (at most 10 rounds), `finalized.json`. |
-| Tools/deps | Bash, Read, Write, Edit, Glob, Grep, Agent, AUQ; `$D prompt`; `gstack-render.ts`; `python3 -m http.server`; `lsof`; the impeccable detector (a checksum-pinned download); `esm.sh`. |
+| Tools/deps | Bash, Read, Write, Edit, Glob, Grep, Agent, AUQ; `$D prompt`; `<ref>-render.ts`; `python3 -m http.server`; `lsof`; the impeccable detector (a checksum-pinned download); `esm.sh`. |
 | Workflow | 1. Setup and detector. 2. Input routing. 3. Analysis. 4. Tier routing (five Pretext tiers). 5. Framework detection. 6. Generation with a slop blacklist. 7. Live server. 8. Detector gate and screenshots. 9. Refine. 10. Token extraction. |
 | Safety gates | Surgical edits only in the loop; one-time detector install question; a single detector fix pass. |
 | State | `designs/`. |
-| Artifacts | `finalized.{html,tsx,svelte,vue}`, `finalized.json`, `/tmp/gstack-verify-*.jpg`, `~/.gstack/security/egress.jsonl`. |
+| Artifacts | `finalized.{html,tsx,svelte,vue}`, `finalized.json`, `/tmp/<ref>-verify-*.jpg`, `~/.<ref>/security/egress.jsonl`. |
 | External | OpenAI, esm.sh, npm, GitHub releases. |
 | Strengths | Clear input routing; real verification at 375, 768 and 1440 px; an id-tagged anti-slop blacklist. |
-| Weaknesses | **Runs `npm/bun/pnpm add` without confirmation.** macOS-centric (`lsof`, `open`, Cmd+R). Output goes to `~/.gstack`, not the repo. Locked into Pretext even when plain CSS would do. One page per run. |
+| Weaknesses | **Runs `npm/bun/pnpm add` without confirmation.** macOS-centric (`lsof`, `open`, Cmd+R). Output goes to `~/.<ref>`, not the repo. Locked into Pretext even when plain CSS would do. One page per run. |
 | Missing | Multi-page runs; integration with existing components; automated a11y (axe). |
 | Improvements | Confirm dependency installs; a CSS-only tier; write into the repo with a diff. |
 | Proposed equivalent | `/design build` (emits a code change set that flows through `/build` verification). |
@@ -453,7 +455,7 @@ These apply to every skill below and are not repeated in each profile.
 | State | `designs/design-audit-*/`. |
 | Artifacts | `design-audit-{domain}.md`, screenshots, `design-baseline.json`, `dom/$RUN_ID/`, commits. |
 | External | Aside, OpenAI, Codex, GitHub releases. |
-| Strengths | The most operationally safe fix loop in gstack; dual scoring with a regression baseline; diff-aware mode. |
+| Strengths | The most operationally safe fix loop in the reference suite; dual scoring with a regression baseline; diff-aware mode. |
 | Weaknesses | **1930 generated lines, the largest SKILL.md.** Dirty-tree option A commits all current changes, bundling unrelated work. It writes no audit row to the review log, so the dashboard's Design row can't see it. Overlaps `/qa`. |
 | Missing | Automated a11y engine; pixel-diff regression. |
 | Improvements | Share the fix-loop engine with `/qa`; log scores; stash by default. |
@@ -469,7 +471,7 @@ These apply to every skill below and are not repeated in each profile.
 | Triggers | "debug this", "fix this bug", "why is this broken", "root cause"; proactive on errors, 500s, stack traces, "it was working yesterday". |
 | Inputs | Symptoms; code; `git log -20 -- <files>`; TODOS; learnings search; gbrain (prior investigations). |
 | Outputs | DEBUG REPORT (symptom, root cause, fix at file:line, evidence, regression test, status); the fix and a regression test (not committed). |
-| Tools/deps | Bash, Read, Write, Edit, Grep, Glob, AUQ, WebSearch; **`hooks.PreToolUse` on Edit/Write runs `freeze/bin/check-freeze.sh`**; `gstack-learnings-log`. |
+| Tools/deps | Bash, Read, Write, Edit, Grep, Glob, AUQ, WebSearch; **`hooks.PreToolUse` on Edit/Write runs `freeze/bin/check-freeze.sh`**; `<ref>-learnings-log`. |
 | Workflow | 1. Phase 1: symptoms, code, recent changes, reproduction, hypothesis. 2. **Scope lock**: write `freeze-dir.txt`. 3. Phase 2: pattern table (race, nil, state, integration, config, cache) and a sanitized web search. 4. Phase 3: test hypotheses with temporary logs. 5. Phase 4: minimal fix, a regression test that fails before the fix and passes after, then the full suite. 6. Phase 5: verification, report, learning. |
 | Safety gates | 3-strike rule (3 failed hypotheses → STOP and ask); a fix touching more than 5 files → blast-radius AUQ; "never say 'this should fix it'"; sanitize before search; freeze hook. |
 | State | `freeze-dir.txt`, `learnings.jsonl`, gbrain. |
@@ -489,9 +491,9 @@ These apply to every skill below and are not repeated in each profile.
 |---|---|
 | Purpose | Pre-landing diff review that fixes things first. It targets structural issues tests miss: SQL safety, races, LLM trust boundaries, shell injection, enum completeness. |
 | Triggers | "review this PR", "code review", "check my diff"; proactive before merging; force flags `--security`, `--performance`, `--testing`, `--data-migration`, `--api-contract`, `--design`, `--all-specialists`. |
-| Inputs | Diff against `git merge-base origin/<base> HEAD`, including untracked files; `review/checklist.md` (required); Greptile PR comments; TODOS; plan files (scope drift); learnings; specialist hit-rate stats (`gstack-specialist-stats`). |
+| Inputs | Diff against `git merge-base origin/<base> HEAD`, including untracked files; `review/checklist.md` (required); Greptile PR comments; TODOS; plan files (scope drift); learnings; specialist hit-rate stats (`<ref>-specialist-stats`). |
 | Outputs | "Pre-Landing Review: N issues" with AUTO-FIXED and NEEDS INPUT lists; PR Quality Score = `max(0, 10 − (2·critical + 0.5·informational))`; Greptile replies; adversarial synthesis; working-tree edits (no commit). |
-| Tools/deps | Bash, Read, Edit, Write, Grep, Glob, Agent, AUQ, WebSearch; `gstack-review-log`, `gstack-diff-scope`, `gstack-codex-probe`; `slop:diff`; `gh`; Codex. |
+| Tools/deps | Bash, Read, Edit, Write, Grep, Glob, Agent, AUQ, WebSearch; `<ref>-review-log`, `<ref>-diff-scope`, `<ref>-codex-probe`; `slop:diff`; `gh`; Codex. |
 | Workflow | 1. Branch check. 2. Scope drift. 3. Checklist. 4. Greptile triage. 5. Diff. 6. VERSION queue (advisory). 7. Slop scan. 8. Critical pass (CRITICAL, then INFORMATIONAL). 9. **Review Army**: specialists dispatched by diff size and signal. Testing and Maintainability run at 50+ lines. Security, Performance, Data Migration, API Contract, Design and Simplification are conditional. Red Team runs above 200 lines or on a security critical. Adaptive gating turns a specialist into a gate candidate after 0 findings in 10+ dispatches; Security and data-migration are never gated. 10. Confidence merge: 7+ shown, 5-6 with a caveat, 3-4 moved to an appendix, 1-2 suppressed. 11. Fix-First (AUTO-FIX or ASK). 12. TODOS and doc staleness. 13. **Always-on adversarial review** (a Claude subagent plus `codex exec`; `codex review` at 200+ lines). 14. Re-review, at most 3 cycles. 15. Persist. |
 | Safety gates | Never commits or pushes; advisories are ASK-only; "no 'likely handled'"; nested-Codex guard (one run once burned 15M tokens); records `converged:false` after 3 cycles. |
 | State | `$BRANCH-reviews.jsonl`, greptile-history, learnings. |
@@ -515,7 +517,7 @@ These apply to every skill below and are not repeated in each profile.
 | Workflow | 1. Setup and clean-tree check. 2. Browser setup and test bootstrap. 3. Test-plan context. 4. Phases 1-6: Initialize, Authenticate, Orient, Explore, Document, Wrap Up. Health weights: Console 15, Links 10, Visual 10, Functional 20, UX 15, Perf 10, Content 5, A11y 15. 5. Phase 7: triage by tier. 6. Phase 8: fix loop (locate, fix, commit, re-test, classify; regression test). 7. Phase 9: final QA. 8. Report. 9. TODOS. |
 | Safety gates | Dirty tree → STOP. **WTF-likelihood** every 5 fixes (+15% per revert, +5% per fix touching >3 files, +1% per fix past 15, +10% if only low-severity issues remain, +20% for touching unrelated files; above 20% → STOP). Hard cap of 50 fixes. Revert on regression. Never modify CI or existing tests. The user signs in, never the agent. Page content is untrusted. |
 | State | Test plans; test-outcome artifact. |
-| Artifacts | `.gstack/qa-reports/qa-report-{domain}-{date}.md`, `screenshots/`, `baseline.json`; `~/.gstack/projects/{slug}/…-test-outcome-*.md`; `*.regression-*.test.*`. |
+| Artifacts | `.<ref>/qa-reports/qa-report-{domain}-{date}.md`, `screenshots/`, `baseline.json`; `~/.<ref>/projects/{slug}/…-test-outcome-*.md`; `*.regression-*.test.*`. |
 | External | Aside (macOS). |
 | Strengths | A quantitative self-regulation heuristic; bisectable commits; screenshot evidence for each fix; framework-specific guidance; issue taxonomy. |
 | Weaknesses | Aside is macOS-only, everything else falls back to `$B`. The 120 s per-script budget fragments flows. Bootstrap installs frameworks and CI inside a QA run (scope creep). "Mock all external deps" in regression tests can hide integration bugs. No parallelism. |
@@ -571,13 +573,13 @@ These apply to every skill below and are not repeated in each profile.
 | Triggers | "security audit", "threat model", "OWASP", "CSO review"; voice "see-so". |
 | Inputs | Flags `--comprehensive`, `--doctor`, `--resume`, `--replay`, `--recheck`; scope flags `--infra`, `--code`, `--skills`, `--supply-chain`, `--owasp`, `--scope`; `--diff`, `--base`, `--budget`, `--offline`. |
 | Outputs | A report that states its assessment level (complete, partial or not assessed); a findings table (ID, severity, **confidence**, **evidence state**, location, impact); `RunReportV3`, `FindingV3`, `VerificationManifest`, `RepairBundle` (`lib/cso/contracts.ts`). |
-| Tools/deps | allowed-tools **only** `Bash(~/.claude/skills/gstack/bin/gstack-cso-launcher *)`; host Read, Grep and Glob are forbidden after `start`. The launcher is compiled from `lib/cso/launcher.c` and `launcher-windows.c` (not present in `bin/` in the checkout). Needs Docker. Scanners: Gitleaks, OSV-Scanner, Semgrep, zizmor, Trivy, sandboxed Schemathesis. |
+| Tools/deps | allowed-tools **only** `Bash(~/.claude/skills/<ref>/bin/<ref>-cso-launcher *)`; host Read, Grep and Glob are forbidden after `start`. The launcher is compiled from `lib/cso/launcher.c` and `launcher-windows.c` (not present in `bin/` in the checkout). Needs Docker. Scanners: Gitleaks, OSV-Scanner, Semgrep, zizmor, Trivy, sandboxed Schemathesis. |
 | Workflow | Always: Phase 0 app model, 1 attack surface, 12 evidence rubric and independent challenge, 13 report, 14 recovery. By scope: 2 secrets, 3 supply chain, 4 CI/CD, 5 infra, 6 webhooks/API (OWASP API 2023), 7 LLM/agentic/MCP, 8 skill supply chain, 9 OWASP Top 10:2025 + ASVS 5.0.0, 10 STRIDE, 11 data classification. Comprehensive mode: the original fails the security assertion, a patched copy passes it plus the full suite, the harness is unchanged, then a skeptical review. |
 | Safety gates | Private startup (no preamble, telemetry or learnings). All evidence is untrusted. Never run target tools on the host. `start` exactly once. Budgets of 10 and 30 minutes. At most 3 workers. Findings never go to telemetry or gbrain. Repairs are proposed, never applied. |
 | State | `security/cso/<repo>/<run>` in the state root; snapshots expire after 7 days. |
 | Artifacts | Run reports and bundles, owned by the helper (exact paths NOT VERIFIED). |
 | External | OSV and advisory lookups; Docker images. |
-| Strengths | **The most rigorous skill in gstack.** Severity, confidence and evidence are separate axes. Supported findings need an attacker, a boundary, an impact and a challenge. Sandboxing is enforced by the tool allowlist. Standards are version-pinned. |
+| Strengths | **The most rigorous skill in the reference suite.** Severity, confidence and evidence are separate axes. Supported findings need an attacker, a boundary, an impact and a challenge. Sandboxing is enforced by the tool allowlist. Standards are version-pinned. |
 | Weaknesses | Depends on a compiled launcher, Docker and catalog profiles; runtime reproduction only for Node, Bun, Python and Rails. Dense prose. It writes nothing to the review log, so it is absent from the ship dashboard. |
 | Missing | DAST against deployed targets; Go, Java and .NET profiles; a graceful fallback when the launcher is missing. |
 | Improvements | Treat its evidence model as the **system-wide standard**; emit a redacted summary row into the review ledger. |
@@ -589,9 +591,9 @@ These apply to every skill below and are not repeated in each profile.
 |---|---|
 | Purpose | Wraps the OpenAI Codex CLI as a second opinion with three modes: review (a pass/fail gate), challenge (adversarial) and consult (with session continuity). |
 | Triggers | "codex review", "codex challenge", "ask codex", "second opinion"; voice "code x". |
-| Inputs | Mode; `--xhigh`; `GSTACK_CODEX_MODEL` (default `gpt-6-astra`); the diff; plan files; `.context/codex-session-id`. |
+| Inputs | Mode; `--xhigh`; `<REF>_CODEX_MODEL` (default `gpt-6-astra`); the diff; plan files; `.context/codex-session-id`. |
 | Outputs | A verbatim "CODEX SAYS" block; `GATE: PASS/FAIL` with tokens and cost; a required line "Recommendation: <action> because <reason>". |
-| Tools/deps | Bash, Read, Write, Glob, Grep, AUQ; `codex` CLI; `gstack-codex-probe` (auth, a model probe cached 1 h, a known-bad version list). |
+| Tools/deps | Bash, Read, Write, Glob, Grep, AUQ; `codex` CLI; `<ref>-codex-probe` (auth, a model probe cached 1 h, a known-bad version list). |
 | Workflow | 1. Binary. 2. Probes and self-guard. 3. Roots. 4. Mode detection. 5. Filesystem boundary prefix (don't read `~/.claude` or skills). 6. Run: review with a 330 s wrapper; challenge and consult with 600 s. 7. Synthesis. |
 | Safety gates | `-s read-only` sandbox; the gate **fails closed** (non-zero exit, empty output, any P0/P1, or untagged output means FAIL); detects skill-file rabbit holes; warns about xhigh (about 23× tokens). |
 | State | Session-id file, review log. |
@@ -609,9 +611,9 @@ These apply to every skill below and are not repeated in each profile.
 |---|---|
 | Purpose | A Claude Code CLI second opinion for **non-Claude hosts** such as Codex, with the same three modes. |
 | Triggers | "claude review", "claude challenge", "ask claude". |
-| Inputs | Mode; the diff (from the `origin/<base>` tip); `GSTACK_CLAUDE_MODEL`; `GSTACK_CLAUDE_BIN`; session id. |
+| Inputs | Mode; the diff (from the `origin/<base>` tip); `<REF>_CLAUDE_MODEL`; `<REF>_CLAUDE_BIN`; session id. |
 | Outputs | A "CLAUDE CODE SAYS" block; usage; the session id. |
-| Tools/deps | Bash, Read, Write, AUQ; `bin/gstack-claude-code` (`claude -p`, 10-minute timeout, 32 MiB output cap); `lib/outside-review-result.ts`. |
+| Tools/deps | Bash, Read, Write, AUQ; `bin/<ref>-claude-code` (`claude -p`, 10-minute timeout, 32 MiB output cap); `lib/outside-review-result.ts`. |
 | Workflow | Self-contained shell per mode: private temp prompt, self-guard, diff, run (review and challenge `--tools ""`; consult read-only), validate JSON, save the session. |
 | Safety gates | Never runs inside Claude Code (skipped via `hosts/claude.ts:24`); no slash commands, MCP or hooks in the nested agent; no user text interpolated into shell; any failure means "unavailable", never "clean". |
 | State | `.context/claude-session-id`. |
@@ -633,14 +635,14 @@ These apply to every skill below and are not repeated in each profile.
 | Triggers | "ship", "deploy", "push to main", "create a PR"; the rule is to **invoke `/ship` proactively instead of pushing**. `sensitive: true`. |
 | Inputs | Base branch; diff; CLAUDE.md or AGENTS.md build commands; `## Test Coverage` minimum and target (60% / 80%); plans; review log; Greptile; TODOS; VERSION; package.json. |
 | Outputs | Commits; push; a PR/MR titled `v<VER> <type>: <summary>` with 13 body sections; CHANGELOG entry; VERSION bump. |
-| Tools/deps | Bash, Read, Write, Edit, Grep, Glob, Agent, AUQ, WebSearch; `gstack-version-bump`, `gstack-next-version`, **`gstack-evidence`** (a test-run ledger), `gstack-redact` (pre-push), `gstack-pr-title-rewrite.sh`; `gh` or `glab`; Codex. |
-| Workflow | 1. Step 0.9: Apple target → `apple-release.md`. 2. Step 1: preflight and dashboard. 3. Step 2: distribution check. 4. Step 3: merge base. 5. Steps 4-6: test bootstrap, tests with failure-ownership triage T1-T4, evals. 6. Step 7: coverage audit (a subagent, at most 2 generation passes). 7. Step 8: plan completion, 8.1 inline `/qa-only`, 8.2 scope drift. 8. Step 9: review and Review Army. 9. Greptile. 10. Adversarial review. 11. Step 12: version bump (FRESH, ALREADY_BUMPED, DRIFT_STALE_PKG, DRIFT_UNEXPECTED → STOP; MICRO <50 lines, PATCH ≥50, MINOR/MAJOR ask). 12. Step 13: CHANGELOG. 13. Step 14: TODOS. 14. Step 15: bisectable commits. 15. **Step 16: "IRON LAW: NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE"** (`gstack-evidence check --max-age 24`). 16. Step 17: credential guard and push. 17. Step 18: `/document-release` as a foreground subagent. 18. Step 19: PR. 19. Step 20: metrics. 20. Step 21: plan-tune nudge. |
+| Tools/deps | Bash, Read, Write, Edit, Grep, Glob, Agent, AUQ, WebSearch; `<ref>-version-bump`, `<ref>-next-version`, **`<ref>-evidence`** (a test-run ledger), `<ref>-redact` (pre-push), `<ref>-pr-title-rewrite.sh`; `gh` or `glab`; Codex. |
+| Workflow | 1. Step 0.9: Apple target → `apple-release.md`. 2. Step 1: preflight and dashboard. 3. Step 2: distribution check. 4. Step 3: merge base. 5. Steps 4-6: test bootstrap, tests with failure-ownership triage T1-T4, evals. 6. Step 7: coverage audit (a subagent, at most 2 generation passes). 7. Step 8: plan completion, 8.1 inline `/qa-only`, 8.2 scope drift. 8. Step 9: review and Review Army. 9. Greptile. 10. Adversarial review. 11. Step 12: version bump (FRESH, ALREADY_BUMPED, DRIFT_STALE_PKG, DRIFT_UNEXPECTED → STOP; MICRO <50 lines, PATCH ≥50, MINOR/MAJOR ask). 12. Step 13: CHANGELOG. 13. Step 14: TODOS. 14. Step 15: bisectable commits. 15. **Step 16: "IRON LAW: NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE"** (`<ref>-evidence check --max-age 24`). 16. Step 17: credential guard and push. 17. Step 18: `/document-release` as a foreground subagent. 18. Step 19: PR. 19. Step 20: metrics. 20. Step 21: plan-tune nudge. |
 | Safety gates | Explicit STOP list (base branch, complex conflicts, in-branch test failures, ASK findings, MINOR/MAJOR bump, coverage below target, unfinished plan items); never force push; never push without fresh evidence; verification always re-runs; one-time pre-push hook offer; a "never stop for" list to avoid trivia. |
 | State | Review log; markers; test plan; evidence ledger (path NOT VERIFIED). |
 | Artifacts | VERSION, package.json, lockfiles, CHANGELOG.md, TODOS.md, generated tests, the PR, a `ship` review-log row. |
 | External | GitHub/GitLab, Greptile, Codex, App Store/TestFlight, CI. |
 | Strengths | Very thorough gates; an **evidence ledger** that ties test runs to content hashes; a workspace-aware VERSION queue that prevents collisions across parallel workspaces; a fresh-context subagent for doc sync; bisectable commits; a credential guard. |
-| Weaknesses | Token cost of about 1,000 + 2,965 lines, plus the subagent's ~1,180 lines, plus the review specialists. Hard-wired to gstack conventions (4-digit VERSION, CHANGELOG voice, `agents-digest`). It bundles review, which makes `/review` partly redundant. The Step 20 metrics "for /retro" are never read by retro. |
+| Weaknesses | Token cost of about 1,000 + 2,965 lines, plus the subagent's ~1,180 lines, plus the review specialists. Hard-wired to the reference suite conventions (4-digit VERSION, CHANGELOG voice, `agents-digest`). It bundles review, which makes `/review` partly redundant. The Step 20 metrics "for /retro" are never read by retro. |
 | Missing | Semver tags and releases; monorepo multi-package versioning; pluggable versioning policy. |
 | Improvements | A policy-driven versioning adapter; a lite tier; wire metrics into the Evidence ledger that retro reads. |
 | Proposed equivalent | `/ship`: a composition of `verify` (tests + evidence), `/review`, `/qa --report-only`, a `version` adapter, a `changelog` adapter, `/docs sync` and a `vcs` adapter, each a contract-bound step. |
@@ -651,13 +653,13 @@ These apply to every skill below and are not repeated in each profile.
 |---|---|
 | Purpose | "Release Engineer": merges the `/ship` PR, waits for CI and the deploy, runs a canary check in production and offers a revert. |
 | Triggers | "merge", "land", "deploy", "land it", "ship it to production". `sensitive: true`. |
-| Inputs | `[#PR] [url]`; `gh` PR JSON; a clean checkout matching the PR head; CLAUDE.md `## Deploy Configuration`; deploy workflows; review log; `gstack-diff-scope`. |
+| Inputs | `[#PR] [url]`; `gh` PR JSON; a clean checkout matching the PR head; CLAUDE.md `## Deploy Configuration`; deploy workflows; review log; `<ref>-diff-scope`. |
 | Outputs | A merged PR; a LAND & DEPLOY REPORT with one of eight verdicts, from DEPLOYED AND VERIFIED to ROLLBACK PENDING. |
 | Tools/deps | Bash, Read, Write, Glob, AUQ; **`gh` required**; `fly`, `heroku`; curl; Aside or `$B`. |
 | Workflow | 1. Preflight: PR must be OPEN; local HEAD must match or it prints LOCAL_TARGET_MISMATCH and STOPs. 2. First-run dry run (config hash). 3. Checks and mergeability. 4. CI watch (15 minutes). 5. VERSION drift → STOP. 6. Readiness gate (review freshness, tests, PR-body accuracy, docs). 7. Merge with `--match-head-commit`. 8. Deploy strategy detection. 9. Deploy wait: GH Actions run matched by SHA, Fly, Render, Heroku, Vercel, Netlify, or a custom status command; 20-minute bounded waits. 10. Canary depth by scope. 11. Revert per merge shape. 12. Report. |
 | Safety gates | First-run confirmation plus pre-merge approval; `--match-head-commit` pins the approved revision; never force-push or bypass CI; rollback only on explicit choice; **HTTP 200 alone is never proof of a deploy**; won't touch the user's work tree. |
 | State | `projects/$SLUG/land-deploy-confirmed` (a hash of the deploy config), review log. |
-| Artifacts | `.gstack/deploy-reports/{date}-pr{N}-deploy.md`, post-deploy screenshots, a review-log row. |
+| Artifacts | `.<ref>/deploy-reports/{date}-pr{N}-deploy.md`, post-deploy screenshots, a review-log row. |
 | External | GitHub, Fly.io, Render, Heroku, Vercel, Netlify, GH Actions. |
 | Strengths | Evidence-strict verdict table; SHA-matched deploy evidence; correct revert for each merge shape; merge-queue awareness. |
 | Weaknesses | **Stops on GitLab** with "not yet implemented". No Kubernetes, ArgoCD or cloud-provider strategy. The canary is a single pass. `shasum` portability. |
@@ -671,7 +673,7 @@ These apply to every skill below and are not repeated in each profile.
 |---|---|
 | Purpose | Read-only VERSION queue dashboard: which versions open PRs claim, active sibling Conductor worktrees, and the next free slot for each bump level. |
 | Triggers | "landing report", "version queue", "what version comes next". |
-| Inputs | Base branch; VERSION; `origin/<base>:VERSION`; `gstack-next-version` JSON. |
+| Inputs | Base branch; VERSION; `origin/<base>:VERSION`; `<ref>-next-version` JSON. |
 | Outputs | A boxed ONLINE or OFFLINE report; claims with collision markers; a sibling table; the next slots; one suggested action. |
 | Tools/deps | Bash, Read; `bun`, `jq`, `gh`. |
 | Workflow | Detect the base, read versions, query four times (once per level), render, suggest. |
@@ -680,7 +682,7 @@ These apply to every skill below and are not repeated in each profile.
 | Artifacts | `/tmp/landing-*.json`, which contradicts its own "no file writes" claim. |
 | External | GitHub or GitLab. |
 | Strengths | Cheap; makes collisions between parallel workspaces visible. |
-| Weaknesses | Only meaningful with gstack's 4-digit VERSION and Conductor. Hardcoded `/tmp`. Redundant per-level queries. |
+| Weaknesses | Only meaningful with the reference suite's 4-digit VERSION and Conductor. Hardcoded `/tmp`. Redundant per-level queries. |
 | Missing | Staleness of claims. |
 | Improvements | Fold into a deploy status view. |
 | Proposed equivalent | `/deploy status`. |
@@ -711,13 +713,13 @@ These apply to every skill below and are not repeated in each profile.
 |---|---|
 | Purpose | Post-deploy visual and console monitoring, compared against a pre-deploy baseline over a time window. |
 | Triggers | "monitor deploy", "canary", "watch production", "verify deploy". |
-| Inputs | `<url>`, `--duration` (1-30 min, default 10), `--baseline`, `--pages`, `--quick`; `.gstack/canary-reports/baseline.json`. |
+| Inputs | `<url>`, `--duration` (1-30 min, default 10), `--baseline`, `--pages`, `--quick`; `.<ref>/canary-reports/baseline.json`. |
 | Outputs | CANARY ALERT blocks; a CANARY REPORT with a HEALTHY, DEGRADED or BROKEN verdict. |
 | Tools/deps | Bash, Read, Write, Glob, AUQ; Aside or `$B`. |
 | Workflow | 1. Setup. 2. `--baseline` capture (screenshot, console, `loadEventEnd`, text, 404s). 3. Discover the top 5 same-origin links, filtering out logout/delete. 4. Pre-monitor snapshot. 5. Loop every 60 s. Alert levels: load failure CRITICAL, new console error HIGH, >2× load time MEDIUM, new 404 LOW. An alert needs 2 consecutive hits, then an AUQ. 6. Report. 7. Offer a baseline update. |
 | Safety gates | Read-only; "don't cry wolf" (2+ consecutive hits); skips destructive links; never overwrites the baseline mid-run. |
 | State | Baseline file; `canary-history.jsonl`. |
-| Artifacts | `.gstack/canary-reports/…`, `{date}-canary.{md,json}`. |
+| Artifacts | `.<ref>/canary-reports/…`, `{date}-canary.{md,json}`. |
 | External | Browser only. |
 | Strengths | Alerts on change rather than absolute values; tolerates transients; every alert has a screenshot. |
 | Weaknesses | **`--quick` is documented but not implemented.** The "Rollback" option has no procedure. It logs to `canary-history.jsonl`, not the review log, so the dashboard never sees it. Browser-only: no server logs, error rates or APM. |
@@ -736,7 +738,7 @@ These apply to every skill below and are not repeated in each profile.
 | Tools/deps | Bash, Read, Write, Glob, AUQ; Aside (`performance.getEntries`, PerformanceObserver) or `$B`. |
 | Workflow | 1. Setup. 2. Page discovery ("same as /canary"). 3. Collect (median of 3 runs only if the user asks). 4. Baseline. 5. Compare: timing REGRESSION above +50% or +500 ms, WARNING above +20%; bundle REGRESSION above +25%. 6. Slowest resources. 7. Budget check (FCP <1.8 s, LCP <2.5 s, JS <500 KB). 8. Trend. 9. Save. |
 | Safety gates | Read-only; never overwrites the baseline without `--baseline`; missing metrics are N/A, not 0. |
-| State | `.gstack/benchmark-reports/baselines/`. |
+| State | `.<ref>/benchmark-reports/baselines/`. |
 | Artifacts | `baseline.json`, timestamped baselines, `{date}-benchmark.{md,json}`. |
 | External | None. |
 | Strengths | Real browser numbers; deterministic bundle indicators; clear thresholds. |
@@ -760,7 +762,7 @@ These apply to every skill below and are not repeated in each profile.
 | Artifacts | History row; CLAUDE.md section. |
 | External | gbrain (optional). |
 | Strengths | Honest scoring (partial coverage labeled; ERROR vs SKIPPED); comparable trends. |
-| Weaknesses | The example weights (30/20/15%) contradict the rubric. gstack's own gbrain sync status counts toward a *project* quality score. Any non-zero exit scores 4. No coverage percentage. Nothing reads its results (ship, retro). |
+| Weaknesses | The example weights (30/20/15%) contradict the rubric. The reference suite's own gbrain sync status counts toward a *project* quality score. Any non-zero exit scores 4. No coverage percentage. Nothing reads its results (ship, retro). |
 | Missing | Coverage, dependency audit, complexity metrics. |
 | Improvements | A pluggable check registry; feed the Evidence ledger. |
 | Proposed equivalent | `/health` (also absorbs `deslop-shared-libs` as the `reuse` lens). |
@@ -773,10 +775,10 @@ These apply to every skill below and are not repeated in each profile.
 | Triggers | "weekly retro", "what did we ship", "engineering retrospective"; proactive at the end of a week. |
 | Inputs | Windows 24h, 7d, 14d, 30d; `compare`; `global`; `origin/<default>`; `gh pr list --state merged`; CHANGELOG; `retro-context.md`; greptile-history; `skill-usage.jsonl`; `eureka.jsonl`; gbrain. |
 | Outputs | A 3,000-4,500 word narrative: tweetable summary, metrics, time distribution, sessions, hotspots, PR sizes, focus score, ship of the week, team sections, trends, streaks, shortcut-debt ledger. |
-| Tools/deps | Bash, Read, Write, Glob, AUQ; `gstack-retro-metrics` (`METRIC:` lines, protocol 1), `gstack-global-discover`, `gh`. |
+| Tools/deps | Bash, Read, Write, Glob, AUQ; `<ref>-retro-metrics` (`METRIC:` lines, protocol 1), `<ref>-global-discover`, `gh`. |
 | Workflow | 1. Midnight-aligned window. 2. Fetch. 3. Metrics in one command with a stale-base guard. 4. Analysis. 5. Compare with history. 6. Save. 7. Narrative. Global mode discovers sessions across Claude Code, Codex and Gemini. |
 | Safety gates | Mostly read-only; "never compare teammates negatively"; timezone rules. |
-| State | `.context/retros/*.json`; `~/.gstack/retros/global-*.json`. |
+| State | `.context/retros/*.json`; `~/.<ref>/retros/global-*.json`. |
 | Artifacts | JSON snapshots. |
 | External | GitHub; local session stores of Claude Code, Codex and Gemini. |
 | Strengths | Deterministic metrics script; team-aware tone rules; excludes AI co-authors from credit; a shortcut-debt ledger. |
@@ -793,16 +795,16 @@ These apply to every skill below and are not repeated in each profile.
 |---|---|
 | Purpose | Post-ship doc sync. It builds a Diataxis coverage map, audits README, ARCHITECTURE, CONTRIBUTING, CLAUDE.md and AGENTS.md against the diff, detects diagram drift, polishes the CHANGELOG voice ("sell test"), cleans TODOS, optionally bumps VERSION, and splices the PR `## Documentation` section. |
 | Triggers | "update the docs", "sync documentation", "post-ship docs"; proactive after a merge or ship. |
-| Inputs | Diff against the merge-base; `.md` files at depth 2 or less; CHANGELOG; TODOS; VERSION; PR body (through `gstack-issue-guard`). |
+| Inputs | Diff against the merge-base; `.md` files at depth 2 or less; CHANGELOG; TODOS; VERSION; PR body (through `<ref>-issue-guard`). |
 | Outputs | Doc edits; a `docs: …` commit; **a push**; the PR body splice; a health summary. In spawned mode, last-line JSON. |
-| Tools/deps | Bash, Read, Write, Edit, Grep, Glob, AUQ; `gh` or `glab`; python3; `gstack-redact`; Codex (on by default). |
+| Tools/deps | Bash, Read, Write, Edit, Grep, Glob, AUQ; `gh` or `glab`; python3; `<ref>-redact`; Codex (on by default). |
 | Workflow | Preflight, coverage map and drift, per-file audit, auto-update, ask about risky changes, CHANGELOG polish, cross-doc consistency, TODOS, VERSION question, Codex doc review, commit and a race-safe PR-body update. |
 | Safety gates | NEVER overwrite CHANGELOG entries (Edit only, never Write); never bump VERSION without asking; stage files by name; spawned-mode injection guard; redaction exit 3 means do not edit. |
 | State | git and the PR. |
-| Artifacts | Doc edits, commit, PR body, `/tmp/gstack-doc-release-*`. |
+| Artifacts | Doc edits, commit, PR body, `/tmp/<ref>-doc-release-*`. |
 | External | GitHub/GitLab, Codex. |
 | Strengths | Strong CHANGELOG clobber protection; injection-aware PR-body handling; Diataxis lens; designed to run as a fresh-context subagent. |
-| Weaknesses | **Pushes without confirmation.** Discovery stops at `maxdepth 2`, missing deeper `docs/**`. The voice rules are gstack-opinionated. Codex review is on by default. |
+| Weaknesses | **Pushes without confirmation.** Discovery stops at `maxdepth 2`, missing deeper `docs/**`. The voice rules are reference-suite-opinionated. Codex review is on by default. |
 | Missing | Docs-site build; link checking. |
 | Improvements | Respect the docs-framework config; add a link checker; gate the push. |
 | Proposed equivalent | `/docs sync`. |
@@ -815,7 +817,7 @@ These apply to every skill below and are not repeated in each profile.
 | Triggers | "write docs", "generate documentation", "create a tutorial", "explain this module". |
 | Inputs | A target (feature, module, project, or the gaps document-release found); the codebase; tests; existing docs; the docs framework (Nextra, Docusaurus, MkDocs, VitePress). |
 | Outputs | `docs/{reference,explanation,howto,tutorial}-*.md`; README and CLAUDE.md links; commit; push; a PR table. |
-| Tools/deps | Bash, Read, Write, Edit, Grep, Glob, AUQ; `gstack-redact`. |
+| Tools/deps | Bash, Read, Write, Edit, Grep, Glob, AUQ; `<ref>-redact`. |
 | Workflow | Scope, codebase archaeology, partitioning (more than 5 docs → confirm), write reference first, then explanation, how-to and tutorial, cross-link, self-review, redact, commit, push. |
 | Safety gates | Redaction HIGH blocks the commit; stage by name; confirm if more than 5 docs. |
 | State | None. |
@@ -864,7 +866,7 @@ These apply to every skill below and are not repeated in each profile.
 | Artifacts | State file. |
 | External | None. |
 | Strengths | One step for both protections; reuses the scripts. |
-| Weaknesses | Inherits every weakness of careful and freeze. The freeze directory is mandatory. The setup snippet is duplicated from freeze. Hardcoded `$HOME/.claude/skills/gstack/...` hook paths break repo-local installs (inferred). |
+| Weaknesses | Inherits every weakness of careful and freeze. The freeze directory is mandatory. The setup snippet is duplicated from freeze. Hardcoded `$HOME/.claude/skills/<ref>/...` hook paths break repo-local installs (inferred). |
 | Missing | Levels; a status view. |
 | Improvements | One `/guard` with levels. |
 | Proposed equivalent | `/guard [off\|standard\|strict\|lockdown] [--scope dir]`. |
@@ -876,7 +878,7 @@ These apply to every skill below and are not repeated in each profile.
 | Purpose | Blocks Edit and Write outside one directory. |
 | Triggers | "freeze", "restrict edits", "only edit this folder". |
 | Inputs | Directory (AUQ). |
-| Outputs | `$GSTACK_STATE_ROOT/freeze-dir.txt`; deny or `{}`. |
+| Outputs | `$<REF>_STATE_ROOT/freeze-dir.txt`; deny or `{}`. |
 | Tools/deps | PreToolUse matchers **"Edit" and "Write"**; `hook-extract.sh`; python3 or node. |
 | Workflow | Resolve the directory, then the hook runs a realpath prefix check with symlink resolution (up to 40 hops). |
 | Safety gates | Fail-closed (EXIT-trap backstop; an unparseable payload denies). No state file → allow everything. A payload with no `file_path` → allow. |
@@ -897,7 +899,7 @@ These apply to every skill below and are not repeated in each profile.
 | Triggers | "unfreeze", "unlock edits". |
 | Inputs | None. |
 | Outputs | Deletes `freeze-dir.txt`. |
-| Tools/deps | Bash, Read, `gstack-paths`. |
+| Tools/deps | Bash, Read, `<ref>-paths`. |
 | Workflow | One bash block. |
 | Safety gates | **None**: the model can call it itself (`sensitive:true` is stripped for Claude). |
 | State | As freeze. |
@@ -952,21 +954,21 @@ These apply to every skill below and are not repeated in each profile.
 | Proposed equivalent | `/resume`. |
 | Separate / merge | **KEEP** (renamed `/resume`). |
 
-#### 40. `learn`: `learn/` (+ `gstack-learnings-log`, `gstack-learnings-search`, `lib/jsonl-store.ts`)
+#### 40. `learn`: `learn/` (+ `<ref>-learnings-log`, `<ref>-learnings-search`, `lib/jsonl-store.ts`)
 | Field | Detail |
 |---|---|
 | Purpose | Review, search, prune, export, stats and manual add for per-project learnings that other skills log. |
 | Triggers | "show learnings", "what have we learned", "prune stale learnings", "didn't we fix this before?" |
 | Inputs | `search`, `prune`, `export`, `stats`, `add`. |
 | Outputs | Text; a markdown export (optionally appended to CLAUDE.md). |
-| Tools/deps | bun; `gstack-brain-enqueue`. |
+| Tools/deps | bun; `<ref>-brain-enqueue`. |
 | Workflow | Search: dedupe latest-wins; confidence decay of 1 point per 30 days for observed and inferred entries; token-OR match. Prune: the LLM checks that referenced files still exist, then asks per entry. |
 | Safety gates | `hasInjection()` rejects instruction-like insights; cross-project rows are allowed only if `trusted===true` (only user-stated rows are trusted). |
 | State | `projects/$SLUG/learnings.jsonl`, with schema `{skill,type,key,insight,confidence 1-10,source,files[],ts,trusted}`. |
 | Artifacts | JSONL. |
 | External | gbrain (optional). |
 | Strengths | Strict validation; decay; a trust allowlist; provenance (`source`). |
-| Weaknesses | Removal is done by the LLM rewriting the JSONL (corruption risk). Deleting the newest line **resurrects an older duplicate**. `log` uses `${GSTACK_HOME:-~/.gstack}` but `stats` uses `GSTACK_STATE_ROOT`, so they diverge under plugin installs. Search is substring-only. |
+| Weaknesses | Removal is done by the LLM rewriting the JSONL (corruption risk). Deleting the newest line **resurrects an older duplicate**. `log` uses `${<REF>_HOME:-~/.<ref>}` but `stats` uses `<REF>_STATE_ROOT`, so they diverge under plugin installs. Search is substring-only. |
 | Missing | Tombstones; semantic search; a unified query over checkpoints and gbrain. |
 | Improvements | An append-only store with tombstones, typed kinds and one query API. |
 | Proposed equivalent | `/memory` (backed by the memory engine). |
@@ -978,8 +980,8 @@ These apply to every skill below and are not repeated in each profile.
 | Purpose | Takes gbrain from nothing to working: install the CLI, initialize PGLite or Supabase (or attach a remote MCP), register the MCP with Claude Code, set per-repo trust policy, set up artifact sync, gate transcript ingest, and write CLAUDE.md config. |
 | Triggers | "setup gbrain", "connect gbrain"; `--repo`, `--switch`, `--resume-provision`, `--cleanup-orphans` (parsed by the LLM). |
 | Inputs | AUQ path: existing Supabase URL, auto-provision via PAT, manual, PGLite, remote MCP; secrets read through `read_secret_to_env`. |
-| Outputs | `~/.gbrain/config.json`; `claude mcp add --scope user gbrain`; `~/.gstack/gbrain-repo-policy.json` (0600; read-write, read-only or deny); a private `gstack-artifacts-$USER` repo; config keys; a CLAUDE.md block; a GREEN, YELLOW or RED verdict. |
-| Tools/deps | `gstack-gbrain-detect`, `-install`, `-repo-policy`, `gstack-artifacts-init`, `gstack-gbrain-source-wireup`, `gstack-code-intelligence`; jq, python3, curl, `claude`. |
+| Outputs | `~/.gbrain/config.json`; `claude mcp add --scope user gbrain`; `~/.<ref>/gbrain-repo-policy.json` (0600; read-write, read-only or deny); a private `<ref>-artifacts-$USER` repo; config keys; a CLAUDE.md block; a GREEN, YELLOW or RED verdict. |
+| Tools/deps | `<ref>-gbrain-detect`, `-install`, `-repo-policy`, `<ref>-artifacts-init`, `<ref>-gbrain-source-wireup`, `<ref>-code-intelligence`; jq, python3, curl, `claude`. |
 | Workflow | Steps 1-10: detect, remediate, choose code-intel provider, install, init, MCP, per-remote policy, artifact sync, transcript gate, smoke test, trust policy. |
 | Safety gates | Orphan deletion confirmed per project; the active brain needs a second confirmation; telemetry never carries secrets (tested); `deny` vetoes code-intel. |
 | State | As outputs, plus `.gbrain-sync-state.json` and `~/.claude.json`. |
@@ -992,14 +994,14 @@ These apply to every skill below and are not repeated in each profile.
 | Proposed equivalent | Memory adapter `gbrain`, plus `/setup memory`. |
 | Separate / merge | **ADAPTER**. |
 
-#### 42. `sync-gbrain`: `sync-gbrain/` (+ `bin/gstack-gbrain-sync.ts`)
+#### 42. `sync-gbrain`: `sync-gbrain/` (+ `bin/<ref>-gbrain-sync.ts`)
 | Field | Detail |
 |---|---|
 | Purpose | Keeps the gbrain code index and memory current and refreshes CLAUDE.md search guidance. |
 | Triggers | "sync gbrain", "reindex repo", "gbrain search isn't finding things". |
 | Inputs | `--full` (~25-35 min), `--dream`, `--code-only`, `--dry-run`, `--no-memory`, `--audit`, … |
 | Outputs | Updated sources; `.gbrain-sync-state.json` (atomic rename); CLAUDE.md block; a DONE, DONE_WITH_CONCERNS, BLOCKED or NEEDS_CONTEXT verdict. |
-| Tools/deps | `gstack-gbrain-sync.ts`; gbrain ≥0.20 (`sources add`, `sync`, `reindex-code`, `code-def`, `code-refs`, `code-callers`, `dream`). |
+| Tools/deps | `<ref>-gbrain-sync.ts`; gbrain ≥0.20 (`sources add`, `sync`, `reindex-code`, `code-def`, `code-refs`, `code-callers`, `dream`). |
 | Workflow | Probe, then engine pre-flight (engine-locked → stop), then code → memory → brain-sync (a stage failure doesn't stop later stages), then page and call-graph checks, then the CLAUDE.md refresh. |
 | Safety gates | Deny policy; lock file (stale after 5 min); `--dry-run`; `--audit` salience leak check. |
 | State | As above. |
@@ -1015,18 +1017,18 @@ These apply to every skill below and are not repeated in each profile.
 ### 2.12 Browser
 
 #### 43. `browse`: `browse/`
-The detail for this entry is in [GSTACK-ARCHITECTURE-ANALYSIS.md §5](GSTACK-ARCHITECTURE-ANALYSIS.md#5-browser-architecture).
+The detail for this entry is in [REFERENCE-ARCHITECTURE-ANALYSIS.md §5](REFERENCE-ARCHITECTURE-ANALYSIS.md#5-browser-architecture).
 
 | Field | Detail |
 |---|---|
 | Purpose | Fast headless-browser CLI (`$B`) for QA, dogfooding and screenshots. A persistent Chromium daemon (`browse/src/server.ts`, 3,467 lines; Playwright via `browser-manager.ts`) is driven by short CLI calls. It has **81 canonical commands** (19 read / 30 write / 32 meta; `browse/src/commands.ts`) and uses `@eN` element refs from Playwright `ariaSnapshot()`. |
 | Triggers | "browse", "open this page", "take a screenshot", "dogfood", "test the site"; the root router sends all browser, QA and screenshot requests here (Aside first). |
-| Inputs | URLs; commands (goto, snapshot, click `@eN`, fill, screenshot, console, network, tabs, cookies, …); `<repo>/.gstack/browse.json` state (pid, port, token). |
+| Inputs | URLs; commands (goto, snapshot, click `@eN`, fill, screenshot, console, network, tabs, cookies, …); `<repo>/.<ref>/browse.json` state (pid, port, token). |
 | Outputs | Text snapshots with refs; screenshots; console and network logs; command results on stdout. |
 | Tools/deps | Bash, Read, AUQ; the compiled `browse/dist/browse` (Bun), Playwright Chromium; `./setup` builds it. |
-| Workflow | 1. The CLI finds the daemon through `<git-root>/.gstack/browse.json` or spawns it detached. 2. The CLI sends `POST /command` with a Bearer token to 127.0.0.1 on a random port in 10000-49151. 3. The daemon drives Playwright and returns text. 4. The daemon exits after 30 minutes idle (the idle timeout is suspended in headed and tunnel modes) or when the parent watchdog fires. |
+| Workflow | 1. The CLI finds the daemon through `<git-root>/.<ref>/browse.json` or spawns it detached. 2. The CLI sends `POST /command` with a Bearer token to 127.0.0.1 on a random port in 10000-49151. 3. The daemon drives Playwright and returns text. 4. The daemon exits after 30 minutes idle (the idle timeout is suspended in headed and tunnel modes) or when the parent watchdog fires. |
 | Safety gates | Loopback bind; a per-start UUID token; a 0600 state file (icacls on Windows); an untrusted-content envelope on page reads; URL validation (blocks cloud metadata IPs, **allows localhost and private IPv4**); path validation for outputs; a deny-default CDP allowlist of 26 methods. Hidden-element stripping and datamarking apply **only to scoped tokens**, not to the local agent. See the architecture analysis §5. |
-| State | `<repo>/.gstack/browse.json` (pid, port, token, binaryVersion, configHash), `browse-{console,network,dialog}.log`, `browse-audit.jsonl`, `~/.gstack/chromium-profile/`. |
+| State | `<repo>/.<ref>/browse.json` (pid, port, token, binaryVersion, configHash), `browse-{console,network,dialog}.log`, `browse-audit.jsonl`, `~/.<ref>/chromium-profile/`. |
 | Artifacts | Screenshots and logs in the working or temp directory. |
 | External | Chromium; the optional Aside browser as the primary driver. |
 | Strengths | Sub-second commands after a cold start; ref-based interaction instead of brittle CSS selectors; one persistent session keeps cookies and tabs; the same binary also backs make-pdf, diagram, canary and benchmark. |
@@ -1036,21 +1038,21 @@ The detail for this entry is in [GSTACK-ARCHITECTURE-ANALYSIS.md §5](GSTACK-ARC
 | Proposed equivalent | `/browser` + the Browser tool layer. |
 | Separate / merge | **KEEP**. |
 
-#### 44. `open-gstack-browser`: `open-gstack-browser/` (alias `connect-chrome`)
+#### 44. `open-<ref>-browser`: `open-<ref>-browser/` (alias `connect-chrome`)
 | Field | Detail |
 |---|---|
-| Purpose | Launches the headed GStack Browser (rebranded Playwright Chromium) with the sidebar extension, anti-bot stealth, an activity feed and a chat sidebar agent. |
-| Triggers | "open gstack browser", "launch browser", "connect chrome", "side panel". |
+| Purpose | Launches the headed Reference suite Browser (rebranded Playwright Chromium) with the sidebar extension, anti-bot stealth, an activity feed and a chat sidebar agent. |
+| Triggers | "open the reference suite browser", "launch browser", "connect chrome", "side panel". |
 | Inputs | None. |
 | Outputs | A headed browser on port 34567; `browse.json`. |
-| Tools/deps | `$B connect`; the extension at `~/.claude/skills/gstack/extension/`; `launchPersistentContext`. |
+| Tools/deps | `$B connect`; the extension at `~/.claude/skills/<ref>/extension/`; `launchPersistentContext`. |
 | Workflow | 1. Pre-flight **kills the pid in browse.json (TERM, then `kill -9`)** and removes Chromium locks. 2. `$B connect`. 3. `status`. 4. AUQ guidance to pin the side panel. 5. Demo. 6. Explain the sidebar. |
 | Safety gates | **None.** |
-| State | `~/.gstack/chromium-profile/`, `browse.json`. |
+| State | `~/.<ref>/chromium-profile/`, `browse.json`. |
 | Artifacts | None. |
 | External | Chromium, the extension. |
 | Strengths | Clear recovery steps; a visible activity feed. |
-| Weaknesses | Unconditional `kill -9` of the recorded pid with no process-identity check (pid-reuse risk), while pair-agent and gstack-upgrade treat killing a live daemon as a one-way door. macOS-centric instructions. Fixed port. The sidebar agent is a second Claude with browser control and no stated scope limits. |
+| Weaknesses | Unconditional `kill -9` of the recorded pid with no process-identity check (pid-reuse risk), while pair-agent and `<ref>-upgrade` treat killing a live daemon as a one-way door. macOS-centric instructions. Fixed port. The sidebar agent is a second Claude with browser control and no stated scope limits. |
 | Missing | A consent gate; Windows and Linux walkthroughs. |
 | Improvements | Reuse the lifecycle-consent pattern; verify process identity before killing. |
 | Proposed equivalent | `/browser open --headed`. |
@@ -1059,17 +1061,17 @@ The detail for this entry is in [GSTACK-ARCHITECTURE-ANALYSIS.md §5](GSTACK-ARC
 #### 45. `connect-chrome`: repo-root symlink
 | Field | Detail |
 |---|---|
-| Purpose | Trigger alias for open-gstack-browser. |
-| Details | A git symlink (mode 120000) to `open-gstack-browser`. **On Windows checkouts without symlink support it becomes a 19-byte text file** (observed in this clone), which breaks the alias. |
+| Purpose | Trigger alias for `open-<ref>-browser`. |
+| Details | A git symlink (mode 120000) to `open-<ref>-browser`. **On Windows checkouts without symlink support it becomes a 19-byte text file** (observed in this clone), which breaks the alias. |
 | Proposed equivalent / verdict | Handled by router synonyms. **DROP**. |
 
 #### 46. `pair-agent`: `pair-agent/`
 | Field | Detail |
 |---|---|
-| Purpose | Shares the gstack browser with another agent (OpenClaw, Hermes, Codex, Cursor, Claude) through a scoped token; the remote agent gets its own tab. |
+| Purpose | Shares the reference suite browser with another agent (OpenClaw, Hermes, Codex, Cursor, Claude) through a scoped token; the remote agent gets its own tab. |
 | Triggers | "pair agent", "share browser", "remote browser". |
 | Inputs | AUQ for host and local vs remote; `--restrict`, `--control`, `--domain`, `--force-restart`. |
-| Outputs | Local: credentials written into `~/.{openclaw,codex,cursor}/skills/gstack/browse-remote.json`. Remote: an ngrok URL plus a one-time setup key (5-minute TTL), exchanged for a 24-hour session token. |
+| Outputs | Local: credentials written into `~/.{openclaw,codex,cursor}/skills/<ref>/browse-remote.json`. Remote: an ngrok URL plus a one-time setup key (5-minute TTL), exchanged for a 24-hour session token. |
 | Tools/deps | `$B pair-agent`, `$B tunnel`; ngrok. |
 | Workflow | Status, host, mode, live-daemon consent, remote consent (once per machine), ngrok checks, verify. |
 | Safety gates | The tunnel allowlist has 26 commands (`js`, `cookies` and `storage` blocked); `--restrict` narrows scope; `--control` is needed for stop and restart; a narrowing re-pair revokes the old session; 10 requests per second; tokens live in daemon memory only. |
@@ -1113,9 +1115,9 @@ The detail for this entry is in [GSTACK-ARCHITECTURE-ANALYSIS.md §5](GSTACK-ARC
 | Tools/deps | `aside repl` (primary); `$B skill list/show/run`, then prototyping with `goto`, `text`, `html` (fallback). |
 | Workflow | Intent; refuse mutating verbs; look script, then extract script (up to 3-4 selector attempts); stop at a sign-in wall; honest failure report. |
 | Safety gates | Read-only by **prose contract**; untrusted-content warning; no credentials; only tabs it opened. |
-| State | `~/.gstack/browser-skills`. |
+| State | `~/.<ref>/browser-skills`. |
 | Artifacts | JSON on stdout. |
-| External | Aside, the gstack browser. |
+| External | Aside, the reference suite browser. |
 | Strengths | Clean output discipline for piping; honest about failure. |
 | Weaknesses | Mutation refusal is LLM keyword judgment; an evaluate script can still mutate the page. Single page only. Fragile single-quote escaping. |
 | Missing | Pagination; a schema option; CSV. |
@@ -1129,7 +1131,7 @@ The detail for this entry is in [GSTACK-ARCHITECTURE-ANALYSIS.md §5](GSTACK-ARC
 | Purpose | Codifies the last successful fallback-path `/scrape` into a permanent browser skill: `script.ts` (a pure `parseFromHtml`), a test, a fixture and a bundled SDK copy, runnable in about 200 ms. |
 | Triggers | "skillify", "codify this scrape", "make this permanent". |
 | Inputs | The last 10 conversation turns; AUQ for name and tier. |
-| Outputs | `~/.gstack/browser-skills/<name>/` or `<project>/.gstack/browser-skills/<name>/` containing `SKILL.md` (`trusted: false`), `script.ts`, `script.test.ts`, `_lib/browse-client.ts`, `fixtures/`. |
+| Outputs | `~/.<ref>/browser-skills/<name>/` or `<project>/.<ref>/browser-skills/<name>/` containing `SKILL.md` (`trusted: false`), `script.ts`, `script.test.ts`, `_lib/browse-client.ts`, `fixtures/`. |
 | Tools/deps | `browse/src/browser-skill-write.ts` (stage, commit, discard); `$B skill test/run`. |
 | Workflow | Provenance guard; name and tier; synthesize; capture the fixture; write the test; stage; run the tests (at most 2 retries); approval; commit; verify. |
 | Safety gates | "Iron contract": nothing half-broken reaches disk; `trusted: false`; same-tier name collisions refused. |
@@ -1152,11 +1154,11 @@ The detail for this entry is in [GSTACK-ARCHITECTURE-ANALYSIS.md §5](GSTACK-ARC
 | Triggers | "make a diagram", "draw the architecture", "create a flowchart". |
 | Inputs | A description; the pre-built `lib/diagram-render/dist/diagram-render.html` bundle. |
 | Outputs | The triplet, shown inline. |
-| Tools/deps | Bash, Read, Write, AUQ; `gstack-render.ts` (Aside or browse); `shasum`, `base64`. Preamble tier 1 (305 lines). |
+| Tools/deps | Bash, Read, Write, AUQ; `<ref>-render.ts` (Aside or browse); `shasum`, `base64`. Preamble tier 1 (305 lines). |
 | Workflow | Write the mermaid (5-15 nodes), stage the bundle (content-addressed, 0700, symlink and owner check), make one render call with three outputs, deliver. |
 | Safety gates | Never ship unrendered; offline only; fix parse errors first. |
 | State | None. |
-| Artifacts | `./diagrams/<slug>.{mmd,excalidraw,svg,png}` in a git repo, else `/tmp/gstack-diagrams/`. |
+| Artifacts | `./diagrams/<slug>.{mmd,excalidraw,svg,png}` in a git repo, else `/tmp/<ref>-diagrams/`. |
 | External | None. |
 | Strengths | Deterministic; secure staging; editable round-trip. |
 | Weaknesses | `shasum` may be absent (Linux has `sha256sum`). Needs the pre-built bundle. Only flowcharts and sequence diagrams are editable. **Plan reviews produce ASCII diagrams and never call this skill** (a missed integration). |
@@ -1193,8 +1195,8 @@ The detail for this entry is in [GSTACK-ARCHITECTURE-ANALYSIS.md §5](GSTACK-ARC
 | Purpose | Live-device iOS QA for SwiftUI apps. A Mac daemon reaches an embedded `StateServer` over a USB CoreDevice IPv6 tunnel and runs a vision loop: screenshot → elements → state → act → verify. |
 | Triggers | "ios qa", "test my iPhone app", "qa the ios app". |
 | Inputs | `--source`, `--cold`, `--tailnet`, `--recording`, demo mode. |
-| Outputs | A generated `DebugBridge/` SPM package plus `StateAccessor.swift`; app wiring edits (`#if DEBUG`); findings; audit log `~/.gstack/security/ios-qa-audit.jsonl` (rotated at 10 MB). |
-| Tools/deps | macOS, Xcode (`xcodebuild`, `devicectl`), Swift ≥5.9; `gstack-ios-qa-daemon`, `-mint`, `-regen`; Tailscale for remote. |
+| Outputs | A generated `DebugBridge/` SPM package plus `StateAccessor.swift`; app wiring edits (`#if DEBUG`); findings; audit log `~/.<ref>/security/ios-qa-audit.jsonl` (rotated at 10 MB). |
+| Tools/deps | macOS, Xcode (`xcodebuild`, `devicectl`), Swift ≥5.9; `<ref>-ios-qa-daemon`, `-mint`, `-regen`; Tailscale for remote. |
 | Workflow | 0. Warm start. 1. Compatibility gate (only file-scope `@Observable` and SwiftPM; otherwise stop). 2. Regen, build, install, launch, capture the boot token. 3. Loop with session acquire and release. |
 | Safety gates | Loopback-only binding; Tailscale WhoIs identity check (fails closed); capability tiers observe < interact < mutate < restore; mint rate limit; 1 MB body limit; **Release builds refuse to link the bridge** (enforced by a CI check). |
 | State | `ios-qa-session.json`, `ios-qa-daemon.pid`, audit log. |
@@ -1233,7 +1235,7 @@ The detail for this entry is in [GSTACK-ARCHITECTURE-ANALYSIS.md §5](GSTACK-ARC
 | Purpose | HIG and DESIGN.md visual audit on a real device, scoring 10 dimensions 0-10. |
 | Triggers | "review the ios design", "audit the iphone app visuals". |
 | Inputs | Screen list or auto-discovery. |
-| Outputs | `~/.gstack/projects/<slug>/ios-design-review-<date>.md`; an AUQ for each score below 7. |
+| Outputs | `~/.<ref>/projects/<slug>/ios-design-review-<date>.md`; an AUQ for each score below 7. |
 | Tools/deps | Bash, Read, Glob, Grep, AUQ (**no Write**); daemon (`observe` tier). |
 | Workflow | Acquire an observe session; per screen, screenshot, elements, rubric; report. |
 | Safety gates | Read-only tier. |
@@ -1251,7 +1253,7 @@ The detail for this entry is in [GSTACK-ARCHITECTURE-ANALYSIS.md §5](GSTACK-ARC
 | Field | Detail |
 |---|---|
 | Purpose | Guided removal of DebugBridge and its wiring. |
-| Triggers | "remove debugbridge", "strip the gstack ios instrumentation". |
+| Triggers | "remove debugbridge", "strip the reference suite ios instrumentation". |
 | Inputs | App source directory. |
 | Outputs | Edits; deletions. |
 | Tools/deps | Bash, Read, Edit, Glob, Grep, AUQ; xcodebuild, swift, `nm`. |
@@ -1261,7 +1263,7 @@ The detail for this entry is in [GSTACK-ARCHITECTURE-ANALYSIS.md §5](GSTACK-ARC
 | Artifacts | — |
 | External | Xcode. |
 | Strengths | A three-way verification. |
-| Weaknesses | **Misses the local `DebugBridge/` package directory** and `.gstack-version`. **Its Release "verification" installs onto the device, replacing the installed app.** |
+| Weaknesses | **Misses the local `DebugBridge/` package directory** and `.<ref>-version`. **Its Release "verification" installs onto the device, replacing the installed app.** |
 | Missing | A `regen --remove` counterpart. |
 | Improvements | Build-only verification. |
 | Proposed equivalent | iOS adapter `uninstall`. |
@@ -1273,11 +1275,11 @@ The detail for this entry is in [GSTACK-ARCHITECTURE-ANALYSIS.md §5](GSTACK-ARC
 | Purpose | Regenerates the bridge package and accessors against the current templates. |
 | Triggers | "regenerate ios accessors", "resync the ios debug bridge". |
 | Inputs | `APP_SOURCE_DIR`. |
-| Outputs | An updated `DebugBridge/` and `StateAccessor.swift` plus `.gstack-version`. |
-| Tools/deps | `gstack-ios-qa-regen`; swift. |
+| Outputs | An updated `DebugBridge/` and `StateAccessor.swift` plus `.<ref>-version`. |
+| Tools/deps | `<ref>-ios-qa-regen`; swift. |
 | Workflow | Version compare, then regen (hash-cached, ~50 ms no-op), then diff review, then build and relaunch. |
 | Safety gates | Handwritten files untouched; `git restore` on compile failure. |
-| State | `.gstack-version`. |
+| State | `.<ref>-version`. |
 | Artifacts | Regenerated files. |
 | External | Xcode. |
 | Strengths | Deterministic and cached. |
@@ -1298,7 +1300,7 @@ The detail for this entry is in [GSTACK-ARCHITECTURE-ANALYSIS.md §5](GSTACK-ARC
 | Outputs | Chat only: provenance block, an idea table with immutable links, ranked recommendations. |
 | Tools/deps | Bash, Read, Glob, Grep; `gh api --method GET`; a hardened git prefix (`GIT_OPTIONAL_LOCKS=0 … -c core.fsmonitor=false`); `python3 -I -S`. |
 | Workflow | Source revisions, commits and PRs in the window, older PRs (bounded budget), rubric, recheck, report. |
-| Safety gates | **The most rigorous hostile-repo read posture in gstack**: no temp files, no git transports, no `git status` (clean filters could execute), no running project code; content treated as evidence. **But every guard is prose, with no hook.** |
+| Safety gates | **The most rigorous hostile-repo read posture in the reference suite**: no temp files, no git transports, no `git status` (clean filters could execute), no running project code; content treated as evidence. **But every guard is prose, with no hook.** |
 | State | None. |
 | Artifacts | None. |
 | External | GitHub API. |
@@ -1316,14 +1318,14 @@ The detail for this entry is in [GSTACK-ARCHITECTURE-ANALYSIS.md §5](GSTACK-ARC
 | Triggers | "benchmark models", "compare models", "model shootout". |
 | Inputs | Prompt (a skill, inline text or a file); providers; judge opt-in. |
 | Outputs | Table (fastest, cheapest, best quality, best overall); JSON. |
-| Tools/deps | Bash, Read, AUQ; `bin/gstack-model-benchmark` (which imports `test/helpers/benchmark-runner`); the `claude`, `codex` and `gemini` CLIs. |
+| Tools/deps | Bash, Read, AUQ; `bin/<ref>-model-benchmark` (which imports `test/helpers/benchmark-runner`); the `claude`, `codex` and `gemini` CLIs. |
 | Workflow | Binary, prompt, `--dry-run` auth check, judge opt-in (~$0.05), run, interpret, save. |
 | Safety gates | Dry run first; the judge is never automatic; cost shown. |
-| State | `~/.gstack/benchmarks/`. |
+| State | `~/.<ref>/benchmarks/`. |
 | Artifacts | JSON. |
 | External | Anthropic, OpenAI, Google. |
 | Strengths | Auth preview; opt-in judge. |
-| Weaknesses | Saving re-runs the benchmark (double cost, different numbers). The judge credential check can give a false positive. Skill listing only works when cwd is the gstack repo. The production binary depends on `test/helpers`. One run per provider, so no variance. |
+| Weaknesses | Saving re-runs the benchmark (double cost, different numbers). The judge credential check can give a false positive. Skill listing only works when cwd is the reference suite repo. The production binary depends on `test/helpers`. One run per provider, so no variance. |
 | Missing | Repeated trials and statistics; tool-use fidelity scoring. |
 | Improvements | Part of the evaluation engine. |
 | Proposed equivalent | Evaluation engine `model-compare`. |
@@ -1341,12 +1343,12 @@ The detail for this entry is in [GSTACK-ARCHITECTURE-ANALYSIS.md §5](GSTACK-ARC
 
 ## 3. Consolidated verdicts → our skill set
 
-| Our capability | Absorbs gstack skills | Kind |
+| Our capability | Absorbs the reference suite skills | Kind |
 |---|---|---|
 | `/discover` | office-hours, spec | User-facing |
 | `/plan` (lenses: product, engineering, design, dx; `--auto`) | plan-ceo-review, plan-eng-review, plan-design-review, plan-devex-review, autoplan | User-facing |
 | `/design` (system, explore, build, audit) | design-consultation, design-shotgun, design-html, design-review, ios-design-review | User-facing |
-| `/build` | *new; gstack has no dedicated implementation skill* | User-facing |
+| `/build` | *new; the reference suite has no dedicated implementation skill* | User-facing |
 | `/debug` | investigate, ios-fix | User-facing |
 | `/review` | review (+ the review modes of codex and claude-code) | User-facing |
 | `/security` | cso | User-facing |
@@ -1357,10 +1359,10 @@ The detail for this entry is in [GSTACK-ARCHITECTURE-ANALYSIS.md §5](GSTACK-ARC
 | `/docs` (sync, generate, diagram, export) | document-release, document-generate, diagram, make-pdf | User-facing |
 | `/health` (+ reuse lens) | health, deslop-shared-libs | User-facing |
 | `/retro` | retro | User-facing |
-| `/browser` (open, extract, auth, share, recipes) | browse, open-gstack-browser, connect-chrome, pair-agent, setup-browser-cookies, scrape, skillify | User-facing |
+| `/browser` (open, extract, auth, share, recipes) | browse, `open-<ref>-browser`, connect-chrome, pair-agent, setup-browser-cookies, scrape, skillify | User-facing |
 | `/guard` | careful, guard, freeze, unfreeze | User-facing control → Safety engine |
 | `/resume`, `/memory` | context-save, context-restore, learn, plan-tune | User-facing → State and Memory engines |
 | Specialist `second-opinion` | codex, claude-code | Specialist |
 | Specialist renderers | diagram, make-pdf | Specialist |
 | Adapters | setup-gbrain, sync-gbrain, ios-qa, ios-clean, ios-sync, deploy platforms, VCS, trackers | Adapter layer |
-| System | gstack (router), gstack-upgrade, benchmark-models, contrib/add-host, browser-skills | Internal |
+| System | The reference suite (router), `<ref>-upgrade`, benchmark-models, contrib/add-host, browser-skills | Internal |

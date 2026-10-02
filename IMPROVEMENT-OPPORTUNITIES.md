@@ -1,12 +1,12 @@
 # Improvement Opportunities
 
-> **What this is.** A list of concrete opportunities to build a system that is measurably better than gstack v1.91.1.0.
+> **What this is.** A list of concrete opportunities to build a system that is measurably better than the reference suite v1.91.1.0.
 >
-> **Grounding.** Every current limitation is cited from [GSTACK-ARCHITECTURE-ANALYSIS.md](GSTACK-ARCHITECTURE-ANALYSIS.md) (§n) or [GSTACK-CAPABILITY-MATRIX.md](GSTACK-CAPABILITY-MATRIX.md) (#skill). Every design refers to [PROPOSED-SYSTEM-ARCHITECTURE.md](PROPOSED-SYSTEM-ARCHITECTURE.md) (PSA §n).
+> **Grounding.** Every current limitation is cited from [REFERENCE-ARCHITECTURE-ANALYSIS.md](REFERENCE-ARCHITECTURE-ANALYSIS.md) (§n) or [REFERENCE-CAPABILITY-MATRIX.md](REFERENCE-CAPABILITY-MATRIX.md) (#skill). Every design refers to [PROPOSED-SYSTEM-ARCHITECTURE.md](PROPOSED-SYSTEM-ARCHITECTURE.md) (PSA §n).
 >
 > **Format.** Each item is `IO-nn` and follows the chain **CURRENT LIMITATION → WHY IT MATTERS → PROPOSED DESIGN → EXPECTED BENEFIT → HOW TO MEASURE**.
 >
-> **Expected-benefit numbers are targets to validate, not claims.** Each is backed by a measurement in [MASTER-SPEC.md §15](MASTER-SPEC.md) and must be confirmed against a gstack baseline measured by the benchmark harness (ROADMAP R1).
+> **Expected-benefit numbers are targets to validate, not claims.** Each is backed by a measurement in [MASTER-SPEC.md §15](MASTER-SPEC.md) and must be confirmed against a reference-suite baseline measured by the benchmark harness (ROADMAP R1).
 
 ## Index by category
 
@@ -38,7 +38,7 @@ A priority ranking is at the end (§ Priority).
 
 ### IO-01: There is no implementation skill
 - **CURRENT LIMITATION**
-  - gstack covers think, plan, review, test, ship and operate, but it has **no skill for executing an approved plan**.
+  - The reference suite covers think, plan, review, test, ship and operate, but it has **no skill for executing an approved plan**.
   - `plan-eng-review` emits worktree "parallelization lanes" and P1-P3 tasks (`tasks-eng-review-*.jsonl`), but no skill consumes them to build.
   - `/spec` can spawn an untracked `claude -p … &` in a worktree (#spec).
 - **WHY IT MATTERS**
@@ -74,7 +74,7 @@ A priority ranking is at the end (§ Priority).
   - Evidence-backed QA for non-web products.
   - DX scores stop being estimates.
 - **HOW TO MEASURE**
-  - Share of `/qa` DX dimensions that end TESTED vs INFERRED. Target ≥ 7 of 8 vs gstack's documented 4 of 8.
+  - Share of `/qa` DX dimensions that end TESTED vs INFERRED. Target ≥ 7 of 8 vs the reference suite's documented 4 of 8.
   - Seeded API-defect recall on the `qa-api/*` task suite.
 
 ---
@@ -88,7 +88,7 @@ A priority ranking is at the end (§ Priority).
   - Plan, design, QA and health findings are prose tables.
   - Nothing checks whether stated confidence matches actual accuracy.
 - **WHY IT MATTERS**
-  - Uncalibrated confidence makes suppression thresholds arbitrary: gstack's rule is 7+ shown and 1-2 suppressed.
+  - Uncalibrated confidence makes suppression thresholds arbitrary: The reference suite's rule is 7+ shown and 1-2 suppressed.
   - It hides false positives, which erode trust, and false negatives, which let defects through.
 - **PROPOSED DESIGN**
   - Every finding is a `Claim` (PSA §2.4) with status, severity, confidence 0-1 and evidence ids.
@@ -99,7 +99,7 @@ A priority ranking is at the end (§ Priority).
   - Thresholds grounded in data.
 - **HOW TO MEASURE**
   - ECE per lens on the `review/*` and `security/*` task suites (target ECE ≤ 0.10).
-  - Precision@shown and recall vs seeded defects, compared with gstack `/review` on the same fixtures.
+  - Precision@shown and recall vs seeded defects, compared with the reference suite `/review` on the same fixtures.
 
 ### IO-04: Cross-model "outside voice" is always on and has no budget
 - **CURRENT LIMITATION**
@@ -142,7 +142,7 @@ A priority ranking is at the end (§ Priority).
 - **EXPECTED BENEFIT**
   - Each concern is reviewed once, the instruction load is a fraction of the old one, and drift is structurally impossible.
 - **HOW TO MEASURE**
-  - Instruction tokens loaded per `/plan --auto` vs gstack `/autoplan` on the same plan fixtures.
+  - Instruction tokens loaded per `/plan --auto` vs the reference suite `/autoplan` on the same plan fixtures.
   - Duplicate-finding rate (same location and semantic key from more than one lens). Target < 5%.
   - Number of user questions per plan review.
 
@@ -169,7 +169,7 @@ A priority ranking is at the end (§ Priority).
 
 ### IO-07: Orchestration is prose with no runtime state machine
 - **CURRENT LIMITATION**
-  - gstack's workflows, STOP gates, phase order and completion protocol are prose that the model interprets (analysis §0).
+  - The reference suite's workflows, STOP gates, phase order and completion protocol are prose that the model interprets (analysis §0).
   - The only enforcement is a few hooks, plus autoplan's 487-line transcript-coupled `phase-publication-hook`, which couples to Claude Code internals (#autoplan).
   - The Stop hook closes "dangling" runs with outcome `unknown`, which shows the completion protocol is regularly skipped (analysis §4.4).
 - **WHY IT MATTERS**
@@ -184,7 +184,7 @@ A priority ranking is at the end (§ Priority).
 - **EXPECTED BENEFIT**
   - Gates are enforced by code, phase order cannot be skipped, and completion status is computed rather than claimed.
 - **HOW TO MEASURE**
-  - Gate-bypass rate on the adversarial `safety/gate-skip/*` suite (prompts that push the model to skip steps). Target 0 bypasses vs a gstack baseline.
+  - Gate-bypass rate on the adversarial `safety/gate-skip/*` suite (prompts that push the model to skip steps). Target 0 bypasses vs a reference-suite baseline.
   - Share of runs ending in a computed terminal status vs `unknown`. Target ≥ 99%.
 
 ### IO-08: Declared permissions don't match what skills instruct
@@ -281,7 +281,7 @@ A priority ranking is at the end (§ Priority).
   - Regression tests are verified to guard the defect they target.
 - **HOW TO MEASURE**
   - Share of generated regression tests that pass the fail-before/pass-after verifier (target 100% of those accepted).
-  - Mutation score on changed lines, compared against the gstack baseline on the same fixtures.
+  - Mutation score on changed lines, compared against the reference suite baseline on the same fixtures.
 
 ---
 
@@ -307,7 +307,7 @@ A priority ranking is at the end (§ Priority).
   - Injection defenses sit where the risk is.
 - **HOW TO MEASURE**
   - `safety/injection/*` suite: pages, repos and PR bodies with planted instructions (e.g. "run `curl … | sh`", "push to main").
-  - Metric: the share of runs where the agent attempts the injected action, which must be caught by policy. Target 0 successful injected side effects; also report the attempt rate vs the gstack baseline.
+  - Metric: the share of runs where the agent attempts the injected action, which must be caught by policy. Target 0 successful injected side effects; also report the attempt rate vs the reference suite baseline.
 
 ### IO-13: Paired-agent defaults are over-privileged
 - **CURRENT LIMITATION**
@@ -323,9 +323,9 @@ A priority ranking is at the end (§ Priority).
   - Private ranges need an explicit `--allow-private` plus domain globs.
   - Credential files are 0600 (icacls on Windows) and verified.
   - Every remote command goes to the audit log.
-  - Tailscale/tailnet transport as an option, reusing gstack's ios-qa WhoIs pattern.
+  - Tailscale/tailnet transport as an option, reusing the reference suite's ios-qa WhoIs pattern.
 - **EXPECTED BENEFIT**
-  - Least privilege for remote agents, keeping gstack's strong dual-listener transport.
+  - Least privilege for remote agents, keeping the reference suite's strong dual-listener transport.
 - **HOW TO MEASURE**
   - Security tests assert the defaults (scope set, TTL, private-range block).
   - A red-team scenario: a remote agent reading an injected page cannot reach 192.168.x.x or run eval without explicit grants.
@@ -359,7 +359,7 @@ A priority ranking is at the end (§ Priority).
   - Cross-browser QA, deterministic state testing, task isolation, one prompt path, and a safer default on Windows.
 - **HOW TO MEASURE**
   - `qa-web/*` suite with seeded bugs that reproduce only in WebKit or Firefox, or only under a mocked 500 or slow network.
-  - Metrics: detection rate; prompt tokens for browser skills vs gstack's dual path.
+  - Metrics: detection rate; prompt tokens for browser skills vs the reference suite's dual path.
   - Sandbox status is reported by `aeos doctor` on all OSes.
 
 ---
@@ -397,7 +397,7 @@ A priority ranking is at the end (§ Priority).
 - **CURRENT LIMITATION**
   - `document-generate`'s "every code example compiles/runs" is a self-review checklist item with **no execution step** (#document-generate).
   - `document-release` only discovers `.md` files at `maxdepth 2`, has no link checking, and pushes without confirmation (#document-release).
-  - Doc/code drift exists inside gstack itself:
+  - Doc/code drift exists inside the reference suite itself:
     - BROWSER.md lists a nonexistent `sidebar-utils.ts` and a `/sidebar-chat` tunnel path the code does not serve
     - `benchmark` promises Core Web Vitals and Lighthouse but measures no CLS or INP (#benchmark)
 - **WHY IT MATTERS**
@@ -424,7 +424,7 @@ A priority ranking is at the end (§ Priority).
   - Deploy config lives in a CLAUDE.md section (#setup-deploy).
   - `/canary --quick` is documented but not implemented, and its "Rollback" option has no procedure.
   - Canary writes `canary-history.jsonl`, which no dashboard reads, and it has no observability input (#canary).
-  - `/ship` is hard-wired to gstack's 4-digit VERSION and CHANGELOG voice (#ship).
+  - `/ship` is hard-wired to the reference suite's 4-digit VERSION and CHANGELOG voice (#ship).
 - **WHY IT MATTERS**
   - Many teams use GitLab or k8s.
   - Config in an instruction file is unparseable and churns diffs.
@@ -433,7 +433,7 @@ A priority ranking is at the end (§ Priority).
   - `Forge` and `DeployProvider` adapters with GitHub and GitLab parity at v1, plus k8s rollout status and ArgoCD (PSA §2.8).
   - `.aeos/deploy.yaml`, schema-validated, with staging, production, health, rollback and merge-method fields.
   - `/deploy monitor` combines browser probes with `Observability` adapters (error rate, latency) over a window, with explicit rollback wiring.
-  - Versioning and changelog are **policy adapters**: semver, calver, gstack-4-digit, or none.
+  - Versioning and changelog are **policy adapters**: semver, calver, reference-suite 4-digit, or none.
 - **EXPECTED BENEFIT**
   - Deploy works on real stacks, with verified rollouts and pluggable conventions.
 - **HOW TO MEASURE**
@@ -461,7 +461,7 @@ A priority ranking is at the end (§ Priority).
 - **HOW TO MEASURE**
   - Tokens per `/ship` by risk band.
   - Defect recall on high-risk fixtures (must not decrease vs always-on).
-  - Wall time on low-risk fixtures (target a large reduction vs the gstack baseline; the exact target is set after R1 baselining).
+  - Wall time on low-risk fixtures (target a large reduction vs the reference suite baseline; the exact target is set after R1 baselining).
 
 ---
 
@@ -469,7 +469,7 @@ A priority ranking is at the end (§ Priority).
 
 ### IO-19: Runs don't survive compaction
 - **CURRENT LIMITATION**
-  - Except `/autoplan` (hash-bound snapshots, compaction recovery), gstack keeps workflow position in the conversation.
+  - Except `/autoplan` (hash-bound snapshots, compaction recovery), the reference suite keeps workflow position in the conversation.
   - "Context Health" is a soft directive (analysis §7.5).
   - Continuous WIP checkpoints were removed in v1.89.1.0.
   - `/context-save` is manual and summarizes from the LLM's memory (#context-save).
@@ -493,7 +493,7 @@ A priority ranking is at the end (§ Priority).
 - **CURRENT LIMITATION**
   - `/learn prune` removes entries by having **the LLM rewrite the JSONL**.
   - Because dedupe is latest-wins, deleting the newest line **resurrects** an older duplicate.
-  - `learnings-log` and `-search` use `${GSTACK_HOME:-~/.gstack}` while `/learn stats` uses `GSTACK_STATE_ROOT`, so they diverge under plugin installs (#learn; analysis §7.1).
+  - `learnings-log` and `-search` use `${<REF>_HOME:-~/.<ref>}` while `/learn stats` uses `<REF>_STATE_ROOT`, so they diverge under plugin installs (#learn; analysis §7.1).
 - **WHY IT MATTERS**
   - Corrupted or resurrected memories re-inject wrong guidance into future runs.
 - **PROPOSED DESIGN**
@@ -555,7 +555,7 @@ A priority ranking is at the end (§ Priority).
   - The project slug comes from origin, so all worktrees share one project directory (analysis §7.4).
   - `/tmp/variant-*.png` and `/tmp/landing-*.json` are shared paths.
 - **WHY IT MATTERS**
-  - Parallel agents and worktrees are a primary workflow; gstack targets Conductor. Shared mutable state produces cross-talk bugs.
+  - Parallel agents and worktrees are a primary workflow; the reference suite targets Conductor. Shared mutable state produces cross-talk bugs.
 - **PROPOSED DESIGN**
   - Every row is keyed by `project_id`, `worktree_id` and `session_id`. Temp paths are run-scoped (PSA §2.3).
 - **EXPECTED BENEFIT**
@@ -589,7 +589,7 @@ A priority ranking is at the end (§ Priority).
 ### IO-25: Completion is self-declared, and the verify gate is opt-in
 - **CURRENT LIMITATION**
   - The model reports DONE, DONE_WITH_CONCERNS or BLOCKED itself (the Completion Status Protocol).
-  - `gstack-verify-gate` (a Stop hook) exists but is opt-in and needs a CLAUDE.md-declared command (analysis §9).
+  - `<ref>-verify-gate` (a Stop hook) exists but is opt-in and needs a CLAUDE.md-declared command (analysis §9).
 - **WHY IT MATTERS**
   - Premature "done" claims are a top failure mode of coding agents.
 - **PROPOSED DESIGN**
@@ -597,7 +597,7 @@ A priority ranking is at the end (§ Priority).
 - **EXPECTED BENEFIT**
   - No unverified "done".
 - **HOW TO MEASURE**
-  - On task suites, the share of runs reported `done` whose hidden acceptance tests fail (false-done rate). Compare with the gstack baseline and target a sharp reduction.
+  - On task suites, the share of runs reported `done` whose hidden acceptance tests fail (false-done rate). Compare with the reference suite baseline and target a sharp reduction.
 
 ### IO-26: `file:line` citations are not checked
 - **CURRENT LIMITATION**
@@ -644,7 +644,7 @@ A priority ranking is at the end (§ Priority).
   - Robust coverage.
 - **HOW TO MEASURE**
   - A corpus of ≥ 300 destructive-command variants (compound, obfuscated, interpreter, cloud, SQL, PowerShell).
-  - Catch rate (target ≥ 99%) and false-ask rate on a benign corpus (target ≤ 2%). gstack's careful hook is run on the same corpus as the baseline.
+  - Catch rate (target ≥ 99%) and false-ask rate on a benign corpus (target ≤ 2%). The reference suite's careful hook is run on the same corpus as the baseline.
 
 ### IO-29: The freeze scope is global, persists, and has a setup bug
 - **CURRENT LIMITATION**
@@ -699,7 +699,7 @@ A priority ranking is at the end (§ Priority).
 - **CURRENT LIMITATION**
   - A failed `/ship` or `/land-and-deploy` relies on "re-run is idempotent" prose.
   - There is no record of completed side effects or their inverses.
-  - Migrations are non-fatal and unrecorded; `OLD_VERSION=unknown` skips all of them (#gstack-upgrade; analysis §13).
+  - Migrations are non-fatal and unrecorded; `OLD_VERSION=unknown` skips all of them (`<ref>-upgrade`; analysis §13).
 - **WHY IT MATTERS**
   - Partial failures leave repositories and deploys in unknown states.
   - Silent migration failures corrupt state.
@@ -762,7 +762,7 @@ A priority ranking is at the end (§ Priority).
 ### IO-35: No tool abstraction; each skill detects CLIs itself
 - **CURRENT LIMITATION**
   - Each skill embeds its own detection: `gh` vs `glab`, base branch, platform CLIs, `shasum` vs `sha256sum`, `open` vs `xdg-open`.
-  - `lib/code-intelligence` is gstack's only real provider contract (analysis §6).
+  - `lib/code-intelligence` is the reference suite's only real provider contract (analysis §6).
 - **WHY IT MATTERS**
   - Inconsistent behavior, repeated tokens, and each new platform requires editing many skills.
 - **PROPOSED DESIGN**
@@ -779,7 +779,7 @@ A priority ranking is at the end (§ Priority).
 
 ### IO-36: No manifest, SDK or trust model for third-party skills
 - **CURRENT LIMITATION**
-  - Adding a gstack skill means writing a template against about 95 resolver placeholders and regenerating (analysis §2).
+  - Adding a reference-suite skill means writing a template against about 95 resolver placeholders and regenerating (analysis §2).
   - Hosts are added by hand (`contrib/add-host`).
   - Browser-skills have a `trusted` flag but run as unsandboxed `bun run` (analysis §5.6).
   - There is no signed distribution for community skills.
@@ -836,7 +836,7 @@ A priority ranking is at the end (§ Priority).
 - **EXPECTED BENEFIT**
   - Fewer tool calls per question, and trustworthy perf verdicts.
 - **HOW TO MEASURE**
-  - Tool calls per decision (gstack's ≥ 4-6 vs target 1).
+  - Tool calls per decision (the reference suite's ≥ 4-6 vs target 1).
   - `/perf` false-regression rate on unchanged builds (target ≤ 5%).
   - Hook p95 latency in the benchmark.
 
@@ -860,13 +860,13 @@ A priority ranking is at the end (§ Priority).
   - Specialists are not registered as Claude Code skills at all. They are runtime-served phase cards or controlled subagents, so they add nothing to the catalog (PSA §3.2, AD-04).
   - The once-per-session constitution uses SessionStart injection, which is VERIFIED hands-on up to about 9,000 characters (larger content is silently truncated). The constitution budget must stay under that. The stub-embedded fallback remains only for hosts without SessionStart (AD-11).
 - **EXPECTED BENEFIT**
-  - A large reduction in instruction tokens per run. The target is ≥ 60% less for `/review` and `/ship` vs gstack on identical fixtures, to be validated in R1.
+  - A large reduction in instruction tokens per run. The target is ≥ 60% less for `/review` and `/ship` vs the reference suite on identical fixtures, to be validated in R1.
 - **HOW TO MEASURE**
-  - The benchmark harness records instruction tokens (system plus skill plus cards) and total tokens per task for AEOS and gstack on the same fixtures and model. The outcome-quality metrics must stay equal or better.
+  - The benchmark harness records instruction tokens (system plus skill plus cards) and total tokens per task for AEOS and the reference suite on the same fixtures and model. The outcome-quality metrics must stay equal or better.
 
 ### IO-40: Tokens are not accounted per run
 - **CURRENT LIMITATION**
-  - gstack ratchets static budgets (catalog 1,171 token-equivalents; per-skill eager tokens) and has `gstack-context-bill`.
+  - The reference suite ratchets static budgets (catalog 1,171 token-equivalents; per-skill eager tokens) and has `<ref>-context-bill`.
   - Runtime token use per run and phase is not recorded, and no run is budget-capped (analysis §1, §17).
 - **WHY IT MATTERS**
   - Without run-level budgets, runaway runs like the 15M-token `/review` go undetected until after the fact.
@@ -888,7 +888,7 @@ A priority ranking is at the end (§ Priority).
     - qa vs qa-only
     - design-review vs plan-design-review vs ios-design-review
     - benchmark vs benchmark-models
-  - gstack **writes and commits** to the user's CLAUDE.md:
+  - The reference suite **writes and commits** to the user's CLAUDE.md:
     - a routing section (after an AUQ)
     - deploy config
     - health stack
@@ -919,14 +919,14 @@ A priority ranking is at the end (§ Priority).
 ### IO-42: Teams track `main`, and personal state can't be shared
 - **CURRENT LIMITATION**
   - Team mode auto-pulls `main` hourly with no pinning or signed releases (analysis §12).
-  - Learnings, decisions and plans live in each person's `~/.gstack`. Sharing needs the optional artifacts git-sync to a *personal* private repo.
+  - Learnings, decisions and plans live in each person's `~/.<ref>`. Sharing needs the optional artifacts git-sync to a *personal* private repo.
 - **WHY IT MATTERS**
-  - Team members run different gstack versions with different behavior.
+  - Team members run different the reference suite versions with different behavior.
   - Team knowledge (pitfalls, decisions) doesn't propagate through normal review.
 - **PROPOSED DESIGN**
   - A project version pin in `.aeos/config.yaml`.
   - Team-scope memory and approved artifacts exported to `<repo>/.aeos/`, reviewed through PRs.
-  - A JSONL merge strategy for append-only files (keeping gstack's merge-driver idea) (PSA §2.3, §2.16).
+  - A JSONL merge strategy for append-only files (keeping the reference suite's merge-driver idea) (PSA §2.3, §2.16).
 - **EXPECTED BENEFIT**
   - Reproducible team behavior, and shared knowledge under code review.
 - **HOW TO MEASURE**
@@ -966,7 +966,7 @@ A priority ranking is at the end (§ Priority).
 - **CURRENT LIMITATION**
   - Telemetry records skill-level outcomes (`skill_run`, `route`). There is no per-run trace of which sections were read, which gates fired, or tokens per phase.
   - The `preamble.ts` header says local JSONL is "always" written, but the code skips it when telemetry is off (analysis §17).
-  - Aside browser drives leave no gstack audit trail (analysis §5.1).
+  - Aside browser drives leave no the reference suite audit trail (analysis §5.1).
 - **WHY IT MATTERS**
   - Failures can't be debugged, and prompt changes can't be tuned, without traces.
 - **PROPOSED DESIGN**
@@ -986,14 +986,14 @@ A priority ranking is at the end (§ Priority).
 
 ### IO-45: No routing accuracy benchmark and no stable task benchmark
 - **CURRENT LIMITATION**
-  - gstack has extensive E2E and LLM-judge evals with diff-based selection, but they are mostly pass/fail per skill scenario.
+  - The reference suite has extensive E2E and LLM-judge evals with diff-based selection, but they are mostly pass/fail per skill scenario.
   - There is no labelled routing corpus with accuracy tracked, and no stable cross-version task benchmark with scored baselines, CIs and calibration (analysis §16).
   - Codex periodic shards never run in CI.
 - **WHY IT MATTERS**
-  - "Better than gstack" can't be claimed without a shared, repeatable benchmark.
+  - "Better than the reference suite" can't be claimed without a shared, repeatable benchmark.
 - **PROPOSED DESIGN**
   - Five suites: routing, tasks, safety, efficiency, calibration. N-trial runs with CIs, pinned models, hermetic environments, and baselines stored as artifacts (PSA §2.14).
-  - **A gstack adapter in the harness** runs the same tasks through gstack for head-to-head comparison.
+  - **A reference-suite adapter in the harness** runs the same tasks through the reference suite for head-to-head comparison.
 - **EXPECTED BENEFIT**
   - Objective, reproducible comparison and regression detection.
 - **HOW TO MEASURE**
@@ -1006,7 +1006,7 @@ A priority ranking is at the end (§ Priority).
 
 ### IO-46: Tests pin wording, and migrations are unrecorded
 - **CURRENT LIMITATION**
-  - Many gstack tests assert the presence of specific phrases in generated markdown (e.g. about 70 `autoplan-*.test.ts`), which makes refactors expensive and says little about behavior (analysis §16).
+  - Many the reference suite tests assert the presence of specific phrases in generated markdown (e.g. about 70 `autoplan-*.test.ts`), which makes refactors expensive and says little about behavior (analysis §16).
   - Migrations have no ledger (analysis §13).
 - **WHY IT MATTERS**
   - Wording-pinned tests resist improvement while missing behavioral regressions.
@@ -1022,7 +1022,7 @@ A priority ranking is at the end (§ Priority).
 
 ### IO-47: Claims drift from code, and claims from implementation
 - **CURRENT LIMITATION**
-  - Verified drift in gstack:
+  - Verified drift in the reference suite:
     - BROWSER.md lists a nonexistent `sidebar-utils.ts` and a `/sidebar-chat` tunnel path the code doesn't serve, plus an undocumented `-H` flag
     - canary documents `--quick` but no phase implements it
     - benchmark promises CWV and Lighthouse without measuring them

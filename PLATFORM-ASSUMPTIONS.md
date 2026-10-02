@@ -33,7 +33,7 @@ These are VERIFIED or PARTIALLY VERIFIED. They may be used **within their stated
 | V-14 | Claude Code protects some configuration paths (`.claude/`, `~/.claude/`, `.git`, `.mcp.json`, shell rc files, …) | PARTIALLY VERIFIED | AEOS-owned state is not covered. In `auto` mode the classifier decides protected writes, and `bypassPermissions` allows them. |
 | V-15 | `UserPromptSubmit` exists | PARTIALLY VERIFIED | It is **not** a verified origin signal (U-02). |
 | V-16 | Multiple hooks on one event all run, concurrently. Start order follows configuration order; completion order is non-deterministic. Deny beats allow; a settings deny beats a hook `allow`; exit 2 blocks; exit 1 is non-blocking | VERIFIED (hands-on) | AEOS must be order-independent. **A hook `allow` loosens native checks** (it overrode a working-directory block), so AEOS never emits it, and foreign `allow` hooks are reported (U-16). |
-| V-17 | A Stop hook can block turn end and coexists with other Stop hooks, including gstack- and paysec-shaped entries; the loop guard is `stop_hook_active` | VERIFIED (hands-on) | The gate must honor `stop_hook_active` (U-12). |
+| V-17 | A Stop hook can block turn end and coexists with other Stop hooks, including reference-suite- and paysec-shaped entries; the loop guard is `stop_hook_active` | VERIFIED (hands-on) | The gate must honor `stop_hook_active` (U-12). |
 | V-18 | SessionStart `additionalContext` reaches the model at startup and again after compaction (`source: compact`); each new session gets its own | VERIFIED (hands-on) | Keep it **≤ 9,000 characters**: larger content is silently truncated (U-06). |
 | V-19 | User-scope settings (hook) changes apply to a running session within about 1 s and emit `ConfigChange` | VERIFIED (hands-on, user scope) | Anything that can write the settings file changes live enforcement. Watch `ConfigChange` (U-04). |
 | V-20 | A runtime command can detect whether PreToolUse saw its own call (nonce heartbeat) | VERIFIED (hands-on) | It detects missing hooks; it doesn't prevent disabling them (U-09). |
@@ -147,8 +147,8 @@ The assumptions below are **unresolved**. No AEOS design, requirement or guarant
 
 ### U-12: A Stop hook can reliably block turn end, and coexists with other Stop hooks
 - **Status:** VERIFIED (hands-on, 2026-09-27)
-- **Hands-on result:** A Stop hook `{"decision":"block"}` was honored alongside gstack- and paysec-shaped copies and a failing Stop hook. All five hooks ran on both passes, and the second pass carried `stop_hook_active: true` (E-06). Evidence: [HANDS-ON-VALIDATION-REPORT.md](platform-validation/HANDS-ON-VALIDATION-REPORT.md).
-- **Why unsafe:** If Stop blocking is unavailable or conflicts with the gstack and paysec Stop hooks already installed, completion gating by hook fails.
+- **Hands-on result:** A Stop hook `{"decision":"block"}` was honored alongside reference-suite- and paysec-shaped copies and a failing Stop hook. All five hooks ran on both passes, and the second pass carried `stop_hook_active: true` (E-06). Evidence: [HANDS-ON-VALIDATION-REPORT.md](platform-validation/HANDS-ON-VALIDATION-REPORT.md).
+- **Why unsafe:** If Stop blocking is unavailable or conflicts with the reference suite and paysec Stop hooks already installed, completion gating by hook fails.
 - **Design instead:** The runtime computes status and never records `done` without evidence, regardless of hooks. The Stop gate is additive (MASTER-SPEC VR-6).
 - **Resolve by:** Hands-on test of Stop blocking alongside two existing foreign Stop hooks, in an isolated configuration directory.
 
@@ -177,7 +177,7 @@ The assumptions below are **unresolved**. No AEOS design, requirement or guarant
 ### U-16: Multiple hooks on the same event combine in a known order with known precedence
 - **Status:** VERIFIED (hands-on, 2026-09-27)
 - **Hands-on result:** Matching hooks run **concurrently**. Start order follows configuration order (and source order), and completion order is **non-deterministic**. No ordering control was found. Deny beats allow. A settings deny beats a hook `allow`. Exit 2 blocks. A failing hook is non-blocking. **A hook `allow` overrode a native working-directory block** (E-04, E-05). Evidence: [HANDS-ON-VALIDATION-REPORT.md](platform-validation/HANDS-ON-VALIDATION-REPORT.md).
-- **Why unsafe:** With AEOS, gstack, paysec, plugin and project hooks all on the same event, ordering and decision combination determine the outcome.
+- **Why unsafe:** With AEOS, the reference suite, paysec, plugin and project hooks all on the same event, ordering and decision combination determine the outcome.
 - **Design instead:** AEOS decisions are designed to be correct regardless of order: deny and ask only, and no reliance on running first. Overlaps are reported (PSA §2.17).
 - **Resolve by:** Hands-on test with multiple hooks returning different decisions.
 

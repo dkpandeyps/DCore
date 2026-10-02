@@ -8,7 +8,7 @@
 > - [PROPOSED-SYSTEM-ARCHITECTURE.md](PROPOSED-SYSTEM-ARCHITECTURE.md) (PSA) explains the design; this document governs.
 > - [ROADMAP.md](ROADMAP.md) sequences delivery.
 > - [IMPROVEMENT-OPPORTUNITIES.md](IMPROVEMENT-OPPORTUNITIES.md) (IO) justifies requirements.
-> - The gstack analysis documents are reference material only.
+> - The reference suite analysis documents are reference material only.
 >
 > **Keywords:** MUST, MUST NOT, SHOULD, SHOULD NOT and MAY are used as defined in RFC 2119.
 > **Working name:** "AEOS" is the working product name and namespace for R0/R1 specification work (owner decision Q1, 2026-09-27). The final product name is a pre-release decision. When it is chosen, every derived identifier (`aeos`, `.aeos/`, `AEOS_*`) is renamed mechanically.
@@ -35,12 +35,12 @@ Each goal G-n has an acceptance metric, defined in §15.
 | ID | Goal | Acceptance metric (§15) |
 |---|---|---|
 | G-1 | **Enforced workflows.** Phase order, gates and completion status are enforced by code, not only described in prose. | Gate-bypass rate = 0 on the gate suite |
-| G-2 | **Evidence-backed output.** Every completion claim and every finding with severity ≥ medium references fresh evidence. | 100% claim-evidence coverage; false-done rate below the gstack baseline |
+| G-2 | **Evidence-backed output.** Every completion claim and every finding with severity ≥ medium references fresh evidence. | 100% claim-evidence coverage; false-done rate below the reference suite baseline |
 | G-3 | **Always-on safety.** A safety floor applies in every session, across all tools, on every supported OS. | Destructive-corpus catch ≥ 99%; benign false-ask ≤ 2% |
-| G-4 | **Token efficiency.** At equal or better outcome quality, instruction tokens per run are well below gstack on the same tasks. | ≥ 60% fewer instruction tokens for `/review` and `/ship` (validated in R1) |
+| G-4 | **Token efficiency.** At equal or better outcome quality, instruction tokens per run are well below the reference suite on the same tasks. | ≥ 60% fewer instruction tokens for `/review` and `/ship` (validated in R1) |
 | G-5 | **Cross-platform parity.** Windows, macOS and Linux are first-class. | Static and gate suites green on all 3 OSes; task-outcome parity |
 | G-6 | **Composable capabilities.** Skills communicate only through typed artifacts, events and route plans. | Registry lint: 0 glob-based hand-offs; every input has a producer |
-| G-7 | **Measurable superiority.** A reproducible benchmark compares AEOS with gstack. | Nightly benchmark; per-release delta report with CIs |
+| G-7 | **Measurable superiority.** A reproducible benchmark compares AEOS with the reference suite. | Nightly benchmark; per-release delta report with CIs |
 | G-8 | **Recoverability.** Runs survive crashes, compaction and interruption without duplicate side effects. | Fault-injection suite: 0 duplicate side effects; correct final state |
 | G-9 | **Extensibility.** Teams add project skills and adapters without forking. | Scaffold to a lint-clean skill in ≤ 30 minutes (DX study) |
 | G-10 | **Team reproducibility.** Everyone on a project runs the same pinned version and shares reviewed knowledge. | Version-skew refusal test; team-memory propagation test |
@@ -55,7 +55,7 @@ Each goal G-n has an acceptance metric, defined in §15.
 - **NG-4** AEOS does not implement its own LLM inference, image generation or search engine. These come through adapters.
 - **NG-5** AEOS is not a general browser-automation product. The browser layer exists to serve engineering QA, measurement and extraction.
 - **NG-6** AEOS is not a persona. Voice is neutral and professional by default; personality is a user preference.
-- **NG-7** AEOS does not reproduce gstack. Code and prompt text from gstack **MUST NOT** be copied (§18.4). Concepts may be re-implemented with attribution in design docs.
+- **NG-7** AEOS does not reproduce the reference suite. Code and prompt text from the reference suite **MUST NOT** be copied (§18.4). Concepts may be re-implemented with attribution in design docs.
 - **NG-8** Autonomous production changes without human approval (above L4 gates) are out of scope.
 
 ---
@@ -103,7 +103,7 @@ These principles are **mandatory**. A design, RFC or implementation that conflic
 
 #### MP-2 Evidence-based completion
 - **Rule.** Run status is computed from verifier evidence (§8.2, §10). A model's statement of completion is never sufficient.
-- **Why.** Because enforcement can live outside the model (MP-1), a completion claim can be checked mechanically. A self-declared "done" is exactly the failure gstack's prose protocols couldn't prevent. Computed status does not depend on any hook. The Stop hook is an *additional* gate. Its ability to block turn end was VERIFIED hands-on, alongside gstack- and paysec-shaped Stop hooks (U-12, §10 VR-6). (AD-01)
+- **Why.** Because enforcement can live outside the model (MP-1), a completion claim can be checked mechanically. A self-declared "done" is exactly the failure the reference suite's prose protocols couldn't prevent. Computed status does not depend on any hook. The Stop hook is an *additional* gate. Its ability to block turn end was VERIFIED hands-on, alongside reference-suite- and paysec-shaped Stop hooks (U-12, §10 VR-6). (AD-01)
 
 #### MP-3 Autonomy as a ceiling
 - **Rule.** AEOS autonomy and guard levels can only make behavior **more** restrictive than Claude Code's permission mode, rules and managed settings. AEOS MUST NOT:
@@ -140,8 +140,8 @@ These principles are **mandatory**. A design, RFC or implementation that conflic
   Skill-to-skill invocation is VERIFIED and may be used for user-level composition. (AD-04)
 
 #### MP-6 Hook coexistence
-- **Rule.** AEOS MUST coexist with hooks owned by others: gstack, paysec, project hooks, plugin hooks, managed hooks and other tooling. The Hook Compatibility Manager (PSA §2.17) detects, classifies and reports them before installation. AEOS never edits, reorders, removes or disables another owner's hook.
-- **Why.** Hooks from settings, plugins and managed policy all run in the same events, subagents included. This machine already has gstack and paysec `Stop` hooks in `~/.claude/settings.json`. Plugin agents also have limitations with their own hooks and permissions, so AEOS's global hooks carry role enforcement (keyed on `agent_type`) and must not collide with others. (AD-05, AD-07)
+- **Rule.** AEOS MUST coexist with hooks owned by others: The reference suite, paysec, project hooks, plugin hooks, managed hooks and other tooling. The Hook Compatibility Manager (PSA §2.17) detects, classifies and reports them before installation. AEOS never edits, reorders, removes or disables another owner's hook.
+- **Why.** Hooks from settings, plugins and managed policy all run in the same events, subagents included. This machine already has the reference suite and paysec `Stop` hooks in `~/.claude/settings.json`. Plugin agents also have limitations with their own hooks and permissions, so AEOS's global hooks carry role enforcement (keyed on `agent_type`) and must not collide with others. (AD-05, AD-07)
 
 #### MP-7 Explicit verification states
 - **Rule.**
@@ -161,7 +161,7 @@ These principles are **mandatory**. A design, RFC or implementation that conflic
 - **Why.**
   - AEOS must add hooks and possibly deny rules (MP-4), and these live in files that other tools also own (MP-6).
   - Several of those paths are protected by Claude Code precisely because silent changes to them are dangerous.
-  - gstack's pattern of committing routing and config into CLAUDE.md is a documented weakness (IO-41).
+  - The reference suite's pattern of committing routing and config into CLAUDE.md is a documented weakness (IO-41).
 
   (AD-07)
 
@@ -442,7 +442,7 @@ Skills MUST communicate only through artifacts, events and route plans (PSA §4)
 - **VR-6 Stop enforcement.**
   - The runtime MUST NOT record status `done` without the required verifier evidence. This holds independently of any hook.
   - On hosts where a Stop hook can block turn end, AEOS additionally blocks a turn that presents an unverified completion claim, and lists what is missing.
-  - Stop-hook blocking is **VERIFIED hands-on** (U-12): `{"decision":"block"}` was honored while coexisting with gstack- and paysec-shaped Stop hooks and a failing one.
+  - Stop-hook blocking is **VERIFIED hands-on** (U-12): `{"decision":"block"}` was honored while coexisting with reference-suite- and paysec-shaped Stop hooks and a failing one.
   - The gate MUST honor `stop_hook_active` to prevent loops.
 - **VR-7 Browser verification.** UI claims require a `browser_trace` or `screenshot` **plus** a deterministic assertion (a DOM or accessibility query, a network response, or a console-error absence). "Looks right" alone is `supported`, never `verified`.
 - **VR-8 Deploy verification.** "Deployed" requires evidence that the live system serves the target SHA (a provider status or a version endpoint), plus a health check. HTTP 200 alone is insufficient.
@@ -476,7 +476,7 @@ Skills MUST communicate only through artifacts, events and route plans (PSA §4)
 - **AU-2a** Lowering the level (tightening) is accepted from any source.
 - **AU-3** A delegated or composed run inherits `min(parent, own)`, never higher.
 - **AU-4** The constitution and every status line MUST display the effective level.
-- **AU-5** Spawned or headless sessions without a user default to L0 or L1 per project config, and MUST NOT auto-approve anything that requires approval. They end `needs_input`. This differs from gstack, where spawned sessions auto-choose the recommended option.
+- **AU-5** Spawned or headless sessions without a user default to L0 or L1 per project config, and MUST NOT auto-approve anything that requires approval. They end `needs_input`. This differs from the reference suite, where spawned sessions auto-choose the recommended option.
 
 ---
 
@@ -685,13 +685,13 @@ The classification tables live in `/policy/` with a test corpus (§15.1).
 - **BM-2 Protocol.** Pinned model IDs, a hermetic environment (temp `AEOS_HOME`, scrubbed env, fixed tool set), N = 3 nightly and N = 5 at release. Results are reported as mean ± 95% CI.
   - **Model set (owner decision Q8):** the current Claude flagship plus one mid-tier model.
   - **No paid-evaluation budget is set.** An owner decision on the dollar budget is REQUIRED before any paid benchmark execution.
-- **BM-3 Baselines.** Results are stored as `eval_result` artifacts. The **gstack comparator** runs the same `tasks` and `efficiency` suites through gstack (pinned version) on the same model, and is refreshed per gstack release.
+- **BM-3 Baselines.** Results are stored as `eval_result` artifacts. The **The reference suite comparator** runs the same `tasks` and `efficiency` suites through the reference suite (pinned version) on the same model, and is refreshed per the reference suite release.
 - **BM-4 Release gates.** A release is blocked if any of these holds:
   - (a) any `safety` escape exists
   - (b) any gate metric regresses beyond the CI of the previous release
   - (c) any `efficiency` metric exceeds its budget by more than 10%
   - (d) routing top-1 falls below 90%
-- **BM-5 Reporting.** Each release note includes a table of deltas against the previous release and against the gstack comparator.
+- **BM-5 Reporting.** Each release note includes a table of deltas against the previous release and against the reference suite comparator.
 
 ---
 
@@ -721,8 +721,8 @@ The classification tables live in `/policy/` with a test corpus (§15.1).
 | **Shells** | bash, zsh, sh and PowerShell commands are understood by policy. Skill content is shell-agnostic. |
 | **Models** | Skills MUST pass their eval thresholds on the pinned primary model set. Any other model runs with a "not benchmarked" disclosure. |
 | **Artifacts and state** | Backward-readable for 1 major version; migrations cover forward moves |
-| **gstack coexistence** | AEOS MUST work when gstack is installed side by side: no name collisions (checked by the reserved-word list), no shared state paths, and no hook conflicts. An optional importer MAY read gstack learnings into `untrusted`, `imported` memory. |
-| **Hook coexistence (MP-6)** | Before installing, the Hook Compatibility Manager (PSA §2.17) scans and reports existing hooks from user, project, local, plugin and (where readable) managed sources, with their overlaps and conflicts. AEOS adds only ownership-marked entries, after consent. It MUST coexist with gstack, paysec, project hooks, other plugins' hooks and other tooling. Known on this machine: gstack and paysec `Stop` hooks in `~/.claude/settings.json`. |
+| **The reference suite coexistence** | AEOS MUST work when the reference suite is installed side by side: no name collisions (checked by the reserved-word list), no shared state paths, and no hook conflicts. An optional importer MAY read the reference suite learnings into `untrusted`, `imported` memory. |
+| **Hook coexistence (MP-6)** | Before installing, the Hook Compatibility Manager (PSA §2.17) scans and reports existing hooks from user, project, local, plugin and (where readable) managed sources, with their overlaps and conflicts. AEOS adds only ownership-marked entries, after consent. It MUST coexist with the reference suite, paysec, project hooks, other plugins' hooks and other tooling. Known on this machine: The reference suite and paysec `Stop` hooks in `~/.claude/settings.json`. |
 | **Host-platform claims (MP-7)** | Every dependency on Claude Code behavior is tracked in [PLATFORM-ASSUMPTIONS.md](PLATFORM-ASSUMPTIONS.md) with its verification status. The Tier-1 host version used for validation is recorded: Phase 2 used Claude Code 2.1.283, with hands-on evidence on **Windows 11 only**. macOS and Linux claims stay NOT VERIFIED until measured. |
 
 ---
@@ -756,13 +756,13 @@ An RFC states the problem, the IO reference or a new evidence base, the design, 
 - No shell-outs in the runtime except through the process adapter, which carries timeouts, argument arrays (never string interpolation) and Windows-safe spawning.
 - Logs never contain secrets or raw command content from policy evaluation.
 
-### 18.4 Clean-room rule for gstack
+### 18.4 Clean-room rule for the reference suite
 
 Contributors **MUST NOT**:
-- copy code, prompt text or SKILL.md content from gstack (or from the `paysec` fork of it)
-- paste gstack excerpts into AEOS prompts
+- copy code, prompt text or SKILL.md content from the reference suite (or from the `paysec` fork of it)
+- paste the reference suite excerpts into AEOS prompts
 
-Ideas and patterns MAY be re-implemented from the published analysis documents. Design docs that do so SHOULD credit the origin ("pattern observed in gstack v1.91.1.0"). Reviewers MUST reject PRs containing recognizably copied gstack material.
+Ideas and patterns MAY be re-implemented from the published analysis documents. Design docs that do so SHOULD credit the origin ("pattern observed in the reference suite v1.91.1.0"). Reviewers MUST reject PRs containing recognizably copied the reference suite material.
 
 ### 18.5 Content standards
 
@@ -791,7 +791,7 @@ A `SECURITY.md` with a private reporting channel. Policy bypasses are treated as
 
 ### Spec changelog
 
-- 0.1.0 (2026-09-27): initial draft, derived from the gstack v1.91.1.0 analysis.
+- 0.1.0 (2026-09-27): initial draft, derived from the reference suite v1.91.1.0 analysis.
 - 0.2.0 (2026-09-27): Phase 2 platform validation.
   - Added §5.1 mandatory principles MP-1 to MP-8.
   - Added AU-0 (ceiling semantics) and AU-2a (tightening from any source); rewrote AU-2 (the consent channel no longer relies on an origin signal).

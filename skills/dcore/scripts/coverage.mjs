@@ -1,5 +1,5 @@
 // dcore capability coverage — maps useful problem-solving capabilities to ORIGINAL dcore modules.
-// This does NOT copy gstack names or implementation; it records that dcore intends to cover the useful capability
+// This does NOT copy comparison-baseline names or implementation; it records that dcore intends to cover the useful capability
 // surface with original names. "Missing useful capability" must be 0 unless NOT_APPLICABLE or OWNER_DEFERRED.
 import { MODULES } from './modules.mjs';
 
@@ -30,7 +30,7 @@ export function buildCoverageMatrix() {
   const missing_useful_capabilities = rows.filter((r) => !r.covered && r.status !== 'NOT_APPLICABLE' && r.status !== 'OWNER_DEFERRED').length;
   return {
     schema: 'dcore.capability_coverage/1', version: 1,
-    note: 'original dcore names only; no gstack implementation or names copied; planned/deferred are on the roadmap, not missing',
+    note: 'original dcore names only; no comparison-baseline implementation or names copied; planned/deferred are on the roadmap, not missing',
     rows, total: rows.length, implemented: rows.filter((r) => r.status === 'IMPLEMENTED').length,
     planned: rows.filter((r) => r.status === 'PLANNED').length, deferred: rows.filter((r) => r.status === 'DEFERRED').length,
     missing_useful_capabilities,

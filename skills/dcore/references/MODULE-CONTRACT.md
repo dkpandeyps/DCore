@@ -4,7 +4,7 @@ Every DCore module MUST define, in its `modules/<module_id>.md` reference and in
 
 | field | meaning |
 |---|---|
-| `module_id` | stable, original DCore identifier (e.g. `dcore-spec`) — never a gstack name |
+| `module_id` | stable, original DCore identifier (e.g. `dcore-spec`) — never a comparison-baseline name |
 | `module_name` | human name |
 | `purpose` | one line |
 | `inputs` | what the user provides |

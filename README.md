@@ -58,7 +58,7 @@ node skills/dcore/scripts/dcore.mjs dcore-plan --input "<feature>" --json
 - **Implemented:** `dcore-frame`, `dcore-spec`, `dcore-plan`, `dcore-review`, `dcore-qa`, `dcore-debug`, `dcore-sec`, `dcore-release`, `dcore-doc`, `dcore-chain`, `dcore-impact`.
 - **Deferred:** `dcore-retro`.
 
-See `skills/dcore/modules/` and `skills/dcore/references/GSTACK-COVERAGE-MATRIX.md`.
+See `skills/dcore/modules/` and `skills/dcore/references/CAPABILITY-COVERAGE-MATRIX.md`.
 
 ## Testing
 ```

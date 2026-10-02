@@ -1,7 +1,7 @@
 # AEOS Roadmap
 
 > **Governs:** delivery order for [MASTER-SPEC.md](MASTER-SPEC.md).
-> **Rationale for ordering:** the P0 foundations in [IMPROVEMENT-OPPORTUNITIES.md § Priority](IMPROVEMENT-OPPORTUNITIES.md#priority) come first. **Measurement comes before features**, so every later release can prove it is better than gstack.
+> **Rationale for ordering:** the P0 foundations in [IMPROVEMENT-OPPORTUNITIES.md § Priority](IMPROVEMENT-OPPORTUNITIES.md#priority) come first. **Measurement comes before features**, so every later release can prove it is better than the reference suite.
 > **No dates are committed.** Each release has exit criteria, and the next release starts only when they are met. Sizing is relative (S/M/L/XL) until the team and capacity are known (Q11).
 
 ## Project phases and releases
@@ -10,7 +10,7 @@ Work so far is organized in phases. Delivery is organized in releases R0-R8. Pha
 
 | Phase | Content | Status |
 |---|---|---|
-| Phase 1 | gstack analysis and specification (the five analysis and spec documents) | Complete (documents v0.1) |
+| Phase 1 | The reference suite analysis and specification (the five analysis and spec documents) | Complete (documents v0.1) |
 | **Phase 2** | Claude Code platform capability validation (the R0 spikes) | **Exit criteria satisfied (2026-09-27)**: documentation and hands-on (Windows) validation, plus the recorded owner decisions. B-3 and B-4 are resolved by evidence; B-1, B-2, B-5 and B-6 by owner acceptance of documented fallbacks; B-7 by owner decisions. Deferred items are carried forward. See [platform-validation/PHASE-2-EXIT-CRITERIA.md](platform-validation/PHASE-2-EXIT-CRITERIA.md). |
 | **Phase 3** | Benchmark and evaluation system: **design only** (R1 design). Documents are in [benchmark-design/](benchmark-design/PHASE-3-EXIT-CRITERIA.md). | **COMPLETE (2026-09-27).** The owner approved the v1 design (BQ-07, BQ-08, BQ-18) and the v1.1 revision that resolved design deficiencies D-1 to D-6 (BQ-21, BQ-22, BQ-23; [benchmark-design/PHASE-3-V1.1-REVISION.md](benchmark-design/PHASE-3-V1.1-REVISION.md)). The owner signed off Phase 3 as the approved design basis for Phase 4. **Next phase: Phase 4.** See [benchmark-design/PHASE-3-EXIT-CRITERIA.md](benchmark-design/PHASE-3-EXIT-CRITERIA.md). |
 | Phase 4 | Benchmark harness implementation and the Run A (Claude Code) baseline (R1 implementation; the bounded scope is in PHASE-3-EXIT-CRITERIA §4) | **Not started.** |
@@ -97,7 +97,7 @@ These are **required before R2**, because they validate host assumptions that PS
 
 ### Additional observations
 
-- **Existing hooks on this machine.** `~/.claude/settings.json` already registers two `Stop` hooks, one from gstack and one from paysec. Observed read-only, not modified. This drives the Hook Compatibility Manager (PSA §2.17, AD-07) and the Stop-hook coexistence test (U-12).
+- **Existing hooks on this machine.** `~/.claude/settings.json` already registers two `Stop` hooks, one from the reference suite and one from paysec. Observed read-only, not modified. This drives the Hook Compatibility Manager (PSA §2.17, AD-07) and the Stop-hook coexistence test (U-12).
 - **Default permission mode.** On Claude Code 2.1.283, `auto` is the default starting permission mode for interactive sessions, so AEOS's ceiling applies on top of a classifier that may approve routine actions (AD-02).
 - **Not covered by Phase 2:** SK-4 (SessionStart/compaction injection), SK-6 (shell parsing), SK-7 (`node:sqlite`), Stop-hook blocking, multi-hook ordering and mid-session reload. These are all NOT VERIFIED; see [PLATFORM-ASSUMPTIONS.md](PLATFORM-ASSUMPTIONS.md).
 
@@ -114,7 +114,7 @@ These are **required before R2**, because they validate host assumptions that PS
 
 ### Hands-on validation (2026-09-27)
 
-Executed in an isolated `CLAUDE_CONFIG_DIR` on Windows 11 with Claude Code 2.1.283: 38 headless sessions, $0.79. The real configuration, gstack and paysec were verified unchanged. Full record: [HANDS-ON-VALIDATION-REPORT.md](platform-validation/HANDS-ON-VALIDATION-REPORT.md).
+Executed in an isolated `CLAUDE_CONFIG_DIR` on Windows 11 with Claude Code 2.1.283: 38 headless sessions, $0.79. The real configuration, the reference suite and paysec were verified unchanged. Full record: [HANDS-ON-VALIDATION-REPORT.md](platform-validation/HANDS-ON-VALIDATION-REPORT.md).
 
 | U-item | Hands-on status | U-item | Hands-on status |
 |---|---|---|---|
@@ -138,13 +138,13 @@ Executed in an isolated `CLAUDE_CONFIG_DIR` on Windows 11 with Claude Code 2.1.2
 | B-1, B-2, B-5, B-6 | RESOLVED by owner acceptance of documented fallbacks. The evidence remains PARTIALLY VERIFIED. |
 | B-7 | RESOLVED: owner decisions recorded, with Q8 budget and Q11 ownership as gated deferrals |
 
-The decisions, the final disposition and the deferred items are in [PHASE-2-EXIT-CRITERIA.md](platform-validation/PHASE-2-EXIT-CRITERIA.md#owner-decisions-2026-09-27). Further hands-on validation must stay in an isolated environment and must not touch `~/.claude/settings.json`, gstack or paysec.
+The decisions, the final disposition and the deferred items are in [PHASE-2-EXIT-CRITERIA.md](platform-validation/PHASE-2-EXIT-CRITERIA.md#owner-decisions-2026-09-27). Further hands-on validation must stay in an isolated environment and must not touch `~/.claude/settings.json`, the reference suite or paysec.
 
 ---
 
 ## R1: Benchmark first
 
-**Why first.** Every "better than gstack" claim (G-4, G-7, and most IO measurements) needs a baseline. Building it before the runtime prevents confirmation bias and gives the runtime design numbers to work against.
+**Why first.** Every "better than the reference suite" claim (G-4, G-7, and most IO measurements) needs a baseline. Building it before the runtime prevents confirmation bias and gives the runtime design numbers to work against.
 
 ### Scope
 - **Harness** (`sys.eval`):
@@ -152,8 +152,8 @@ The decisions, the final disposition and the deferred items are in [PHASE-2-EXIT
   - N-trial execution with a mean and 95% CI
   - `eval_result` artifacts
   - `aeos bench compare`
-- **gstack comparator adapter.**
-  - Runs the same tasks through a pinned gstack install in an isolated `HOME`.
+- **The reference suite comparator adapter.**
+  - Runs the same tasks through a pinned the reference suite install in an isolated `HOME`.
   - Captures instruction tokens, total tokens, wall time, tool calls, outcomes and findings.
 - **Initial suites** (MASTER-SPEC §15.2):
 
@@ -167,16 +167,16 @@ The decisions, the final disposition and the deferred items are in [PHASE-2-EXIT
   | `safety/injection` | Repos, pages and PR bodies with planted instructions |
   | `efficiency` | Derived from all of the above |
 
-- **Baseline report:** gstack v1.91.1.0 (or the gstack version current at R1) on all suites. This is where the IO "expected benefit" targets get firmed up.
+- **Baseline report:** the reference suite v1.91.1.0 (or the reference suite version current at R1) on all suites. This is where the IO "expected benefit" targets get firmed up.
 
 ### Exit criteria
-- The gstack baseline is published with CIs.
+- The reference suite baseline is published with CIs.
 - Suites are reproducible: two runs agree within their CIs.
 - The IO targets (IO-39, IO-18 and others marked "set after R1") are fixed in the spec.
 
 ### Risks
 - Fixture authoring is effortful (Q15).
-- gstack on Windows may be partly non-functional, which is itself a data point. Record it, and baseline on macOS or Linux.
+- The reference suite on Windows may be partly non-functional, which is itself a data point. Record it, and baseline on macOS or Linux.
 
 ---
 
@@ -184,7 +184,7 @@ The decisions, the final disposition and the deferred items are in [PHASE-2-EXIT
 
 **Why `/review` first.**
 - It is read-mostly (L1).
-- It is high value and has a direct gstack comparator.
+- It is high value and has a direct the reference suite comparator.
 - It exercises every engine: context, state, evidence (citations), verification, safety (hooks), artifacts (`findings`), delegation (lenses) and composition (fan-out/fan-in).
 
 ### Scope: runtime
@@ -195,7 +195,7 @@ The decisions, the final disposition and the deferred items are in [PHASE-2-EXIT
 - **Verification engine:** registry; `schema.valid`, `citations.resolve`, `tests.pass`, `build.pass`, `lint.pass`, `typecheck.pass`; the Stop-hook enforcement.
 - **Orchestrator:** the phase protocol (`run start/step/ask/status/resume/abort`), repair limits, budgets, computed status.
 - **Context engine:** constitution through SessionStart; stubs; phase cards; ref packs; context packs; compaction re-injection.
-- **Hook Compatibility Manager** (PSA §2.17): scan, classify and report existing hooks (on this machine, the gstack and paysec Stop hooks), produce a consented installation report, and handle backup and rollback.
+- **Hook Compatibility Manager** (PSA §2.17): scan, classify and report existing hooks (on this machine, the reference suite and paysec Stop hooks), produce a consented installation report, and handle backup and rollback.
 - **Process Lifecycle Manager** (PSA §2.18): only if R2 ships the optional policy daemon. Otherwise it is deferred to R3.
 - **Safety engine:**
   - an always-on PreToolUse policy with a `"*"` matcher plus an explicit `mcp__.*` matcher, returning only `deny`, `ask` or no decision (a ceiling; never `allow`)
@@ -225,14 +225,14 @@ The decisions, the final disposition and the deferred items are in [PHASE-2-EXIT
 | `safety/destructive` catch rate | ≥ 99% |
 | Benign false-ask rate | ≤ 2% |
 | Injected side effects | 0 |
-| `/review` findings precision and recall vs the gstack baseline | ≥ baseline on both, with non-overlapping CI for at least one |
-| Instruction tokens per `/review` | ≤ 40% of the gstack baseline (G-4 target; fixed after R1) |
+| `/review` findings precision and recall vs the reference suite baseline | ≥ baseline on both, with non-overlapping CI for at least one |
+| Instruction tokens per `/review` | ≤ 40% of the reference suite baseline (G-4 target; fixed after R1) |
 | Invalid citations accepted | 0 |
 | Resilience (kill mid-phase, then resume) | Correct final state; 0 duplicate side effects |
 | Static and gate suites | Green on Windows, macOS and Linux |
 | Hook latency | Windows: ≤ 150 ms median, ≤ 250 ms p95 per hook call (AD-12; revised from < 50 ms after hands-on measurement). macOS and Linux: measure, with a target set after measurement. |
 | Hook deadline | Every AEOS hook returns deny or ask before its internal deadline; 0 hook cancellations in the safety suite (a cancelled hook fails open, AD-12) |
-| Hook coexistence | The installation report correctly lists foreign hooks on a fixture configuration shaped like this machine's (gstack plus paysec Stop hooks). Zero foreign entries are modified. |
+| Hook coexistence | The installation report correctly lists foreign hooks on a fixture configuration shaped like this machine's (the reference suite plus paysec Stop hooks). Zero foreign entries are modified. |
 | Ceiling property | Across the safety suite, AEOS emits 0 `allow` decisions and 0 widening `updatedInput` rewrites |
 
 ### Dependencies
@@ -268,15 +268,15 @@ Phase 2 exit: blockers B-1 to B-7 in [PHASE-2-EXIT-CRITERIA.md](platform-validat
 - **Memory engine and `/memory`:**
   - kinds, trust, tombstones, the write gate, budgeted retrieval, `why`
   - local FTS provider
-  - optional gstack-learnings importer (untrusted, imported)
+  - optional `<ref>-learnings` importer (untrusted, imported)
 - **Calibration:** per-lens ECE is measured, and the thresholds come from the data.
 
 ### Exit criteria
 
 | Criterion | Target |
 |---|---|
-| `tasks/debug` root-cause accuracy | ≥ gstack `/investigate` baseline; fix-regression rate < baseline |
-| `tasks/qa-web` detection | ≥ baseline; includes the cross-browser and mocked-network bugs gstack can't detect |
+| `tasks/debug` root-cause accuracy | ≥ the reference suite `/investigate` baseline; fix-regression rate < baseline |
+| `tasks/qa-web` detection | ≥ baseline; includes the cross-browser and mocked-network bugs the reference suite can't detect |
 | Regression-test validity | 100% of accepted tests pass fail-before/pass-after |
 | `/security` on the seeded-vuln suite | Precision and recall reported; ECE ≤ 0.10 |
 | Memory | Tombstone property tests pass; 0 planted-untrusted memory injections |
@@ -303,7 +303,7 @@ Phase 2 exit: blockers B-1 to B-7 in [PHASE-2-EXIT-CRITERIA.md](platform-validat
 
 | Criterion | Target |
 |---|---|
-| `/plan --auto` instruction tokens | Well below the gstack `/autoplan` baseline (target fixed after R1) |
+| `/plan --auto` instruction tokens | Well below the reference suite `/autoplan` baseline (target fixed after R1) |
 | Duplicate-finding rate across lenses | < 5% |
 | `tasks/build` plan-task completion with linked passing tests | ≥ 90% |
 | Wall time on multi-lane plans | Below sequential |
@@ -325,7 +325,7 @@ Phase 2 exit: blockers B-1 to B-7 in [PHASE-2-EXIT-CRITERIA.md](platform-validat
 
 | Criterion | Target |
 |---|---|
-| `/ship` false-done rate | < gstack baseline |
+| `/ship` false-done rate | < the reference suite baseline |
 | Instruction tokens | Below baseline (target fixed after R1) |
 | Unconfirmed `vcs.publish` or `pkg.install` | 0 |
 | Fault injection at every `/ship` node | Correct resume; 0 duplicate PRs or commits |
@@ -374,7 +374,7 @@ Phase 2 exit: blockers B-1 to B-7 in [PHASE-2-EXIT-CRITERIA.md](platform-validat
   - `auth` (manual headed sign-in first; cookie import where it is safe per OS)
   - `share` (least privilege, 1-hour tokens, private ranges blocked, audit log)
   - `recipes` (recorded from traces, sandboxed execution)
-- **`/qa` targets:** `cli` (sandboxed getting-started run with timed TTHW) and `ios` (simulator first; a device adapter modeled on the gstack ios-qa security pattern). Android depends on Q19.
+- **`/qa` targets:** `cli` (sandboxed getting-started run with timed TTHW) and `ios` (simulator first; a device adapter modeled on the reference suite ios-qa security pattern). Android depends on Q19.
 - **Optional browser drivers:** CDP-attach to the user's browser, and Aside if Q12 says so.
 
 ### Exit criteria
@@ -402,7 +402,7 @@ Phase 2 exit: blockers B-1 to B-7 in [PHASE-2-EXIT-CRITERIA.md](platform-validat
 
 ### Exit criteria (v1.0)
 - Every G-1 to G-10 acceptance metric (MASTER-SPEC §2) is met on the release benchmark (N = 5).
-- The benchmark delta table vs gstack is published.
+- The benchmark delta table vs the reference suite is published.
 
 ---
 
@@ -410,7 +410,7 @@ Phase 2 exit: blockers B-1 to B-7 in [PHASE-2-EXIT-CRITERIA.md](platform-validat
 
 | Track | Description |
 |---|---|
-| Benchmark growth | Each release adds tasks for its new skills. The gstack comparator is refreshed for each gstack release. |
+| Benchmark growth | Each release adds tasks for its new skills. The reference suite comparator is refreshed for each the reference suite release. |
 | Safety corpus | New bypass classes found in the field become corpus entries plus fixes, and are treated as security issues. |
 | Token budgets | Cards and packs are re-measured each release, and budgets are tightened only when outcomes hold. |
 | Docs | Generated from manifests and schemas; claims lint in CI. |
@@ -423,7 +423,7 @@ Phase 2 exit: blockers B-1 to B-7 in [PHASE-2-EXIT-CRITERIA.md](platform-validat
 This is a summary; the rationale is above.
 
 1. **R0:** complete Phase 2 with hands-on validation (resolve or accept blockers B-1 to B-7), ratify the spec, then schemas and the CI matrix.
-2. **R1:** benchmark harness, gstack baseline, safety corpora.
+2. **R1:** benchmark harness, the reference suite baseline, safety corpora.
 3. **R2:** state → artifact → evidence → verification → orchestrator → context → safety → router → `/review`.
 4. **R3:** browser layer → `/qa` → `/debug` → `/security` → memory.
 5. **R4:** `/plan` → `/discover` → composer → `/build`.
@@ -442,16 +442,16 @@ These must be resolved before implementation. **Blocking for R0** means R0 canno
 |---|---|---|---|---|
 | **Q1** | Final product name and command namespace (replaces "AEOS", `aeos`, `.aeos/`) | Every identifier, package name and plugin id | R0 | — (needs owner decision) **DECIDED 2026-09-27:** keep AEOS as the working name and namespace for R0/R1. The final name is a pre-release decision (still open). |
 | **Q2** | License: MIT, Apache-2.0 or proprietary/internal? | Contribution model, clean-room posture, distribution | R0 | Apache-2.0 if public; internal otherwise **DECIDED 2026-09-27:** proprietary/internal for now. Public licensing will be revisited if the project becomes public. |
-| **Q3** | How does this relate to the existing `paysec` fork (`github.com/dkpandeyps/paysec` v1.68.0.0, a renamed gstack fork installed on this machine)? Replace, coexist, or migrate its users? | Name collisions (e.g. paysec skills like `/review`, `/qa-fix`), user migration, the clean-room rule | R0 | Coexist during R2-R7; ship a migration guide at R8; never reuse paysec code **DECIDED 2026-09-27:** coexist during development; never reuse paysec code. Migration guidance comes later. |
+| **Q3** | How does this relate to the existing `paysec` fork (`github.com/dkpandeyps/paysec` v1.68.0.0, a renamed the reference suite fork installed on this machine)? Replace, coexist, or migrate its users? | Name collisions (e.g. paysec skills like `/review`, `/qa-fix`), user migration, the clean-room rule | R0 | Coexist during R2-R7; ship a migration guide at R8; never reuse paysec code **DECIDED 2026-09-27:** coexist during development; never reuse paysec code. Migration guidance comes later. |
 | **Q4** | Should the MCP façade be on by default, or should the CLI stay the only interface? | Token cost of MCP tool schemas vs typed calls; an MCP server is also a candidate session-scoped host for runtime services (AD-09) | R2 | CLI only; MCP opt-in (decide after SK-4 and U-03) |
 | **Q5** | Which hosts beyond Claude Code are in scope, and at which tier (Codex, Cursor, Factory, OpenCode, …)? | Adapter work, and the safety caps on hookless hosts | R0 (tier policy), R8 (implementation) | Claude Code only until R8 **DECIDED 2026-09-27:** Claude Code only until R8. Other hosts need explicit adapters and safety-cap validation first. |
-| **Q6** | Confirm Node LTS as the single runtime (vs Bun, or a compiled binary) | Windows support (gstack had to run its browser daemon under Node on Windows) | R0 | Node LTS, plus an optional SEA binary |
+| **Q6** | Confirm Node LTS as the single runtime (vs Bun, or a compiled binary) | Windows support (the reference suite had to run its browser daemon under Node on Windows) | R0 | Node LTS, plus an optional SEA binary |
 | **Q7** | Default autonomy for interactive sessions: L1 or L2? | Friction vs safety; whether commits need approval | R0 | L1 by default; the project may set L2 **DECIDED 2026-09-27:** L1 is the default for interactive sessions. A project may explicitly configure L2. |
 | **Q8** | Primary model set for benchmarks and the paid-eval budget per night and per release | Benchmark validity and cost | R1 | Current Claude flagship + one mid-tier model; the budget needs an owner decision **DECIDED 2026-09-27:** the current Claude flagship plus one mid-tier model for benchmark design. **The budget is not set**: an owner decision is required before any paid benchmark execution. |
 | **Q9** | Payments and security domain focus: should PCI-DSS, PSD2/SCA or compliance lenses be in core or in a project pack? | Scope of core vs extension | R3 | Project pack built on the R8 SDK; `lens.security-diff` stays general |
 | **Q10** | Telemetry: none, local-only, or opt-in remote? | Privacy posture and product feedback | R2 | Local-only traces; no remote telemetry in v1 |
 | **Q11** | Team size, capacity and ownership (spec owner, safety reviewer) | Sizing and the §18.2 safety-review rule | R0 | — **OWNER DECISION 2026-09-27: not supplied.** Team size, spec owner and safety reviewer are owner-supplied organizational metadata, required before the relevant R0 safety-review gate. None is invented. |
-| **Q12** | Support Aside (a third-party macOS AI browser) as an optional driver? | Parity with gstack on macOS vs maintenance | R7 | Only behind the `Browser` interface, if demand exists |
+| **Q12** | Support Aside (a third-party macOS AI browser) as an optional driver? | Parity with the reference suite on macOS vs maintenance | R7 | Only behind the `Browser` interface, if demand exists |
 | **Q13** | The user's actual stacks: forges, CI, deploy targets, observability, trackers | Which adapters are v1-critical | R5/R6 | GitHub + GitLab; others by survey |
 | **Q14** | Distribution: public marketplace, private org marketplace, or npm only? | Install UX, signing and team pinning | R2 | Private org marketplace plus npm with provenance |
 | **Q15** | Who builds and owns the benchmark fixture repos, and which licenses may seeded code use? | R1 is the critical path | R1 | A dedicated owner; synthetic or permissively licensed code only |
@@ -461,7 +461,7 @@ These must be resolved before implementation. **Blocking for R0** means R0 canno
 | **Q19** | Mobile: are iOS and Android both required, and is device (not just simulator) testing needed? | R7 scope | R7 | iOS simulator first; Android later |
 | **Q20** | Will target deployments use Claude Code **managed settings** (defense-in-depth layer 4), and who administers them? | Determines whether layer 4 exists (U-13, AD-06) | Phase 2 exit | Assume unavailable for individual users; recommended for organizations **DECIDED 2026-09-27:** assume managed settings are unavailable to individual users for Phase 2. They are recommended as an organizational defense-in-depth layer. No local `managed-settings.json` was found in the tested environment. |
 | **Q21** | If no in-session relaxation channel validates (U-02), is **restart-only relaxation** acceptable for R2? | Blocker B-5 | Phase 2 exit | Yes, restart-only until a channel is validated **DECIDED 2026-09-27:** restart-only autonomy relaxation is accepted for R2 until an in-session relaxation channel is validated. |
-| **Q22** | Approval and environment for hands-on Phase 2 validation: a scratch project with a separate `CLAUDE_CONFIG_DIR`, or a VM or container, and on which OSes | Needed to resolve B-1 to B-6 without touching `~/.claude/settings.json`, gstack or paysec | Phase 2 exit | Isolated config directory on this Windows machine, plus a Linux container; macOS if available. **Windows part used on 2026-09-27** (`platform-validation/scratch`, user-approved); Linux and macOS not yet run. **DECIDED 2026-09-27:** the owner explicitly approves the isolated scratch environment used for Phase 2 hands-on validation (`platform-validation/scratch`, a separate `CLAUDE_CONFIG_DIR`). |
+| **Q22** | Approval and environment for hands-on Phase 2 validation: a scratch project with a separate `CLAUDE_CONFIG_DIR`, or a VM or container, and on which OSes | Needed to resolve B-1 to B-6 without touching `~/.claude/settings.json`, the reference suite or paysec | Phase 2 exit | Isolated config directory on this Windows machine, plus a Linux container; macOS if available. **Windows part used on 2026-09-27** (`platform-validation/scratch`, user-approved); Linux and macOS not yet run. **DECIDED 2026-09-27:** the owner explicitly approves the isolated scratch environment used for Phase 2 hands-on validation (`platform-validation/scratch`, a separate `CLAUDE_CONFIG_DIR`). |
 
 ### Assumptions: status after Phase 2
 

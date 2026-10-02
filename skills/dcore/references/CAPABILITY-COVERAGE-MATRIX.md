@@ -1,6 +1,6 @@
 # DCore Capability Coverage Matrix
 
-original DCore names only; no gstack implementation or names copied; planned/deferred are on the roadmap, not missing
+original DCore names only; no comparison-baseline implementation or names copied; planned/deferred are on the roadmap, not missing
 
 | source capability | useful problem | DCore module | original name | status | permission | security | platform | tests |
 |---|---|---|---|---|---|---|---|---|
@@ -15,9 +15,9 @@ original DCore names only; no gstack implementation or names copied; planned/def
 | release preparation | ship safely | Release Prep | dcore-release | IMPLEMENTED | read-only | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
 | project retrospective | learn and improve | Retrospective | dcore-retro | DEFERRED | read-only | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
 
-**Totals (gstack-benchmark capabilities):** total=10, implemented=9, planned=0, deferred=1 (dcore-retro), **missing useful capabilities = 0**
+**Totals (capability-benchmark capabilities):** total=10, implemented=9, planned=0, deferred=1 (dcore-retro), **missing useful capabilities = 0**
 
-## DCore-native capabilities (no direct gstack equivalent claimed)
+## DCore-native capabilities (no direct comparison-baseline equivalent claimed)
 | capability | DCore mechanism | status | notes | tests |
 |---|---|---|---|---|
 | module-to-module handoff | prior module `--json` piped into the next; `parseHandoff`/`runModule` carry objective + salient items, tag `handoff_from` | IMPLEMENTED | deterministic, opt-in by JSON shape; plain text unaffected | test U |
@@ -29,5 +29,5 @@ original DCore names only; no gstack implementation or names copied; planned/def
 
 **Deferred (not implemented):** `dcore-retro` (retrospective).
 
-> gstack is used as a capability **benchmark**, not as source. No gstack code, prompts, or branding are copied.
+> The comparison baseline (a third-party skill suite) is used as a capability **benchmark**, not as source. None of its code, prompts, or branding are copied.
 > "IMPLEMENTED" here means a deterministic engine + tests exist; Claude completes the specifics per the module reference.

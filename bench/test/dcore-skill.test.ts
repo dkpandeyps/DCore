@@ -156,12 +156,12 @@ test('M. public/private boundary: skill needs no certification/private infra/cre
   }
 });
 
-test('N. gstack coverage metadata: original names; missing useful capability = 0', () => {
+test('N. capability coverage metadata: original names; missing useful capability = 0', () => {
   const c = buildCoverageMatrix();
   assert.equal(c.missing_useful_capabilities, 0);
   assert.equal(c.total, 10);
   assert.ok(c.rows.every((r: any) => /^dcore-/.test(r.original_module_name)));   // original dcore names only
-  assert.equal(readFileSync(join(SKILL, 'references', 'gstack-coverage.json'), 'utf8'), JSON.stringify(c, null, 2) + '\n');
+  assert.equal(readFileSync(join(SKILL, 'references', 'capability-coverage.json'), 'utf8'), JSON.stringify(c, null, 2) + '\n');
 });
 
 test('O. structural discovery passes; real Claude Code discovery is PENDING (not claimed passed)', () => {

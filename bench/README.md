@@ -7,7 +7,7 @@
 
 This slice implements `benchmark-design/PHASE-3-EXIT-CRITERIA.md` §4, in-scope items 1 to 6. The design authority is the signed-off Phase 3 documents (v1.1: BQ-21, BQ-22, BQ-23). Where they are silent, the choice is listed under *Specification gaps* below.
 
-**Scope decision (owner, 2026-09-27):** Phase 4 follows the §4 `aebs` scope plus Run A. The broader ROADMAP R1 scope is **not** implemented: the routing suites, the task corpora and the gstack comparator (C-1, C-2 and C-4 stay open; BQ-12 is unresolved).
+**Scope decision (owner, 2026-09-27):** Phase 4 follows the §4 `aebs` scope plus Run A. The broader ROADMAP R1 scope is **not** implemented: the routing suites, the task corpora and the reference suite comparator (C-1, C-2 and C-4 stay open; BQ-12 is unresolved).
 
 The code is not AEOS and enforces nothing. It observes and scores Claude Code's native behavior. No `/runtime/` exists.
 
@@ -25,7 +25,7 @@ node --test "test/**/*.test.ts"
 
 **What the tests use and touch:**
 - **Used:** temporary directories only, plus the test double `test/doubles/fake-claude.mjs`.
-- **Never used:** the real Claude CLI, the network, `~/.claude`, gstack and PaySecure.
+- **Never used:** the real Claude CLI, the network, `~/.claude`, the reference suite and PaySecure.
 - One test asserts that the real `~/.claude/settings.json` hash is unchanged.
 
 **Regenerating derived files.** Tests fail on any drift from the committed files. Regenerate with:
