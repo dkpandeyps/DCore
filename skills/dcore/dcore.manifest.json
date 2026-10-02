@@ -12,6 +12,7 @@
       "module_id": "dcore-frame",
       "module_name": "Problem Framing",
       "status": "IMPLEMENTED",
+      "kind": "reasoning",
       "purpose": "turn a raw request into a framed problem (objective, stakeholders, risks, open questions)",
       "permissions": [
         "read-only"
@@ -27,6 +28,7 @@
       "module_id": "dcore-spec",
       "module_name": "Specification",
       "status": "IMPLEMENTED",
+      "kind": "reasoning",
       "purpose": "turn a problem into a structured specification",
       "permissions": [
         "read-only"
@@ -42,6 +44,7 @@
       "module_id": "dcore-plan",
       "module_name": "Engineering Plan",
       "status": "IMPLEMENTED",
+      "kind": "reasoning",
       "purpose": "turn a feature/request into an implementation plan",
       "permissions": [
         "read-only"
@@ -57,7 +60,8 @@
       "module_id": "dcore-review",
       "module_name": "Code Review",
       "status": "IMPLEMENTED",
-      "purpose": "produce a structured review of code/diff text",
+      "kind": "reasoning",
+      "purpose": "produce a structured review of code or a real unified diff (diff mode reviews added lines only, with file:line)",
       "permissions": [
         "read-only"
       ],
@@ -72,6 +76,7 @@
       "module_id": "dcore-qa",
       "module_name": "QA / Test Plan",
       "status": "IMPLEMENTED",
+      "kind": "reasoning",
       "purpose": "produce a test plan from a feature/spec",
       "permissions": [
         "read-only"
@@ -87,6 +92,7 @@
       "module_id": "dcore-debug",
       "module_name": "Debug / Investigation",
       "status": "IMPLEMENTED",
+      "kind": "reasoning",
       "purpose": "turn a defect report into hypotheses, evidence to collect, likely root causes and next steps",
       "permissions": [
         "read-only"
@@ -102,7 +108,8 @@
       "module_id": "dcore-sec",
       "module_name": "Security Review",
       "status": "IMPLEMENTED",
-      "purpose": "threat-model a change (assets, surface, STRIDE-style checks, findings, residual risk)",
+      "kind": "reasoning",
+      "purpose": "threat-model a change (assets, surface, STRIDE-style checks, findings, residual risk); with --repo also scan the working tree (CONFIRMED / SUSPICIOUS / THEORETICAL)",
       "permissions": [
         "read-only"
       ],
@@ -117,6 +124,7 @@
       "module_id": "dcore-doc",
       "module_name": "Documentation",
       "status": "IMPLEMENTED",
+      "kind": "reasoning",
       "purpose": "turn a feature/spec/change into a deterministic documentation scaffold (known vs UNKNOWN, no invented APIs)",
       "permissions": [
         "read-only"
@@ -132,9 +140,12 @@
       "module_id": "dcore-release",
       "module_name": "Release Prep",
       "status": "IMPLEMENTED",
-      "purpose": "produce a fail-closed release-readiness checklist with explicit go/no-go gates",
+      "kind": "reasoning",
+      "purpose": "fail-closed release readiness: a go/no-go checklist from text, or with --repo EXECUTE the gates (tree, upstream, tests, secrets, version, docs) => READY/BLOCKED/NOT_AUTHORIZED/FAILED/VERIFIED; push/deploy only with approval",
       "permissions": [
-        "read-only"
+        "read-only",
+        "execute-local (--repo)",
+        "git-push / deploy (approval)"
       ],
       "security_level": "SAFE_GENERIC",
       "platform_requirements": [
@@ -147,6 +158,7 @@
       "module_id": "dcore-chain",
       "module_name": "Composition Chain",
       "status": "IMPLEMENTED",
+      "kind": "reasoning",
       "purpose": "run the common frame -> spec -> plan -> qa path in one call, composing via deterministic handoff",
       "permissions": [
         "read-only"
@@ -162,6 +174,7 @@
       "module_id": "dcore-impact",
       "module_name": "Change Impact",
       "status": "IMPLEMENTED",
+      "kind": "analysis",
       "purpose": "given a change + a repo, find literal references and classify DIRECT_EVIDENCE / LIKELY_AFFECTED / POSSIBLY_AFFECTED / UNKNOWN (never a dependency graph)",
       "permissions": [
         "read-only"
@@ -174,9 +187,142 @@
       "runnable": true
     },
     {
+      "module_id": "dcore-explore",
+      "module_name": "Repository Exploration",
+      "status": "IMPLEMENTED",
+      "kind": "analysis",
+      "purpose": "read-only repository intelligence: project type, languages, frameworks, build/test/lint commands, entry points, CI, integrations, config (secret files by name only)",
+      "permissions": [
+        "read-only"
+      ],
+      "security_level": "SAFE_GENERIC",
+      "platform_requirements": [
+        "any"
+      ],
+      "reference": "modules/dcore-explore.md",
+      "runnable": true
+    },
+    {
+      "module_id": "dcore-build",
+      "module_name": "Implementation",
+      "status": "IMPLEMENTED",
+      "kind": "procedure",
+      "purpose": "implement the smallest coherent change following repository conventions, then verify with dcore-run (Claude edits files with its own tools)",
+      "permissions": [
+        "writes-repo-files (user-requested change only)"
+      ],
+      "security_level": "SAFE_GENERIC",
+      "platform_requirements": [
+        "any"
+      ],
+      "reference": "modules/dcore-build.md",
+      "runnable": true
+    },
+    {
+      "module_id": "dcore-test",
+      "module_name": "Test Generation",
+      "status": "IMPLEMENTED",
+      "kind": "procedure",
+      "purpose": "add focused tests (regression, edge cases) that follow the repository test conventions, then run them",
+      "permissions": [
+        "writes-repo-files (tests only)"
+      ],
+      "security_level": "SAFE_GENERIC",
+      "platform_requirements": [
+        "any"
+      ],
+      "reference": "modules/dcore-test.md",
+      "runnable": true
+    },
+    {
+      "module_id": "dcore-run",
+      "module_name": "Command Execution",
+      "status": "IMPLEMENTED",
+      "kind": "execution",
+      "purpose": "run one repository-local command (tests/lint/typecheck/build) with timeout, redacted output, failure classification; destructive commands need approval",
+      "permissions": [
+        "execute-local"
+      ],
+      "security_level": "ENVIRONMENT_SPECIFIC",
+      "platform_requirements": [
+        "any"
+      ],
+      "reference": "modules/dcore-run.md",
+      "runnable": true
+    },
+    {
+      "module_id": "dcore-api",
+      "module_name": "API Testing",
+      "status": "IMPLEMENTED",
+      "kind": "execution",
+      "purpose": "execute real HTTP requests with status/header/body/JSON-path/schema/latency assertions; writes to non-local hosts need approval; secrets from env only, redacted",
+      "permissions": [
+        "network"
+      ],
+      "security_level": "ENVIRONMENT_SPECIFIC",
+      "platform_requirements": [
+        "any"
+      ],
+      "reference": "modules/dcore-api.md",
+      "runnable": true
+    },
+    {
+      "module_id": "dcore-browse",
+      "module_name": "Browser Execution",
+      "status": "IMPLEMENTED",
+      "kind": "execution",
+      "purpose": "drive a real Chromium-family browser (CDP, no dependencies): navigate, click, fill, assert, screenshot, console/network errors, a11y heuristics, timing; BLOCKED when no browser exists",
+      "permissions": [
+        "network",
+        "execute-local"
+      ],
+      "security_level": "ENVIRONMENT_SPECIFIC",
+      "platform_requirements": [
+        "any",
+        "chromium-family browser"
+      ],
+      "reference": "modules/dcore-browse.md",
+      "runnable": true
+    },
+    {
+      "module_id": "dcore-git",
+      "module_name": "Git Change Management",
+      "status": "IMPLEMENTED",
+      "kind": "execution",
+      "purpose": "status/diff/log/branches/show; commit and push only with explicit approval; push verified against the remote; never force-push or rewrite history",
+      "permissions": [
+        "read-only",
+        "git-write (approval)"
+      ],
+      "security_level": "ENVIRONMENT_SPECIFIC",
+      "platform_requirements": [
+        "any",
+        "git"
+      ],
+      "reference": "modules/dcore-git.md",
+      "runnable": true
+    },
+    {
+      "module_id": "dcore-verify",
+      "module_name": "Deployment Verification",
+      "status": "IMPLEMENTED",
+      "kind": "execution",
+      "purpose": "verify a deployed environment: health endpoints, expected page/text, latency, optional browser smoke => VERIFIED/FAILED/BLOCKED; never auto-rollback",
+      "permissions": [
+        "network"
+      ],
+      "security_level": "ENVIRONMENT_SPECIFIC",
+      "platform_requirements": [
+        "any"
+      ],
+      "reference": "modules/dcore-verify.md",
+      "runnable": true
+    },
+    {
       "module_id": "dcore-retro",
       "module_name": "Retrospective",
       "status": "DEFERRED",
+      "kind": "reasoning",
       "purpose": "project retrospective scaffold",
       "permissions": [
         "read-only"
@@ -189,11 +335,30 @@
       "runnable": false
     }
   ],
-  "implemented_count": 11,
+  "implemented_count": 19,
   "planned_count": 0,
   "deferred_count": 1,
   "requires_certification_for_basic_use": false,
   "requires_private_infrastructure": false,
   "requires_credentials": false,
-  "requires_network": false
+  "requires_network": false,
+  "execution_layer": {
+    "optional": true,
+    "location": "scripts/exec/",
+    "modules": [
+      "dcore-run",
+      "dcore-api",
+      "dcore-browse",
+      "dcore-git",
+      "dcore-verify"
+    ],
+    "subprocess": "dcore-run (the one requested command), dcore-git (git), dcore-browse (the local browser), dcore-release (git + test command)",
+    "network": "only dcore-api / dcore-browse / dcore-verify, only to the URL the user gives; never in reasoning modules",
+    "credentials": "only from environment variables the user names (valueEnv / --auth-env); always redacted from evidence",
+    "approvals": "git-commit, git-push, deploy, release, production, db-destructive, delete, external-write, credential, account, destructive-command — per invocation via --approve",
+    "forbidden": [
+      "force-push",
+      "history-rewrite"
+    ]
+  }
 }

@@ -52,3 +52,6 @@ desktop.ini
 *~
 .idea/
 .vscode/
+
+# DCore execution evidence (screenshots/page text of possibly authenticated pages: never commit)
+.dcore/

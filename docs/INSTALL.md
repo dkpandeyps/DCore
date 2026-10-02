@@ -32,7 +32,17 @@ credential-like file, and supports `--dry-run`.
 node skills/dcore/scripts/dcore.mjs list
 node skills/dcore/scripts/dcore.mjs dcore-spec --input "<your problem>"
 ```
-Only Node.js (>= 18) is required. No network access is needed.
+Only Node.js (>= 18) is required for installation and the reasoning/analysis modules, and they need no network
+access. The execution modules have extra, explicit requirements:
+- **dcore-browse**: Node.js >= 22 and an installed Chrome / Edge / Chromium / Brave (or `DCORE_BROWSER=<path>`);
+  otherwise it reports BLOCKED. It contacts only the URLs you give it.
+- **dcore-api / dcore-verify**: network access to the URLs you give them.
+- **dcore-git / dcore-release**: `git` on PATH.
+- Evidence (screenshots, reports) is written under `.dcore/` in the current directory; keep it out of version control.
+
+Re-running the install command upgrades in place: files that a previous DCore install wrote and the new version no
+longer ships are removed (recorded in `<target>/dcore/.dcore-install.json`); files DCore never installed are reported
+as `unmanaged` and left untouched.
 
 ## Supported platforms
 Windows, macOS, and Linux. Paths are handled with `node:path`; there are no shell-specific assumptions.

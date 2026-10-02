@@ -13,10 +13,12 @@
 - **runnable:** true
 
 ## How Claude uses this module
-Run  (or pipe via stdin) to seed the structure, then complete each section by following this reference and the surrounding context. Read-only: propose changes; never modify files without explicit user approval.
+Run `node scripts/dcore.mjs dcore-qa "<text>"` (or pipe via stdin) to seed the structure, then complete each section by following this reference and the surrounding context. Read-only: propose changes; never modify files without explicit user approval.
 
 ## Example
-
+```
+node scripts/dcore.mjs dcore-qa "Verify login at https://staging.example.test/login. Verify the tokens list filters by status."
+```
 
 ## Tests
 See bench/test/dcore-skill.test.ts for structural + behavioral coverage.

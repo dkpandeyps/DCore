@@ -27,6 +27,18 @@ without explicit user approval.
 Findings carry `line`, `severity`, `category`, `message`, `excerpt`; a `severity_summary` and de-duplicated
 `recommendations` are produced. Treat these as a first pass — always add manual correctness and test-coverage review.
 
+## Reviewing real changes (diff mode)
+Feed it a real unified diff and it reviews **only the added lines**, reporting `file` and the new-file `line` for every
+finding (plus `mode`, `files_changed`, `added_lines`):
+```
+git diff | node scripts/dcore.mjs dcore-review
+node scripts/dcore.mjs dcore-git diff --range main...HEAD --json   # evidence.patch -> dcore-review
+```
+Then do the human part of the review against the actual code: correctness and regressions, edge cases, error handling,
+API compatibility, data integrity, concurrency, test quality (do the tests fail without the change?), unnecessary
+complexity, performance where material, and documentation impact. Pair with dcore-impact for callers/tests/docs of the
+changed identifiers and dcore-sec --repo for introduced secrets. Report actionable findings only, each with file:line.
+
 ## Example
 ```
 printf 'const p = eval(x)\nif (a == b) {}\n' | node scripts/dcore.mjs dcore-review

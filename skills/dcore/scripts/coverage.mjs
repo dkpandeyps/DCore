@@ -14,6 +14,14 @@ const ROWS = [
   { source_capability: 'documentation', useful_problem: 'explain the system', module_id: 'dcore-doc' },
   { source_capability: 'release preparation', useful_problem: 'ship safely', module_id: 'dcore-release' },
   { source_capability: 'project retrospective', useful_problem: 'learn and improve', module_id: 'dcore-retro' },
+  { source_capability: 'browser automation / web QA', useful_problem: 'prove a web flow works in a real browser', module_id: 'dcore-browse' },
+  { source_capability: 'API testing', useful_problem: 'prove an endpoint behaves as specified', module_id: 'dcore-api' },
+  { source_capability: 'test/lint/build execution', useful_problem: 'get real pass/fail evidence', module_id: 'dcore-run' },
+  { source_capability: 'code implementation', useful_problem: 'make the change, minimally', module_id: 'dcore-build' },
+  { source_capability: 'test generation', useful_problem: 'lock behavior in with focused tests', module_id: 'dcore-test' },
+  { source_capability: 'repository exploration', useful_problem: 'know how a repo builds, tests and runs', module_id: 'dcore-explore' },
+  { source_capability: 'git change management', useful_problem: 'inspect, commit and push safely', module_id: 'dcore-git' },
+  { source_capability: 'post-deploy verification', useful_problem: 'prove a deployment is healthy', module_id: 'dcore-verify' },
 ];
 
 export function buildCoverageMatrix() {

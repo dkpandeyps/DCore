@@ -4,7 +4,7 @@ import { existsSync, readFileSync, mkdtempSync, rmSync, statSync, mkdirSync, wri
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import {
-  MODULES, IMPLEMENTED, runModule, renderMarkdown, buildManifest, dkSpec, dkReview, dkPlan, dkQa, dkFrame,
+  MODULES, IMPLEMENTED, runModule, renderMarkdown, buildManifest, dcoreSpec, dcoreReview, dcorePlan, dcoreQa, dcoreFrame,
   dcoreDebug, dcoreSec, dcoreRelease, parseHandoff, dcoreDoc, dcoreChain, dcoreImpact, extractIdentifiers, summarizeImpact,
 } from '../../skills/dcore/scripts/modules.mjs';
 import { install, planInstall, isSafeDestRoot } from '../../skills/dcore/scripts/install.mjs';
@@ -36,7 +36,7 @@ test('C. module discovery: manifest lists modules; every reference resolves', ()
   assert.equal(readFileSync(join(SKILL, 'dcore.manifest.json'), 'utf8'), JSON.stringify(m, null, 2) + '\n');
   assert.equal(m.modules.length, MODULES.length);
   for (const mod of m.modules) assert.ok(existsSync(join(SKILL, mod.reference)), mod.reference);
-  assert.equal(m.implemented_count, 11);
+  assert.equal(m.implemented_count, 19);
 });
 
 test('D. module contracts: every module doc carries required fields + status', () => {
@@ -48,31 +48,31 @@ test('D. module contracts: every module doc carries required fields + status', (
 });
 
 test('E. module behavior: implemented modules produce structured output (deterministic)', () => {
-  const spec = dkSpec('Build an installer. It must be idempotent. What about rollback?');
+  const spec = dcoreSpec('Build an installer. It must be idempotent. What about rollback?');
   assert.equal(spec.module_id, 'dcore-spec');
   assert.equal(spec.objective, 'Build an installer.');
   assert.ok(spec.requirements.length === 3 && spec.requirements[0].startsWith('REQ-01'));
   assert.ok(spec.constraints.some((c: string) => /idempotent/i.test(c)));
   assert.ok(spec.open_questions.some((q: string) => /rollback/i.test(q)));
-  assert.equal(JSON.stringify(dkSpec('x')), JSON.stringify(dkSpec('x')));   // deterministic
+  assert.equal(JSON.stringify(dcoreSpec('x')), JSON.stringify(dcoreSpec('x')));   // deterministic
   // plan + qa + frame
-  assert.ok(dkPlan('Add a feature. It depends on the parser.').dependencies.length >= 1);
-  assert.ok(dkQa('Verify login. Verify logout.').scenarios.length === 2);
-  assert.ok(dkFrame('Users are blocked because the API is unclear.').context.length >= 1);
+  assert.ok(dcorePlan('Add a feature. It depends on the parser.').dependencies.length >= 1);
+  assert.ok(dcoreQa('Verify login. Verify logout.').scenarios.length === 2);
+  assert.ok(dcoreFrame('Users are blocked because the API is unclear.').context.length >= 1);
 });
 
 test('F. dcore-review finds security/correctness issues with severity', () => {
-  const r = dkReview('const p = eval(x)\nif (a == b) {}\nconst k = "password=secret123"\nfetch("http://evil")\n// TODO');
+  const r = dcoreReview('const p = eval(x)\nif (a == b) {}\nconst k = "password=secret123"\nfetch("http://evil")\n// TODO');
   assert.ok(r.severity_summary.high >= 2);   // eval + hardcoded secret
   assert.ok(r.findings.some((f: any) => f.category === 'security'));
   assert.ok(r.recommendations.length > 0);
 });
 
 test('G. malformed/empty input => safe scaffold (fail-closed)', () => {
-  const s = dkSpec('');
+  const s = dcoreSpec('');
   assert.equal(s.objective, '(no input)');
   assert.ok(s.requirements[0].includes('define at least one requirement'));
-  assert.equal(dkFrame('').open_questions.length, 0);
+  assert.equal(dcoreFrame('').open_questions.length, 0);
 });
 
 test('H. unknown module => diagnostic (not a crash/guess); planned module not runnable', () => {
@@ -159,7 +159,7 @@ test('M. public/private boundary: skill needs no certification/private infra/cre
 test('N. capability coverage metadata: original names; missing useful capability = 0', () => {
   const c = buildCoverageMatrix();
   assert.equal(c.missing_useful_capabilities, 0);
-  assert.equal(c.total, 10);
+  assert.equal(c.total, 18);
   assert.ok(c.rows.every((r: any) => /^dcore-/.test(r.original_module_name)));   // original dcore names only
   assert.equal(readFileSync(join(SKILL, 'references', 'capability-coverage.json'), 'utf8'), JSON.stringify(c, null, 2) + '\n');
 });
@@ -187,7 +187,7 @@ test('P. CLI input resolution: --input > positional > stdin (M29: positional no 
 });
 
 test('Q. dcore-review detects private key material and cloud access key ids (M29: high severity)', () => {
-  const r = dkReview('-----BEGIN RSA PRIVATE KEY-----\nconst id = "AKIAABCDEFGHIJKLMNOP"\n');
+  const r = dcoreReview('-----BEGIN RSA PRIVATE KEY-----\nconst id = "AKIAABCDEFGHIJKLMNOP"\n');
   assert.ok(r.findings.some((f: any) => f.message === 'private key material' && f.severity === 'high'));
   assert.ok(r.findings.some((f: any) => f.message === 'cloud access key id' && f.severity === 'high'));
   assert.ok(r.severity_summary.high >= 2);
@@ -229,7 +229,7 @@ test('T. dcore-release: fail-closed go/no-go; evidenced gates marked; unmet gate
 });
 
 test('U. module handoff: a prior module JSON seeds the next; provenance recorded (M29 composability)', () => {
-  const spec = dkSpec('Add token-bucket rate limiting. Verify burst is capped.');
+  const spec = dcoreSpec('Add token-bucket rate limiting. Verify burst is capped.');
   const ho = parseHandoff(JSON.stringify(spec));
   assert.ok(ho && ho.from === 'dcore-spec' && /rate limiting/i.test(ho.objective));
   // feed spec JSON into dcore-qa via runModule => scenarios derived without re-typing, provenance tagged
@@ -262,7 +262,7 @@ test('V. dcore-doc: known vs UNKNOWN scaffold; no invented APIs; handoff; determ
   assert.equal(empty.title, '(no input)');
   assert.ok(/UNKNOWN/.test(empty.summary));
   // handoff from dcore-spec via runModule; malformed JSON falls back to plain text (no throw)
-  const spec = dkSpec('Add token-bucket rate limiting per API key.');
+  const spec = dcoreSpec('Add token-bucket rate limiting per API key.');
   const viaHandoff = runModule('dcore-doc', JSON.stringify(spec));
   assert.equal(viaHandoff.handoff_from, 'dcore-spec');
   assert.ok(/rate limiting/i.test(viaHandoff.title));
@@ -280,8 +280,8 @@ test('W. dcore-chain: ordered frame->spec->plan->qa; handoff between stages; reu
   assert.equal(c.qa.handoff_from, 'dcore-plan');
   assert.ok(c.qa.scenarios.length >= 1);
   // reuses existing module behavior exactly (no duplicated/divergent logic): frame/spec stages equal direct calls
-  assert.equal(JSON.stringify(c.frame), JSON.stringify(dkFrame('Add per-key token-bucket rate limiting. Verify burst is capped.')));
-  assert.equal(JSON.stringify(c.spec), JSON.stringify(dkSpec('Add per-key token-bucket rate limiting. Verify burst is capped.')));
+  assert.equal(JSON.stringify(c.frame), JSON.stringify(dcoreFrame('Add per-key token-bucket rate limiting. Verify burst is capped.')));
+  assert.equal(JSON.stringify(c.spec), JSON.stringify(dcoreSpec('Add per-key token-bucket rate limiting. Verify burst is capped.')));
   // deterministic
   assert.equal(JSON.stringify(dcoreChain('x')), JSON.stringify(dcoreChain('x')));
   // empty + malformed input => every stage still present, fail-closed, no throw
@@ -385,10 +385,10 @@ test('Z. dcore-impact --summary: compact deterministic view of the SAME evidence
     // empty input is safe in summary form
     assert.match(summarizeImpact(dcoreImpact('', { repo: dir })), /identifiers: \(none detected\)/);
     // non-impact result => falls back to the full render (backward compatible, full mode preserved)
-    assert.ok(summarizeImpact(dkSpec('x')).startsWith('# DCore \u00b7 dcore-spec'));
+    assert.ok(summarizeImpact(dcoreSpec('x')).startsWith('# DCore \u00b7 dcore-spec'));
 
     // HANDOFF regression (already works via generic handoff): spec JSON seeds dcore-impact + records provenance
-    const spec = dkSpec('Change cache_ttl_seconds default.');
+    const spec = dcoreSpec('Change cache_ttl_seconds default.');
     const viaHandoff = runModule('dcore-impact', JSON.stringify(spec), { repo: dir });
     assert.equal(viaHandoff.handoff_from, 'dcore-spec');
     assert.ok(viaHandoff.identifiers.includes('cache_ttl_seconds'));
