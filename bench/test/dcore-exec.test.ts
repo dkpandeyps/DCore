@@ -456,8 +456,9 @@ test('EX-21. static boundary: reasoning/analysis code never imports subprocess/n
   assert.ok(!/^import[^;]*['"]\.\/exec\//m.test(read('dcore.mjs')), 'dcore.mjs must load exec modules dynamically');
   for (const id of EXECUTION_MODULES) assert.ok(existsSync(join(SKILL, 'modules', `${id}.md`)), id);
   assert.deepEqual(MODULES.filter((m: any) => m.kind === 'execution').map((m: any) => m.module_id).sort(), ['dcore-api', 'dcore-browse', 'dcore-git', 'dcore-run', 'dcore-verify']);
-  // no execution file reads ~/.claude or credential stores
-  for (const f of ['exec/run.mjs', 'exec/api.mjs', 'exec/browse.mjs', 'exec/git.mjs', 'exec/verify.mjs', 'exec/release.mjs']) assert.ok(!/readFileSync\s*\([^)]*\.claude|\.credentials|Cookies['"]/i.test(read(f)), f);
+  // no execution file reads ~/.claude or credential stores (the in-memory CDP calls Network.getAllCookies / setCookies /
+  // clearBrowserCookies on the throwaway test browser, used to simulate an expired session, are not a credential store)
+  for (const f of ['exec/run.mjs', 'exec/api.mjs', 'exec/browse.mjs', 'exec/git.mjs', 'exec/verify.mjs', 'exec/release.mjs']) assert.ok(!/readFileSync\s*\([^)]*\.claude|\.credentials|(?<!Network\.(getAll|set|clearBrowser))Cookies['"]/i.test(read(f)), f);
 });
 
 // ---- dogfood regressions (each failed before its fix) ----------------------------------------------------------

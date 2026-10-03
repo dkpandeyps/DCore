@@ -74,12 +74,13 @@
     },
     {
       "module_id": "dcore-qa",
-      "module_name": "QA / Test Plan",
+      "module_name": "QA / Test Runs",
       "status": "IMPLEMENTED",
       "kind": "reasoning",
-      "purpose": "produce a test plan from a feature/spec",
+      "purpose": "test plan scaffold from text; --discover generates executable scenarios from a live page; --plan executes a test plan in a real browser; --scenarios executes functional scenarios across browser/API/command/verify steps with per-step evidence (negative/boundary cases: HELD or VIOLATED, violations become defect candidates; --only selects a subset); both write the Detailed Test Report, Detailed Defect Report and Test Case Register (PDF + JSON + Markdown)",
       "permissions": [
-        "read-only"
+        "read-only (text mode)",
+        "network + execute-local (--discover / --plan)"
       ],
       "security_level": "SAFE_GENERIC",
       "platform_requirements": [
@@ -191,7 +192,7 @@
       "module_name": "Repository Exploration",
       "status": "IMPLEMENTED",
       "kind": "analysis",
-      "purpose": "read-only repository intelligence: project type, languages, frameworks, build/test/lint commands, entry points, CI, integrations, config (secret files by name only)",
+      "purpose": "read-only repository intelligence (project type, languages, frameworks, commands, entry points, CI, integrations, config; secret files by name only); --app: passive application discovery (deterministic app map + candidate scenarios); --coverage: DISCOVERED/TESTED lifecycle after a run",
       "permissions": [
         "read-only"
       ],

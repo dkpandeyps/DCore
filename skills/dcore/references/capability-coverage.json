@@ -54,10 +54,10 @@
     {
       "source_capability": "QA/test planning",
       "useful_problem": "verify behavior",
-      "dcore_capability": "QA / Test Plan",
+      "dcore_capability": "QA / Test Runs",
       "original_module_name": "dcore-qa",
       "status": "IMPLEMENTED",
-      "permission": "read-only",
+      "permission": "read-only (text mode),network + execute-local (--discover / --plan)",
       "security_level": "SAFE_GENERIC",
       "platform_requirements": "any",
       "tests": "bench/test/dcore-skill.test.ts",

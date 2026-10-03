@@ -58,6 +58,33 @@ deployment verification, or understanding a repository. The user does **not** ne
 Each module's contract, inputs, outputs and failure behavior: `modules/<module_id>.md`; status: `dcore.manifest.json`.
 Deferred: **dcore-retro**.
 
+### End-to-end test runs (three PDF reports)
+For "test this page/app end to end": `dcore-qa --discover <url> --setup login.json --plan-out plan.json` → review and
+add business cases → `dcore-qa --plan plan.json --out .dcore/evidence/<run>`. It produces the **Detailed Test
+Report**, **Detailed Defect Report** and **Test Case Register** as PDFs (plus JSON/Markdown). Check
+`references/TESTING-CAPABILITY-MATRIX.md` before promising coverage; declare anything unsupported or unsafe in the plan
+as NOT_TESTED / BLOCKED with a reason. Never generate cases that create, delete or change data without explicit approval.
+
+### Discover an application, then test it
+For "test this app" with no scenarios yet: `dcore-explore --app <url> --setup login.json` builds a deterministic
+application map (passive: nothing is clicked or submitted) and candidate scenarios. Review the candidates (fill the
+`{{data.*}}` placeholders), run them with `dcore-qa --scenarios`, then report coverage with `dcore-explore --coverage`.
+Discovered controls are NOT tested until a scenario exercised them; APPROVAL_REQUIRED candidates need the user's explicit
+approval (`--approve ui-write` / `account`).
+
+### Negative & boundary testing
+Candidates include only the negative / boundary cases that apply (decided from field types, declared constraints, form
+method, auth boundary and API calls; see `negative-matrix.md`). API faults are simulated in the test browser only;
+duplicate / double submission need `--approve ui-write`. A violated negative expectation becomes a defect candidate
+whose severity and priority stay UNASSESSED unless the evidence establishes them: never invent business severity.
+Run a subset with `dcore-qa --scenarios <file> --only negative` (or case ids such as `server-error,below-min`).
+
+### Functional scenarios
+For feature flows ("create a token and verify it persisted"), write a scenario document and run
+`dcore-qa --scenarios <file>`: browser, API, command and verification steps in one run, each step with declared
+expectations and per-step evidence, and the same three PDFs. Ask the user before adding `--approve ui-write`: without
+it, clicks on state-changing controls are refused (BLOCKED) and nothing is created or changed.
+
 ### Web testing quick path
 `dcore-browse open <url>` (see the real page and its selectors) → write steps → run them. Credentials: ask the user to
 provide them through environment variables and reference them with `valueEnv`, e.g.

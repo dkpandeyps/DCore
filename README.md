@@ -34,6 +34,27 @@ needed. Users never need module names.
 - **dcore-release `--repo`** — executes readiness gates (clean tree, upstream, tests, secret scan, version, docs) →
   READY / BLOCKED / NOT_AUTHORIZED / FAILED / VERIFIED; push/deploy only with approval.
 
+**End-to-end test runs** — **dcore-qa** `--discover <url>` generates executable scenarios from a live page (field
+validation from the page's own constraints, keyboard, accessibility, responsive, load time; forms are never submitted);
+`--plan <file>` executes a test plan in a real browser and produces three documents per run — **Detailed Test Report**,
+**Detailed Defect Report** and **Test Case Register** — as PDF + JSON + Markdown, with defects detected and classified
+(functional, frontend runtime, console, backend 5xx, network, accessibility, performance). What is and is not
+supported, with evidence: `skills/dcore/references/TESTING-CAPABILITY-MATRIX.md`.
+
+**Application discovery** - `dcore-explore --app <url>` passively crawls a running app into a deterministic map (routes,
+forms, controls, auth boundary, API calls, errors, responsive behaviour) and generates CANDIDATE scenarios; destructive or
+shared-environment candidates are APPROVAL_REQUIRED; coverage reports DISCOVERED vs TESTED.
+
+**Negative & boundary testing** - for each discovered field, form and page DCore decides which of 23 negative /
+boundary cases apply (boundaries, malformed / unexpected / long input, expired session, refresh, back, double
+submission, simulated server error / network failure / timeout / empty or malformed API response, ...), runs the safe
+ones and turns each violated negative expectation into a defect candidate with UNASSESSED severity unless evidence
+establishes it.
+
+**Functional scenarios** - `dcore-qa --scenarios <file>` runs scenarios (ID, feature, type, priority, preconditions,
+data, steps with expectations) across browser, API, repository commands and verification in one run, with per-step
+evidence; PASS only when expected outcomes were verified; state-changing UI actions need `--approve ui-write`.
+
 **Analysis (read-only)** — **dcore-explore** (project type, commands, frameworks, entry points, CI, integrations),
 **dcore-impact** (literal-reference impact: source / tests / docs / UNKNOWN), **dcore-sec `--repo`** (working-tree
 scan: CONFIRMED / SUSPICIOUS / THEORETICAL), **dcore-review** (diff mode reviews added lines with file:line).
@@ -86,6 +107,8 @@ node skills/dcore/scripts/dcore.mjs list
 node skills/dcore/scripts/dcore.mjs dcore-explore --repo .
 node skills/dcore/scripts/dcore.mjs dcore-browse open https://staging.example.test/login
 DCORE_USER=… DCORE_PASS=… node skills/dcore/scripts/dcore.mjs dcore-browse --steps steps.json --report .dcore/evidence/report.md
+DCORE_USER=… DCORE_PASS=… node skills/dcore/scripts/dcore.mjs dcore-qa --discover https://staging.example.test/admin --setup login.json --plan-out plan.json
+DCORE_USER=… DCORE_PASS=… node skills/dcore/scripts/dcore.mjs dcore-qa --plan plan.json --out .dcore/evidence/run1   # 3 PDFs
 node skills/dcore/scripts/dcore.mjs dcore-api --url https://api.example.test/health --expect-status 200
 node skills/dcore/scripts/dcore.mjs dcore-run "npm test" --cwd bench
 git diff | node skills/dcore/scripts/dcore.mjs dcore-review
@@ -108,7 +131,8 @@ cd bench
 node --test "test/**/*.test.ts"
 ```
 DCore product tests: `bench/test/dcore-skill.test.ts` (modules, installer, contracts) and
-`bench/test/dcore-exec.test.ts` (execution layer, router, regressions). Execution tests use only local fixtures
+`bench/test/dcore-exec.test.ts` (execution layer, router, regressions), `bench/test/dcore-qa-run.test.ts` (test runs,
+defect classification, scenario generation, PDF reports). Execution tests use only local fixtures
 (127.0.0.1 servers, temp git repos, data: URLs); the real-browser test is skipped when no browser is installed.
 
 ## Security boundaries
@@ -121,8 +145,10 @@ unsafe input **fails closed**.
 ## Honest status
 - **Claude Code discovery:** observed in the owner's interactive session on 2026-10-03 (`/dcore` loaded from
   `.claude/skills/dcore`). A controlled, reproducible real-Claude smoke test is still not part of this repository.
-- dcore-browse is a heuristic driver, not Playwright: no iframe/closed-shadow-DOM traversal, a11y checks are basic
-  heuristics (not a WCAG audit), and visibility probes that rely on `offsetParent` misreport fixed-position elements.
+- dcore-browse is a dependency-free CDP driver, not Playwright: it searches frames (incl. cross-origin, via a
+  throwaway profile with site isolation off) and open shadow roots, classifies every target (NOT_FOUND / AMBIGUOUS /
+  DISABLED / VISIBLE_BUT_OBSTRUCTED / … / INTERACTABLE) and verifies inputs; closed shadow roots, drag-and-drop,
+  touch, visual diffing and non-Chromium browsers are not supported. See `TESTING-CAPABILITY-MATRIX.md`.
 - dcore-api `--repeat` is sequential latency from one machine, not load testing. dcore-sec is a literal scan, not
   proof of exploitability. dcore-impact is literal references, not a dependency graph.
 - This project does **not** claim certified Claude Code compatibility, production certification, universal

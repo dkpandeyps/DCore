@@ -89,3 +89,52 @@ Observed limits (not defects unless future dogfood shows an actionable miss): `e
 observations, not assertions; visibility probes using `offsetParent` misread fixed-position modals (screenshots were
 needed to confirm); dcore-explore does not list `node:test` (built in, not a dependency); reasoning scaffolds
 (spec/plan) add little for small features; the env-var username is redacted wherever it appears on the page.
+
+## 11. End-to-end test runs with PDF reports (2026-10-03)
+`dcore-qa --discover` + `--plan` on the authorized staging admin **API tokens** page (login via env-var credentials).
+
+| Item | Evidence |
+|---|---|
+| Discovery | 11 executable cases generated from the live page's own constraints (rate limit 1–1000, label maxlength 128) + keyboard, a11y, mobile, load time; "Create token", 4 unconstrained fields listed as NOT_TESTED |
+| Plan | 11 generated + 12 business cases (stats consistency, tab counts, search, empty state, detail view, presets, owner picker, catalog modal, skip link); create / revoke / edit / logged-out flows declared NOT_TESTED with reasons |
+| Results | 28 cases: 20 PASS, 3 FAIL, 5 NOT_TESTED; verdict READY WITH RISKS; identical on two consecutive runs |
+| Defects (9) | list-vs-detail API count mismatch (CONFIRMED); 3 uncaught JS exceptions (2 attributed to the login page during setup); first Tab stop skips the skip link (re-run 4×, reproducible); 4 accessibility heuristics |
+| Documents | Detailed Test Report (17 pages), Detailed Defect Report (5), Test Case Register (5, landscape); no credential in any output |
+| DCore bugs found and fixed (regression-tested) | hidden-modal fields turned into generated cases; image-heavy report PDF timed out (fixed by streaming); a missing source HTML printed the browser error page as a "PASS" PDF; setup-phase errors lacked reproduction context; a11y defects linked to the wrong cases; evaluate failures did not state the expected value |
+
+## 12. M39 browser foundation (2026-10-03)
+| Item | Evidence |
+|---|---|
+| Fixture validation | 17 real-browser tests (two origins): element states, obstruction, dynamic waits, fixed modals, verified inputs, selects, checks, keyboard chords, redirects, back/forward, SPA, nested + cross-origin iframes, open shadow DOM, tabs/popups, upload/download, runtime signals, responsive; stable across 3 consecutive runs |
+| Staging regression | the 23-case API-tokens plan reproduced the pre-M39 results exactly (20 PASS / 3 FAIL / 5 NOT_TESTED) after two engine fixes |
+| Staging capability probe | catalog modal detected open/closed; "New token" VISIBLE_BUT_OBSTRUCTED by `div#catalogModal` and the click refused; owner radios checked/verified; rate-limit fills verified; 3 identical token rows ⇒ AMBIGUOUS |
+| New findings on the app | login flow redirects https → **http** /login → https (downgrade hop); exceptions now carry locations (reCAPTCHA `sitekey` from gstatic, `null.addEventListener` at /admin:1216 and /admin/analytics/tokens:1188) |
+| DCore bugs found by real-world validation (regression-tested) | hit test used viewport instead of document coordinates (false obstruction on scrolled pages: 9 staging cases failed until fixed); device emulation did not set screen size; transient animation reported as a final state; element states over-redacted when a locator contained "token"; Control+A/type lost the selection; obstruction description had a quoting bug; a BLOCKED step inside a case could yield PASS |
+
+## 13. M40 scenario engine (2026-10-03)
+| Item | Evidence |
+|---|---|
+| Fixture | "token admin" app: Create API Token scenario (15 steps: browser + API + repo command) PASS with the server holding exactly the submitted values; negative, guard, no-expectation, declared, template, setup-failure and no-browser paths |
+| Staging (6 scenarios) | STG-01 navigation, STG-02 validation, STG-03 unauthenticated access (dcore-api + dcore-verify) PASS; STG-04 list-vs-detail FAIL (128 vs 127); STG-05 Create API Token ran 6 verified steps and was BLOCKED before "Create token" (no ui-write approval; nothing created); STG-06 FAIL |
+| New app defect | login page: the Password `<label>` is bound to the username input (`for="exampleFormControlInput1"`) and the password field has no label |
+| DCore bugs found and fixed | test data containing `{{run.*}}` was not resolved (the UI checks agreed with each other on the literal; only the server-side check caught it); navigation shared the short element-wait timeout (failed under load); the scenario summary miscounted verified outcomes |
+
+### 13a. Approved create + revoke on staging (owner approved ui-write, 2026-10-03)
+| Run | Result |
+|---|---|
+| Attempt 1 (scenario as originally specified) | not created: the app requires at least one API besides the catalog ("Select at least one API besides the catalog."); verified read-only that nothing was created |
+| Attempt 2 | not created: "Create token" opens a confirmation dialog. The scenario's weak expectation (token name anywhere on the page) matched the dialog text, a FALSE PASS of the scenario as written. Lesson: assert on the specific element (the Active-list row), not page-wide text |
+| Attempt 3 (STG-05, `run-20261003T123751-a7b03d`) | PASS: name, owner (Paysecure), rate 250, "Performance only" preset (17 of 127) verified; confirm dialog verified; row `dcore-m40-a7b03d, psk_an_a462a7650, active` verified. The one-time secret was never revealed (DCore did not click "Show token"; screenshots disabled after submit; no secret-shaped string in any evidence) |
+| STG-07 persisted values | owner "Paysecure (parentId 0)", "250 / min", 17 APIs verified on the detail view (one expectation of mine was wrong: the UI shows "17 of 127", i.e. of all available) |
+| STG-08 revoke (`run-20261003T124804-086a1d`) | PASS: Revoke disabled until the confirmation code is typed (DCore refused to click it while DISABLED), enabled after typing, token no longer active, listed as revoked |
+| Final state | Active 15 (unchanged), Revoked 23 (+1): staging left clean apart from the revoked test token |
+
+## 14. M41 application discovery + candidate scenarios (2026-10-03)
+| Item | Evidence |
+|---|---|
+| Fixture | multi-page admin app: passive crawl sent no writes and never requested /logout, /orders/delete-all or a CSV export; two crawls produced the same map_hash; candidates in all 13 categories; approval-required candidates executed nothing (no POST); coverage lifecycle reported |
+| Staging discovery (8 routes, depth 1) | all 8 admin routes PROTECTED (login learned from the redirect); per-page forms, dialogs, dropdowns, API calls (e.g. /admin/analytics/tokens/list, /apis, /whitelabels); "Create token" flagged state-changing; /logoutcsrf and react-qa origin recorded, not visited |
+| Staging candidates (no approvals) | 57 candidates: 28 executed (20 PASS, 8 FAIL), 28 BLOCKED (review placeholders + 1 approval-required), 1 NOT_TESTED (permission). PASS: 8 unauthenticated-access checks, 2 rate-limit boundaries, 8 responsive, navigation, unknown-route-to-login. FAIL: uncaught exceptions on every admin page (known defect) |
+| Coverage | 349 controls DISCOVERED, 10 TESTED: discovery is not testing |
+| DCore bugs found on staging and fixed (regression-tested) | auth probe read only a 2 KB excerpt and labelled protected routes PUBLIC (a false claim); radios/checkboxes named "query" were treated as search boxes; the global sidebar menu search was paired with page tables, producing 5 FALSE empty-state defects; responsive check measured overflow, which is unreliable without a meta viewport |
+

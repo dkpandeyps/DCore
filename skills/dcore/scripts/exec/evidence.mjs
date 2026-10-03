@@ -84,6 +84,7 @@ export const GATES = {
   'db-destructive': 'destructive database operation (drop/truncate/delete without where)',
   'delete': 'delete files or data',
   'external-write': 'non-read HTTP request (POST/PUT/PATCH/DELETE) to a non-local host',
+  'ui-write': 'click a state-changing control or submit a data form in a web UI (create/save/delete/revoke/…)',
   'credential': 'read or use credential material',
   'account': 'change accounts, users, permissions or settings',
   'destructive-command': 'run a command classified as destructive',

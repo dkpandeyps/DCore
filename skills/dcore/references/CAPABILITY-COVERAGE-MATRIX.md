@@ -8,7 +8,7 @@ original DCore names only; no comparison-baseline implementation or names copied
 | specification creation | define requirements + acceptance | Specification | dcore-spec | IMPLEMENTED | read-only | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
 | engineering planning | plan implementation safely | Engineering Plan | dcore-plan | IMPLEMENTED | read-only | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
 | code review | catch defects/security issues | Code Review | dcore-review | IMPLEMENTED | read-only | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
-| QA/test planning | verify behavior | QA / Test Plan | dcore-qa | IMPLEMENTED | read-only | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
+| QA/test planning | verify behavior | QA / Test Runs | dcore-qa | IMPLEMENTED | read-only (text mode),network + execute-local (--discover / --plan) | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
 | debugging/investigation | find root cause | Debug / Investigation | dcore-debug | IMPLEMENTED | read-only | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
 | security review | reduce risk | Security Review | dcore-sec | IMPLEMENTED | read-only | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
 | documentation | explain the system | Documentation | dcore-doc | IMPLEMENTED | read-only | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
