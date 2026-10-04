@@ -25,14 +25,14 @@ const uniq = (arr, key) => { const seen = new Set(); return arr.filter((x) => { 
 
 // in-page observation (read-only DOM queries through the dcore page helpers)
 const OBSERVE = `(() => {
-  const D = window.__dcore; const vis = D.vis, nameOf = D.nameOf, norm = D.norm, sel = D.sel, cons = D.cons;
+  const D = window.__dcore; const vis = D.vis, nameOf = D.nameOf, norm = D.norm, sel = D.sel, cons = D.cons, disabled = D.disabled;
   const abs = (h) => { try { return new URL(h, location.href).href; } catch (e) { return null; } };
   const SEARCH = /search|filter|find|query|keyword/i;
-  const fieldOf = (x) => ({ name: x.name || x.id || '', label: nameOf(x).slice(0, 60), type: (x.type || x.tagName.toLowerCase()), selector: sel(x), required: !!x.required, visible: vis(x), constraints: cons(x) || null });
+  const fieldOf = (x) => ({ name: x.name || x.id || '', label: nameOf(x).slice(0, 60), type: (x.type || x.tagName.toLowerCase()), selector: sel(x), required: !!x.required, visible: vis(x), constraints: cons(x) || null, ...(x.readOnly ? { readonly: true } : {}), ...(x.disabled ? { disabled: true } : {}) });
   const links = D.qAll('a[href]').map((a) => ({ href: abs(a.getAttribute('href')), raw: a.getAttribute('href'), text: norm(nameOf(a)).slice(0, 60), visible: vis(a), in_nav: !!a.closest('nav,header,aside,[role=navigation],#sidebar,.sidebar,.navbar,.menu,.nav'), download: a.hasAttribute('download'), new_tab: a.target === '_blank' })).filter((l) => l.href);
   const forms = [...document.forms].map((f) => ({ selector: sel(f), method: (f.getAttribute('method') || 'get').toLowerCase(), action: f.getAttribute('action') || '', visible: vis(f), has_password: !!f.querySelector('input[type=password]'),
     fields: [...f.elements].filter((x) => ['INPUT', 'SELECT', 'TEXTAREA'].includes(x.tagName) && !['hidden', 'submit', 'button', 'reset', 'image'].includes(x.type)).map(fieldOf),
-    submits: [...f.querySelectorAll('button,input[type=submit]')].filter((b) => (b.type || 'submit') === 'submit').map((b) => ({ name: nameOf(b).slice(0, 50), selector: sel(b), visible: vis(b) })) }));
+    submits: [...f.querySelectorAll('button,input[type=submit]')].filter((b) => (b.type || 'submit') === 'submit').map((b) => ({ name: nameOf(b).slice(0, 50), selector: sel(b), visible: vis(b), ...(disabled(b) ? { disabled: true } : {}) })) }));
   const loose = D.qAll('input,select,textarea').filter((x) => !x.form && !['hidden', 'submit', 'button', 'reset', 'image'].includes(x.type) && vis(x)).map(fieldOf);
   const buttons = D.qAll('button,[role=button],input[type=submit],input[type=button]').filter(vis).map((b) => ({ name: nameOf(b).slice(0, 60), selector: sel(b), in_form: !!(b.form || b.closest('form')), disabled: !!D.disabled(b) }));
   const tables = D.qAll('table,[role=grid],[role=table]').filter(vis).map((t) => ({ selector: sel(t), headers: [...t.querySelectorAll('th,[role=columnheader]')].map((h) => norm(h.innerText)).filter(Boolean).slice(0, 25), rows: t.querySelectorAll('tbody tr,[role=row]').length }));
@@ -151,8 +151,11 @@ export async function discoverApp(startUrl, opts = {}) {
     lifecycle_note: 'every control here is DISCOVERED (observed in the DOM). Nothing in this map has been functionally tested.',
     limitations: ['passive crawl: GET navigation and DOM observation only; nothing is clicked, typed or submitted', 'controls that appear only after interaction (opened menus, dialogs, wizard steps) are seen only if already in the DOM', 'state-changing links, downloads and other origins are not visited', 'auth boundary probed with an unauthenticated GET per route'],
   };
-  map.map_hash = mapHash(map);
-  return redactDeep(map);
+  // credential values typed by the setup (valueEnv) are redacted from everything observed — e.g. a signed-in username
+  // the app shows in its navigation (real case: staging "<user> SUPERADMIN") — before hashing, so the hash stays stable
+  const clean = redactDeep(map, [...(B.ctx?.secrets ?? [])]);
+  clean.map_hash = mapHash(clean);
+  return clean;
 }
 
 // human-readable summary of the map

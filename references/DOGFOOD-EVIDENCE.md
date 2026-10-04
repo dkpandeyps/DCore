@@ -138,3 +138,66 @@ needed to confirm); dcore-explore does not list `node:test` (built in, not a dep
 | Coverage | 349 controls DISCOVERED, 10 TESTED: discovery is not testing |
 | DCore bugs found on staging and fixed (regression-tested) | auth probe read only a 2 KB excerpt and labelled protected routes PUBLIC (a false claim); radios/checkboxes named "query" were treated as search boxes; the global sidebar menu search was paired with page tables, producing 5 FALSE empty-state defects; responsive check measured overflow, which is unreliable without a meta viewport |
 
+## 15. M42 negative & boundary testing (2026-10-03)
+| Item | Evidence |
+|---|---|
+| Fixture | fragile page (unhandled API failures, a field whose handler throws on markup, no double-submit guard) vs robust page: boundaries / validation HELD; 5 simulated faults VIOLATED on the fragile page and HELD on the robust one; approved double submission sent 2 writes -> VIOLATED (data integrity); defect candidates with UNASSESSED severity / priority |
+| Staging applicability (20 routes) | 1,423 decisions: 349 APPLICABLE, 1,073 NOT_APPLICABLE (each with its reason), 1 NOT_TESTED (unauthorized user: needs a second account), 0 APPROVAL_REQUIRED (no visible POST form submit) |
+| Staging run (negative only, no approvals) | 350 scenarios: 331 PASS (HELD), 18 FAIL, 1 NOT_TESTED. Faults (server error, network failure, timeout, empty / malformed response) were simulated in the test browser only, on all 20 pages, and HELD; expired session, unauthenticated access, back navigation and boundaries HELD |
+| DCore false positives found on staging and fixed (M42-6) | the 5 "refresh" violations were the page's own load-time POST requests (data fetches, chat transport), not a submission: write checks now exclude requests that a clean load of the page also makes. 13 failures were typing into read-only date-range pickers ("Select month", "Pick date range"): discovery now records readonly / disabled and those fields are NOT_APPLICABLE. All 18 failures trace to these two DCore defects (fixture-verified fixes); the staging run has NOT been repeated after the fixes |
+
+## 16. M45 advanced web coverage on real applications (2026-10-04)
+Read-only interactions; credentials from environment variables only; no upload to any third-party server. Evidence:
+`.dcore/evidence/m45-real/m45-real-results.json` (local).
+
+| Capability | Application | Result |
+|---|---|---|
+| iframe | the-internet /iframe (TinyMCE) | first attempt FAIL: `assertText` ran before the editor frame was built (validation-script error); with `waitFor` + frame: PASS |
+| nested iframes, shadow DOM, multiple windows / tabs | the-internet /nested_frames, /shadowdom, /windows | PASS |
+| JS prompt / confirm | the-internet /javascript_alerts | PASS (prompt answered "DCore"; confirm dismissed) |
+| native HTML5 drag and drop | the-internet /drag_and_drop | PASS (columns A and B swapped) |
+| dynamic content | the-internet /dynamic_loading/2 | PASS |
+| infinite scroll | the-internet /infinite_scroll | BLOCKED by the site: its jQuery and CSS returned 503, the page threw `$ is not defined` and loaded nothing (DCore correctly found nothing) |
+| infinite scroll | practice.expandtesting.com /infinite-scroll | first attempt FAIL: DCore declared the end while the next batch was still loading — **DCore defect, fixed** (scrollUntil now waits up to 2.5 s for the content to grow); after the fix PASS (batch 6 reached after 4 scrolls) |
+| sticky / floating UI | the-internet /floating_menu | first attempt: navigation TIMEOUT (site); retry PASS |
+| download | the-internet /download | PASS (27-byte .txt saved and hashed) |
+| redirects | the-internet /redirect; staging protected route | PASS (302 chain recorded; staging: 302 -> **http** login -> 307 https downgrade hop, as found in M39) |
+| HTTP Basic auth | the-internet /basic_auth | before M45: navigation failed (net::ERR_INVALID_AUTH_CREDENTIALS, not supported); with the new `httpAuth` (published demo credentials via env, that origin only): PASS |
+| touch | the-internet at 390 px | PASS (tap navigated; swipe dispatched — its outcome is verified only on the fixture) |
+| responsive breakpoints | the-internet home; staging tokens page | the-internet FAIL at 375 px — correct detection: no `<meta name="viewport">`, laid out at 981 px; staging 375 / 768 / 1366 PASS |
+| SPA route, modal | demoqa.com /elements -> /text-box; /modal-dialogs | PASS |
+| custom date picker | selenium.dev web form (bootstrap datepicker) | PASS (by clicks) |
+| WebSocket | wss://echo.websocket.org | first attempt FAIL: the URL was recorded as `wss:/` — **DCore defect, fixed** (ws / wss URLs keep their host); then PASS (2 sent, 3 received) |
+| session expiry | staging | PASS (expired -> login page; restored -> signed in) |
+| virtualised list | react-window demo | NOT_TESTED: the demo route did not load (the page fell back to "Getting started"); validated on the fixture only |
+| upload, SSE, autocomplete, pushState history | - | NOT_TESTED on a real application in M45 (fixture-tested) |
+
+## 17. M46 browser and viewport matrix (2026-10-04)
+Host: Windows 11 (win32 x64). Detected, nothing installed: Chrome 153.0.8010.53, Edge 154.0.4258.48, Chromium 151.0.7922.34
+(a Playwright build already on disk); Brave, Firefox and WebKit not installed (Safari does not exist on Windows); Firefox
+and WebKit could not be driven anyway (DCore speaks CDP only). Five read-only scenarios on public practice sites (nested
+frames, native drag and drop, JS prompt, modal, tap navigation) x 3 browsers x desktop 1366x900 / tablet 820x1180 /
+mobile 390x844, run with `dcore-qa --scenarios … --browsers … --viewports …` (three PDFs with the browser-coverage
+section produced: 36 / 65 / 11 pages).
+
+| Browser / viewport | Desktop | Tablet | Mobile |
+|---|---|---|---|
+| Chrome 153 | 5 PASS | 5 PASS | 5 PASS |
+| Edge 154 | 4 PASS, 1 FAIL (drag: page element not found — not reproduced in 2 reruns: transient site load) | 3 PASS, 2 FAIL (nested frames: not reproduced on rerun, a later rerun hit a network reset; modal close: **DCore defect, fixed** — see below) | 5 PASS |
+| Chromium 151 | 5 PASS | 4 PASS, 1 FAIL (nested frames: not reproduced in 2 reruns) | 5 PASS |
+| Firefox, WebKit | NOT_AVAILABLE | NOT_AVAILABLE | NOT_AVAILABLE |
+
+DCore defect found by the matrix: in Edge's tablet emulation demoqa.com lays out at 861 px inside an 820 px viewport;
+input coordinates (content quads) and page coordinates then differ by 41 px, and DCore hit-tested with input coordinates,
+so the modal's Close button was reported "obstructed by" its own footer (3 of 3 attempts). Fixed: main-frame hit tests
+use the element's page position; clicks keep input coordinates (proved: a mouse click at the page coordinate misses).
+Regression test M46-5 fails without the fix and passes with it; the real Edge tablet / mobile and Chrome tablet modal
+scenarios then PASS. Conclusion: Chromium-engine coverage on three Chromium browsers — **not** a cross-browser
+compatibility result.
+
+
+## 18. M47 real-world web testing certification (2026-10-04)
+Six authorized applications (server-rendered, React SPA with iframe pages, Next.js, authenticated staging admin,
+responsive / mobile, API-heavy), each taken through discovery -> scope -> candidates + functional flows -> execution ->
+defects -> three PDFs. Nine DCore defects found on the real applications were fixed with regression tests M47-1..7.
+Full capability matrix, findings and certification statement: `references/WEB-TESTING-CERTIFICATION.md`.

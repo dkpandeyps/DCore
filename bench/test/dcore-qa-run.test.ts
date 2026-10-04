@@ -229,7 +229,7 @@ test('QA-9. reports render every result state and escape HTML (no injection from
     const files = await writeReports(tr, out, { pdf: false });
     const html = readFileSync(files.test_report_html, 'utf8');
     assert.ok(!html.includes('<script>alert(1)</script>') && html.includes('&lt;script&gt;'));
-    assert.ok(readFileSync(files.defect_report_html, 'utf8').includes('No defects were detected in the executed scope'));
+    assert.ok(readFileSync(files.defect_report_html, 'utf8').includes('No defects identified during this test run.'));
   } finally { rmSync(out, { recursive: true, force: true }); }
 });
 

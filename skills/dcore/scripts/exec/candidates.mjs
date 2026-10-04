@@ -14,7 +14,8 @@ const TYPE = { 'valid-input': 'Validation', session: 'Authentication', 'fault-in
 const PRIO = { session: 'P1', 'data-integrity': 'P2', 'fault-injection': 'P2', 'valid-input': 'P2', robustness: 'P3', authentication: 'P1', permission: 'P1', 'happy-path': 'P1', persistence: 'P2', 'state-change': 'P2', navigation: 'P2', 'required-validation': 'P2', 'error-handling': 'P2', 'invalid-input': 'P3', boundary: 'P3', 'search-filter': 'P3', 'empty-state': 'P3', responsive: 'P3' };
 
 const slug = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '').slice(0, 30) || 'x';
-const usable = (f) => f.visible !== false && f.selector && !['hidden', 'submit', 'button', 'reset', 'checkbox', 'radio', 'file', 'image'].includes(String(f.type).toLowerCase());
+// typeable fields only: read-only / disabled inputs (date-range pickers, computed values) cannot be typed into
+const usable = (f) => f.visible !== false && f.selector && !f.readonly && !f.disabled && !['hidden', 'submit', 'button', 'reset', 'checkbox', 'radio', 'file', 'image'].includes(String(f.type).toLowerCase());
 const fieldName = (f) => f.label || f.name || f.selector;
 
 // a syntactically valid sample for a field, derived only from its declared type/constraints
@@ -51,7 +52,7 @@ export function generateCandidates(map, opts = {}) {
     for (const f of p.forms ?? []) {
       if (f.auth_form || f.visible === false) continue;
       const fields = (f.fields ?? []).filter(usable);
-      const submit = (f.submits ?? []).find((b) => b.visible !== false);
+      const submit = (f.submits ?? []).find((b) => b.visible !== false && !b.disabled);   // never a submit that was disabled when discovered (real case: Next.js "Add to cart" until a variant is chosen)
       const fill = fields.map((x) => ({ x, v: sampleValue(x) })).filter((y) => y.v !== null).map(({ x, v }) => ({ action: 'fill', target: { selector: x.selector }, input: v, expect: { value: v } }));
       const formName = submit?.name || f.selector;
       const writes = f.state_changing ? ['ui-write'] : [];

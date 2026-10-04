@@ -11,7 +11,7 @@
 // Secrets: typed values come from env vars (`valueEnv`) and are redacted everywhere; password-field values are never
 // recorded; inspection never captures input values. confirm() dialogs are dismissed unless a step accepts them.
 import { spawn } from 'node:child_process';
-import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync, readFileSync, statSync, renameSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync, readFileSync, statSync, renameSync, readdirSync } from 'node:fs';
 import { join, resolve, relative, isAbsolute, basename } from 'node:path';
 import { tmpdir, homedir } from 'node:os';
 import { pathToFileURL } from 'node:url';
@@ -34,6 +34,49 @@ export function browserCandidates(platform = process.platform, env = process.env
   return c;
 }
 export function findBrowser(platform, env) { return browserCandidates(platform, env).find((p) => p && existsSync(p)) ?? null; }
+
+// ---- M46: browser inventory and viewport presets -------------------------------------------------------------------
+// Detection only (file-system checks): nothing is installed, launched or modified. DCore drives browsers over the Chrome
+// DevTools Protocol, so only Chromium-engine browsers can be executed; Firefox and WebKit are listed honestly as
+// NOT_AVAILABLE (not installed) or engine-unsupported (installed, but not drivable by this engine).
+export const VIEWPORTS = {
+  desktop: { name: 'desktop', width: 1366, height: 900, mobile: false, deviceScaleFactor: 1 },
+  tablet: { name: 'tablet', width: 820, height: 1180, mobile: true, deviceScaleFactor: 2 },
+  mobile: { name: 'mobile', width: 390, height: 844, mobile: true, deviceScaleFactor: 3 },
+};
+export const BROWSER_FAMILIES = ['chrome', 'edge', 'chromium', 'brave', 'firefox', 'webkit'];
+function playwrightBuilds(kind, platform, env) {
+  const roots = [env.PLAYWRIGHT_BROWSERS_PATH, platform === 'win32' ? env.LOCALAPPDATA && join(env.LOCALAPPDATA, 'ms-playwright') : platform === 'darwin' ? env.HOME && join(env.HOME, 'Library', 'Caches', 'ms-playwright') : env.HOME && join(env.HOME, '.cache', 'ms-playwright')].filter(Boolean);
+  const out = [];
+  for (const root of roots) {
+    let dirs = []; try { dirs = readdirSync(root).filter((d) => d.startsWith(`${kind}-`)).sort((a, b) => Number(b.split('-').pop()) - Number(a.split('-').pop())); } catch { continue; }
+    for (const d of dirs) {
+      const exe = kind === 'chromium' ? (platform === 'win32' ? ['chrome-win64/chrome.exe', 'chrome-win/chrome.exe'] : platform === 'darwin' ? ['chrome-mac/Chromium.app/Contents/MacOS/Chromium'] : ['chrome-linux/chrome', 'chrome-linux64/chrome'])
+        : kind === 'firefox' ? (platform === 'win32' ? ['firefox/firefox.exe'] : ['firefox/firefox']) : (platform === 'win32' ? ['Playwright.exe'] : ['pw_run.sh']);
+      for (const e of exe) { const p = join(root, d, e); if (existsSync(p)) out.push(p); }
+    }
+  }
+  return out;
+}
+export function browserInventory(platform = process.platform, env = process.env) {
+  const cands = browserCandidates(platform, env).filter((p) => p && existsSync(p));
+  const pick = (re) => cands.find((p) => re.test(p.replace(/\\/g, '/'))) ?? null;
+  const firefoxPaths = platform === 'win32' ? [env.PROGRAMFILES, env['PROGRAMFILES(X86)']].filter(Boolean).map((b) => join(b, 'Mozilla Firefox', 'firefox.exe')) : platform === 'darwin' ? ['/Applications/Firefox.app/Contents/MacOS/firefox'] : ['/usr/bin/firefox', '/snap/bin/firefox'];
+  const safari = platform === 'darwin' && existsSync('/Applications/Safari.app') ? '/Applications/Safari.app' : null;
+  const found = {
+    chrome: pick(/Google\/Chrome\/Application\/chrome\.exe$|Google Chrome$|google-chrome(-stable)?$|opt\/google\/chrome\/chrome$/),
+    edge: pick(/msedge\.exe$|Microsoft Edge$|microsoft-edge$/),
+    chromium: pick(/Chromium\/Application\/chrome\.exe$|Chromium$|chromium(-browser)?$/) ?? playwrightBuilds('chromium', platform, env)[0] ?? null,
+    brave: pick(/brave(\.exe|-browser|\sBrowser)$/i),
+    firefox: firefoxPaths.find((p) => existsSync(p)) ?? playwrightBuilds('firefox', platform, env)[0] ?? null,
+    webkit: safari ?? playwrightBuilds('webkit', platform, env)[0] ?? null,
+  };
+  return BROWSER_FAMILIES.map((family) => {
+    const path = found[family]; const cdp = !['firefox', 'webkit'].includes(family);
+    return { family, path, available: !!path, engine: cdp ? 'Chromium (CDP)' : family === 'firefox' ? 'Gecko' : 'WebKit', drivable: !!path && cdp,
+      reason: !path ? `${family} is not installed on this host (nothing was installed)` : cdp ? null : `installed, but DCore drives browsers over the Chrome DevTools Protocol: ${family === 'firefox' ? 'Firefox needs WebDriver BiDi' : 'WebKit / Safari needs its own automation protocol'}, which DCore does not implement` };
+  });
+}
 
 // ---- minimal CDP client (flattened sessions over one WebSocket) ----------------------------------------------
 class CDP {
@@ -69,6 +112,12 @@ function launch(exe, { userDir, headed, timeoutMs = 20_000 }) {
     // Site isolation is disabled in this THROWAWAY test profile so cross-origin iframes share the page process and
     // expose an execution context to the resolver (frames are then testable). Never used with the user's real profile.
     const args = ['--remote-debugging-port=0', `--user-data-dir=${userDir}`, '--no-first-run', '--no-default-browser-check', '--disable-extensions', '--disable-sync', '--disable-background-networking', '--disable-default-apps', '--disable-component-update', '--mute-audio', '--window-size=1366,900', '--disable-features=IsolateOrigins,site-per-process', '--disable-site-isolation-trials', '--disable-popup-blocking', ...(headed ? [] : ['--headless=new']), 'about:blank'];
+    // A new test profile gets the password manager and its breach check switched off: after a login with a well-known
+    // test password, the browser's own "Change your password" warning (browser UI, invisible to the page) otherwise
+    // swallowed every later click and touch (real case: saucedemo.com). An existing profile is never modified.
+    const prefs = join(userDir, 'Default', 'Preferences');
+    if (!existsSync(prefs)) { try { mkdirSync(join(userDir, 'Default'), { recursive: true }); writeFileSync(prefs, JSON.stringify({ credentials_enable_service: false, profile: { password_manager_enabled: false, password_manager_leak_detection: false } })); } catch { /* best effort */ } }
+    const i = args.indexOf('--disable-features=IsolateOrigins,site-per-process'); if (i >= 0) args[i] = '--disable-features=IsolateOrigins,site-per-process,PasswordLeakDetection,PasswordManagerOnboarding,AutofillServerCommunication';
     let proc;
     try { proc = spawn(exe, args, { stdio: ['ignore', 'ignore', 'pipe'], windowsHide: true }); } catch (e) { fail(e); return; }
     let buf = '';
@@ -156,7 +205,13 @@ const PAGE_HELPERS = String.raw`(() => {
     return { ...base, state: 'VISIBLE', visible: true, enabled: true };
   };
   const cons = (e) => { if (!['INPUT', 'TEXTAREA', 'SELECT'].includes(e.tagName)) return undefined; const c = {}; if (e.required) c.required = true; for (const a of ['min', 'max', 'minlength', 'maxlength', 'pattern', 'step']) { const v = e.getAttribute(a); if (v !== null && v !== '') c[a] = v; } return Object.keys(c).length ? c : undefined; };
-  const modals = () => qAll('dialog[open],[role=dialog],[role=alertdialog],[aria-modal=true]').filter(vis).map((m) => ({ selector: sel(m), title: norm((m.querySelector('h1,h2,h3,h4,h5,.modal-title,[id*=title]') || {}).innerText || m.getAttribute('aria-label') || '').slice(0, 100) }));
+  const modals = () => {
+    const ms = qAll('dialog[open],[role=dialog],[role=alertdialog],[aria-modal=true]').filter(vis);
+    const z = (m) => { let e = m; let best = 0; while (e && e.nodeType === 1) { const zi = parseInt(getComputedStyle(e).zIndex, 10); if (!Number.isNaN(zi)) best = Math.max(best, zi); e = e.parentElement; } return best; };
+    const layer = (m) => { try { return m.matches(':modal') ? 1 : 0; } catch (e) { return 0; } };
+    const top = ms.map((m, i) => ({ m, i, l: layer(m), z: z(m) })).sort((a, b) => a.l - b.l || a.z - b.z || a.i - b.i).pop();
+    return ms.map((m) => ({ selector: sel(m), title: norm((m.querySelector('h1,h2,h3,h4,h5,.modal-title,[id*=title]') || {}).innerText || m.getAttribute('aria-label') || '').slice(0, 100), top: !!top && top.m === m }));
+  };
   const textOf = () => { const parts = [norm(document.body ? document.body.innerText : '')]; for (const r of roots()) if (r !== document) parts.push(norm(r.textContent)); return parts.join(' '); };
   const inspect = (max) => {
     const els = qAll('a[href],button,input,select,textarea,[role=button],[role=link],[role=tab],[role=menuitem],[role=checkbox],[role=switch],[role=combobox],[role=radio],summary,[contenteditable=true]').filter(vis);
@@ -205,7 +260,7 @@ const PAGE_HELPERS = String.raw`(() => {
 const KEYS = { Enter: [13, '\r'], Tab: [9, ''], Escape: [27, ''], Backspace: [8, ''], Delete: [46, ''], ArrowDown: [40, ''], ArrowUp: [38, ''], ArrowLeft: [37, ''], ArrowRight: [39, ''], Space: [32, ' '], Home: [36, ''], End: [35, ''], PageDown: [34, ''], PageUp: [33, ''], Control: [17, ''], Shift: [16, ''], Alt: [18, ''], Meta: [91, ''] };
 const MOD_BITS = { Alt: 1, Control: 2, Ctrl: 2, Meta: 4, Command: 4, Shift: 8 };
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-const stripQuery = (u) => { try { const x = new URL(u); if (!/^https?:$/.test(x.protocol)) return `${x.protocol}${x.pathname.slice(0, 40)}${x.pathname.length > 40 ? '…' : ''}`; return x.origin + x.pathname + (x.search ? '?…' : ''); } catch { return String(u).slice(0, 200); } };
+const stripQuery = (u) => { try { const x = new URL(u); if (!/^(https?|wss?):$/.test(x.protocol)) return `${x.protocol}${x.pathname.slice(0, 40)}${x.pathname.length > 40 ? '…' : ''}`; return x.origin + x.pathname + (x.search ? '?…' : ''); } catch { return String(u).slice(0, 200); } };
 const CRED_NAME = /((^|[._-])credentials|(^|[.])env($|[.])|id_rsa|id_ed25519|[.](pem|key|p12|pfx)$|cookie|token|secret|password)/i;   // never uploaded
 
 // ---- session (one per tab) ------------------------------------------------------------------------------------
@@ -213,7 +268,7 @@ class Session {
   constructor(cdp, sessionId, targetId, ctx) {
     Object.assign(this, { cdp, sessionId, targetId, ctx });
     this.sink = ctx.sink;
-    this.inflight = new Map(); this.reqMethods = new Map(); this.loadFired = false; this.contexts = new Map(); this.mainFrameId = null;
+    this.inflight = new Map(); this.reqMethods = new Map(); this.esUrls = new Map(); this.dragData = null; this.authTried = new Set(); this.loadFired = false; this.contexts = new Map(); this.mainFrameId = null;
   }
   send(m, p, t) { return this.cdp.send(m, p, this.sessionId, t); }
   async init() {
@@ -231,22 +286,39 @@ class Session {
           if (p.redirectResponse && p.type === 'Document') k.redirects.push({ from: stripQuery(p.redirectResponse.url), status: p.redirectResponse.status, to: stripQuery(p.request.url), at: Date.now() });
           if (!['WebSocket', 'EventSource'].includes(p.type)) this.inflight.set(p.requestId, p.request.url);
           if (['XHR', 'Fetch'].includes(p.type)) this.reqMethods.set(p.requestId, p.request.method);
-          if (!p.redirectResponse && !['GET', 'HEAD', 'OPTIONS'].includes(p.request.method) && k.writes.length < 1000) k.writes.push({ method: p.request.method, url: stripQuery(p.request.url), type: p.type, at: Date.now() });
+          if (p.type === 'EventSource') this.esUrls.set(p.requestId, p.request.url);
+          if (!p.redirectResponse && !['GET', 'HEAD', 'OPTIONS'].includes(p.request.method) && k.writes.length < 1000) k.writes.push({ method: p.request.method, url: stripQuery(p.request.url), type: p.type, at: Date.now(), body: String(p.request.postData ?? '').slice(0, 8000) });   // body: in memory only (oracles), never written to evidence
           break;
         case 'Fetch.requestPaused': this.onPaused(p).catch(() => {}); break;
+        case 'Input.dragIntercepted': this.dragData = p.data; break;
+        case 'Fetch.authRequired': {   // HTTP Basic / Digest challenge: answer only for the configured origin, once per request
+          const a = this.ctx.httpAuth; let origin = ''; try { origin = new URL(p.request.url).origin; } catch { /* ignore */ }
+          const ok = a && (!a.origin || a.origin === origin) && !this.authTried.has(p.requestId);
+          if (ok) this.authTried.add(p.requestId);
+          this.ctx.authChallenges.push({ origin, scheme: p.authChallenge?.scheme ?? null, realm: p.authChallenge?.realm ?? null, answered: !!ok });
+          this.send('Fetch.continueWithAuth', { requestId: p.requestId, authChallengeResponse: ok ? { response: 'ProvideCredentials', username: a.username, password: a.password } : { response: 'CancelAuth' } }).catch(() => {});
+          break;
+        }
+        case 'Network.webSocketCreated': if (k.sockets.length < 100) k.sockets.push({ id: p.requestId, url: stripQuery(p.url), sent: 0, received: 0, closed: false, errors: 0, last_received: [], last_sent: [] }); break;
+        case 'Network.webSocketFrameSent': case 'Network.webSocketFrameReceived': { const w = k.sockets.find((x) => x.id === p.requestId); if (!w) break; const out = m.method === 'Network.webSocketFrameSent'; const data = p.response?.opcode === 2 ? '[binary frame]' : String(p.response?.payloadData ?? '').slice(0, 300); if (out) { w.sent++; w.last_sent = [...w.last_sent, data].slice(-5); } else { w.received++; w.last_received = [...w.last_received, data].slice(-20); } break; }
+        case 'Network.webSocketFrameError': { const w = k.sockets.find((x) => x.id === p.requestId); if (w) w.errors++; break; }
+        case 'Network.webSocketClosed': { const w = k.sockets.find((x) => x.id === p.requestId); if (w) w.closed = true; break; }
+        case 'Network.eventSourceMessageReceived': { const url = this.esUrls.get(p.requestId) ?? '(unknown stream)'; let e = k.sse.find((x) => x.id === p.requestId); if (!e && k.sse.length < 100) { e = { id: p.requestId, url: stripQuery(url), messages: 0, events: [], last: [] }; k.sse.push(e); } if (e) { e.messages++; if (!e.events.includes(p.eventName)) e.events.push(p.eventName); e.last = [...e.last, String(p.data ?? '').slice(0, 300)].slice(-20); } break; }
         case 'Network.loadingFinished': this.inflight.delete(p.requestId); break;
         case 'Network.loadingFailed': this.inflight.delete(p.requestId); if (!this.ctx.faultedIds.has(p.requestId) && !p.canceled && !/ERR_ABORTED/.test(p.errorText)) k.network.push({ kind: 'failed', error: p.errorText, type: p.type }); break;
         case 'Network.responseReceived': if (['XHR', 'Fetch'].includes(p.type) && k.api.length < 1000) k.api.push({ method: this.reqMethods.get(p.requestId) ?? 'GET', url: stripQuery(p.response.url), status: p.response.status, type: p.type }); if (p.response.status >= 400 && !this.ctx.faultedIds.has(p.requestId)) (p.response.status >= 500 ? k.network : k.http4xx).push({ kind: 'http', status: p.response.status, url: stripQuery(p.response.url), type: p.type }); break;
         case 'Runtime.consoleAPICalled': if (['error', 'assert'].includes(p.type)) k.console.push((p.args ?? []).map((a) => a.value ?? a.description ?? '').join(' ').slice(0, 300)); break;
         case 'Runtime.exceptionThrown': { const d = p.exceptionDetails ?? {}; const where = d.url ? ` (${stripQuery(d.url)}:${(d.lineNumber ?? 0) + 1})` : ''; k.pageErrors.push(String(d.exception?.description ?? d.text ?? 'exception').split('\n')[0].slice(0, 300) + where); break; }
         case 'Log.entryAdded': if (p.entry.level === 'error' && p.entry.source !== 'network') k.console.push(String(p.entry.text).slice(0, 300)); break;
-        case 'Page.javascriptDialogOpening': k.dialogs.push({ type: p.type, message: String(p.message).slice(0, 200), action: p.type === 'alert' ? 'accept' : this.ctx.dialogPolicy }); this.send('Page.handleJavaScriptDialog', { accept: p.type === 'alert' || this.ctx.dialogPolicy === 'accept' }).catch(() => {}); break;
+        case 'Page.javascriptDialogOpening': k.dialogs.push({ type: p.type, message: String(p.message).slice(0, 200), action: p.type === 'alert' ? 'accept' : this.ctx.dialogPolicy }); this.send('Page.handleJavaScriptDialog', { accept: p.type === 'alert' || this.ctx.dialogPolicy === 'accept', ...(p.type === 'prompt' && this.ctx.dialogPolicy === 'accept' && this.ctx.promptText !== undefined ? { promptText: String(this.ctx.promptText) } : {}) }).catch(() => {}); break;
         default:
       }
     });
     for (const d of ['Page.enable', 'Runtime.enable', 'Network.enable', 'Log.enable', 'DOM.enable']) await this.send(d);
     await this.send('Page.addScriptToEvaluateOnNewDocument', { source: PAGE_HELPERS });
-    await this.send('Emulation.setDeviceMetricsOverride', { width: 1366, height: 900, deviceScaleFactor: 1, mobile: false, screenWidth: 1366, screenHeight: 900 });
+    const vp = this.ctx.viewport;   // M46: every tab starts with the run's viewport preset (desktop / tablet / mobile)
+    await this.send('Emulation.setDeviceMetricsOverride', { width: vp.width, height: vp.height, deviceScaleFactor: vp.deviceScaleFactor ?? 1, mobile: !!vp.mobile, screenWidth: vp.width, screenHeight: vp.height });
+    if (vp.mobile) await this.send('Emulation.setTouchEmulationEnabled', { enabled: true, maxTouchPoints: 5 }).catch(() => {});
     this.mainFrameId = (await this.send('Page.getFrameTree')).frameTree.frame.id;
   }
   async eval(expr, { contextId, timeoutMs = 15_000 } = {}) {
@@ -348,8 +420,13 @@ class Session {
     // page-level hit test at the click point (sees overlays in any frame). Quads/mouse events use VIEWPORT coordinates;
     // DOM.getNodeForLocation uses DOCUMENT coordinates, so add the scroll offset (regression: scrolled pages).
     const scrollX = lm.cssLayoutViewport?.pageX ?? 0; const scrollY = lm.cssLayoutViewport?.pageY ?? 0;
+    // Input coordinates (quads) and page coordinates can differ when the layout viewport is wider than the visual one
+    // (real case: Edge tablet emulation on demoqa.com, layout 861 px in an 820 px viewport, 41 px apart): for a main-frame
+    // element hit-test at its own page position (client rect + scroll); the click itself keeps the input coordinates.
+    let hx = r.x; let hy = r.y;
+    if (!r.frame || r.frame.depth === 0) { const c = await this.call(r.objectId, 'function () { const b = this.getBoundingClientRect(); return [b.left + b.width / 2, b.top + b.height / 2]; }').catch(() => null); if (Array.isArray(c)) [hx, hy] = c; }
     try {
-      const hit = await this.send('DOM.getNodeForLocation', { x: Math.round(r.x + scrollX), y: Math.round(r.y + scrollY), includeUserAgentShadowDOM: false, ignorePointerEventsNone: true });
+      const hit = await this.send('DOM.getNodeForLocation', { x: Math.round(hx + scrollX), y: Math.round(hy + scrollY), includeUserAgentShadowDOM: false, ignorePointerEventsNone: true });
       const hitObj = (await this.send('DOM.resolveNode', { backendNodeId: hit.backendNodeId })).object?.objectId;
       // is the topmost node at the click point the element itself, a descendant (across shadow roots) or its label?
       const owns = hitObj ? (await this.send('Runtime.callFunctionOn', { objectId: r.objectId, functionDeclaration: 'function (h) { let n = h; while (n) { if (n === this) return true; n = n.parentNode || n.host; } try { if (this.labels && [...this.labels].some((l) => l === h || l.contains(h))) return true; } catch (e) { } return false; }', arguments: [{ objectId: hitObj }], returnByValue: true }).catch(() => null))?.result?.value : null;
@@ -434,11 +511,17 @@ async function clickTarget(S, r, opts = {}) {
 }
 
 // Execute one step; returns { result, detail, element_state? }. Action failures stop the run/case; assertion failures don't.
+// Fetch interception is shared by fault injection (XHR / fetch only) and HTTP authentication (every request)
+async function refreshFetch(S, ctx) {
+  if (!ctx.faults.length && !ctx.httpAuth) { await S.send('Fetch.disable').catch(() => {}); return; }
+  const patterns = ctx.httpAuth ? [{ urlPattern: '*', requestStage: 'Request' }] : [{ urlPattern: '*', resourceType: 'XHR', requestStage: 'Request' }, { urlPattern: '*', resourceType: 'Fetch', requestStage: 'Request' }];
+  await S.send('Fetch.enable', { patterns, handleAuthRequests: !!ctx.httpAuth });
+}
 export const FAULT_MODES = ['server-error', 'network-failure', 'timeout', 'empty-response', 'malformed-response'];
 // a path such as /api/tokens/:id matches any value in the :id segment
 const urlRe = (u) => new RegExp(String(u).replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\/:[A-Za-z_]\w*/g, '/[^/?#]+'));
 const cookieParam = (c) => ({ name: c.name, value: c.value, domain: c.domain, path: c.path, secure: c.secure, httpOnly: c.httpOnly, ...(c.sameSite ? { sameSite: c.sameSite } : {}), ...(c.session || !(c.expires > 0) ? {} : { expires: c.expires }) });
-const OPS = ['intercept', 'session', 'goto', 'click', 'fill', 'type', 'clear', 'select', 'press', 'check', 'uncheck', 'hover', 'upload', 'download', 'wait', 'waitFor', 'assertText', 'assertNoText', 'assertUrl', 'assertTitle', 'assertVisible', 'assertHidden', 'assertState', 'assertValue', 'assertModal', 'assertCount', 'screenshot', 'inspect', 'text', 'a11y', 'perf', 'viewport', 'evaluate', 'dialog', 'back', 'forward', 'reload', 'switchTab', 'closeTab'];
+const OPS = ['httpAuth', 'drag', 'tap', 'swipe', 'breakpoints', 'scrollUntil', 'assertSocket', 'intercept', 'session', 'goto', 'click', 'fill', 'type', 'clear', 'select', 'press', 'check', 'uncheck', 'hover', 'upload', 'download', 'wait', 'waitFor', 'assertText', 'assertNoText', 'assertUrl', 'assertTitle', 'assertVisible', 'assertHidden', 'assertState', 'assertValue', 'assertModal', 'assertCount', 'screenshot', 'inspect', 'text', 'a11y', 'perf', 'viewport', 'evaluate', 'dialog', 'back', 'forward', 'reload', 'switchTab', 'closeTab'];
 async function step(ctx, s) {
   const S = ctx.page;
   const t = s.timeoutMs ?? ctx.stepTimeoutMs;
@@ -688,7 +771,7 @@ async function step(ctx, s) {
     case 'assertModal': {
       const wantOpen = (typeof v === 'object' ? v.open : v) !== false;
       const end = Date.now() + Math.min(t, 5000); let ms = [];
-      do { ms = await S.eval('window.__dcore.modals()').catch(() => []); const hit = ms.filter((m) => !v?.title || m.title.toLowerCase().includes(String(v.title).toLowerCase())); if (wantOpen ? hit.length : !hit.length) return { op, result: 'PASS', detail: wantOpen ? `modal open: ${hit.map((m) => m.title || m.selector).join(' | ')}` : 'no modal open' }; await sleep(150); } while (Date.now() < end);
+      do { ms = await S.eval('window.__dcore.modals()').catch(() => []); const hit = ms.filter((m) => (!v?.top || m.top) && (!v?.title || m.title.toLowerCase().includes(String(v.title).toLowerCase()))); if (wantOpen ? hit.length : !hit.length) return { op, result: 'PASS', detail: wantOpen ? `modal open: ${hit.map((m) => m.title || m.selector).join(' | ')}` : 'no modal open' }; await sleep(150); } while (Date.now() < end);
       return { op, result: 'FAIL', detail: wantOpen ? `no open modal${v?.title ? ` titled "${v.title}"` : ''} (open: ${ms.map((m) => m.title || m.selector).join(' | ') || 'none'})` : `modal still open: ${ms.map((m) => m.title || m.selector).join(' | ')}` };
     }
     case 'assertCount': {
@@ -730,7 +813,9 @@ async function step(ctx, s) {
     case 'perf': { const p = await S.eval('window.__dcore.perf()'); ctx.perf.push(p); const max = v?.maxLoadMs; return { op, result: max !== undefined && p ? (p.load_ms <= max ? 'PASS' : 'FAIL') : p ? 'PASS' : 'NOT_TESTED', detail: p ? `load ${p.load_ms} ms, DCL ${p.dom_content_loaded_ms} ms, TTFB ${p.ttfb_ms} ms` : 'no navigation timing available' }; }
     case 'viewport': {
       const { width = 375, height = 812, mobile = width < 768 } = typeof v === 'object' ? v : {};
-      await S.send('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: mobile ? 2 : 1, mobile, screenWidth: width, screenHeight: height }); await sleep(300);
+      await S.send('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: mobile ? 2 : 1, mobile, screenWidth: width, screenHeight: height });
+      await S.send('Emulation.setTouchEmulationEnabled', { enabled: !!mobile, maxTouchPoints: mobile ? 5 : 1 }).catch(() => {});   // pages detect touch on load: set the viewport before goto
+      await sleep(300);
       const [layoutW, layoutH, screenW, meta] = await S.eval('[window.innerWidth, window.innerHeight, screen.width, !!document.querySelector("meta[name=viewport]")]');
       if (screenW !== width) return { op, result: 'FAIL', detail: `device emulation not applied: screen reports ${screenW}px, wanted ${width}px` };
       const note = layoutW !== width ? ` — page lays out at ${layoutW}px${mobile && !meta ? ' (no responsive <meta name="viewport">: phones render it at desktop width)' : ''}` : '';
@@ -746,12 +831,12 @@ async function step(ctx, s) {
       });
     }
     case 'intercept': {
-      if (v === false || v === null || v?.clear) { const n = ctx.faults.length; ctx.faults = []; await S.send('Fetch.disable').catch(() => {}); return { op, result: 'PASS', detail: n ? `request interception cleared (${n} rule(s))` : 'no request interception active' }; }
+      if (v === false || v === null || v?.clear) { const n = ctx.faults.length; ctx.faults = []; await refreshFetch(S, ctx); return { op, result: 'PASS', detail: n ? `request interception cleared (${n} rule(s))` : 'no request interception active' }; }
       if (!FAULT_MODES.includes(v?.mode)) return { op, result: 'FAIL', detail: `intercept needs mode (one of ${FAULT_MODES.join(', ')})`, stop: true };
       if (!v.url && !v.matches) return { op, result: 'FAIL', detail: 'intercept needs url (a path or URL fragment to match)', stop: true };
       const method = String(v.method ?? 'GET').toUpperCase(); const delayMs = Math.min(Number(v.delayMs ?? 3000), 30_000);
       ctx.faults.push({ mode: v.mode, method, re: v.matches ? new RegExp(v.matches) : urlRe(v.url), url: v.url ?? v.matches, status: v.status, delayMs, times: v.times, hits: 0 });
-      await S.send('Fetch.enable', { patterns: [{ urlPattern: '*', resourceType: 'XHR', requestStage: 'Request' }, { urlPattern: '*', resourceType: 'Fetch', requestStage: 'Request' }] });
+      await refreshFetch(S, ctx);
       return { op, result: 'PASS', detail: `${method} requests matching ${JSON.stringify(v.url ?? v.matches)} will get a simulated ${v.mode}${v.mode === 'server-error' ? ` (${v.status ?? 500})` : v.mode === 'timeout' ? ` after ${delayMs} ms` : ''} in this browser only (the server is not contacted for them)` };
     }
     case 'session': {
@@ -770,7 +855,153 @@ async function step(ctx, s) {
       }
       return { op, result: 'FAIL', detail: 'session needs "expire" or "restore"', stop: true };
     }
-    case 'dialog': { ctx.dialogPolicy = v === 'accept' ? 'accept' : 'dismiss'; return { op, result: 'PASS', detail: `confirm/prompt dialogs will be ${ctx.dialogPolicy}ed` }; }
+    case 'dialog': {
+      const accept = v === 'accept' || v?.accept === true;
+      ctx.dialogPolicy = accept ? 'accept' : 'dismiss'; ctx.promptText = typeof v === 'object' && v ? v.promptText : undefined;
+      return { op, result: 'PASS', detail: `confirm/prompt dialogs will be ${ctx.dialogPolicy}ed${ctx.promptText !== undefined ? ` (prompt answered with ${JSON.stringify(String(ctx.promptText).slice(0, 40))})` : ''}` };
+    }
+    // ---- M45: HTTP authentication (Basic / Digest) with credentials from environment variables only; values redacted
+    case 'httpAuth': {
+      if (v === false || v === null) { ctx.httpAuth = null; await refreshFetch(S, ctx); return { op, result: 'PASS', detail: 'HTTP authentication disabled' }; }
+      const username = process.env[v?.userEnv ?? '']; const password = process.env[v?.passEnv ?? ''];
+      if (!v?.userEnv || !v?.passEnv) return { op, result: 'FAIL', detail: 'httpAuth needs userEnv and passEnv (credentials are never given inline)', stop: true };
+      if (username === undefined || password === undefined) return { op, result: 'BLOCKED', detail: `env var ${username === undefined ? v.userEnv : v.passEnv} is not set`, stop: true };
+      ctx.secrets.push(password); if (username.length >= 4) ctx.secrets.push(username);
+      ctx.httpAuth = { username, password, origin: v.origin ? new URL(v.origin).origin : null };
+      await refreshFetch(S, ctx);
+      return { op, result: 'PASS', detail: `HTTP authentication answered from \${${v.userEnv}} / \${${v.passEnv}}${ctx.httpAuth.origin ? ` for ${ctx.httpAuth.origin} only` : ' for any origin'} (values not recorded)` };
+    }
+    // ---- M45: drag and drop (native HTML5 drags are intercepted and completed with drag events; pointer-based
+    // libraries receive the real mouse down / move / up sequence)
+    case 'drag': {
+      const fromLoc = v.from ?? locOf(L);
+      const from = await S.locate(locOf(fromLoc), t, 'interactable');
+      if (!from.ok) return notOk(op, s, fromLoc, from);
+      let tx; let ty; let toDesc;
+      if (v.to) { const to = await S.locate(locOf(v.to), t, 'visible'); if (!to.ok) return notOk(op, s, v.to, to); tx = to.x; ty = to.y; toDesc = elText(to); }
+      else if (v.by) { tx = from.x + Number(v.by.x ?? 0); ty = from.y + Number(v.by.y ?? 0); toDesc = `offset (${v.by.x ?? 0}, ${v.by.y ?? 0})`; }
+      else return { op, result: 'FAIL', detail: 'drag needs "to" (a locator) or "by" ({x, y})', stop: true };
+      const risk = await riskBlock(S, from, ctx, op); if (risk) return risk;
+      S.dragData = null;
+      await S.send('Input.setInterceptDrags', { enabled: true }).catch(() => {});
+      const n = Math.max(2, Number(v.steps ?? 12));
+      try {
+        await S.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: from.x, y: from.y });
+        await S.send('Input.dispatchMouseEvent', { type: 'mousePressed', x: from.x, y: from.y, button: 'left', buttons: 1, clickCount: 1 });
+        for (let i = 1; i <= n && !S.dragData; i++) { await S.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: from.x + ((tx - from.x) * i) / n, y: from.y + ((ty - from.y) * i) / n, button: 'left', buttons: 1 }); await sleep(20); }
+        await sleep(50);
+        let how = 'pointer drag (mouse down, move, up)';
+        if (S.dragData) {
+          const data = S.dragData;
+          for (const type of ['dragEnter', 'dragOver', 'drop']) await S.send('Input.dispatchDragEvent', { type, x: tx, y: ty, data });
+          how = 'native HTML5 drag-and-drop (dragstart intercepted, dragenter / dragover / drop dispatched)';
+        }
+        await S.send('Input.dispatchMouseEvent', { type: 'mouseReleased', x: tx, y: ty, button: 'left', buttons: 0, clickCount: 1 });
+        await sleep(150); await S.settle(ctx.settleMs);
+        return { op, result: 'PASS', element_state: from.state, detail: `dragged ${elText(from)} to ${toDesc} via ${how}; declare an expectation to verify the result` };
+      } finally { S.dragData = null; await S.send('Input.setInterceptDrags', { enabled: false }).catch(() => {}); }
+    }
+    // ---- M45: touch (emulated touch screen; Chrome synthesises the gesture and the click that follows a tap)
+    case 'tap': {
+      const r = await S.locate(locOf(L), t, 'interactable');
+      if (!r.ok) return notOk(op, s, L, r);
+      const risk = await riskBlock(S, r, ctx, op); if (risk) return risk;
+      await S.send('Emulation.setTouchEmulationEnabled', { enabled: true, maxTouchPoints: 5 }).catch(() => {});
+      S.loadFired = false;
+      // raw touchstart / touchend go through Chrome's own gesture recogniser, which then fires the click a real device
+      // would (Input.synthesizeTapGesture does not produce that click)
+      for (let i = 0; i < (L.double ? 2 : 1); i++) {
+        await S.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: r.x, y: r.y }] });
+        await sleep(L.holdMs ? Number(L.holdMs) : 60);
+        await S.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+        if (L.double) await sleep(80);
+      }
+      await sleep(200); await S.settle(ctx.settleMs);
+      return { op, result: 'PASS', element_state: r.state, detail: `tapped ${elText(r)} with an emulated touch${L.holdMs ? ` (held ${L.holdMs} ms)` : ''}${L.double ? ' (double tap)' : ''}` };
+    }
+    case 'swipe': {
+      const r = await S.locate(locOf(L), t, 'visible');
+      if (!r.ok) return notOk(op, s, L, r);
+      const dist = Number(L.distance ?? 200); const dir = L.direction ?? 'left';
+      const d = { left: [-dist, 0], right: [dist, 0], up: [0, -dist], down: [0, dist] }[dir];
+      if (!d) return { op, result: 'FAIL', detail: `swipe direction must be left / right / up / down (got ${dir})`, stop: true };
+      await S.send('Emulation.setTouchEmulationEnabled', { enabled: true, maxTouchPoints: 5 }).catch(() => {});
+      const pts = 10;
+      await S.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: r.x, y: r.y }] });
+      for (let i = 1; i <= pts; i++) { await S.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: r.x + (d[0] * i) / pts, y: r.y + (d[1] * i) / pts }] }); await sleep(16); }
+      await S.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+      await sleep(200); await S.settle(ctx.settleMs);
+      return { op, result: 'PASS', element_state: r.state, detail: `swiped ${dir} ${dist}px on ${elText(r)} (touchstart / touchmove / touchend)` };
+    }
+    // ---- M45: responsive breakpoint sweep (layout overflow, meta viewport, per-breakpoint visibility, screenshots)
+    case 'breakpoints': {
+      const widths = (v.widths ?? [320, 375, 768, 1024, 1280, 1440]).map(Number); const height = Number(v.height ?? 900);
+      const results = [];
+      try {
+        for (const w of widths) {
+          const mobile = v.mobile ?? w < 768;
+          await S.send('Emulation.setDeviceMetricsOverride', { width: w, height, deviceScaleFactor: mobile ? 2 : 1, mobile, screenWidth: w, screenHeight: height });
+          await S.send('Emulation.setTouchEmulationEnabled', { enabled: !!mobile, maxTouchPoints: mobile ? 5 : 1 }).catch(() => {});
+          await sleep(350); await S.settle(Math.min(ctx.settleMs, 2000), 300);
+          const m = await S.eval('({ inner: innerWidth, scroll: document.documentElement.scrollWidth, meta: !!document.querySelector("meta[name=viewport]") })');
+          const problems = [];
+          if (v.noHorizontalScroll !== false && m.scroll > m.inner + 1) problems.push(`horizontal scroll: content ${m.scroll}px wide in a ${m.inner}px viewport`);
+          if (mobile && !m.meta && v.requireMetaViewport !== false) problems.push(`no <meta name="viewport">: phones lay the page out at ${m.inner}px`);
+          const at = (bp) => (bp && typeof bp === 'object' && !Array.isArray(bp) && (bp.min !== undefined || bp.max !== undefined) ? (bp.min === undefined || w >= bp.min) && (bp.max === undefined || w <= bp.max) : true);
+          for (const want of [].concat(v.visible ?? [])) { if (!at(want.at)) continue; const r = await S.resolveOnce(locOf(want)).catch(() => ({ state: 'NOT_FOUND' })); if (!['INTERACTABLE', 'VISIBLE', 'VISIBLE_BUT_OBSTRUCTED', 'DISABLED', 'NOT_INTERACTABLE'].includes(r.state)) problems.push(`${describe(want)} expected visible, is ${r.state}`); }
+          for (const want of [].concat(v.hidden ?? [])) { if (!at(want.at)) continue; const r = await S.resolveOnce(locOf(want)).catch(() => ({ state: 'NOT_FOUND' })); if (['INTERACTABLE', 'VISIBLE', 'VISIBLE_BUT_OBSTRUCTED'].includes(r.state)) problems.push(`${describe(want)} expected hidden, is ${r.state}`); }
+          let shot = null; if (v.screenshot !== false) { const sr = await step(ctx, { screenshot: { name: `breakpoint-${w}` } }); if (sr.result === 'PASS') shot = ctx.shots[ctx.shots.length - 1]; }
+          results.push({ width: w, mobile: !!mobile, layout_width: m.inner, content_width: m.scroll, meta_viewport: m.meta, problems, screenshot: shot });
+        }
+      } finally {
+        const vp = ctx.viewport;
+        await S.send('Emulation.setDeviceMetricsOverride', { width: vp.width, height: vp.height, deviceScaleFactor: vp.deviceScaleFactor ?? 1, mobile: !!vp.mobile, screenWidth: vp.width, screenHeight: vp.height });
+        await S.send('Emulation.setTouchEmulationEnabled', { enabled: !!vp.mobile, maxTouchPoints: vp.mobile ? 5 : 1 }).catch(() => {});
+      }
+      ctx.breakpoints.push(...results);
+      const bad = results.filter((r) => r.problems.length);
+      return { op, result: bad.length ? 'FAIL' : 'PASS', detail: results.map((r) => `${r.width}px: ${r.problems.length ? r.problems.join('; ') : 'ok'}`).join(' | ') + ` (${ctx.viewport.name ?? 'run'} viewport restored)` };
+    }
+    // ---- M45: scroll until lazy-loaded / virtualised content appears (real wheel events; stops at the end)
+    case 'scrollUntil': {
+      const target = locOf(L); const max = Number(v.maxScrolls ?? 40); const cont = v.container ?? null;
+      const readPos = `(() => { const c = ${JSON.stringify(cont)} ? document.querySelector(${JSON.stringify(cont)}) : document.scrollingElement; if (!c) return null; const win = c === document.scrollingElement; const b = win ? null : c.getBoundingClientRect(); return { x: win ? innerWidth / 2 : b.left + b.width / 2, y: win ? innerHeight / 2 : b.top + Math.min(b.height / 2, innerHeight / 2), h: win ? innerHeight : c.clientHeight, top: c.scrollTop, end: c.scrollHeight - c.clientHeight }; })()`;
+      let scrolls = 0; let stuck = 0;
+      for (;;) {
+        const r = await S.resolveOnce(target).catch(() => ({ state: 'NOT_FOUND' }));
+        if (!['NOT_FOUND', 'BLOCKED'].includes(r.state)) {
+          if (r.objectId) await S.send('DOM.scrollIntoViewIfNeeded', { objectId: r.objectId }).catch(() => {});
+          return { op, result: 'PASS', element_state: r.state, detail: `${describe(L)} found after ${scrolls} scroll(s)${r.state === 'AMBIGUOUS' ? ' (several matches)' : ''}` };
+        }
+        if (scrolls >= max) return { op, result: 'FAIL', element_state: 'NOT_FOUND', detail: `${describe(L)} not found after ${max} scroll(s)`, stop: true };
+        const p = await S.eval(readPos);
+        if (!p) return { op, result: 'FAIL', detail: `scroll container ${cont} not found`, stop: true };
+        await S.send('Input.dispatchMouseEvent', { type: 'mouseWheel', x: p.x, y: p.y, deltaX: 0, deltaY: Math.max(100, Math.round(p.h * 0.8)) });
+        await sleep(Number(v.waitMs ?? 350)); await S.settle(Math.min(ctx.settleMs, 3000), 300);
+        let after = await S.eval(readPos); scrolls++;
+        // at the bottom: lazy loaders fetch the next batch asynchronously — wait for the content to grow before
+        // concluding that this is the end (real site: practice.expandtesting.com/infinite-scroll)
+        if (after && after.top <= p.top + 1) { const until = Date.now() + Number(v.loadWaitMs ?? 2500); while (Date.now() < until) { await sleep(250); const g = await S.eval(readPos); if (g && g.end > p.end + 1) { after = { ...g, top: p.top + 2 }; break; } } }
+        if (!after || after.top <= p.top + 1) { stuck++; if (stuck >= 3) return { op, result: 'FAIL', element_state: 'NOT_FOUND', detail: `${describe(L)} not found: the ${cont ? 'container' : 'page'} stopped scrolling after ${scrolls} scroll(s) (end of content, nothing more loaded)`, stop: true }; }
+        else stuck = 0;
+      }
+    }
+    // ---- M45: WebSocket / server-sent-event observation (passive: frames are recorded, never sent by DCore)
+    case 'assertSocket': {
+      const kind = v.kind ?? 'websocket'; const end = Date.now() + Number(v.timeoutMs ?? t);
+      const match = (x) => !v.url || x.url.includes(v.url);
+      for (;;) {
+        const list = (kind === 'sse' ? ctx.sink.sse : ctx.sink.sockets).filter(match);
+        const ok = list.some((x) => {
+          const got = kind === 'sse' ? x.messages : x.received; const msgs = kind === 'sse' ? x.last : x.last_received;
+          return got >= Number(v.minReceived ?? 1) && (kind === 'sse' || x.sent >= Number(v.minSent ?? 0)) && (!v.contains || msgs.some((d) => d.includes(v.contains))) && (v.open === undefined || kind === 'sse' || x.closed !== v.open);
+        });
+        const sum = list.map((x) => (kind === 'sse' ? `${x.url}: ${x.messages} message(s)${x.events.length ? ` [${x.events.join(', ')}]` : ''}` : `${x.url}: sent ${x.sent}, received ${x.received}${x.closed ? ', closed' : ', open'}`)).join(' | ') || `no ${kind === 'sse' ? 'event stream' : 'WebSocket'}${v.url ? ` matching "${v.url}"` : ''} observed`;
+        if (ok) return { op, result: 'PASS', detail: sum };
+        if (Date.now() > end) return { op, result: 'FAIL', element_state: 'TIMEOUT', detail: `expectation ${JSON.stringify({ kind, url: v.url, minReceived: v.minReceived ?? 1, contains: v.contains })} not met: ${sum}` };
+        await sleep(150);
+      }
+    }
     case 'switchTab': {
       const spec = typeof v === 'object' ? v : { [typeof v === 'number' ? 'index' : 'latest']: v };
       const end = Date.now() + nav; let tab;   // a new tab is a navigation: its URL is known only once it commits
@@ -804,8 +1035,8 @@ async function step(ctx, s) {
 // uploadRoots, riskGuard }. Returns { ok:false, reason } when no browser can be started (nothing executed).
 export async function startBrowser(opts = {}) {
   const started_at = new Date().toISOString();
-  const sink = { console: [], pageErrors: [], network: [], http4xx: [], downloads: [], dialogs: [], redirects: [], spaNavigations: [], api: [], writes: [] };
-  const ctx = { sink, secrets: [], shots: [], inspections: [], texts: [], a11y: [], perf: [], values: [], tabs: [], responsive: [], faults: [], faultLog: [], faultedIds: new Set(), savedCookies: null, dialogPolicy: 'dismiss', stepTimeoutMs: opts.stepTimeoutMs ?? 15_000, settleMs: opts.settleMs ?? 4000, uploadRoots: opts.uploadRoots, riskGuard: !!opts.riskGuard };
+  const sink = { console: [], pageErrors: [], network: [], http4xx: [], downloads: [], dialogs: [], redirects: [], spaNavigations: [], api: [], writes: [], sockets: [], sse: [] };
+  const ctx = { sink, secrets: [], shots: [], inspections: [], texts: [], a11y: [], perf: [], values: [], tabs: [], responsive: [], faults: [], faultLog: [], faultedIds: new Set(), savedCookies: null, breakpoints: [], promptText: undefined, httpAuth: null, authChallenges: [], dialogPolicy: 'dismiss', viewport: typeof opts.viewport === 'string' ? (VIEWPORTS[opts.viewport] ?? VIEWPORTS.desktop) : { ...VIEWPORTS.desktop, name: 'custom', ...(opts.viewport ?? {}), ...(opts.viewport ? {} : { name: 'desktop' }) }, stepTimeoutMs: opts.stepTimeoutMs ?? 15_000, settleMs: opts.settleMs ?? 4000, uploadRoots: opts.uploadRoots, riskGuard: !!opts.riskGuard };
   const exe = opts.browser ?? findBrowser();
   if (!exe) return { ok: false, started_at, reason: 'no Chromium-family browser found (install Chrome/Edge/Chromium or set DCORE_BROWSER); NOTHING was executed in a browser', searched: browserCandidates().slice(0, 12) };
   ctx.outDir = resolve(opts.outDir ?? join('.dcore', 'evidence', `browse-${started_at.replace(/[:.]/g, '-')}`));
@@ -833,6 +1064,7 @@ export async function startBrowser(opts = {}) {
     });
     await cdp.send('Target.setDiscoverTargets', { discover: true });
     await cdp.send('Browser.setDownloadBehavior', { behavior: 'allowAndName', downloadPath: ctx.downloadDir, eventsEnabled: true }).catch(() => {});
+    ctx.version = await cdp.send('Browser.getVersion').then((x) => x.product).catch(() => null);
     ctx.attach = async (targetId) => {
       if (sessions.has(targetId)) return sessions.get(targetId);
       const { sessionId } = await cdp.send('Target.attachToTarget', { targetId, flatten: true });
@@ -854,10 +1086,10 @@ export async function startBrowser(opts = {}) {
     async screenshot(name) { const r = await this.run({ screenshot: name }); return r.result === 'PASS' ? ctx.shots[ctx.shots.length - 1] : null; },
     evidence() {
       return {
-        browser: exe.split(/[\\/]/).pop(), console_errors: [...new Set(sink.console)].slice(0, 50), page_errors: [...new Set(sink.pageErrors)].slice(0, 50),
+        browser: exe.split(/[\\/]/).pop(), version: ctx.version ?? null, viewport: `${ctx.viewport.width}x${ctx.viewport.height} ${ctx.viewport.name}${ctx.viewport.mobile ? ' (mobile emulation, touch)' : ''}${ctx.viewport.name === 'desktop' && !opts.viewport ? ' (default)' : ''}`, viewport_preset: ctx.viewport.name, console_errors: [...new Set(sink.console)].slice(0, 50), page_errors: [...new Set(sink.pageErrors)].slice(0, 50),
         network_failures: sink.network.slice(0, 50), http_4xx: sink.http4xx.slice(0, 50), redirects: sink.redirects.slice(0, 50), spa_navigations: sink.spaNavigations.slice(0, 50),
         dialogs: sink.dialogs, downloads: sink.downloads.map(({ guid, ...d }) => d), tabs: ctx.tabs.map((x) => ({ url: stripQuery(x.url), title: x.title, closed: x.closed, opened_by_page: !!x.openerId })),
-        screenshots: ctx.shots, inspections: ctx.inspections, page_text: ctx.texts, a11y: ctx.a11y, perf: ctx.perf, responsive: ctx.responsive, values: ctx.values, write_requests: sink.writes.slice(0, 50).map(({ at, ...w }) => w), simulated_faults: ctx.faultLog.slice(0, 50), out_dir: ctx.outDir,
+        screenshots: ctx.shots, inspections: ctx.inspections, page_text: ctx.texts, a11y: ctx.a11y, perf: ctx.perf, responsive: ctx.responsive, values: ctx.values, write_requests: sink.writes.slice(0, 50).map(({ at, body, ...w }) => w), websockets: sink.sockets.map(({ id, ...w }) => w), event_streams: sink.sse.map(({ id, ...e }) => e), breakpoints: ctx.breakpoints, auth_challenges: ctx.authChallenges, simulated_faults: ctx.faultLog.slice(0, 50), out_dir: ctx.outDir,
       };
     },
     limitations: () => ['closed shadow roots are not reachable (by design of the web platform)', 'cross-origin iframes are reachable because site isolation is disabled in the throwaway test profile', 'a11y checks are basic heuristics, not a WCAG audit', ...(ephemeral ? ['fresh browser profile: no prior cookies/session'] : ['persistent profile in use: session cookies are stored there'])],
@@ -939,8 +1171,9 @@ export async function printPdfs(jobs, opts = {}) {
         for (let t = 0; t < 150 && !loaded; t++) await sleep(100);
         await sleep(300);
         const footer = `<div style="font-size:7px;width:100%;padding:0 10mm;color:#666;display:flex;justify-content:space-between"><span>${String(j.footer ?? 'DCore').replace(/[<>&]/g, '')}</span><span>Page <span class="pageNumber"></span> of <span class="totalPages"></span></span></div>`;
+        const header = j.header ? `<div style="font-size:7px;width:100%;padding:0 10mm;color:#4b2ab8;display:flex;justify-content:space-between;font-family:Segoe UI,Arial,sans-serif"><span>${String(j.header).replace(/[<>&]/g, '')}</span><span>${String(j.headerRight ?? '').replace(/[<>&]/g, '')}</span></div>` : '<span></span>';
         // stream the PDF in chunks: a single base64 message stalls on large, image-heavy documents
-        const r = await cdp.send('Page.printToPDF', { printBackground: true, landscape: !!j.landscape, paperWidth: 8.27, paperHeight: 11.69, marginTop: 0.45, marginBottom: 0.55, marginLeft: 0.4, marginRight: 0.4, displayHeaderFooter: true, headerTemplate: '<span></span>', footerTemplate: footer, preferCSSPageSize: false, transferMode: 'ReturnAsStream' }, sessionId, opts.timeoutMs ?? 300_000);
+        const r = await cdp.send('Page.printToPDF', { printBackground: true, landscape: !!j.landscape, paperWidth: 8.27, paperHeight: 11.69, marginTop: 0.45, marginBottom: 0.55, marginLeft: 0.4, marginRight: 0.4, displayHeaderFooter: true, headerTemplate: header, footerTemplate: footer, preferCSSPageSize: !!j.cssPageSize, ...(j.outline ? { generateDocumentOutline: true } : {}), transferMode: 'ReturnAsStream' }, sessionId, opts.timeoutMs ?? 300_000);
         const chunks = [];
         for (let eof = false; !eof;) {
           const c = await cdp.send('IO.read', { handle: r.stream, size: 1 << 20 }, sessionId, 60_000);
@@ -948,7 +1181,8 @@ export async function printPdfs(jobs, opts = {}) {
           eof = c.eof;
         }
         await cdp.send('IO.close', { handle: r.stream }, sessionId).catch(() => {});
-        const buf = Buffer.concat(chunks);
+        let buf = Buffer.concat(chunks);
+        if (j.postProcess) buf = j.postProcess(buf);
         writeFileSync(j.pdf, buf);
         out.push({ pdf: j.pdf, ok: true, result: 'PASS', bytes: buf.length, pages: (buf.toString('latin1').match(/\/Type\s*\/Page[^s]/g) ?? []).length });
       } catch (e) { out.push({ pdf: j.pdf, ok: false, result: 'FAIL', error: e.message }); }

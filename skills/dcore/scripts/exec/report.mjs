@@ -3,10 +3,11 @@
 // Register) as JSON + Markdown + HTML + PDF. PASS only when a case's steps executed and passed; nothing executed =>
 // NOT_TESTED; setup failure => BLOCKED; declared exclusions keep their declared status (NOT_TESTED / NOT_APPLICABLE /
 // SKIPPED / BLOCKED). PDFs are rendered by the same local browser; without one they are BLOCKED (never faked).
-import { mkdirSync, writeFileSync, existsSync } from 'node:fs';
-import { join, resolve, relative, dirname, basename } from 'node:path';
+import { mkdirSync, writeFileSync } from 'node:fs';
+import { join, resolve } from 'node:path';
 import { browse, printPdfs } from './browse.mjs';
-import { redact } from './evidence.mjs';
+import { redact, redactDeep } from './evidence.mjs';
+import { buildReportModel, renderDocuments, DOCS, withPdfInfo, secretsAbsent, crossReferences } from './docs.mjs';
 
 export const CASE_RESULTS = ['PASS', 'FAIL', 'BLOCKED', 'NOT_TESTED', 'NOT_APPLICABLE', 'SKIPPED'];
 const ASSERTION_OPS = new Set(['assertText', 'assertNoText', 'assertUrl', 'assertTitle', 'assertVisible', 'assertHidden', 'assertState', 'assertModal', 'assertCount', 'evaluate', 'a11y', 'perf']);
@@ -135,9 +136,12 @@ export function detectDefects(plan, cases, run) {
   const repro = (linked) => linked.length ? ['Open the page(s) under test with the browser developer console open', `Observed during: ${linked.join(', ')}`] : ['Observed during setup, before any test case ran:', ...(plan.setup ?? []).map(describeStep)];
   for (const msg of [...new Set(run?.evidence?.page_errors ?? [])]) { const linked = byCase('page_errors', msg); add({ title: `Uncaught JavaScript exception: ${msg.slice(0, 120)}`, severity: 'medium', category: 'frontend-runtime', confidence: 'CONFIRMED (observed in the browser)', steps_to_reproduce: repro(linked), expected: 'No uncaught exceptions.', actual: msg, evidence: [], linked_cases: linked, signature: `pageerror:${msg}` }); }
   for (const msg of [...new Set(run?.evidence?.console_errors ?? [])]) { const linked = byCase('console_errors', msg); add({ title: `Console error: ${msg.slice(0, 120)}`, severity: 'low', category: 'frontend-console', confidence: 'CONFIRMED (observed in the browser)', steps_to_reproduce: repro(linked), expected: 'No console errors.', actual: msg, evidence: [], linked_cases: linked, signature: `console:${msg}` }); }
-  const net = new Map();
-  for (const n of run?.evidence?.network_failures ?? []) { const k = n.kind === 'http' ? `${n.status} ${n.url}` : `${n.error} (${n.type ?? 'request'})`; if (!net.has(k)) net.set(k, n); }
-  for (const [k, n] of net) add({ title: n.kind === 'http' ? `Server error ${n.status} from ${n.url}` : `Request failed: ${k}`, severity: n.kind === 'http' ? 'high' : 'medium', category: n.kind === 'http' ? 'backend' : 'network', confidence: 'CONFIRMED (observed network response)', steps_to_reproduce: ['Open the page(s) under test and watch the network panel'], expected: 'Requests succeed (no 5xx / failed requests).', actual: k, evidence: [], linked_cases: cases.filter((c) => (c.observed?.network_failures ?? []).some((x) => JSON.stringify(x) === JSON.stringify(n))).map((c) => c.id), signature: `net:${k}` });
+  // one defect per failing ENDPOINT: per-request random path segments (session / server ids, e.g. SockJS
+  // /chat/304/soosyji1/xhr_streaming) are normalised, the occurrences counted (real case: 50 identical chat 500s)
+  const net = new Map(); const occ = new Map();
+  const endpoint = (u) => { try { const x = new URL(String(u).replace(/\?.*$/, '')); return x.origin + x.pathname.split('/').map((seg) => (/^\d+$/.test(seg) || (/^[A-Za-z0-9_-]{6,}$/.test(seg) && /\d/.test(seg) && /[A-Za-z]/.test(seg)) ? ':x' : seg)).join('/'); } catch { return String(u); } };
+  for (const n of run?.evidence?.network_failures ?? []) { const k = n.kind === 'http' ? `${n.status} ${endpoint(n.url)}` : `${n.error} (${n.type ?? 'request'})`; occ.set(k, (occ.get(k) ?? 0) + 1); if (!net.has(k)) net.set(k, n); }
+  for (const [k, n] of net) add({ title: n.kind === 'http' ? `Server error ${n.status} from ${k.replace(/^\d+ /, '')}${occ.get(k) > 1 ? ` (${occ.get(k)} occurrences)` : ''}` : `Request failed: ${k}${occ.get(k) > 1 ? ` (${occ.get(k)} occurrences)` : ''}`, severity: n.kind === 'http' ? 'high' : 'medium', category: n.kind === 'http' ? 'backend' : 'network', confidence: 'CONFIRMED (observed network response)', steps_to_reproduce: ['Open the page(s) under test and watch the network panel'], expected: 'Requests succeed (no 5xx / failed requests).', actual: k, evidence: [], linked_cases: cases.filter((c) => (c.observed?.network_failures ?? []).some((x) => JSON.stringify(x) === JSON.stringify(n))).map((c) => c.id), signature: `net:${k}` });
   // accessibility: one defect per failing check (union over all a11y runs)
   const a11yCases = cases.filter((c) => c.failed_op === 'a11y').map((c) => c.id);
   const failing = new Map();
@@ -148,72 +152,7 @@ export function detectDefects(plan, cases, run) {
   return out;
 }
 
-// ---- rendering --------------------------------------------------------------------------------------------------
-const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-const CSS = `*{box-sizing:border-box}body{font:10.5px/1.45 "Segoe UI",Arial,sans-serif;color:#1a1d24;margin:0}h1{font-size:20px;margin:0 0 2px}h2{font-size:14px;margin:18px 0 6px;border-bottom:2px solid #4b2ab8;padding-bottom:3px;color:#2b1a6e}h3{font-size:12px;margin:12px 0 4px}
-.sub{color:#5b6070;margin-bottom:10px}.meta{border-collapse:collapse;margin:6px 0 10px}.meta td{padding:2px 10px 2px 0;vertical-align:top}.meta td:first-child{color:#5b6070;white-space:nowrap}
-table.t{border-collapse:collapse;width:100%;margin:4px 0 10px;page-break-inside:auto}table.t th{background:#eeebf9;text-align:left;font-weight:600}table.t th,table.t td{border:1px solid #d6d3e4;padding:3px 5px;vertical-align:top}table.t tr{page-break-inside:avoid}
-.tiles{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}.tile{border:1px solid #d6d3e4;border-radius:5px;padding:5px 9px;min-width:78px}.tile b{display:block;font-size:16px}
-.r{font-weight:700;padding:1px 5px;border-radius:3px;font-size:9.5px;white-space:nowrap}.PASS{background:#dff3e4;color:#14612b}.FAIL{background:#fbe0de;color:#9b1c13}.BLOCKED{background:#fde9cf;color:#8a4b00}.NOT_TESTED,.SKIPPED,.NOT_APPLICABLE{background:#e9eaee;color:#444}
-.sev-critical,.sev-high{color:#9b1c13;font-weight:700}.sev-medium{color:#8a4b00;font-weight:700}.sev-low{color:#444;font-weight:700}.sev-unassessed{color:#4b2ab8;font-weight:700}
-.verdict{padding:7px 10px;border-left:4px solid #4b2ab8;background:#f5f3fd;margin:8px 0;font-weight:600}.case{page-break-inside:avoid;border:1px solid #e1dfea;border-radius:5px;padding:6px 9px;margin:6px 0}
-img.shot{max-width:100%;max-height:330px;border:1px solid #ccc;margin:4px 0}code{font:9.5px Consolas,monospace;background:#f3f3f6;padding:0 3px}ol,ul{margin:2px 0 2px 18px;padding:0}.small{color:#5b6070;font-size:9.5px}`;
-const badge = (r) => `<span class="r ${esc(r)}">${esc(r)}</span>`;
-const img = (p, dir) => p && existsSync(p) ? `<img class="shot" src="${esc(relative(dir, p).replace(/\\/g, '/'))}">` : '';
-const page = (title, body) => `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${esc(title)}</title><style>${CSS}</style></head><body>${body}</body></html>`;
-function header(tr, doc) {
-  return `<h1>${esc(doc)}</h1><div class="sub">${esc(tr.name)}</div><table class="meta">
-<tr><td>Target</td><td>${esc(tr.target)}</td></tr><tr><td>Environment</td><td>${esc(tr.environment)}</td></tr>
-<tr><td>Executed</td><td>${esc(tr.started_at)} → ${esc(tr.ended_at)}</td></tr><tr><td>Executed by</td><td>${esc(tr.executed_by)}${tr.browser ? ` · ${esc(tr.browser)}` : ''}</td></tr>
-<tr><td>Generated</td><td>${esc(new Date().toISOString())} · schema ${esc(tr.schema)}</td></tr></table>`;
-}
-function tiles(tr) {
-  const t = tr.totals;
-  return `<div class="tiles">${[['Cases', t.cases], ['Executed', t.executed], ['Pass', t.PASS], ['Fail', t.FAIL], ['Blocked', t.BLOCKED], ['Not tested', t.NOT_TESTED], ['N/A', t.NOT_APPLICABLE], ['Skipped', t.SKIPPED], ['Pass rate (executed)', t.pass_rate_executed === null ? '—' : `${t.pass_rate_executed}%`], ['Defects', tr.defects.length]].map(([k, v]) => `<div class="tile"><b>${esc(v)}</b>${esc(k)}</div>`).join('')}</div>`;
-}
-
-export function renderTestReport(tr, dir) {
-  const areas = [...new Set(tr.cases.map((c) => c.area))];
-  const byArea = areas.map((a) => { const cs = tr.cases.filter((c) => c.area === a); return `<tr><td>${esc(a)}</td>${CASE_RESULTS.map((r) => `<td>${cs.filter((c) => c.result === r).length || ''}</td>`).join('')}</tr>`; }).join('');
-  const sev = tr.defects_by_severity;
-  const body = `${header(tr, 'Detailed Test Report')}
-<h2>1. Executive summary</h2><div class="verdict">Verdict: ${esc(tr.verdict)}</div>${tiles(tr)}
-<p>Defects by severity: <span class="sev-critical">critical ${sev.critical}</span> · <span class="sev-high">high ${sev.high}</span> · <span class="sev-medium">medium ${sev.medium}</span> · <span class="sev-low">low ${sev.low}</span>${sev.unassessed ? ` · <span class="sev-unassessed">unassessed ${sev.unassessed}</span>` : ''}. Setup: ${badge(tr.setup.result)}</p>
-<h2>2. Scope</h2><p><b>In scope:</b> ${esc(tr.scope.join(', ') || '—')}</p><p><b>Out of scope:</b> ${esc(tr.out_of_scope.join('; ') || '—')}</p>
-<h2>3. Approach</h2><p>Every case was executed in a real Chromium-family browser by DCore. A case is <b>PASS</b> only when all of its steps executed and every assertion held; <b>FAIL</b> when an assertion failed or a required action could not be performed; <b>BLOCKED</b> when setup failed; <b>NOT_TESTED / NOT_APPLICABLE / SKIPPED</b> are never counted as passed. Console errors, uncaught exceptions and failed or 5xx requests were recorded throughout and are attributed to the case during which they occurred.</p>
-${tr.setup.steps.length ? `<h3>Setup</h3><ol>${tr.setup.steps.map((s) => `<li>${esc(s)}</li>`).join('')}</ol>` : ''}
-<h2>4. Results by area</h2><table class="t"><tr><th>Area</th>${CASE_RESULTS.map((r) => `<th>${r}</th>`).join('')}</tr>${byArea}</table>
-<h2>5. Test case details</h2>${tr.cases.map((c) => `<div class="case"><b>${esc(c.id)}</b> ${badge(c.result)} <b>${esc(c.title)}</b> <span class="small">· ${esc(c.area)} · ${esc(c.type)}</span>
-${c.steps.length ? `<ol>${c.steps.map((s) => `<li>${esc(s)}</li>`).join('')}</ol>` : ''}<div><b>Expected:</b> ${esc(c.expected)}</div><div><b>Actual:</b> ${esc(c.actual)}</div>
-${c.defects.length ? `<div><b>Defects:</b> ${esc(c.defects.join(', '))}</div>` : ''}${c.evidence.slice(0, 1).map((p) => img(p, dir)).join('')}</div>`).join('')}
-<h2>6. Runtime observations</h2><table class="t"><tr><th>Signal</th><th>Count</th><th>Examples</th></tr>
-<tr><td>Uncaught exceptions</td><td>${tr.observations.page_errors.length}</td><td>${esc(tr.observations.page_errors.slice(0, 4).join(' | '))}</td></tr>
-<tr><td>Console errors</td><td>${tr.observations.console_errors.length}</td><td>${esc(tr.observations.console_errors.slice(0, 4).join(' | '))}</td></tr>
-<tr><td>Failed / 5xx requests</td><td>${tr.observations.network_failures.length}</td><td>${esc(tr.observations.network_failures.slice(0, 4).map((n) => n.status ? `${n.status} ${n.url}` : n.error).join(' | '))}</td></tr>
-<tr><td>4xx responses (informational)</td><td>${tr.observations.http_4xx.length}</td><td>${esc(tr.observations.http_4xx.slice(0, 4).map((n) => `${n.status} ${n.url}`).join(' | '))}</td></tr>
-<tr><td>Navigation timing</td><td>${tr.observations.perf.length}</td><td>${esc(tr.observations.perf.filter(Boolean).map((p) => `load ${p.load_ms} ms / DCL ${p.dom_content_loaded_ms} ms / TTFB ${p.ttfb_ms} ms`).join(' | '))}</td></tr></table>
-<h2>7. Limitations</h2><ul>${tr.limitations.map((l) => `<li>${esc(l)}</li>`).join('')}</ul>
-<p class="small">Evidence directory: ${esc(tr.evidence_dir)}. Companion documents: Detailed Defect Report, Test Case Register.</p>`;
-  return page('Detailed Test Report', body);
-}
-
-export function renderDefectReport(tr, dir) {
-  const body = `${header(tr, 'Detailed Defect Report')}
-<h2>Summary</h2><p>${tr.defects.length} defect(s): critical ${tr.defects_by_severity.critical} · high ${tr.defects_by_severity.high} · medium ${tr.defects_by_severity.medium} · low ${tr.defects_by_severity.low}${tr.defects_by_severity.unassessed ? ` · unassessed ${tr.defects_by_severity.unassessed} (needs triage)` : ''}.</p>
-${tr.defects.length ? `<table class="t"><tr><th>ID</th><th>Severity</th><th>Priority</th><th>Category</th><th>Title</th><th>Cases</th><th>Confidence</th></tr>${tr.defects.map((d) => `<tr><td>${esc(d.id)}</td><td class="sev-${esc(d.severity)}">${esc(d.severity)}</td><td>${esc(d.priority)}</td><td>${esc(d.category)}</td><td>${esc(d.title)}</td><td>${esc(d.linked_cases.join(', ') || '—')}</td><td>${esc(d.confidence)}</td></tr>`).join('')}</table>` : '<p>No defects were detected in the executed scope. This does not prove the absence of defects outside it.</p>'}
-<h2>Details</h2>${tr.defects.map((d) => `<div class="case"><h3>${esc(d.id)} — ${esc(d.title)}</h3><table class="meta">
-<tr><td>Severity / priority</td><td class="sev-${esc(d.severity)}">${esc(d.severity)} / ${esc(d.priority)}</td></tr><tr><td>Category</td><td>${esc(d.category)}</td></tr><tr><td>Status</td><td>${esc(d.status)}</td></tr>
-<tr><td>Confidence</td><td>${esc(d.confidence)}</td></tr>${d.defect_candidate ? `<tr><td>Defect candidate</td><td>${esc(d.defect_candidate)} · type: ${esc(d.defect_type_candidate?.value)}</td></tr><tr><td>Severity candidate</td><td>${esc(d.severity_candidate?.value)} — ${esc(d.severity_candidate?.basis)}</td></tr><tr><td>Priority candidate</td><td>${esc(d.priority_candidate?.value)} — ${esc(d.priority_candidate?.basis)}</td></tr>` : ''}<tr><td>Environment</td><td>${esc(d.environment)} · ${esc(d.target)}</td></tr><tr><td>Linked cases</td><td>${esc(d.linked_cases.join(', ') || '—')}</td></tr></table>
-<b>Steps to reproduce</b><ol>${d.steps_to_reproduce.map((s) => `<li>${esc(s)}</li>`).join('')}</ol><div><b>Expected:</b> ${esc(d.expected)}</div><div><b>Actual:</b> ${esc(d.actual)}</div>${d.evidence.slice(0, 1).map((p) => img(p, dir)).join('')}</div>`).join('')}`;
-  return page('Detailed Defect Report', body);
-}
-
-export function renderRegister(tr) {
-  const body = `${header(tr, 'Test Case Register')}${tiles(tr)}
-<table class="t"><tr><th>ID</th><th>Area</th><th>Title</th><th>Type</th><th>Preconditions</th><th>Steps / test data</th><th>Expected</th><th>Actual</th><th>Result</th><th>Defects</th><th>Evidence</th></tr>
-${tr.cases.map((c) => `<tr><td>${esc(c.id)}</td><td>${esc(c.area)}</td><td>${esc(c.title)}</td><td>${esc(c.type)}</td><td>${esc(c.preconditions)}</td><td>${c.steps.length ? `<ol>${c.steps.map((s) => `<li>${esc(s)}</li>`).join('')}</ol>` : '—'}</td><td>${esc(c.expected)}</td><td>${esc(c.actual)}</td><td>${badge(c.result)}</td><td>${esc(c.defects.join(', ') || '—')}</td><td>${esc(c.evidence.map((p) => basename(p)).join(', ') || '—')}</td></tr>`).join('')}</table>`;
-  return page('Test Case Register', body);
-}
+// ---- rendering: the three documents are rendered by dcore-report (docs.mjs); the Markdown summary stays here
 
 export function renderMarkdown(tr) {
   const t = tr.totals;
@@ -226,24 +165,33 @@ export function renderMarkdown(tr) {
 }
 
 // ---- orchestration ----------------------------------------------------------------------------------------------
-export async function writeReports(tr, outDir, { pdf = true, browser, secrets = [] } = {}) {
+// Writes the run as JSON + Markdown and the three dcore-report documents (HTML + PDF). opts.source: the scenario run the
+// test run came from (richer step evidence); opts.meta: application / build / objectives / assumptions supplied by a person.
+export async function writeReports(tr, outDir, { pdf = true, browser, secrets = [], source = null, meta = {}, prefix } = {}) {
   const dir = resolve(outDir);
   mkdirSync(dir, { recursive: true });
-  const slug = String(tr.name).replace(/[^\w-]+/g, '-').replace(/^-|-$/g, '').slice(0, 60) || 'test-run';
+  const slug = prefix ? String(prefix).replace(/[^\w.-]+/g, '-').slice(0, 80) : String(tr.name).replace(/[^\w-]+/g, '-').replace(/^-|-$/g, '').slice(0, 60) || 'test-run';
+  // credential values the run referenced through environment variables (valueEnv) must never reach a document
+  const envNames = [...new Set(JSON.stringify([source?.setup ?? null, tr.setup ?? null]).match(/\$\{(\w+)\}/g) ?? [])].map((x) => x.slice(2, -1));
+  secrets = [...secrets, ...envNames.map((n) => process.env[n]).filter((x) => x && x.length >= 4)];
   const clean = (s) => redact(s, secrets);
-  const files = { json: join(dir, `${slug}.testrun.json`), md: join(dir, `${slug}.summary.md`) };
+  const model = redactDeep(buildReportModel(tr, { source, meta }), secrets);
+  const files = { json: join(dir, `${slug}.testrun.json`), md: join(dir, `${slug}.summary.md`), report_model: join(dir, `${slug}.report-model.json`) };
   writeFileSync(files.json, clean(JSON.stringify(tr, null, 2)) + '\n');
   writeFileSync(files.md, clean(renderMarkdown(tr)));
-  const docs = [['test_report', 'Detailed-Test-Report', renderTestReport(tr, dir), false], ['defect_report', 'Detailed-Defect-Report', renderDefectReport(tr, dir), false], ['test_case_register', 'Test-Case-Register', renderRegister(tr), true]];
+  writeFileSync(files.report_model, clean(JSON.stringify(model, null, 2)) + '\n');
+  const html = renderDocuments(model, dir);
+  files.consistency = crossReferences(model, html);
   const jobs = [];
-  for (const [key, name, html, landscape] of docs) {
-    const h = join(dir, `${slug}.${name}.html`);
-    writeFileSync(h, clean(html));
-    files[`${key}_html`] = h;
-    jobs.push({ key, html: h, pdf: join(dir, `${slug}.${name}.pdf`), landscape, footer: `DCore · ${name.replace(/-/g, ' ')} · ${tr.name}` });
+  for (const d of DOCS) {
+    const h = join(dir, `${slug}.${d.file}.html`);
+    writeFileSync(h, clean(html[d.key]));
+    files[`${d.key}_html`] = h;
+    const info = { title: `${d.title} — ${model.name}`, author: 'DCore', subject: `${d.title} for test run ${model.run_id} (${model.environment})`, keywords: `DCore, ${d.title}, ${model.run_id}, ${model.application}`, creator: 'DCore dcore-report', producer: 'DCore dcore-report (Chromium print engine)', created: model.ended_at === 'UNKNOWN' ? null : model.ended_at };
+    jobs.push({ key: d.key, html: h, pdf: join(dir, `${slug}.${d.file}.pdf`), cssPageSize: true, outline: true, header: `${d.title} · ${model.name}`.slice(0, 120), headerRight: `Run ${model.run_id}`, footer: `DCore · ${model.application} · ${model.environment} · generated from execution evidence`, postProcess: (buf) => withPdfInfo(buf, info).buf });
   }
   const pdfs = pdf ? await printPdfs(jobs, { browser }) : jobs.map((j) => ({ pdf: j.pdf, ok: false, result: 'SKIPPED', error: 'PDF disabled (--no-pdf)' }));
-  jobs.forEach((j, i) => { files[`${j.key}_pdf`] = pdfs[i]; });
+  jobs.forEach((j, i) => { files[`${j.key}_pdf`] = pdfs[i]; files[`${j.key}_verified`] = secretsAbsent([j.html, ...(pdfs[i]?.ok ? [j.pdf] : [])], secrets); });
   return files;
 }
 

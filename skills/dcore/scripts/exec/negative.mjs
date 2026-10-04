@@ -85,6 +85,9 @@ export function planNegative(map, { sampleValue, usable, fieldName, maxFieldsPer
     const formFields = (p.forms ?? []).filter((f) => !f.auth_form && f.visible !== false).flatMap((f) => (f.fields ?? []).filter(usable).map((x) => ({ x, form: f })));
     const standalone = (p.inputs ?? []).filter(usable).filter((x) => !formFields.some((y) => y.x.selector === x.selector)).map((x) => ({ x, form: null }));
     const fields = [...formFields, ...standalone];
+    // read-only / disabled inputs are recorded, never typed into (staging: "Select month" date pickers are readonly)
+    const locked = [...(p.forms ?? []).filter((f) => !f.auth_form && f.visible !== false).flatMap((f) => f.fields ?? []), ...(p.inputs ?? [])].filter((x, i, all) => x.visible !== false && x.selector && (x.readonly || x.disabled) && all.findIndex((y) => y.selector === x.selector) === i);
+    for (const x of locked) for (const z of NEGATIVE_CASES.filter((c) => c.level === 'field')) row({ level: 'field', route: p.route, selector: x.selector, name: fieldName(x), type: kindOf(x) || 'text', form: null }, z.id, 'NOT_APPLICABLE', `${x.readonly ? 'read-only' : 'disabled'} field: its value is set by a picker or by the application, so typed input cannot be tested (test the widget that sets it)`);
     fields.forEach(({ x, form }, i) => {
       const name = fieldName(x); const c = x.constraints ?? {}; const kind = kindOf(x);
       const target = { level: 'field', route: p.route, selector: x.selector, name, type: kind || 'text', form: form?.selector ?? null };
@@ -130,11 +133,17 @@ export function planNegative(map, { sampleValue, usable, fieldName, maxFieldsPer
         for (const id of ['min', 'max', 'below-min', 'above-max']) row(target, id, 'NOT_TESTED', `${x.type} boundaries are not generated (only date fields are)`);
       } else {
         const minL = Number(c.minlength ?? 0); const maxL = Number(c.maxlength ?? 0);
-        if (minL > 0) { check('min', 'x'.repeat(minL), true, `${minL} characters (the minimum length) are accepted`, `${minL} characters (the minimum length) were rejected`); if (minL > 1) check('below-min', 'x'.repeat(minL - 1), false, `${minL - 1} characters (one below the minimum length) are rejected`, `${minL - 1} characters (below the minimum length ${minL}) were accepted`); else row(target, 'below-min', 'NOT_APPLICABLE', 'minimum length 1: one below is the empty value (covered by empty input)'); }
+        // length boundaries must otherwise be VALID: use a character the declared pattern accepts (real case: demoqa's
+        // 10-digit mobile number has pattern d* — ten 'x' were rejected by the pattern, not by the length rule)
+        const ch = !c.pattern ? 'x' : ['x', '1', 'a', 'A', '0'].find((k) => [minL, maxL].filter((n) => n > 0).every((n) => matches(c.pattern, k.repeat(n)))) ?? null;
+        if (ch === null && (minL > 0 || maxL > 0)) { for (const id of ['min', 'max', 'below-min', 'above-max']) row(target, id, 'NOT_TESTED', `the declared pattern ${c.pattern} needs a domain-specific value of the boundary length`); }
+        else {
+        if (minL > 0) { check('min', ch.repeat(minL), true, `${minL} characters (the minimum length) are accepted`, `${minL} characters (the minimum length) were rejected`); if (minL > 1) check('below-min', ch.repeat(minL - 1), false, `${minL - 1} characters (one below the minimum length) are rejected`, `${minL - 1} characters (below the minimum length ${minL}) were accepted`); else row(target, 'below-min', 'NOT_APPLICABLE', 'minimum length 1: one below is the empty value (covered by empty input)'); }
         else { row(target, 'min', 'NOT_APPLICABLE', 'no minimum length declared'); row(target, 'below-min', 'NOT_APPLICABLE', 'no minimum length declared'); }
-        if (maxL > 0 && maxL <= 5000) { check('max', 'x'.repeat(maxL), true, `${maxL} characters (the maximum length) are accepted`, `${maxL} characters (the maximum length) were rejected`); check('above-max', 'x'.repeat(maxL + 1), false, `${maxL + 1} characters (one above the maximum length) are not kept`, `${maxL + 1} characters (above the maximum length ${maxL}) were kept`); }
+        if (maxL > 0 && maxL <= 5000) { check('max', ch.repeat(maxL), true, `${maxL} characters (the maximum length) are accepted`, `${maxL} characters (the maximum length) were rejected`); check('above-max', ch.repeat(maxL + 1), false, `${maxL + 1} characters (one above the maximum length) are not kept`, `${maxL + 1} characters (above the maximum length ${maxL}) were kept`); }
         else if (maxL > 5000) { row(target, 'max', 'NOT_TESTED', `maximum length ${maxL} is too large to type in a scenario`); row(target, 'above-max', 'NOT_TESTED', `maximum length ${maxL} is too large to type in a scenario`); }
         else { row(target, 'max', 'NOT_APPLICABLE', 'no maximum length declared (see long input)'); row(target, 'above-max', 'NOT_APPLICABLE', 'no maximum length declared (see long input)'); }
+        }
       }
       // robustness: unexpected characters and long input (text-like fields only)
       if (TEXTLIKE.has(kind)) {
@@ -161,7 +170,7 @@ export function planNegative(map, { sampleValue, usable, fieldName, maxFieldsPer
     // ---------- form level
     for (const f of (p.forms ?? []).filter((x) => !x.auth_form && x.visible !== false)) {
       const fs = (f.fields ?? []).filter(usable).filter((x) => kindOf(x) !== 'select');
-      const submit = (f.submits ?? []).find((b) => b.visible !== false);
+      const submit = (f.submits ?? []).find((b) => b.visible !== false && !b.disabled);   // never a submit that was disabled when discovered (real case: Next.js "Add to cart" until a variant is chosen)
       const target = { level: 'form', route: p.route, selector: f.selector, name: submit?.name || f.selector, method: f.method ?? 'get' };
       const fill = fs.map((x) => ({ x, v: sampleValue(x) })).filter((y) => y.v !== null && y.v !== undefined).map(({ x, v }) => ({ action: 'fill', target: { selector: x.selector }, input: v }));
       const req = fs.filter((x) => x.required);
@@ -176,7 +185,7 @@ export function planNegative(map, { sampleValue, usable, fieldName, maxFieldsPer
         expected: 'Reloading while data is half-entered sends no write request, raises no new script error and shows the page again.',
         negative: { expected: `Refreshing the "${target.name}" form mid-entry submits nothing and the page reloads without errors.`, violation: `Refreshing the "${target.name}" form mid-entry sent a write request, raised a script error or did not show the page again.` },
         review: ['whether entered values should survive the refresh is a product decision: add a value expectation if it should'],
-        steps: [open, ...fill, oracle({ action: 'reload', expect: { ...(h1 ? { text: h1 } : {}), noWrites: true, noNewErrors: true } })],
+        steps: [open, ...fill, oracle({ action: 'reload', expect: { ...(h1 ? { text: h1 } : {}), noWrites: fill.some((x) => String(x.input).length >= 3) ? { containing: fill.map((x) => x.input).filter((v) => String(v).length >= 3) } : true, noNewErrors: true } })],
       });
       else row(target, 'refresh', 'NOT_APPLICABLE', 'nothing can be typed into this form');
       const post = String(f.method ?? 'get').toLowerCase() === 'post' || f.state_changing;
@@ -216,7 +225,9 @@ export function planNegative(map, { sampleValue, usable, fieldName, maxFieldsPer
       steps: [open, { action: 'session', input: 'expire' }, oracle({ action: 'reload', expect: { url: auth.login_route } })],
     });
     else row(ptarget, 'expired-session', p.auth === 'public' ? 'NOT_APPLICABLE' : 'NOT_TESTED', p.auth === 'public' ? 'the route is public' : !loggedIn ? 'needs a signed-in session (setup/login)' : 'the login route is unknown');
-    const link = (p.nav ?? []).find((n) => !n.state_changing && n.text && n.route !== p.route && pages.some((x) => x.route === n.route));
+    // the link must lead somewhere a URL check can tell apart: never "/" or a prefix of this route (every URL contains "/";
+    // real case: a non-navigating "Demos" link passed the url check and Back then left the site)
+    const link = (p.nav ?? []).find((n) => !n.state_changing && n.text && n.route !== p.route && n.route !== '/' && !p.route.startsWith(n.route) && !p.url.includes(n.route) && pages.some((x) => x.route === n.route));
     if (link) row(ptarget, 'back', 'APPLICABLE', null, {
       title: `Back from ${link.route} returns to ${p.route} intact`, feature: 'Navigation', source: { route: p.route, link: link.text },
       expected: `After following "${link.text}" and pressing Back, ${p.route} is shown again without new script errors.`,

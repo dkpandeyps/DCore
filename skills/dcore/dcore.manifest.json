@@ -320,6 +320,23 @@
       "runnable": true
     },
     {
+      "module_id": "dcore-report",
+      "module_name": "Test Documentation",
+      "status": "IMPLEMENTED",
+      "kind": "reasoning",
+      "purpose": "three separate evidence-backed PDF documents for a completed test run (Detailed Test Report, Detailed Defect Report with DCORE-DEF IDs and acceptance criteria, Test Case Register) from the unified evidence model; UNKNOWN where evidence is silent, root cause never claimed",
+      "permissions": [
+        "read-only (text mode)",
+        "reads the run file, writes --out, local browser for PDF printing (--run)"
+      ],
+      "security_level": "SAFE_GENERIC",
+      "platform_requirements": [
+        "any"
+      ],
+      "reference": "modules/dcore-report.md",
+      "runnable": true
+    },
+    {
       "module_id": "dcore-retro",
       "module_name": "Retrospective",
       "status": "DEFERRED",
@@ -336,7 +353,7 @@
       "runnable": false
     }
   ],
-  "implemented_count": 19,
+  "implemented_count": 20,
   "planned_count": 0,
   "deferred_count": 1,
   "requires_certification_for_basic_use": false,

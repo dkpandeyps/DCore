@@ -26,8 +26,9 @@ Run `node scripts/dcore.mjs dcore-qa "<text>"` (or pipe via stdin) to seed the s
 3. **Run**: `dcore-qa --plan plan.json --out .dcore/evidence/<run> [--env "staging"] [--no-pdf]`. Setup runs once;
    each case runs in the same session; a failing case skips only its own remaining steps; a setup failure BLOCKS all
    cases. Console errors, uncaught exceptions and failed/5xx requests are attributed to the case that triggered them.
-4. **Outputs** (in `--out`): `*.testrun.json`, `*.summary.md`, and HTML + **PDF** for the Detailed Test Report, the
-   Detailed Defect Report and the Test Case Register, plus per-case screenshots. Without a browser the PDFs are BLOCKED
+4. **Outputs** (in `--out`): `*.testrun.json`, `*.summary.md`, `*.report-model.json`, and HTML + **PDF** for the
+   Detailed Test Report, the Detailed Defect Report and the Test Case Register (rendered by dcore-report: see
+   `modules/dcore-report.md`), plus per-case screenshots. Without a browser the PDFs are BLOCKED
    and every case is NOT_TESTED — nothing is reported as passed.
 
 Results: PASS (executed, all assertions held) · FAIL (assertion failed = CONFIRMED, or action impossible = NEEDS
@@ -43,7 +44,7 @@ data, expected, steps: [{ id, action, target, input, expect, timeoutMs, evidence
   Responsive, Accessibility, Error handling. **priority:** P1-P4 (sets defect severity on failure).
 - **actions:** browser (goto, click, hover, fill, type, clear, select, check, uncheck, press, upload, download, wait,
   waitFor, assert, screenshot, viewport, back, forward, reload, switchTab, closeTab, inspect, evaluate, dialog,
-  intercept, session) via dcore-browse; `api` via dcore-api; `run` via dcore-run; `verify` via dcore-verify.
+  intercept, session, drag, tap, swipe, breakpoints, scrollUntil, assertSocket, httpAuth) via dcore-browse; `api` via dcore-api; `run` via dcore-run; `verify` via dcore-verify.
 - **expect:** text, notification, noText, url, title, modal, state, visible, hidden, checked, value, count (browser);
   noErrors, noNewErrors (no uncaught error beyond those already seen in the scenario), noWrites / writes {max,min,equals}
   (POST/PUT/PATCH/DELETE requests sent during the step), faulted (the simulated fault was really triggered; otherwise
@@ -60,6 +61,17 @@ was verified and nothing failed or was blocked; steps without declared expectati
 scenario is NOT_TESTED). **State-changing controls** (create, save, delete, revoke, submit to a POST form, ...) are
 BLOCKED unless the run carries `--approve ui-write`; login forms are exempt. Outputs: `<run>.scenario-run.json` plus
 the three PDF documents.
+
+## Browser matrix (M46)
+`dcore-qa --scenarios <file> --browsers chrome,edge,chromium,firefox,webkit --viewports desktop,tablet,mobile` runs the
+same scenarios on every requested browser that is **installed and drivable** and at every viewport preset (desktop
+1366x900; tablet 820x1180 and mobile 390x844 with mobile + touch emulation). Each combination is recorded with browser,
+version, OS, viewport, scenario, status, evidence and limitations (`browser-matrix.json`; scenario IDs
+`<id>@<browser>-<viewport>` in the three PDFs). A browser that is not installed is **NOT_AVAILABLE**; one that is installed
+but cannot be driven by DCore's CDP engine (Firefox, WebKit / Safari) is **NOT_TESTED** with the reason. Nothing is
+installed or modified (`dcore-browse --inventory` shows what was detected). Chrome, Edge and Chromium share one engine:
+the result is Chromium-engine coverage, never a cross-browser compatibility claim. `--viewport mobile` (or `tablet`)
+runs a single run at that preset.
 
 ## Negative & boundary testing (M42)
 Candidate generation (`dcore-explore --app`) decides, for every field, form and page it discovered, which of 23

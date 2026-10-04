@@ -36,7 +36,7 @@ test('C. module discovery: manifest lists modules; every reference resolves', ()
   assert.equal(readFileSync(join(SKILL, 'dcore.manifest.json'), 'utf8'), JSON.stringify(m, null, 2) + '\n');
   assert.equal(m.modules.length, MODULES.length);
   for (const mod of m.modules) assert.ok(existsSync(join(SKILL, mod.reference)), mod.reference);
-  assert.equal(m.implemented_count, 19);
+  assert.equal(m.implemented_count, 20);   // + dcore-report (M43)
 });
 
 test('D. module contracts: every module doc carries required fields + status', () => {

@@ -8,7 +8,8 @@
 // a scenario is PASS only if at least one expected outcome was verified and nothing failed or was blocked.
 import { randomBytes } from 'node:crypto';
 import { join, resolve } from 'node:path';
-import { startBrowser } from './browse.mjs';
+import { type as osType, release as osRelease, arch as osArch } from 'node:os';
+import { startBrowser, browserInventory } from './browse.mjs';
 import { apiRequest } from './api.mjs';
 import { runCommand } from './run.mjs';
 import { redactDeep, redact, parseApprovals, GATES } from './evidence.mjs';
@@ -17,7 +18,7 @@ import { defectCandidate, isViolation } from './negative.mjs';
 export const STATUSES = ['PASS', 'FAIL', 'BLOCKED', 'SKIPPED', 'NOT_TESTED', 'NOT_APPLICABLE'];
 export const TEST_TYPES = ['Functional', 'Negative', 'Validation', 'Boundary', 'Regression', 'Smoke', 'Integration', 'Authentication', 'Authorization', 'Responsive', 'Accessibility', 'Error handling'];
 export const PRIORITIES = ['P1', 'P2', 'P3', 'P4'];
-const BROWSER_ACTIONS = ['goto', 'click', 'hover', 'fill', 'type', 'clear', 'select', 'check', 'uncheck', 'press', 'upload', 'download', 'wait', 'waitFor', 'assert', 'screenshot', 'viewport', 'back', 'forward', 'reload', 'switchTab', 'closeTab', 'inspect', 'evaluate', 'dialog', 'intercept', 'session'];
+const BROWSER_ACTIONS = ['goto', 'click', 'hover', 'fill', 'type', 'clear', 'select', 'check', 'uncheck', 'press', 'upload', 'download', 'wait', 'waitFor', 'assert', 'screenshot', 'viewport', 'back', 'forward', 'reload', 'switchTab', 'closeTab', 'inspect', 'evaluate', 'dialog', 'intercept', 'session', 'drag', 'tap', 'swipe', 'breakpoints', 'scrollUntil', 'assertSocket', 'httpAuth'];
 export const ACTIONS = [...BROWSER_ACTIONS, 'api', 'run', 'verify'];
 const LOC_KEYS = ['selector', 'text', 'label', 'placeholder', 'testid', 'role', 'exact', 'index', 'first', 'frame'];
 // scenario type -> defect-severity family used by the report layer
@@ -43,6 +44,8 @@ export function validateScenarios(doc) {
       if (st.action === 'api' && !(st.input?.url || typeof st.target === 'string')) errs.push(`${at}: api needs input.url`);
       if (st.action === 'intercept' && st.input !== false && st.input !== null && !(st.input?.mode && (st.input?.url || st.input?.matches))) errs.push(`${at}: intercept needs input { mode, url } (or false to clear)`);
       if (st.action === 'session' && !['expire', 'restore'].includes(st.input)) errs.push(`${at}: session needs input "expire" or "restore"`);
+      if (['drag', 'tap', 'swipe', 'scrollUntil'].includes(st.action) && !hasLocator(st.target)) errs.push(`${at}: ${st.action} needs a target locator`);
+      if (st.action === 'drag' && !(hasLocator(st.input?.to) || st.input?.by)) errs.push(`${at}: drag needs input.to (a locator) or input.by ({x, y})`);
     });
   };
   if (doc.setup !== undefined) checkSteps(doc.setup, 'setup');
@@ -96,6 +99,11 @@ export function compileBrowserStep(st) {
       case 'dialog': return { dialog: inp };
       case 'intercept': return { intercept: inp === false || inp === null ? false : inp };
       case 'session': return { session: inp };
+      case 'drag': return { drag: { from: L, ...(inp?.to ? { to: locOf(inp.to) } : {}), ...(inp?.by ? { by: inp.by } : {}), ...(inp?.steps ? { steps: inp.steps } : {}) }, ...t };
+      case 'tap': case 'swipe': case 'scrollUntil': return { [st.action]: { ...L, ...(inp && typeof inp === 'object' ? inp : {}) }, ...t };
+      case 'breakpoints': return { breakpoints: inp ?? {} };
+      case 'assertSocket': return { assertSocket: inp ?? {}, ...t };
+      case 'httpAuth': return { httpAuth: inp === false ? false : inp };
       case 'assert': return null;
       default: return null;
     }
@@ -134,6 +142,13 @@ export function expectedText(st) {
   return `${st.action} performed (no outcome declared)`;
 }
 
+// a write request's identity for the load baseline: per-load random path segments (numeric server ids, session tokens —
+// real case: SockJS /chat/304/soosyji1/xhr_streaming) are normalised so the same transport on a reload matches
+export const writeSig = (x) => {
+  let u = String(x.url ?? ''); try { const p = new URL(u); u = p.origin + p.pathname.split('/').map((seg) => (/^\d+$/.test(seg) || (/^[A-Za-z0-9_-]{6,}$/.test(seg) && /\d/.test(seg) && /[A-Za-z]/.test(seg)) ? ':x' : seg)).join('/'); } catch { /* keep as is */ }
+  return `${x.method} ${u}`;
+};
+
 // ---- execution --------------------------------------------------------------------------------------------------
 const now = () => new Date().toISOString();
 export function newRunId(d = new Date()) { return `run-${d.toISOString().replace(/[-:]/g, '').replace(/\..*/, '')}-${randomBytes(3).toString('hex')}`; }
@@ -145,13 +160,13 @@ export async function runScenarios(doc, opts = {}) {
   const outDir = resolve(opts.outDir ?? join('.dcore', 'evidence', run_id));
   const errs = validateScenarios(doc);
   const approvals = parseApprovals(opts.approvals ?? []);
-  const base = { schema: 'dcore.scenario-run/1', run_id, name: doc?.name ?? 'Scenario run', target: doc?.target ?? null, environment: doc?.environment ?? 'UNSPECIFIED', started_at, approvals };
+  const base = { schema: 'dcore.scenario-run/1', host: { os: `${osType()} ${osRelease()} (${osArch()})`, browsers: browserInventory().map(({ family, available, drivable, reason }) => ({ family, available, drivable, reason })) }, run_id, name: doc?.name ?? 'Scenario run', target: doc?.target ?? null, environment: doc?.environment ?? 'UNSPECIFIED', started_at, approvals };
   if (errs.length) return { ...base, ended_at: now(), result: 'BLOCKED', errors: errs, scenarios: [], setup: null, totals: totalsOf([]), limitations: ['invalid scenario document: nothing was executed'] };
   const secrets = [];
   let B = null; let browserError = null;
   const needsBrowser = [...(doc.setup ?? []), ...doc.scenarios.flatMap((s) => (s.status ? [] : s.steps))].some((st) => BROWSER_ACTIONS.includes(st.action));
   if (needsBrowser) {
-    B = await startBrowser({ outDir, browser: opts.browser, profile: opts.profile, headed: opts.headed, stepTimeoutMs: opts.stepTimeoutMs ?? 15_000, settleMs: opts.settleMs, uploadRoots: opts.uploadRoots, riskGuard: !approvals.includes('ui-write') });
+    B = await startBrowser({ outDir, viewport: opts.viewport, browser: opts.browser, profile: opts.profile, headed: opts.headed, stepTimeoutMs: opts.stepTimeoutMs ?? 15_000, settleMs: opts.settleMs, uploadRoots: opts.uploadRoots, riskGuard: !approvals.includes('ui-write') });
     if (!B.ok) { browserError = B.reason; B = null; }
   }
   const ENGINE_CHECKS = ['noErrors', 'noNewErrors', 'noWrites', 'writes', 'faulted'];
@@ -169,7 +184,9 @@ export async function runScenarios(doc, opts = {}) {
       let ok = true;
       if (action) {
         const r = await B.run(action);
-        const evalCheck = s.action === 'evaluate' && s.expect?.value !== undefined && /^value /.test(r.detail ?? '');   // the comparison itself, not an execution error
+        // the comparison itself, not an execution error; an oracle that could not find its element ("MISSING") proves
+        // nothing about the behaviour under test (real case: demoqa date input re-rendered) — it is not an expectation
+        const evalCheck = s.action === 'evaluate' && s.expect?.value !== undefined && /^value /.test(r.detail ?? '') && !/^value "MISSING"/.test(r.detail ?? '');
         rec.checks.push(evalCheck ? { kind: 'expectation', label: `value == ${JSON.stringify(s.expect.value)}`, status: r.result, detail: r.detail } : { kind: 'action', status: r.result, element_state: r.element_state, detail: r.detail });
         if (['intercept', 'session'].includes(s.action)) sstate.touched = true;
         if (r.result !== 'PASS') ok = false;
@@ -185,6 +202,9 @@ export async function runScenarios(doc, opts = {}) {
           rec.verified = !bad && results.length === checks.length;
           rec.actual = bad ? bad.detail : results.map((r) => r.detail).join('; ');
         } else if (s.action === 'evaluate' && s.expect?.value !== undefined) rec.verified = rec.status === 'PASS';
+        // steps that ARE checks: their PASS is a verified outcome (waitFor a condition, a breakpoint sweep, a socket
+        // expectation, a download with expectations)
+        else if (rec.status === 'PASS' && (['waitFor', 'breakpoints', 'assertSocket'].includes(s.action) || (s.action === 'download' && (s.input?.expect || s.expect?.download)))) { rec.verified = true; }
         else if (action && rec.status === 'PASS' && !ENGINE_CHECKS.some((k) => ({ ...(s.assert ?? {}), ...(s.expect ?? {}) })[k])) rec.actual = `${rec.actual} (action performed; no expected outcome declared for this step)`;
         if (!action && !checks.length) { rec.status = 'NOT_TESTED'; rec.actual = 'nothing to execute'; }
       }
@@ -204,8 +224,16 @@ export async function runScenarios(doc, opts = {}) {
         const sn = B.since(mk); const post = [];
         if (exM.faulted) post.push({ label: 'the simulated fault was triggered', status: sn.faults.length ? 'PASS' : 'BLOCKED', detail: sn.faults.length ? `${sn.faults.length} request(s) answered with the simulated fault (${[...new Set(sn.faults.map((f) => `${f.mode} ${f.method} ${f.url}`))].slice(0, 3).join(' | ')})` : 'no request matched the fault rule: the fault was not exercised, so nothing is concluded' });
         if (exM.noNewErrors) { const fresh = [...new Set(sn.page_errors)].filter((e) => !sstate.baseline.has(e)); post.push({ label: 'no new uncaught script errors', status: fresh.length ? 'FAIL' : 'PASS', detail: fresh.length ? `new uncaught script error(s): ${fresh.slice(0, 3).join(' | ')}` : `no new uncaught script error${sstate.baseline.size ? ` (${sstate.baseline.size} already seen earlier in this scenario excluded)` : ''}` }); }
-        const w = sn.writes; const wl = w.slice(0, 3).map((x) => `${x.method} ${x.url}`).join(' | ');
-        if (exM.noWrites) post.push({ label: 'no write request sent', status: w.length ? 'FAIL' : 'PASS', detail: w.length ? `${w.length} write request(s) sent: ${wl}` : 'no POST/PUT/PATCH/DELETE request sent' });
+        // write requests the page also makes on a clean load earlier in this scenario (data fetches by POST, chat
+        // transports) are the page loading, not the user's data being submitted (staging finding)
+        const sig = writeSig;
+        const loadWrites = sn.writes.filter((x) => sstate.baselineWrites?.has(sig(x)));
+        // noWrites {containing: [values]}: only a request whose body carries the typed data counts (real case: a chat transport's
+        // own xhr_send is not the form being submitted)
+        const carry = Array.isArray(exM.noWrites?.containing) ? exM.noWrites.containing.filter((v) => String(v).length >= 3) : null;
+        const w = sn.writes.filter((x) => !sstate.baselineWrites?.has(sig(x)) && (!carry || carry.some((v) => String(x.body ?? '').includes(String(v)) || String(x.body ?? '').includes(encodeURIComponent(String(v)))))); const wl = w.slice(0, 3).map(sig).join(' | ');
+        const excl = loadWrites.length ? ` (${loadWrites.length} request(s) that a clean load of the page also makes were excluded)` : '';
+        if (exM.noWrites) post.push({ label: carry ? 'the typed data was not sent' : 'no write request sent', status: w.length ? 'FAIL' : 'PASS', detail: w.length ? `${w.length} write request(s) ${carry ? 'carrying the typed data ' : ''}sent: ${wl}${excl}` : carry ? `no request carried the typed data (${sn.writes.length} other write request(s) by the page itself ignored)${excl}` : `no POST/PUT/PATCH/DELETE request sent${excl}` });
         if (exM.writes) { const { max, min, equals } = exM.writes; const good = (max === undefined || w.length <= max) && (min === undefined || w.length >= min) && (equals === undefined || w.length === equals); post.push({ label: `write requests ${JSON.stringify(exM.writes)}`, status: good ? 'PASS' : 'FAIL', detail: `${w.length} write request(s)${w.length ? `: ${wl}` : ''}` }); }
         for (const c of post) rec.checks.push({ kind: 'expectation', ...c });
         const blk = post.find((c) => c.status === 'BLOCKED'); const bad = post.filter((c) => c.status === 'FAIL');
@@ -214,6 +242,8 @@ export async function runScenarios(doc, opts = {}) {
         else if (rec.status === 'PASS') { rec.verified = true; rec.actual = `${rec.actual}; ${post.map((c) => c.detail).join('; ')}`; }
       }
       for (const e of B.since(mk).page_errors) sstate.baseline.add(e);
+      // writes made by a page LOAD (goto / reload / back with no form submission) form the baseline for later write checks
+      if (['goto', 'reload', 'back', 'forward'].includes(s.action) && !(exM.noWrites || exM.writes)) { sstate.baselineWrites ??= new Set(); for (const x of B.since(mk).writes ?? []) sstate.baselineWrites.add(writeSig(x)); }
       const loc = await B.location(); rec.url = loc.url ?? null;
       const want = s.evidence ?? 'on-failure';
       if (want === 'screenshot' || want === 'always' || (want !== 'none' && ['FAIL', 'BLOCKED'].includes(rec.status))) rec.screenshot = await B.screenshot(`${rec.scenario_id}-${rec.step_id || 'step'}`);
@@ -276,7 +306,7 @@ export async function runScenarios(doc, opts = {}) {
   }
   const scenarios = []; const defect_candidates = [];
   for (const sc of doc.scenarios) {
-    const head = { scenario_id: sc.id, title: sc.title, feature: sc.feature ?? 'General', type: sc.type ?? 'Functional', priority: sc.priority ?? 'P3', preconditions: sc.preconditions ?? (doc.setup?.length ? 'Setup completed' : 'None'), data: sc.data ?? {}, expected: sc.expected ?? 'All step expectations are met.', defects: [], evidence: [] };
+    const head = { scenario_id: sc.id, title: sc.title, feature: sc.feature ?? 'General', ...(sc.category ? { category: sc.category } : {}), type: sc.type ?? 'Functional', priority: sc.priority ?? 'P3', preconditions: sc.preconditions ?? (doc.setup?.length ? 'Setup completed' : 'None'), data: sc.data ?? {}, expected: sc.expected ?? 'All step expectations are met.', defects: [], evidence: [] };
     if (sc.negative) { head.negative = sc.negative; head.negative_outcome = 'NOT_DETERMINED'; }
     if (sc.status) { scenarios.push({ ...head, status: sc.status, actual: `Not executed (${sc.status}): ${sc.reason ?? 'declared in the scenario document'}`, steps: (sc.steps ?? []).map((st) => ({ run_id, scenario_id: sc.id, step_id: String(st.id ?? ''), action: st.action, target: typeof st.target === 'string' ? st.target : tgtText(st.target), expected: expectedText(st), actual: 'not executed', status: sc.status, timestamp: null })) }); continue; }
     // APPROVAL_REQUIRED: a scenario that declares required approvals is not executed at all without them
@@ -311,7 +341,7 @@ export async function runScenarios(doc, opts = {}) {
   for (const nt of doc.not_tested ?? []) scenarios.push({ scenario_id: `NT-${String(scenarios.filter((x) => x.scenario_id.startsWith('NT-')).length + 1).padStart(3, '0')}`, title: `${nt.area} (not covered)`, feature: nt.area, type: 'Functional', priority: 'P4', preconditions: '—', data: {}, expected: '—', actual: nt.reason, status: nt.status ?? 'NOT_TESTED', steps: [], defects: [], evidence: [] });
   const browserEv = B ? B.evidence() : null;
   if (B) await B.close();
-  const result = { ...base, ended_at: now(), setup, scenarios, totals: totalsOf(scenarios), defect_candidates, browser: browserEv ? { browser: browserEv.browser, page_errors: browserEv.page_errors, console_errors: browserEv.console_errors, network_failures: browserEv.network_failures, http_4xx: browserEv.http_4xx, redirects: browserEv.redirects, write_requests: browserEv.write_requests, simulated_faults: browserEv.simulated_faults, a11y: browserEv.a11y, perf: browserEv.perf, screenshots: browserEv.screenshots, out_dir: outDir } : null, limitations: [...(browserError ? [`browser unavailable: ${browserError}`] : []), ...(approvals.includes('ui-write') ? ['ui-write approved: state-changing controls were allowed'] : ['state-changing controls were guarded (no ui-write approval)'])] };
+  const result = { ...base, ended_at: now(), setup, scenarios, totals: totalsOf(scenarios), defect_candidates, browser: browserEv ? { browser: browserEv.browser, version: browserEv.version, viewport: browserEv.viewport, responsive: browserEv.responsive, page_errors: browserEv.page_errors, console_errors: browserEv.console_errors, network_failures: browserEv.network_failures, http_4xx: browserEv.http_4xx, redirects: browserEv.redirects, write_requests: browserEv.write_requests, simulated_faults: browserEv.simulated_faults, a11y: browserEv.a11y, perf: browserEv.perf, screenshots: browserEv.screenshots, out_dir: outDir } : null, limitations: [...(browserError ? [`browser unavailable: ${browserError}`] : []), ...(approvals.includes('ui-write') ? ['ui-write approved: state-changing controls were allowed'] : ['state-changing controls were guarded (no ui-write approval)'])] };
   return redactDeep(result, secrets);
 }
 
@@ -330,10 +360,16 @@ export function totalsOf(scenarios) {
 }
 
 // scenario run -> dcore.testrun/1 (so the existing defect detection and the three PDF documents are reused)
-export async function scenarioReports(sr, { outDir, pdf = true, browser } = {}) {
-  const { detectDefects, writeReports } = await import('./report.mjs');
+export async function scenarioReports(sr, { outDir, pdf = true, browser, meta } = {}) {
+  const { writeReports } = await import('./report.mjs');
+  const tr = await scenarioTestRun(sr, { outDir });
+  return writeReports(tr, outDir, { pdf, browser, source: sr, meta });
+}
+// scenario run -> dcore.testrun/1 with detected defects (shared by dcore-qa and dcore-report)
+export async function scenarioTestRun(sr, { outDir } = {}) {
+  const { detectDefects } = await import('./report.mjs');
   const cases = sr.scenarios.map((s) => ({
-    id: s.scenario_id, area: s.feature, title: `${s.title} [${s.type}, ${s.priority}]`, type: TYPE_FAMILY[s.type] ?? 'positive', priority: s.priority, preconditions: s.preconditions,
+    id: s.scenario_id, area: s.feature, title: `${s.title} [${s.type}${s.priority ? `, ${s.priority}` : ''}]`, type: TYPE_FAMILY[s.type] ?? 'positive', priority: s.priority, preconditions: s.preconditions,
     steps: (s.steps ?? []).map((st) => `[${st.status}] ${st.step_id} ${st.action} ${st.target ?? ''}${st.input ? ` ← ${st.input}` : ''} — expect: ${st.expected}${st.status !== 'PASS' && st.actual ? ` — actual: ${st.actual}` : ''}`),
     expected: s.expected, actual: s.actual, result: s.status, defects: [], evidence: s.evidence ?? [],
     failure_kind: s.status === 'FAIL' ? ((s.steps ?? []).find((x) => x.status === 'FAIL')?.checks?.some((c) => c.kind === 'expectation' && c.status === 'FAIL') ? 'ASSERTION' : 'ACTION') : undefined,
@@ -362,9 +398,9 @@ export async function scenarioReports(sr, { outDir, pdf = true, browser } = {}) 
     verdict: !executed ? 'NO VERDICT — nothing was verified' : sev.critical || sev.high ? 'NOT READY — high/critical defects open' : sev.unassessed ? 'NEEDS TRIAGE — defect candidates await a severity assessment' : totals.FAIL || sev.medium ? 'READY WITH RISKS — medium defects or failed scenarios open' : totals.BLOCKED ? 'INCOMPLETE — some scenarios were blocked' : 'NO BLOCKING DEFECTS FOUND in the executed scope',
     observations: { console_errors: sr.browser?.console_errors ?? [], page_errors: sr.browser?.page_errors ?? [], network_failures: sr.browser?.network_failures ?? [], http_4xx: sr.browser?.http_4xx ?? [], perf: sr.browser?.perf ?? [], a11y: sr.browser?.a11y ?? [] },
     limitations: [...sr.limitations, 'a scenario is PASS only when at least one expected outcome was verified and no step failed or was blocked'],
-    evidence_dir: outDir,
+    evidence_dir: outDir ?? sr.browser?.out_dir ?? null,
   };
   sr.defects = defects;
   sr.verdict = tr.verdict;
-  return writeReports(tr, outDir, { pdf, browser });
+  return tr;
 }

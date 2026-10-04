@@ -41,9 +41,26 @@ validation from the page's own constraints, keyboard, accessibility, responsive,
 (functional, frontend runtime, console, backend 5xx, network, accessibility, performance). What is and is not
 supported, with evidence: `skills/dcore/references/TESTING-CAPABILITY-MATRIX.md`.
 
+**Test documentation** - **dcore-report** renders every completed run as three separate, evidence-backed PDFs (Detailed
+Test Report, Detailed Defect Report with `DCORE-DEF-NNN` defects and testable acceptance criteria, Test Case Register):
+cover page, numbered sections, headers / footers / page numbers, landscape wide tables, screenshot captions, a PDF
+outline and document metadata. UNKNOWN where the evidence is silent; root cause is never claimed; no credential value is
+ever written (checked in every HTML and PDF). It is the shared reporting layer: add `--report <dir-or-prefix>` to any
+workflow (dcore-qa, dcore-browse, dcore-api, dcore-run, dcore-verify, dcore-chain, dcore-debug, or a plain-English
+request) to get the three PDFs; partial runs, BLOCKED runs and unexecuted plans are reported as exactly that.
+
 **Application discovery** - `dcore-explore --app <url>` passively crawls a running app into a deterministic map (routes,
 forms, controls, auth boundary, API calls, errors, responsive behaviour) and generates CANDIDATE scenarios; destructive or
 shared-environment candidates are APPROVAL_REQUIRED; coverage reports DISCOVERED vs TESTED.
+
+**Browser matrix** - `dcore-qa --scenarios <file> --browsers … --viewports desktop,tablet,mobile` runs the scenarios on
+every installed, drivable browser (Chrome / Edge / Chromium: one engine) at each viewport and records every combination;
+absent browsers are NOT_AVAILABLE, Firefox / WebKit are not drivable by DCore's CDP engine. No cross-browser claim.
+
+**Advanced web coverage** - frames, shadow DOM, windows / tabs / popups, upload / download, lazy and virtualised
+content, SPA routes, sticky UI, stacked modals, date pickers, drag and drop, WebSocket / SSE observation, auth redirects
+and HTTP Basic auth, session expiry, breakpoint sweeps and touch interaction; each capability is listed with its test and
+whether it has been validated on a real application.
 
 **Negative & boundary testing** - for each discovered field, form and page DCore decides which of 23 negative /
 boundary cases apply (boundaries, malformed / unexpected / long input, expired session, refresh, back, double

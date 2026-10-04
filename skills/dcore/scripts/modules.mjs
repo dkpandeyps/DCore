@@ -30,6 +30,7 @@ export const MODULES = [
   { module_id: 'dcore-browse', module_name: 'Browser Execution', status: 'IMPLEMENTED', kind: 'execution', purpose: 'drive a real Chromium-family browser (CDP, no dependencies): navigate, click, fill, assert, screenshot, console/network errors, a11y heuristics, timing; BLOCKED when no browser exists', permissions: ['network', 'execute-local'], security_level: 'ENVIRONMENT_SPECIFIC', platform_requirements: ['any', 'chromium-family browser'] },
   { module_id: 'dcore-git', module_name: 'Git Change Management', status: 'IMPLEMENTED', kind: 'execution', purpose: 'status/diff/log/branches/show; commit and push only with explicit approval; push verified against the remote; never force-push or rewrite history', permissions: ['read-only', 'git-write (approval)'], security_level: 'ENVIRONMENT_SPECIFIC', platform_requirements: ['any', 'git'] },
   { module_id: 'dcore-verify', module_name: 'Deployment Verification', status: 'IMPLEMENTED', kind: 'execution', purpose: 'verify a deployed environment: health endpoints, expected page/text, latency, optional browser smoke => VERIFIED/FAILED/BLOCKED; never auto-rollback', permissions: ['network'], security_level: 'ENVIRONMENT_SPECIFIC', platform_requirements: ['any'] },
+  { module_id: 'dcore-report', module_name: 'Test Documentation', status: 'IMPLEMENTED', purpose: 'three separate evidence-backed PDF documents for a completed test run (Detailed Test Report, Detailed Defect Report with DCORE-DEF IDs and acceptance criteria, Test Case Register) from the unified evidence model; UNKNOWN where evidence is silent, root cause never claimed', permissions: ['read-only (text mode)', 'reads the run file, writes --out, local browser for PDF printing (--run)'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
   { module_id: 'dcore-retro', module_name: 'Retrospective', status: 'DEFERRED', purpose: 'project retrospective scaffold', permissions: ['read-only'], security_level: 'SAFE_GENERIC', platform_requirements: ['any'] },
 ];
 for (const m of MODULES) m.kind ??= m.module_id === 'dcore-impact' ? 'analysis' : 'reasoning';
@@ -439,6 +440,15 @@ export function dcoreBuild(input, opts = {}) {
     never: ['commit or push without explicit approval (dcore-git gates)', 'delete or overwrite user work', 'invent APIs/config the repo does not have'],
   };
 }
+export function dcoreReport(input) {
+  return {
+    module_id: 'dcore-report', objective: firstSentence(input) || '(no input)',
+    documents: ['Detailed Test Report', 'Detailed Defect Report', 'Test Case Register'],
+    usage: 'dcore-report --run <run.scenario-run.json | testrun.json> [--meta <file|json>] [--out <dir>] [--no-pdf]',
+    inputs: ['a dcore.scenario-run/1 file (dcore-qa --scenarios) or a dcore.testrun/1 file (dcore-qa --plan)', 'optional meta: application, build, objectives, assumptions, excluded scope (facts the evidence cannot contain)'],
+    rules: ['every statement comes from recorded evidence; anything else is UNKNOWN', 'results not established keep NOT_TESTED / BLOCKED / NOT_APPLICABLE / SKIPPED', 'root cause is never claimed: ROOT CAUSE: UNKNOWN — REQUIRES ENGINEERING INVESTIGATION', 'severity / priority are not invented: UNASSESSED where the evidence does not establish them', 'no credential value appears in any document'],
+  };
+}
 export function dcoreTest(input, opts = {}) {
   const conv = conventions(opts.repo);
   return {
@@ -450,7 +460,7 @@ export function dcoreTest(input, opts = {}) {
 }
 export function dcoreRoute(input) { return routeTask(input); }
 
-const RUNNERS = { 'dcore-frame': dcoreFrame, 'dcore-spec': dcoreSpec, 'dcore-plan': dcorePlan, 'dcore-review': dcoreReview, 'dcore-qa': dcoreQa, 'dcore-debug': dcoreDebug, 'dcore-sec': dcoreSec, 'dcore-release': dcoreRelease, 'dcore-doc': dcoreDoc, 'dcore-chain': dcoreChain, 'dcore-impact': dcoreImpact, 'dcore-explore': dcoreExplore, 'dcore-build': dcoreBuild, 'dcore-test': dcoreTest, 'dcore-route': dcoreRoute };
+const RUNNERS = { 'dcore-frame': dcoreFrame, 'dcore-spec': dcoreSpec, 'dcore-plan': dcorePlan, 'dcore-review': dcoreReview, 'dcore-qa': dcoreQa, 'dcore-debug': dcoreDebug, 'dcore-sec': dcoreSec, 'dcore-release': dcoreRelease, 'dcore-doc': dcoreDoc, 'dcore-chain': dcoreChain, 'dcore-impact': dcoreImpact, 'dcore-explore': dcoreExplore, 'dcore-build': dcoreBuild, 'dcore-test': dcoreTest, 'dcore-route': dcoreRoute, 'dcore-report': dcoreReport };
 
 export function runModule(moduleId, input, opts = {}) {
   const runner = RUNNERS[moduleId];

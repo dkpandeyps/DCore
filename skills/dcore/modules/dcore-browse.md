@@ -57,6 +57,22 @@ answered inside the browser (never sent to the server) and are not reported as r
 `{"session":"expire"}` removes the browser's cookies (values never recorded); `{"session":"restore"}` puts them back.
 Write requests (POST/PUT/PATCH/DELETE, including fetch and beacons) are recorded for every step.
 
+Browsers and viewports (M46): `dcore-browse --inventory` lists Chrome, Edge, Chromium (incl. Playwright builds already on
+disk), Brave, Firefox and WebKit as drivable / NOT_AVAILABLE / installed-but-not-drivable (detection only).
+`--viewport desktop|tablet|mobile` starts the session at that preset (tablet / mobile = device metrics + touch emulation,
+not a real device).
+
+Advanced interaction (M45): `{"drag":{"from":{"selector":"#card"},"to":{"selector":"#done"}}}` (native HTML5 drags are
+intercepted and completed; pointer libraries get real mouse moves; `"by":{"x":200,"y":0}` for sliders),
+`{"tap":{"text":"Menu"}}` / `{"tap":{"selector":"#item","holdMs":800}}` / `{"swipe":{"selector":"#carousel","direction":"left"}}`
+(emulated touch), `{"breakpoints":{"widths":[320,768,1280],"visible":[{"selector":"#burger","at":{"max":767}}]}}`,
+`{"scrollUntil":{"text":"Row 500","container":"#list"}}` (lazy / infinite / virtualised content),
+`{"assertSocket":{"url":"/live","contains":"price"}}` and `{"assertSocket":{"kind":"sse","minReceived":3}}` (passive
+WebSocket / SSE observation), `{"assertModal":{"top":true,"title":"Confirm"}}` (stacked modals),
+`{"dialog":{"accept":true,"promptText":"Ada"}}`, `{"httpAuth":{"userEnv":"BASIC_USER","passEnv":"BASIC_PASS","origin":"https://host"}}`
+(HTTP Basic / Digest; credentials from env only, answered for that origin only). Coverage and limits per capability:
+`references/TESTING-CAPABILITY-MATRIX.md` ("Advanced web application coverage").
+
 Evidence also records the redirect chain of every navigation, in-page (SPA) navigations, tabs, downloads (path, size,
 sha256) and responsive findings (e.g. a page without `<meta name="viewport">`). Capabilities, tests and validation
 status: `references/TESTING-CAPABILITY-MATRIX.md`.

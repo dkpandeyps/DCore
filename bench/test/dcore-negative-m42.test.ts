@@ -52,6 +52,10 @@ document.getElementById('limits').addEventListener('submit', (e) => { e.preventD
     if (u === '/safe') return send(200, page('Safe', `${NAV}<h1>Safe page</h1><p id="msg"></p><label>Comment <input id="comment" name="comment"></label>
 <script>fetch('/api/limits').then((r) => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }).then((d) => { document.getElementById('msg').textContent = (d.items || []).length + ' limits'; }).catch(() => { document.getElementById('msg').textContent = 'Could not load limits'; });</script>`));
     if (u === '/api/limits') return send(200, '{"items":[1,2]}', { 'content-type': 'application/json' });
+    // staging pattern: the page loads its data with a POST on every load, and has a read-only date-range picker
+    if (u === '/analysis') return send(200, page('Analysis', `${NAV}<h1>Analysis</h1><form method="get" action="/analysis" id="af"><label>Note <input id="anote" name="n"></label><label>Pick date range <input id="range" name="r" readonly></label><button id="ago">Go</button></form><script>fetch('/api/analysis', { method: 'POST', body: '{}' });</script>`));
+    if (u === '/api/analysis' && req.method === 'POST') return send(200, '{"rows":[]}', { 'content-type': 'application/json' });
+    if (u === '/api/new-write' && req.method === 'POST') return send(201, '{}', { 'content-type': 'application/json' });
     if (u === '/api/limits-save' && req.method === 'POST') return send(201, '{"ok":true}', { 'content-type': 'application/json' });
     return send(404, page('Not found', '<h1>404</h1>'));
   });
@@ -224,4 +228,23 @@ test('M42-5. CLI: --only selects negative cases; defect-candidates.json written;
   const r2 = await spawnCli(['dcore-explore', '--app', `${A}/home`, '--setup', JSON.stringify(setupBrowse()), '--max-pages', '3', '--out', out2, '--json']);
   assert.equal(r2.status, 0, r2.stderr);
   assert.match(readFileSync(join(out2, 'negative-matrix.md'), 'utf8'), /\| Expired session \|/);
+});
+
+test('M42-6. regression (staging): load-time POSTs are not "writes" on refresh; a new write still fails; read-only pickers are not typed into', { skip: SKIP }, async () => {
+  // planner: a read-only field gets NOT_APPLICABLE for every field case, with the reason; no scenario types into it
+  const map: any = { origin: A, setup: { status: 'PASS' }, auth: {}, routes: [{ route: '/analysis', url: `${A}/analysis`, kind: 'page', h1: ['Analysis'], nav: [], api: [], forms: [{ selector: '#af', method: 'get', fields: [{ selector: '#anote', type: 'text', label: 'Note' }, { selector: '#range', type: 'text', label: 'Pick date range', readonly: true }], submits: [{ selector: '#ago', name: 'Go' }] }] }] };
+  const c = generateCandidates(map);
+  const rows = c.negative_matrix.filter((r: any) => r.target.selector === '#range');
+  assert.equal(rows.length, NEGATIVE_CASES.filter((x) => x.level === 'field').length);
+  assert.ok(rows.every((r: any) => r.decision === 'NOT_APPLICABLE' && /read-only field/.test(r.reason)));
+  assert.ok(!JSON.stringify(c.scenarios).includes('#range'));
+  // engine: refresh on a page that POSTs on load is HELD; a request the page did not make on load is still caught
+  const doc = { setup: setupScenario(), scenarios: [
+    { id: 'R1', title: 'refresh mid-entry', negative: { case: 'refresh' }, steps: [{ action: 'goto', target: `${A}/analysis`, expect: { text: 'Analysis' } }, { action: 'fill', target: { selector: '#anote' }, input: 'draft' }, { action: 'reload', oracle: true, expect: { text: 'Analysis', noWrites: true } }] },
+    { id: 'R2', title: 'a new write is still detected', steps: [{ action: 'goto', target: `${A}/analysis`, expect: { text: 'Analysis' } }, { action: 'evaluate', input: "(() => { fetch('/api/new-write', { method: 'POST', body: '{}' }); return true; })()", expect: { value: true, noWrites: true } }] },
+  ] };
+  const run = await runScenarios(doc, { outDir: join(OUT, 'm42-6'), stepTimeoutMs: 5000 });
+  const r1 = run.scenarios.find((s: any) => s.scenario_id === 'R1'); const r2 = run.scenarios.find((s: any) => s.scenario_id === 'R2');
+  assert.equal(r1.status, 'PASS', r1.actual); assert.match(r1.steps[2].actual, /clean load of the page also makes were excluded/);
+  assert.equal(r2.status, 'FAIL'); assert.match(r2.actual, /POST .*\/api\/new-write/);
 });

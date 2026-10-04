@@ -49,6 +49,7 @@ deployment verification, or understanding a repository. The user does **not** ne
 | release readiness / publish | **dcore-release** `--repo .` [`--push --approve git-push`] | real gates |
 | security | **dcore-sec** `"…" --repo .` | read-only scan + STRIDE |
 | change impact | **dcore-impact** `"…" --repo .` [`--summary`] | read-only scan |
+| test documentation (PDF) | **dcore-report** `--run <run.json>` [`--meta …`] | three PDFs from the run evidence |
 | implement | **dcore-build** `"…" --repo .` then your edits, then dcore-run | you edit; DCore verifies |
 | write tests | **dcore-test** `"…" --repo .` then your tests, then dcore-run | you edit; DCore runs |
 | review | `dcore-git diff` → **dcore-review** (diff mode: added lines, file:line) | analysis |
@@ -64,6 +65,17 @@ add business cases → `dcore-qa --plan plan.json --out .dcore/evidence/<run>`. 
 Report**, **Detailed Defect Report** and **Test Case Register** as PDFs (plus JSON/Markdown). Check
 `references/TESTING-CAPABILITY-MATRIX.md` before promising coverage; declare anything unsupported or unsafe in the plan
 as NOT_TESTED / BLOCKED with a reason. Never generate cases that create, delete or change data without explicit approval.
+
+### Test documentation (dcore-report)
+Every completed run gets three separate PDFs from one report model: the **Detailed Test Report** (cover, executive
+summary, scope, environment, execution detail, observations, final evidence-based status, recommendations, evidence
+index), the **Detailed Defect Report** (`DCORE-DEF-NNN`: classification, reproduction, evidence, recommendation,
+testable acceptance criteria; `ROOT CAUSE: UNKNOWN — REQUIRES ENGINEERING INVESTIGATION` unless established) and the
+**Test Case Register**. `dcore-qa` writes them automatically; `dcore-report --run <file> --meta '{"build":"…"}'` re-renders
+them for an existing run. Facts the evidence cannot hold (build, objectives, business impact) come from `--meta` or stay
+UNKNOWN — never fill them in yourself. Any workflow takes `--report <dir-or-prefix>` (execution modules, dcore-qa,
+dcore-chain, dcore-debug, plain-English routing): the same three PDFs through the one shared layer — partial runs say so,
+refused runs are BLOCKED, plans are NOT_TESTED, and a run without defects says "No defects identified during this test run."
 
 ### Discover an application, then test it
 For "test this app" with no scenarios yet: `dcore-explore --app <url> --setup login.json` builds a deterministic

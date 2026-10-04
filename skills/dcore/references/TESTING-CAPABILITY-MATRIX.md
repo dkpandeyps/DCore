@@ -33,9 +33,9 @@ attempted: unknown frame, refused upload, …). `NOT_FOUND`, `TIMEOUT`, `AMBIGUO
 | Interactability | disabled (`:disabled`, fieldset), `aria-disabled`, `inert`, `pointer-events: none`, outside viewport, moving (animation — waited out) | M39-1, M39-17 | VALIDATED (staging: animation after owner switch waited out) | — |
 | Obstruction | page-level hit test at the click point (`DOM.getNodeForLocation`, document coordinates incl. scroll; across frames and shadow roots); reports the covering element | M39-1, M39-2, M39-16 | VALIDATED (staging: "New token" obstructed by `div#catalogModal`) | centre point only: a partially covered element whose centre is free counts as clear |
 | Enabled / disabled detection | as above; `assertState {state: ENABLED/DISABLED}` | M39-1 | IMPLEMENTED | — |
-| Click | real mouse events at the element centre after it is INTERACTABLE; `button: right`, `double`; `force: true` = explicit JS click, reported as forced | M39-2 | VALIDATED | no drag-and-drop |
+| Click | real mouse events at the element centre after it is INTERACTABLE; `button: right`, `double`; `force: true` = explicit JS click, reported as forced | M39-2 | VALIDATED | drag and drop: see `drag` (M45) |
 | Text input | `fill` (replace) / `type` (per-key events, for key-driven widgets) / `clear`; value re-read and verified; maxlength truncation and browser sanitisation explained, anything else FAIL | M39-5, M39-7 | VALIDATED (staging: search, rate limit 5000/60 verified) | IME / composition input not simulated |
-| Date / time / range / colour inputs | native value setter + input/change events, verified | M39-5 | IMPLEMENTED | custom JS date pickers need click steps |
+| Date / time / range / colour inputs | native value setter + input/change events, verified | M39-5 | IMPLEMENTED | custom JS date pickers by click composition (M45 #16) |
 | Select / dropdown | native `<select>` by value / label / index, verified, disabled options refused; custom comboboxes: open, click option, verify on the trigger | M39-6 | IMPLEMENTED | multi-select not supported; virtualised option lists need explicit steps |
 | Checkbox / radio | `check` / `uncheck`: idempotent, verified, falls back to the visible label for visually hidden inputs; radios cannot be unchecked | M39-6 | VALIDATED (staging: owner radios) | — |
 | Keyboard | named keys + chords (`Control+A`, `Shift+Tab`, …) with editing commands; `press {selector, key}` focuses first | M39-7 | VALIDATED (Tab, Escape on staging) | OS-level shortcuts (browser chrome) not available |
@@ -45,7 +45,7 @@ attempted: unknown frame, refused upload, …). `NOT_FOUND`, `TIMEOUT`, `AMBIGUO
 | Back / forward | `back` / `forward`; FAIL if the URL does not change | M39-8 | IMPLEMENTED | bfcache state is not inspected |
 | SPA / dynamic navigation | in-document navigations recorded; `waitFor {url}`, `waitFor {stable}`; history across pushState | M39-8 | IMPLEMENTED | no route-name awareness (URL based) |
 | Modal / dialog handling | `assertModal {open, title}` (dialog, role=dialog/alertdialog, aria-modal; fixed-position safe); backdrop obstruction detected; JS alert/confirm/prompt auto-handled (confirm dismissed unless `{"dialog":"accept"}`) | M39-4 | VALIDATED (staging catalog modal) | — |
-| Responsive viewports | device emulation verified (`screen.width`); missing `<meta name=viewport>` reported as a responsive finding | M39-14, M39-16 | VALIDATED | touch events not emulated |
+| Responsive viewports | device emulation verified (`screen.width`); missing `<meta name=viewport>` reported as a responsive finding | M39-14, M39-16 | VALIDATED | touch: `tap` / `swipe` with touch emulation (M45 #22) |
 | Screenshots | viewport, full page, element clip; per case and on failure | M39-14, QA-4 | VALIDATED | PNG only; no visual diff |
 | JavaScript exceptions | captured with source URL:line; attributed to the case | M39-13, QA-4 | VALIDATED (staging: 4 exceptions with locations) | top frame only, no full stack |
 | Console errors | `console.error/assert` + error log entries | M39-13 | VALIDATED | warnings not captured |
@@ -56,7 +56,59 @@ attempted: unknown frame, refused upload, …). `NOT_FOUND`, `TIMEOUT`, `AMBIGUO
 | iframe discovery / interaction | every frame's execution context; auto-search or `frame: name / url / {selector}`; clicks via page-level coordinates | M39-9 | IMPLEMENTED | cross-origin frames work because site isolation is disabled in the throwaway profile |
 | Nested iframes | recursive frame tree | M39-9 | IMPLEMENTED | — |
 | Shadow DOM | open shadow roots searched by every locator, text and inspection | M39-10 | IMPLEMENTED | **closed** shadow roots are unreachable ⇒ NOT_FOUND (by web-platform design) |
-| Session / authentication | form login with `valueEnv` credentials, session reuse (`--profile`) | QA-4, staging | VALIDATED | HTTP Basic auth, SSO popups: NOT_SUPPORTED · CAPTCHA / MFA: BLOCKED (by design) · session expiry not auto-detected |
+| Session / authentication | form login with `valueEnv` credentials, session reuse (`--profile`) | QA-4, staging | VALIDATED | HTTP Basic / Digest: `httpAuth` (M45 #19) · SSO popups: NOT_SUPPORTED · CAPTCHA / MFA: BLOCKED (by design) · session expiry: `session expire / restore` (M42, M45 #20) |
+
+## Real-world certification (M47)
+Capability-by-capability results on six real applications (VALIDATED / PARTIALLY_VALIDATED / BLOCKED / NOT_TESTED /
+NOT_APPLICABLE), with evidence and limitations: `references/WEB-TESTING-CERTIFICATION.md` (repository root `references/`).
+
+## Browser and viewport matrix (M46)
+Host of record: Windows 11 (win32 x64), 2026-10-04. Detection only — nothing installed. Evidence: `bench/test/dcore-browser-matrix-m46.test.ts`
+(fixture) and `.dcore/evidence/m46-real/` (public practice sites; DOGFOOD-EVIDENCE §17).
+
+| Browser | Engine | On this host | Drivable by DCore | Desktop 1366x900 | Tablet 820x1180 | Mobile 390x844 |
+|---|---|---|---|---|---|---|
+| Google Chrome 153 | Chromium | installed | yes (CDP) | fixture PASS · real 5/5 PASS | fixture PASS · real 5/5 PASS | fixture PASS · real 5/5 PASS |
+| Microsoft Edge 154 | Chromium | installed | yes (CDP) | fixture PASS · real 4/5 (1 transient site failure, PASS on rerun) | fixture PASS · real 3/5 (1 transient; modal: DCore defect fixed, PASS after fix) | fixture PASS · real 5/5 PASS |
+| Chromium (Playwright build on disk) 151 | Chromium | installed | yes (CDP) | fixture PASS · real 5/5 PASS | fixture PASS · real 4/5 (1 transient, PASS on rerun) | fixture PASS · real 5/5 PASS |
+| Brave | Chromium | not installed | - | NOT_AVAILABLE | NOT_AVAILABLE | NOT_AVAILABLE |
+| Firefox | Gecko | not installed | no (needs WebDriver BiDi; not implemented) | NOT_AVAILABLE | NOT_AVAILABLE | NOT_AVAILABLE |
+| WebKit / Safari | WebKit | not installed (Safari does not exist on Windows) | no (own protocol; not implemented) | NOT_AVAILABLE | NOT_AVAILABLE | NOT_AVAILABLE |
+
+Limitations: Chrome, Edge and Chromium share the Chromium engine, so this is **Chromium-engine coverage, not cross-browser
+compatibility**. Tablet / mobile are device-metrics + touch emulation in desktop Chromium, not real devices (no mobile
+browser UI, no real GPU / input stack). Running Firefox or WebKit would need a WebDriver BiDi / WebKit driver in DCore and
+the browsers installed — neither is done without explicit authorisation.
+
+## Advanced web application coverage (M45)
+Fixture = local test app (`bench/test/dcore-advanced-web-m45.test.ts`, M39 / M42 tests). Real = executed against a real
+application on 2026-10-04 (public automation-practice sites, a public WebSocket echo service, the staging app); evidence
+`.dcore/evidence/m45-real/m45-real-results.json` and DOGFOOD-EVIDENCE §16. A capability is VALIDATED only with a real PASS.
+
+| # | Capability | Implementation | Fixture test | Real application | Status | Known limitation |
+|---|---|---|---|---|---|---|
+| 1 | iframe | per-frame execution contexts; `frame: name / url / {selector}` on any locator, text or wait | M39-9 | PASS (the-internet.herokuapp.com/iframe, TinyMCE editor frame) | VALIDATED | an assertion right after load can miss a frame built later: use `waitFor` |
+| 2 | nested iframes | recursive frame tree | M39-9 | PASS (the-internet.herokuapp.com/nested_frames) | VALIDATED | - |
+| 3 | shadow DOM | open roots searched by every locator / text / inspection | M39-10 | PASS (the-internet.herokuapp.com/shadowdom) | VALIDATED | closed shadow roots: NOT_APPLICABLE (unreachable by design of the platform) |
+| 4 | multiple browser windows | `window.open` popups tracked as targets; `switchTab` / `closeTab` | M39-11, M45-6 | PASS (the-internet.herokuapp.com/windows) | VALIDATED | popup windows share the browser's single viewport size |
+| 5 | multiple tabs | `target=_blank` tracked; `switchTab {latest/url/title/index}` | M39-11 | PASS (the-internet.herokuapp.com/windows opens a new tab) | VALIDATED | - |
+| 6 | popup handling (JS dialogs) | alert / confirm / prompt handled; `dialog: {accept, promptText}`; every dialog recorded | M45-6 | PASS (the-internet.herokuapp.com/javascript_alerts: prompt answered "DCore", confirm dismissed) | VALIDATED | beforeunload follows the same policy |
+| 7 | file upload | `upload` via DOM.setFileInputFiles, confined to allowed directories, credential-like names refused | M39-12 | NOT_TESTED (uploading to a third-party server is an external write; staging has no upload) | IMPLEMENTED | drag-to-upload drop zones are not driven |
+| 8 | file download | `download` saved under the evidence dir, hashed, content-checked | M39-12 | PASS (the-internet.herokuapp.com/download: a 27-byte .txt, sha256 recorded) | VALIDATED | content checks are text-based |
+| 9 | dynamic / lazy-loaded content | waits (`waitFor` states / text / stable); `scrollUntil` with real wheel events, waiting for lazy batches before declaring the end | M39-3, M45-4 | PASS (the-internet.herokuapp.com/dynamic_loading/2; practice.expandtesting.com/infinite-scroll: batch 6 reached after 4 scrolls) | VALIDATED | a loader slower than `loadWaitMs` (2.5 s) is reported as the end of content |
+| 10 | virtualised lists | `scrollUntil {container}` scrolls the list's own container until the row is rendered | M45-4 (10,000-row list: row 120 found, row absent before) | NOT_TESTED (the public demo route did not load during validation) | IMPLEMENTED | targets are found by scrolling, not by index |
+| 11 | SPA route transitions | in-document navigations recorded; `waitFor {url}` | M39-8 | PASS (demoqa.com /elements -> /text-box, React) | VALIDATED | URL based, no route-name awareness |
+| 12 | history-state navigation | `back` / `forward` verified (URL must change); pushState history | M39-8 | PASS for server-rendered back navigation (staging, M42: 20 back-navigation scenarios HELD); pushState history NOT_TESTED on a real app | IMPLEMENTED | bfcache state is not inspected |
+| 13 | fixed / sticky UI | targets scrolled to the centre; page-level hit test reports the covering element | M45-5 (sticky header), M39-16 | PASS (the-internet.herokuapp.com/floating_menu: click on the floating menu after scrolling) | VALIDATED | - |
+| 14 | complex modals / dialogs | `assertModal {open, title, top}`: stacked modals know the top one (top layer, z-index, DOM order); Escape; backdrop obstruction | M39-4, M45-5 | PASS (demoqa.com /modal-dialogs: open, top, close) | VALIDATED (single modal) | stacked modals: fixture only |
+| 15 | autocomplete / combobox | `type` (per-key) drives key-event suggestions; `select` on native and custom comboboxes | M39-6, M39-7 | NOT_TESTED in M45 | IMPLEMENTED | multi-select not supported |
+| 16 | date / time pickers | native date / time / datetime-local / month / week via the value setter; custom pickers by composition (click the input, click the day); read-only picker inputs are never typed into | M45-7 | PASS (selenium.dev web form: bootstrap datepicker by clicks) | VALIDATED | no generic "pick a date" abstraction for custom widgets (by design: they differ) |
+| 17 | drag and drop | `drag {from, to | by}`: native HTML5 drags intercepted (Input.setInterceptDrags) and completed with dragenter / dragover / drop; pointer-based libraries get mouse down / move / up | M45-1 | PASS (the-internet.herokuapp.com/drag_and_drop, native HTML5: columns swapped) | VALIDATED (native) | pointer drag: fixture only; file drag from the OS is not possible |
+| 18 | WebSocket / SSE observation | passive: connections, frames sent / received (last 20, 300 chars), close; SSE messages per stream; `assertSocket` | M45-8, M45-11 | PASS WebSocket (wss://echo.websocket.org: 2 sent, 3 received); SSE NOT_TESTED on a real app | VALIDATED (WebSocket) | DCore never sends frames; binary frames are recorded as "[binary frame]" |
+| 19 | authentication redirects | redirect chain on every navigation; return-to after login; HTTP Basic / Digest via `httpAuth {userEnv, passEnv, origin}` (env-only credentials, one origin) | M45-9, M45-10 | PASS (staging: 302 -> http login -> 307 https; the-internet.herokuapp.com/redirect; the-internet.herokuapp.com/basic_auth with httpAuth) | VALIDATED | SSO popups / MFA / CAPTCHA: BLOCKED by design |
+| 20 | session expiration | `session: expire / restore` (test-browser cookies only) | M42-3, M45-9 | PASS (staging: expire -> login page; restore -> signed in again) | VALIDATED | server-side expiry timers are not exercised |
+| 21 | responsive breakpoints | `breakpoints {widths, visible/hidden with at:{min,max}}`: overflow, meta viewport, per-breakpoint screenshots, desktop restored | M45-3 | PASS (staging 375 / 768 / 1366 ok; the-internet.herokuapp.com: correctly FAILED at 375px, no meta viewport) | VALIDATED | layout checks are overflow / visibility, not visual comparison |
+| 22 | mobile interaction patterns | touch emulation; `tap` (touchstart / touchend through Chrome's gesture recogniser -> click), long press (`holdMs`), double tap, `swipe` (touch moves) | M45-2 | PASS tap (the-internet.herokuapp.com at 390px: tap navigated); swipe dispatched on a real page but its outcome verified on the fixture only | VALIDATED (tap) | pinch / multi-finger gestures not supported |
 
 ## Negative & boundary testing (M42)
 | Capability | Implementation | Test | Validation status | Known limitation |
@@ -110,10 +162,25 @@ attempted: unknown frame, refused upload, …). `NOT_FOUND`, `TIMEOUT`, `AMBIGUO
 | Server-side validation | NOT_TESTED unless a case submits data | submissions are never generated automatically |
 | Per-case results PASS / FAIL / BLOCKED / NOT_TESTED / NOT_APPLICABLE / SKIPPED | VALIDATED | setup failure ⇒ BLOCKED; a BLOCKED step ⇒ BLOCKED case |
 | Defect detection & classification | VALIDATED | functional, frontend-runtime (with source location), console, backend, network, accessibility, performance |
-| Three PDFs (Test Report, Defect Report, Test Case Register) | VALIDATED | streamed rendering; missing source ⇒ BLOCKED |
+| Three PDFs (Test Report, Defect Report, Test Case Register) | VALIDATED | rendered by dcore-report (M43, below); streamed rendering; missing source ⇒ BLOCKED |
 | Accessibility heuristics | VALIDATED | heuristic, not a WCAG audit |
 | Visual regression, cross-browser (Firefox/WebKit), WebSocket/SSE assertions, request/response body assertions, database checks | NOT_SUPPORTED | planned (see the audit's M40–M43) |
 | Flaky-test detection | NOT_SUPPORTED | re-check manually |
+
+## Test documentation — dcore-report (M43)
+| Capability | Implementation | Test | Validation status | Known limitation |
+|---|---|---|---|---|
+| One report model from the unified evidence (scenario run or plan run) | `docs.mjs` buildReportModel (`dcore.report-model/1`) | M43-1 | VALIDATED (fixture + staging run) | build / objectives / business impact need `--meta` (else UNKNOWN) |
+| Detailed Test Report: cover, contents, 13 numbered sections, landscape execution table, evidence index | renderTestReportDoc + CSS named pages | M43-3, M43-4 (sections read back from the PDF outline) | VALIDATED | - |
+| Detailed Defect Report: DCORE-DEF-NNN, identification, classification (layer from evidence), description, reproduction, evidence, recommendation, acceptance criteria | renderDefectReportDoc | M43-2, M43-4 | VALIDATED | layer is UNKNOWN when the failing check does not establish it |
+| No fabricated root cause / severity | fixed ROOT CAUSE: UNKNOWN line; UNASSESSED severity kept | M43-2 | VALIDATED | - |
+| Test Case Register: 15 fields per case | renderRegisterDoc (landscape, fixed column widths) | M43-1, M43-3 | VALIDATED | very long step lists make tall rows |
+| Headers, footers, page numbers, outline (bookmarks), tagged PDF, metadata (title, author, subject, keywords, creator, creation date) | Chromium printToPDF + incremental Info update (no dependency) | M43-4, M43-5 | VALIDATED | creation date = end of run; the printer's own Info object remains in the file body (superseded) |
+| No secret in any document | redaction + check of every HTML and PDF (raw, inflated streams, UTF-16 strings) for credential values referenced by the run | M43-4, M43-5 | VALIDATED | PDF page text is glyph-encoded: it is checked at its HTML source |
+| Shared reporting layer: `--report <dir-or-prefix>` on every workflow | `reporting.mjs` normalises any result once; dcore-report renders | M44-1..7 | VALIDATED (fixture) | evidence without per-step detail (api / run / verify) becomes one case per run |
+| Partial / BLOCKED / NOT_TESTED runs | final status PARTIAL RUN / BLOCKED / NOT TESTED; later steps SKIPPED | M44-3, M44-4, M44-5 | VALIDATED | - |
+| Cross-document consistency (run, case, defect, evidence IDs) | crossReferences on the printed HTML; same IDs as dcore-qa's own documents | M44-3, M44-6 | VALIDATED | - |
+| Deterministic output | no wall-clock time; stable ordering | M43-3, M43-4 (identical HTML and outline) | VALIDATED | PDF bytes differ (printer timestamps / ids) |
 
 ## Maintenance rule
 Change a status only with evidence: **VALIDATED** requires a real-application run recorded in
