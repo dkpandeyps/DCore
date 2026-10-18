@@ -1,0 +1,9 @@
+{
+  "name": "dcore",
+  "description": "Fail-closed engineering agent skills: /dcore routes a plain-English task (test a page, fix a bug, implement, review, release) and executes it with evidence; /dcore-browse, /dcore-api, /dcore-qa and the other module skills run one capability directly.",
+  "author": { "name": "DK Pandey" },
+  "homepage": "https://github.com/dkpandeyps/DCore",
+  "repository": "https://github.com/dkpandeyps/DCore",
+  "license": "Apache-2.0",
+  "keywords": ["engineering", "qa", "testing", "browser", "api", "code-review", "security", "release"]
+}

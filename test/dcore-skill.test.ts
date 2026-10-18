@@ -477,3 +477,16 @@ test('CC. stand-alone module skills: one per runnable module, committed copies c
     assert.equal(r2.module_skills.created + r2.module_skills.updated, 0);
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
+
+test('DD. Claude Code plugin: manifest + single-plugin marketplace at the repo root; every skill dir discoverable', () => {
+  const root = join(SKILL, '..', '..');
+  const plugin = JSON.parse(readFileSync(join(root, '.claude-plugin', 'plugin.json'), 'utf8'));
+  const market = JSON.parse(readFileSync(join(root, '.claude-plugin', 'marketplace.json'), 'utf8'));
+  assert.equal(plugin.name, 'dcore');
+  assert.equal(plugin.version, undefined);   // unversioned: every commit is an update for plugin users
+  assert.equal(market.name, 'dcore');
+  assert.ok(market.owner?.name);
+  assert.deepEqual(market.plugins.map((p: any) => [p.name, p.source]), [['dcore', './']]);
+  // plugins auto-discover skills/<name>/SKILL.md: the router plus one skill per runnable module
+  for (const name of ['dcore', ...IMPLEMENTED]) assert.ok(existsSync(join(root, 'skills', name, 'SKILL.md')), name);
+});

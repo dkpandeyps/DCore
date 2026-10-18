@@ -1,6 +1,23 @@
 # Installing DCore
 
-## Quick start (global — use `/dcore` from any folder)
+There are two ways to install. Use one, not both, or every skill shows up twice.
+
+## Option A: Claude Code plugin (no clone)
+Inside Claude Code:
+```
+/plugin install dcore --marketplace dkpandeyps/DCore
+```
+On Claude Code older than 2.1.275: `/plugin marketplace add dkpandeyps/DCore`, then `/plugin install dcore@dcore`.
+From a terminal: `claude plugin marketplace add dkpandeyps/DCore && claude plugin install dcore@dcore`.
+
+Plugin skills are namespaced by the plugin name: `/dcore:dcore <task>`, `/dcore:dcore-browse`, `/dcore:dcore-api`, …
+Claude also picks them automatically from their descriptions. The plugin has no fixed version, so every commit to `main`
+is an update: run `/plugin` (or `claude plugin update dcore@dcore`), or turn on auto-update for the `dcore` marketplace
+in `/plugin` > Marketplaces. Remove with `claude plugin uninstall dcore@dcore`.
+
+## Option B: installer (unprefixed `/dcore`, `/dcore-browse`, …)
+
+### Quick start (global — use `/dcore` from any folder)
 ```
 git clone https://github.com/dkpandeyps/DCore.git
 cd DCore

@@ -1,0 +1,12 @@
+{
+  "name": "dcore",
+  "owner": { "name": "DK Pandey" },
+  "description": "DCore engineering agent skills for Claude Code",
+  "plugins": [
+    {
+      "name": "dcore",
+      "source": "./",
+      "description": "DCore: /dcore routes and executes engineering tasks with evidence; /dcore-* runs one module directly."
+    }
+  ]
+}

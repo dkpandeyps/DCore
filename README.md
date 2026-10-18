@@ -114,6 +114,16 @@ Windows, macOS, and Linux. The core is platform-neutral (capability detection, n
 - Running the project's full test suite requires **Node.js ≥ 24** (TypeScript type-stripping).
 
 ## Installation
+**As a Claude Code plugin** (recommended, no clone needed). Inside Claude Code:
+```
+/plugin install dcore --marketplace dkpandeyps/DCore
+```
+On Claude Code older than 2.1.275, use the two-step form: `/plugin marketplace add dkpandeyps/DCore`, then
+`/plugin install dcore@dcore`. Plugin skills are namespaced: `/dcore:dcore`, `/dcore:dcore-browse`, `/dcore:dcore-api`, …
+Update with `/plugin` (or `claude plugin update dcore@dcore`); every commit to `main` is a new version.
+
+**Or with the installer** (unprefixed `/dcore`, `/dcore-browse`, …). Use one method, not both, or every skill shows up
+twice:
 ```
 git clone https://github.com/dkpandeyps/DCore.git
 cd DCore
