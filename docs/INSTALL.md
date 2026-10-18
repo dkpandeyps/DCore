@@ -6,7 +6,8 @@ git clone https://github.com/dkpandeyps/DCore.git
 cd DCore
 node skills/dcore/scripts/install.mjs --user
 ```
-Restart Claude Code; `/dcore <task>` is then available in every project. To upgrade later: `git pull` and re-run
+Restart Claude Code; `/dcore <task>` and every module command (`/dcore-browse`, `/dcore-api`, `/dcore-qa`, …) are
+then available in every project. To upgrade later: `git pull` and re-run
 the same install command.
 
 ## 1. Clone
@@ -32,7 +33,7 @@ node skills/dcore/scripts/install.mjs --target <some-skills-dir> --dry-run
 node skills/dcore/scripts/install.mjs --target <some-skills-dir>
 ```
 
-The installer is deterministic, **idempotent** (safe to run repeatedly), **confined** to `<target>/dcore`,
+The installer is deterministic, **idempotent** (safe to run repeatedly), **confined** to `<target>`,
 **path-traversal protected**, **offline**, and accesses **no credentials**. It refuses `runtime` directories and any
 credential-like file, and supports `--dry-run`.
 
@@ -56,15 +57,21 @@ as `unmanaged` and left untouched.
 ## Supported platforms
 Windows, macOS, and Linux. Paths are handled with `node:path`; there are no shell-specific assumptions.
 
+## Stand-alone module skills
+Next to `<target>/dcore` the installer writes one skill per runnable module: `<target>/dcore-<module>/SKILL.md`
+(`/dcore-browse`, `/dcore-api`, …). Each is a thin entry point onto the engine in `<target>/dcore`, so keep them side
+by side. An existing `dcore-<module>` skill that DCore did not create is never overwritten; the installer reports it as
+skipped. Module skills a newer version no longer ships are removed on upgrade (tracked in `.dcore-install.json`).
+
 ## Uninstall / removal
-The installer writes only under `<target>/dcore`. To remove the skill, delete that directory:
+The installer writes only the `<target>/dcore` and `<target>/dcore-<module>` directories. To remove DCore, delete them:
 ```
 # project-local
-rm -rf ./.claude/skills/dcore        # PowerShell: Remove-Item -Recurse -Force .\.claude\skills\dcore
+rm -rf ./.claude/skills/dcore ./.claude/skills/dcore-*   # PowerShell: Remove-Item -Recurse -Force .\.claude\skills\dcore*
 # user-level
-rm -rf ~/.claude/skills/dcore
+rm -rf ~/.claude/skills/dcore ~/.claude/skills/dcore-*
 ```
-No other files are created, so removal is complete once that directory is gone.
+No other files are created, so removal is complete once those directories are gone.
 
 ## Troubleshooting
 - **`node: command not found`** — install Node.js ≥ 18 and re-open your shell.

@@ -11,6 +11,12 @@ Linux**, with no dependencies beyond Node.js.
 /dcore review this change
 /dcore prepare and verify this release
 ```
+Each module is also its own command when you want exactly one capability, and Claude can pick one directly:
+```
+/dcore-browse open https://staging.example.test/login
+/dcore-api --url https://api.example.test/health --expect-status 200
+/dcore-review
+```
 
 The owner (PTPL) uses DCore for real work and commits improvements to Git so others can clone and reuse the same
 skills. **Clone → install → invoke → work.** No certification, no private infrastructure, and no credentials are
@@ -109,10 +115,13 @@ Windows, macOS, and Linux. The core is platform-neutral (capability detection, n
 
 ## Installation
 ```
-git clone <repository>
+git clone https://github.com/dkpandeyps/DCore.git
 cd DCore
-node skills/dcore/scripts/install.mjs --project      # installs into ./.claude/skills/dcore
+node skills/dcore/scripts/install.mjs --user         # global: /dcore and /dcore-* in every project
+node skills/dcore/scripts/install.mjs --project      # or only this project: ./.claude/skills
 ```
+The installer writes `dcore/` (the engine and the `/dcore` router) plus one stand-alone skill per runnable module
+(`dcore-browse/`, `dcore-api/`, `dcore-qa/`, …) next to it. Restart Claude Code after installing.
 Re-running the installer upgrades in place: files a previous DCore install wrote and the new version no longer ships
 are removed (tracked in `.dcore-install.json`); files DCore never installed are reported, never deleted.
 See `docs/INSTALL.md` for user-level install, dry-run, explicit targets, uninstall, and troubleshooting.
@@ -134,10 +143,13 @@ node skills/dcore/scripts/dcore.mjs dcore-release --repo .
 Execution evidence goes to `.dcore/` (git-ignored: screenshots of authenticated pages must never be committed).
 
 ## Modules
-- **Implemented (19):** reasoning `dcore-frame`, `dcore-spec`, `dcore-plan`, `dcore-review`, `dcore-qa`, `dcore-debug`,
+- **Implemented (20):** reasoning `dcore-frame`, `dcore-spec`, `dcore-plan`, `dcore-review`, `dcore-qa`, `dcore-debug`,
   `dcore-sec`, `dcore-release`, `dcore-doc`, `dcore-chain`; analysis `dcore-impact`, `dcore-explore`; procedures
-  `dcore-build`, `dcore-test`; execution `dcore-run`, `dcore-api`, `dcore-browse`, `dcore-git`, `dcore-verify`.
+  `dcore-build`, `dcore-test`; execution `dcore-run`, `dcore-api`, `dcore-browse`, `dcore-git`, `dcore-verify`; documentation `dcore-report`.
 - **Deferred:** `dcore-retro`.
+- **Stand-alone skills:** every implemented module is also installed as `/dcore-<module>`. These skills are generated
+  from the manifest by `skills/dcore/scripts/skills.mjs`; after changing a module, run
+  `node skills/dcore/scripts/skills.mjs --write` (the test suite fails on stale copies).
 
 See `skills/dcore/modules/` and `skills/dcore/references/CAPABILITY-COVERAGE-MATRIX.md`. Real-world dogfood results:
 `references/DOGFOOD-EVIDENCE.md`.

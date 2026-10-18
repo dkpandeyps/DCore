@@ -135,7 +135,7 @@ test('K. cross-platform: plan uses node:path; install plan resolves nested paths
 test('L. no credential/network/exec imports or calls in the public skill scripts (static)', () => {
   // NB: dcore-review legitimately CONTAINS tokens like child_process/exec/password= as detection PATTERNS. We therefore
   // check for real imports and real call sites, not substrings inside regex literals.
-  for (const f of ['modules.mjs', 'dcore.mjs', 'install.mjs', 'coverage.mjs']) {
+  for (const f of ['modules.mjs', 'dcore.mjs', 'install.mjs', 'coverage.mjs', 'skills.mjs']) {
     const src = readFileSync(join(SKILL, 'scripts', f), 'utf8');
     assert.ok(!/(import[^;]*from|require\s*\(\s*)['"]node:(child_process|http|https|net|dgram|tls|http2)['"]/.test(src), `${f} imports network/exec module`);
     assert.ok(!/\bfetch\s*\(|\.connect\s*\(|createServer\s*\(|generateKeyPair|createSign\s*\(/.test(src), `${f} calls network/crypto`);
@@ -150,7 +150,7 @@ test('M. public/private boundary: skill needs no certification/private infra/cre
   assert.equal(m.requires_credentials, false);
   assert.equal(m.requires_network, false);
   // the skill scripts IMPORT nothing from the optional assurance layer (compatibility/bench) — a doc path string is ok
-  for (const f of ['modules.mjs', 'dcore.mjs', 'install.mjs', 'coverage.mjs']) {
+  for (const f of ['modules.mjs', 'dcore.mjs', 'install.mjs', 'coverage.mjs', 'skills.mjs']) {
     const src = readFileSync(join(SKILL, 'scripts', f), 'utf8');
     assert.ok(!/import[^;]*from\s*['"][^'"]*(compatibility|\/bench\/)/.test(src), f);
   }
@@ -438,4 +438,42 @@ test('BB. extractIdentifiers: multi-hump PascalCase captured; single English wor
   // deterministic + sorted output
   assert.deepEqual(extractIdentifiers('b ZodError AuthMiddleware'), extractIdentifiers('b ZodError AuthMiddleware'));
   assert.deepEqual([...ids].sort(), ids);
+});
+
+test('CC. stand-alone module skills: one per runnable module, committed copies current, installed next to dcore', async () => {
+  const { wrapperSkills, WRAPPER_MARKER } = await import('../skills/dcore/scripts/skills.mjs');
+  const wrappers = wrapperSkills();
+  assert.deepEqual(wrappers.map((w: any) => w.name), IMPLEMENTED);
+  assert.ok(!wrappers.some((w: any) => w.name === 'dcore-retro'));   // DEFERRED modules get no skill
+  for (const w of wrappers) {
+    assert.match(w.content, new RegExp(`^---\nname: ${w.name}\ndescription: DCore [^\n]+\n`));
+    assert.ok(w.content.includes(WRAPPER_MARKER) && w.content.includes(`modules/${w.name}.md`) && w.content.includes('$ARGUMENTS'));
+    // the committed copy in the repository is exactly what the generator produces
+    assert.equal(readFileSync(join(SKILL, '..', w.name, 'SKILL.md'), 'utf8'), w.content, `${w.name} stale: run skills.mjs --write`);
+  }
+  const dir = mkdtempSync(join(tmpdir(), 'dcore-cc-'));
+  try {
+    const target = join(dir, 'skills');
+    // a user's own skill with a module name is never overwritten
+    mkdirSync(join(target, 'dcore-git'), { recursive: true });
+    writeFileSync(join(target, 'dcore-git', 'SKILL.md'), 'mine');
+    // a wrapper an earlier DCore version installed and this one no longer ships is removed on upgrade
+    mkdirSync(join(target, 'dcore'), { recursive: true });
+    mkdirSync(join(target, 'dcore-old'), { recursive: true });
+    writeFileSync(join(target, 'dcore-old', 'SKILL.md'), `---\nname: dcore-old\n---\n${WRAPPER_MARKER}\n`);
+    writeFileSync(join(target, 'dcore', '.dcore-install.json'), JSON.stringify({ schema: 'dcore.install_record/1', files: [], module_skills: ['dcore-old'] }));
+    const dry = install({ target, dryRun: true });
+    assert.equal(existsSync(join(target, 'dcore-browse')), false);   // dry-run wrote nothing
+    assert.equal(dry.module_skills.created, wrappers.length - 1);
+    const r1 = install({ target });
+    assert.deepEqual(r1.module_skills.conflicts, ['dcore-git']);
+    assert.equal(readFileSync(join(target, 'dcore-git', 'SKILL.md'), 'utf8'), 'mine');
+    assert.deepEqual(r1.module_skills.removed, ['dcore-old']);
+    assert.equal(existsSync(join(target, 'dcore-old')), false);
+    assert.equal(readFileSync(join(target, 'dcore-browse', 'SKILL.md'), 'utf8'), wrappers.find((w: any) => w.name === 'dcore-browse').content);
+    for (const a of r1.module_skills.actions) assert.ok(a.path.startsWith(target), a.path);
+    const r2 = install({ target });   // idempotent
+    assert.equal(r2.module_skills.unchanged, wrappers.length - 1);
+    assert.equal(r2.module_skills.created + r2.module_skills.updated, 0);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
 });
