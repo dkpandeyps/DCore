@@ -1,9 +1,18 @@
 # Installing DCore
 
+## Quick start (global — use `/dcore` from any folder)
+```
+git clone https://github.com/dkpandeyps/DCore.git
+cd DCore
+node skills/dcore/scripts/install.mjs --user
+```
+Restart Claude Code; `/dcore <task>` is then available in every project. To upgrade later: `git pull` and re-run
+the same install command.
+
 ## 1. Clone
 ```
-git clone <repository>
-cd <repository>
+git clone https://github.com/dkpandeyps/DCore.git
+cd DCore
 ```
 
 ## 2. Install (choose one)
