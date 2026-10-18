@@ -86,4 +86,4 @@ node scripts/dcore.mjs dcore-browse --steps qa-steps.json --out .dcore/evidence/
 Add `--report <file.md>` to write the redacted evidence as a Markdown report (stdout and exit code are unchanged).
 
 ## Tests
-See bench/test/dcore-skill.test.ts and bench/test/dcore-exec.test.ts.
+See test/dcore-skill.test.ts and test/dcore-exec.test.ts.

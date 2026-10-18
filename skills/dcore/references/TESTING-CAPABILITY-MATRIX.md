@@ -12,7 +12,7 @@ outside this matrix is reported as `BLOCKED`, `NOT_TESTED`, `NOT_APPLICABLE` or 
 - **BLOCKED (by design)** — intentionally not automated (needs a human or would bypass a control).
 
 Real-world evidence: authorized staging admin "API tokens" page (server-rendered + JavaScript UI, session login with
-CSRF and reCAPTCHA), 2026-10-03. Tests: `bench/test/dcore-browse-m39.test.ts` (M39-n), `dcore-qa-run.test.ts` (QA-n),
+CSRF and reCAPTCHA), 2026-10-03. Tests: `test/dcore-browse-m39.test.ts` (M39-n), `dcore-qa-run.test.ts` (QA-n),
 `dcore-exec.test.ts` (EX-n). Fixture sites run on two 127.0.0.1 origins so cross-origin frames are genuinely cross-origin.
 
 ## Element states (M39)
@@ -63,7 +63,7 @@ Capability-by-capability results on six real applications (VALIDATED / PARTIALLY
 NOT_APPLICABLE), with evidence and limitations: `references/WEB-TESTING-CERTIFICATION.md` (repository root `references/`).
 
 ## Browser and viewport matrix (M46)
-Host of record: Windows 11 (win32 x64), 2026-10-04. Detection only — nothing installed. Evidence: `bench/test/dcore-browser-matrix-m46.test.ts`
+Host of record: Windows 11 (win32 x64), 2026-10-04. Detection only — nothing installed. Evidence: `test/dcore-browser-matrix-m46.test.ts`
 (fixture) and `.dcore/evidence/m46-real/` (public practice sites; DOGFOOD-EVIDENCE §17).
 
 | Browser | Engine | On this host | Drivable by DCore | Desktop 1366x900 | Tablet 820x1180 | Mobile 390x844 |
@@ -81,7 +81,7 @@ browser UI, no real GPU / input stack). Running Firefox or WebKit would need a W
 the browsers installed — neither is done without explicit authorisation.
 
 ## Advanced web application coverage (M45)
-Fixture = local test app (`bench/test/dcore-advanced-web-m45.test.ts`, M39 / M42 tests). Real = executed against a real
+Fixture = local test app (`test/dcore-advanced-web-m45.test.ts`, M39 / M42 tests). Real = executed against a real
 application on 2026-10-04 (public automation-practice sites, a public WebSocket echo service, the staging app); evidence
 `.dcore/evidence/m45-real/m45-real-results.json` and DOGFOOD-EVIDENCE §16. A capability is VALIDATED only with a real PASS.
 

@@ -39,4 +39,4 @@ node scripts/dcore.mjs dcore-sec "Add an endpoint that accepts a file upload and
 ```
 
 ## Tests
-See bench/test/dcore-skill.test.ts for structural + behavioral coverage.
+See test/dcore-skill.test.ts for structural + behavioral coverage.

@@ -4,24 +4,24 @@ original DCore names only; no comparison-baseline implementation or names copied
 
 | source capability | useful problem | DCore module | original name | status | permission | security | platform | tests |
 |---|---|---|---|---|---|---|---|---|
-| product/problem analysis | understand what to build and why | Problem Framing | dcore-frame | IMPLEMENTED | read-only | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
-| specification creation | define requirements + acceptance | Specification | dcore-spec | IMPLEMENTED | read-only | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
-| engineering planning | plan implementation safely | Engineering Plan | dcore-plan | IMPLEMENTED | read-only | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
-| code review | catch defects/security issues | Code Review | dcore-review | IMPLEMENTED | read-only | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
-| QA/test planning | verify behavior | QA / Test Runs | dcore-qa | IMPLEMENTED | read-only (text mode),network + execute-local (--discover / --plan) | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
-| debugging/investigation | find root cause | Debug / Investigation | dcore-debug | IMPLEMENTED | read-only | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
-| security review | reduce risk | Security Review | dcore-sec | IMPLEMENTED | read-only | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
-| documentation | explain the system | Documentation | dcore-doc | IMPLEMENTED | read-only | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
-| release preparation | ship safely | Release Prep | dcore-release | IMPLEMENTED | read-only | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
-| project retrospective | learn and improve | Retrospective | dcore-retro | DEFERRED | read-only | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
-| browser automation / web QA | prove a web flow works in a real browser | Browser Execution | dcore-browse | IMPLEMENTED | network,execute-local | ENVIRONMENT_SPECIFIC | any,chromium-family browser | bench/test/dcore-skill.test.ts |
-| API testing | prove an endpoint behaves as specified | API Testing | dcore-api | IMPLEMENTED | network | ENVIRONMENT_SPECIFIC | any | bench/test/dcore-skill.test.ts |
-| test/lint/build execution | get real pass/fail evidence | Command Execution | dcore-run | IMPLEMENTED | execute-local | ENVIRONMENT_SPECIFIC | any | bench/test/dcore-skill.test.ts |
-| code implementation | make the change, minimally | Implementation | dcore-build | IMPLEMENTED | writes-repo-files (user-requested change only) | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
-| test generation | lock behavior in with focused tests | Test Generation | dcore-test | IMPLEMENTED | writes-repo-files (tests only) | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
-| repository exploration | know how a repo builds, tests and runs | Repository Exploration | dcore-explore | IMPLEMENTED | read-only | SAFE_GENERIC | any | bench/test/dcore-skill.test.ts |
-| git change management | inspect, commit and push safely | Git Change Management | dcore-git | IMPLEMENTED | read-only,git-write (approval) | ENVIRONMENT_SPECIFIC | any,git | bench/test/dcore-skill.test.ts |
-| post-deploy verification | prove a deployment is healthy | Deployment Verification | dcore-verify | IMPLEMENTED | network | ENVIRONMENT_SPECIFIC | any | bench/test/dcore-skill.test.ts |
+| product/problem analysis | understand what to build and why | Problem Framing | dcore-frame | IMPLEMENTED | read-only | SAFE_GENERIC | any | test/dcore-skill.test.ts |
+| specification creation | define requirements + acceptance | Specification | dcore-spec | IMPLEMENTED | read-only | SAFE_GENERIC | any | test/dcore-skill.test.ts |
+| engineering planning | plan implementation safely | Engineering Plan | dcore-plan | IMPLEMENTED | read-only | SAFE_GENERIC | any | test/dcore-skill.test.ts |
+| code review | catch defects/security issues | Code Review | dcore-review | IMPLEMENTED | read-only | SAFE_GENERIC | any | test/dcore-skill.test.ts |
+| QA/test planning | verify behavior | QA / Test Runs | dcore-qa | IMPLEMENTED | read-only (text mode),network + execute-local (--discover / --plan) | SAFE_GENERIC | any | test/dcore-skill.test.ts |
+| debugging/investigation | find root cause | Debug / Investigation | dcore-debug | IMPLEMENTED | read-only | SAFE_GENERIC | any | test/dcore-skill.test.ts |
+| security review | reduce risk | Security Review | dcore-sec | IMPLEMENTED | read-only | SAFE_GENERIC | any | test/dcore-skill.test.ts |
+| documentation | explain the system | Documentation | dcore-doc | IMPLEMENTED | read-only | SAFE_GENERIC | any | test/dcore-skill.test.ts |
+| release preparation | ship safely | Release Prep | dcore-release | IMPLEMENTED | read-only | SAFE_GENERIC | any | test/dcore-skill.test.ts |
+| project retrospective | learn and improve | Retrospective | dcore-retro | DEFERRED | read-only | SAFE_GENERIC | any | test/dcore-skill.test.ts |
+| browser automation / web QA | prove a web flow works in a real browser | Browser Execution | dcore-browse | IMPLEMENTED | network,execute-local | ENVIRONMENT_SPECIFIC | any,chromium-family browser | test/dcore-skill.test.ts |
+| API testing | prove an endpoint behaves as specified | API Testing | dcore-api | IMPLEMENTED | network | ENVIRONMENT_SPECIFIC | any | test/dcore-skill.test.ts |
+| test/lint/build execution | get real pass/fail evidence | Command Execution | dcore-run | IMPLEMENTED | execute-local | ENVIRONMENT_SPECIFIC | any | test/dcore-skill.test.ts |
+| code implementation | make the change, minimally | Implementation | dcore-build | IMPLEMENTED | writes-repo-files (user-requested change only) | SAFE_GENERIC | any | test/dcore-skill.test.ts |
+| test generation | lock behavior in with focused tests | Test Generation | dcore-test | IMPLEMENTED | writes-repo-files (tests only) | SAFE_GENERIC | any | test/dcore-skill.test.ts |
+| repository exploration | know how a repo builds, tests and runs | Repository Exploration | dcore-explore | IMPLEMENTED | read-only | SAFE_GENERIC | any | test/dcore-skill.test.ts |
+| git change management | inspect, commit and push safely | Git Change Management | dcore-git | IMPLEMENTED | read-only,git-write (approval) | ENVIRONMENT_SPECIFIC | any,git | test/dcore-skill.test.ts |
+| post-deploy verification | prove a deployment is healthy | Deployment Verification | dcore-verify | IMPLEMENTED | network | ENVIRONMENT_SPECIFIC | any | test/dcore-skill.test.ts |
 
 **Totals (capability-benchmark capabilities):** total=18, implemented=17, planned=0, deferred=1 (dcore-retro), **missing useful capabilities = 0**
 

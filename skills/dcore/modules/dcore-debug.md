@@ -33,4 +33,4 @@ node scripts/dcore.mjs dcore-debug "The checkout API intermittently times out af
 ```
 
 ## Tests
-See bench/test/dcore-skill.test.ts for structural + behavioral coverage.
+See test/dcore-skill.test.ts for structural + behavioral coverage.

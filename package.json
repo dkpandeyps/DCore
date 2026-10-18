@@ -1,0 +1,13 @@
+{
+  "name": "dcore",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "description": "DCore skill repository. The skill itself is skills/dcore/; test/ holds its tests.",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "test": "node --test \"test/*.test.ts\""
+  }
+}

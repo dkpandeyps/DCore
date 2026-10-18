@@ -38,4 +38,4 @@ node scripts/dcore.mjs dcore-release "Release v2: schema migration. Tests pass, 
 ```
 
 ## Tests
-See bench/test/dcore-skill.test.ts for structural + behavioral coverage.
+See test/dcore-skill.test.ts for structural + behavioral coverage.

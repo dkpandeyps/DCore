@@ -25,4 +25,4 @@ node scripts/dcore.mjs dcore-build "Add a --version flag to the CLI" --repo .
 ```
 
 ## Tests
-See bench/test/dcore-skill.test.ts and bench/test/dcore-exec.test.ts.
+See test/dcore-skill.test.ts and test/dcore-exec.test.ts.

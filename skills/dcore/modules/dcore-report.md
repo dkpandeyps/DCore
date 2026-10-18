@@ -77,7 +77,7 @@ node scripts/dcore.mjs dcore-report "Document the staging regression run."
 ```
 
 ## Tests
-bench/test/dcore-report-m43.test.ts (fixture-based: PDF creation, sections in the PDF outline, metadata, defect and
-test-case fields, evidence linkage, secret absence, deterministic output); bench/test/dcore-report-integration-m44.test.ts
+test/dcore-report-m43.test.ts (fixture-based: PDF creation, sections in the PDF outline, metadata, defect and
+test-case fields, evidence linkage, secret absence, deterministic output); test/dcore-report-integration-m44.test.ts
 (every workflow through the shared layer: PASS, partial FAIL, BLOCKED, NOT_TESTED plans, dcore-qa ID identity, Markdown
 compatibility).

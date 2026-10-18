@@ -110,4 +110,4 @@ DCORE_USER=... DCORE_PASS=... node scripts/dcore.mjs dcore-qa --scenarios .dcore
 ```
 
 ## Tests
-See bench/test/dcore-skill.test.ts for structural + behavioral coverage.
+See test/dcore-skill.test.ts for structural + behavioral coverage.

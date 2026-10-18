@@ -24,4 +24,4 @@ node scripts/dcore.mjs dcore-test "regression: help output columns misalign for 
 ```
 
 ## Tests
-See bench/test/dcore-skill.test.ts and bench/test/dcore-exec.test.ts.
+See test/dcore-skill.test.ts and test/dcore-exec.test.ts.

@@ -27,4 +27,4 @@ node scripts/dcore.mjs dcore-api --url https://api.example.test/health --expect-
 Add `--report <file.md>` to write the redacted evidence as a Markdown report (stdout and exit code are unchanged).
 
 ## Tests
-See bench/test/dcore-skill.test.ts and bench/test/dcore-exec.test.ts.
+See test/dcore-skill.test.ts and test/dcore-exec.test.ts.

@@ -25,4 +25,4 @@ node scripts/dcore.mjs dcore-chain "Build feature X" --json   # inspect each sta
 ```
 
 ## Tests
-See bench/test/dcore-skill.test.ts for structural + behavioral coverage.
+See test/dcore-skill.test.ts for structural + behavioral coverage.

@@ -23,10 +23,10 @@ exact action.
 ## Example
 ```
 node scripts/dcore.mjs dcore-run --list --repo .
-node scripts/dcore.mjs dcore-run "npm test" --cwd bench --timeout 600000
+node scripts/dcore.mjs dcore-run "npm test" --cwd . --timeout 600000
 ```
 
 Add `--report <file.md>` to write the redacted evidence as a Markdown report (stdout and exit code are unchanged).
 
 ## Tests
-See bench/test/dcore-skill.test.ts and bench/test/dcore-exec.test.ts.
+See test/dcore-skill.test.ts and test/dcore-exec.test.ts.

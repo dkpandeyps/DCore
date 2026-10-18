@@ -23,4 +23,4 @@ node scripts/dcore.mjs dcore-verify --url https://staging.example.test --health 
 ```
 
 ## Tests
-See bench/test/dcore-skill.test.ts and bench/test/dcore-exec.test.ts.
+See test/dcore-skill.test.ts and test/dcore-exec.test.ts.

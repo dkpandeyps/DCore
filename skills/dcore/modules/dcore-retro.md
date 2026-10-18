@@ -19,4 +19,4 @@ This module is DEFERRED. Do not claim it is implemented. Use an IMPLEMENTED modu
 (planned)
 
 ## Tests
-See bench/test/dcore-skill.test.ts for structural + behavioral coverage.
+See test/dcore-skill.test.ts for structural + behavioral coverage.

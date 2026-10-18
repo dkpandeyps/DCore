@@ -21,4 +21,4 @@ node scripts/dcore.mjs dcore-frame "Merchants say settlement reports are confusi
 ```
 
 ## Tests
-See bench/test/dcore-skill.test.ts for structural + behavioral coverage.
+See test/dcore-skill.test.ts for structural + behavioral coverage.

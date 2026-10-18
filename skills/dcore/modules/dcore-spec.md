@@ -21,4 +21,4 @@ node scripts/dcore.mjs dcore-spec "Add CSV export to the settlement report. It m
 ```
 
 ## Tests
-See bench/test/dcore-skill.test.ts for structural + behavioral coverage.
+See test/dcore-skill.test.ts for structural + behavioral coverage.

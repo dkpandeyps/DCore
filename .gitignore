@@ -16,7 +16,6 @@ node_modules/
 
 # Local validation scratch: copied personal Claude config, live cost ledgers,
 # machine-specific evidence and logs (generated runtime state — not source).
-platform-validation/scratch/
 
 # Secrets / tokens / keys / env
 *.pem

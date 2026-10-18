@@ -127,7 +127,7 @@ DCORE_USER=… DCORE_PASS=… node skills/dcore/scripts/dcore.mjs dcore-browse -
 DCORE_USER=… DCORE_PASS=… node skills/dcore/scripts/dcore.mjs dcore-qa --discover https://staging.example.test/admin --setup login.json --plan-out plan.json
 DCORE_USER=… DCORE_PASS=… node skills/dcore/scripts/dcore.mjs dcore-qa --plan plan.json --out .dcore/evidence/run1   # 3 PDFs
 node skills/dcore/scripts/dcore.mjs dcore-api --url https://api.example.test/health --expect-status 200
-node skills/dcore/scripts/dcore.mjs dcore-run "npm test" --cwd bench
+node skills/dcore/scripts/dcore.mjs dcore-run "npm test" --cwd .
 git diff | node skills/dcore/scripts/dcore.mjs dcore-review
 node skills/dcore/scripts/dcore.mjs dcore-release --repo .
 ```
@@ -144,11 +144,10 @@ See `skills/dcore/modules/` and `skills/dcore/references/CAPABILITY-COVERAGE-MAT
 
 ## Testing
 ```
-cd bench
-node --test "test/**/*.test.ts"
+npm test        # from the repository root, Node.js 24+ (runs node --test "test/*.test.ts")
 ```
-DCore product tests: `bench/test/dcore-skill.test.ts` (modules, installer, contracts) and
-`bench/test/dcore-exec.test.ts` (execution layer, router, regressions), `bench/test/dcore-qa-run.test.ts` (test runs,
+DCore product tests: `test/dcore-skill.test.ts` (modules, installer, contracts) and
+`test/dcore-exec.test.ts` (execution layer, router, regressions), `test/dcore-qa-run.test.ts` (test runs,
 defect classification, scenario generation, PDF reports). Execution tests use only local fixtures
 (127.0.0.1 servers, temp git repos, data: URLs); the real-browser test is skipped when no browser is installed.
 
@@ -172,7 +171,7 @@ unsafe input **fails closed**.
   certification, or any security attestation.
 
 ## Optional assurance layer
-An optional compatibility/certification architecture (under `bench/compatibility/`) can later provide signed,
+An optional compatibility/certification architecture, maintained outside this repository, can later provide signed,
 evidence-backed compatibility profiles per exact host facet. **It is not required to install or use DCore.** No host
 is certified yet (certified count = 0).
 

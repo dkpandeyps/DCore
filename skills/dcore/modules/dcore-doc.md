@@ -25,4 +25,4 @@ node scripts/dcore.mjs dcore-spec "Add rate limiting per API key." --json | node
 ```
 
 ## Tests
-See bench/test/dcore-skill.test.ts for structural + behavioral coverage.
+See test/dcore-skill.test.ts for structural + behavioral coverage.

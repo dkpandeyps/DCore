@@ -26,4 +26,4 @@ node scripts/dcore.mjs dcore-git push --approve git-push
 ```
 
 ## Tests
-See bench/test/dcore-skill.test.ts and bench/test/dcore-exec.test.ts.
+See test/dcore-skill.test.ts and test/dcore-exec.test.ts.

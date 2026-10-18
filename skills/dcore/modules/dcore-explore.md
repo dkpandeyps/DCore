@@ -56,4 +56,4 @@ node scripts/dcore.mjs dcore-explore --coverage .dcore/evidence/map/appmap.json 
 ```
 
 ## Tests
-See bench/test/dcore-skill.test.ts and bench/test/dcore-exec.test.ts.
+See test/dcore-skill.test.ts and test/dcore-exec.test.ts.

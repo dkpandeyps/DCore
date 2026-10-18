@@ -32,7 +32,7 @@ export function buildCoverageMatrix() {
       source_capability: r.source_capability, useful_problem: r.useful_problem, dcore_capability: m?.module_name ?? r.module_id,
       original_module_name: r.module_id, status: m?.status ?? 'PLANNED', permission: (m?.permissions ?? ['read-only']).join(','),
       security_level: m?.security_level ?? 'SAFE_GENERIC', platform_requirements: (m?.platform_requirements ?? ['any']).join(','),
-      tests: 'bench/test/dcore-skill.test.ts', covered: true,
+      tests: 'test/dcore-skill.test.ts', covered: true,
     };
   });
   const missing_useful_capabilities = rows.filter((r) => !r.covered && r.status !== 'NOT_APPLICABLE' && r.status !== 'OWNER_DEFERRED').length;

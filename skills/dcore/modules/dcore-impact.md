@@ -35,7 +35,7 @@ descendants — nothing above or beside it. This is deliberate and predictable.
 
 - To include the **whole project** (code *and* its tests/docs/benchmarks, which usually live in sibling directories),
   point `--repo` at the **project root**: `dcore-impact "…" --repo .`. Scanning a single subpackage
-  (e.g. `--repo skills/dcore`) will not see tests in `bench/` or other siblings — that is correct scoping, not a miss.
+  (e.g. `--repo skills/dcore`) will not see tests in `test/` or other siblings — that is correct scoping, not a miss.
 - dcore-impact does **not** auto-expand to an enclosing project root; you choose the scope. It is not a dependency
   graph and does not reason beyond literal references within the scope you give it.
 - Always excluded, at any scope: VCS metadata (`.git`/`.hg`/`.svn`), dependency/build output
@@ -65,4 +65,4 @@ node scripts/dcore.mjs dcore-spec "…" --json | node scripts/dcore.mjs dcore-im
 ```
 
 ## Tests
-See bench/test/dcore-skill.test.ts for structural + behavioral coverage.
+See test/dcore-skill.test.ts for structural + behavioral coverage.

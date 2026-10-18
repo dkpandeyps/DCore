@@ -10,7 +10,7 @@ It is **not** a formal compatibility or certification matrix, and makes no certi
 ## 2. Repositories validated
 | Repository | Language | Milestone | Scale |
 |---|---|---|---|
-| DCore (self-host) | JS/TS (ESM) | M31–M37 | `skills/dcore/` + `bench/` |
+| DCore (self-host) | JS/TS (ESM) | M31–M37 | `skills/dcore/` + `bench/` (as the repository was then; `bench/` has since been removed) |
 | tj/commander.js | JavaScript | M34, M35 | lib/ + tests/ + docs/ (5 precision scenarios in M35) |
 | colinhacks/zod | TypeScript | M36 | 742 files (OO: classes/interfaces/types) |
 | google/gson | Java | M37 | 313 files / 264 .java (ref `854c825`) |

@@ -46,4 +46,4 @@ printf 'const p = eval(x)\nif (a == b) {}\n' | node scripts/dcore.mjs dcore-revi
 
 
 ## Tests
-See bench/test/dcore-skill.test.ts for structural + behavioral coverage.
+See test/dcore-skill.test.ts for structural + behavioral coverage.
